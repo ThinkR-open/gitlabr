@@ -1,0 +1,15 @@
+Package: gitlabr
+Title: R Access to the gitlab API
+Version: 0.0.0.9000
+Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.u", role = c("aut", "cre"))
+Description: Provides R functions to access to API of the project and repository management web application gitlab
+Depends:
+  R (>= 3.2.1),
+  httr (>= 1.0.0),
+  functional
+Suggests:
+  devtools (>= 1.8.0),
+  roxygen2,
+  testthat
+License: GPL (>= 3)
+LazyData: true
