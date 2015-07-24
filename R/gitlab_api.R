@@ -5,6 +5,7 @@
 #' @param private_token to use for the API request
 #' @param verb http verb to use for request in form of one of the \code{httr} functions
 #' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
+#' @param auto_format whether to format the returned object automatically to a flat data.frame
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL)
 #' @export
 #' @import dplyr
@@ -13,6 +14,7 @@ gitlab <- function(req
                  , api_root
                  , private_token
                  , verb = httr::GET
+                 , auto_format = TRUE
                  , ...) {
   
   req %>%
@@ -20,7 +22,8 @@ gitlab <- function(req
     prefix(api_root, "/") %>%
     verb(query = list(private_token = private_token, ...)) %>%
     http_error_or_content() %>%
-    iff(is.nested.list, json_to_flat_df) ## better would be to check MIME type
+    iff(auto_format
+      , iff, is.nested.list, json_to_flat_df) ## better would be to check MIME type
 }
 
 http_error_or_content <- function(response

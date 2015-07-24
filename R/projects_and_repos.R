@@ -61,6 +61,7 @@ get_file <- function(project
            , req = "files"
            , file_path = file_path
            , ref = ref
+           , verb = httr::GET
            , ...)$content %>% 
     base64decode() %>%
     iff(to_char, rawToChar)
@@ -108,5 +109,36 @@ compare_refs <- function(project
            , req = "compare"
            , from = from
            , to = to
+           , ...)
+}
+
+#' Get commits and diff from a project repository
+#' 
+#' @param project project name or id
+#' @param commit_sha if not null, get only the commit with the specific hash; for
+#' \code{get_diff} this must be specified
+#' @param ... passed on to \code{\link{gitlab}} API call, may contain
+#' \code{ref_name} for specifying a branch or tag to list commits of
+#' @export
+get_commits <- function(project
+                      , commit_sha = c()
+                      , ...) {
+  
+  project <- to_project_id(project, ...)
+  
+  repository(project = project
+           , req = c("commits", commit_sha)
+           , auto_format = is.null(commit_sha)
+           , ...)
+}
+
+#' @rdname get_commits
+#' @export
+get_diff <-  function(project
+                     , commit_sha
+                     , ...) {
+  
+  repository(project = project
+           , req = c("commits", commit_sha, "diff")
            , ...)
 }

@@ -17,6 +17,17 @@ test_that("Repo access works", {
   
 })
 
+test_that("Commits and diffs work", {
+  
+  my_commits <- my_gitlab(get_commits, "testor")
+  my_commit <- my_gitlab(get_commits, "testor", "02966531b0226899b936eb7402fae7431c5cf214")
+  
+  expect_is(my_commits, "data.frame")
+  expect_is(my_commit, "list")
+  expect_more_than(length(intersect(names(my_commits), names(my_commit))), 0L)
+            
+})
+
 # test_that("Compare works", {
 #   
 #   expect_is(my_gitlab(compare_refs
