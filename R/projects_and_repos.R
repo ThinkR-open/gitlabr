@@ -52,17 +52,61 @@ to_project_id <- function(x, ...) {
 #' @export
 #' @importFrom base64enc base64decode
 get_file <- function(project
-                     , file_path
-                     , ref = "master"
-                     , to_char = TRUE
-                     , ...) {
+                   , file_path
+                   , ref = "master"
+                   , to_char = TRUE
+                   , ...) {
   
   repository(project = project
-             , req = "files"
-             , file_path = file_path
-             , ref = ref
-             , ...) $content %>% 
+           , req = "files"
+           , file_path = file_path
+           , ref = ref
+           , ...)$content %>% 
     base64decode() %>%
     iff(to_char, rawToChar)
   
+}
+
+#' Get zip archive of a specific repository
+#' 
+#' @param project Project name or id
+#' @param save_to_file path where to save archive; if this is NULL, the archive
+#' itself is returned as a raw vector
+#' @param ... further parameters passed on to \code{\link{gitlab API}},
+#' may include parameter \code{sha} for specifying a commit hash
+#' @return if save_to_file is NULL, a raw vector of the archive, else the path
+#' to the saved archived file 
+archive <- function(project
+                  , save_to_file = tempfile(fileext = ".zip")
+                  , ...) {
+  
+  raw_archive <- repository(project = project, req = "archive", ...)
+  if (!is.null(save_to_file)) {
+    writeBin(raw_archive, save_to_file)
+    return(save_to_file)
+  } else {
+    return(raw_archives)
+  }
+  
+}
+
+#' Compare to refs from a project repository
+#' 
+#' @noRd
+#' 
+#' This function is currently not exported since its output's format is rather ugly
+#' 
+#' @param project project name or id
+#' @param from commit hash or ref/branch/tag name to compare from
+#' @param tp commit hash or ref/branch/tag name to compare to
+#' @param ... further parameters passed on to \code{\link{gitlab}}
+compare_refs <- function(project
+                  , from
+                  , to
+                  , ...) {
+  repository(project = project
+           , req = "compare"
+           , from = from
+           , to = to
+           , ...)
 }

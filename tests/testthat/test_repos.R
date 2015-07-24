@@ -16,3 +16,13 @@ test_that("Repo access works", {
   
   
 })
+
+# test_that("Compare works", {
+#   
+#   expect_is(my_gitlab(compare_refs
+#                     , "testor"
+#                     , "f6a96d975d9acf708560aac120ac1712a89f2a0c"
+#                     , "ea86a3a8a22b528300c03f9bcf0dc91f81db4087")
+#           , "data.frame")
+#             
+# })
