@@ -7,6 +7,8 @@
 #' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL)
 #' @export
+#' @import dplyr
+#' @import httr
 gitlab <- function(req
                  , api_root
                  , private_token
