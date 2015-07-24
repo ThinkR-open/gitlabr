@@ -22,7 +22,7 @@
 #' @param private_token private_token with which to identify; must be created for a user on the gitlab web interface
 #' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/v3/"
 #' 
-#' @return 
+#' @return A function to access a specific gitlab API as a specific user, see details
 #' 
 #' @export
 gitlab_connection <- function(gitlab_url

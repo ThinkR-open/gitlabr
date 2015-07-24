@@ -5,6 +5,8 @@ Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.u", rol
 Description: Provides R functions to access to API of the project and repository management web application gitlab
 Depends:
   R (>= 3.2.1),
+  dplyr (>= 0.4.1),
+  jsonlite (>= 0.9.16),
   httr (>= 1.0.0),
   functional
 Suggests:

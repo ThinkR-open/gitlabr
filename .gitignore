@@ -1,5 +1,7 @@
 .Rproj.user
 .Rhistory
 NAMESPACE
+tests/test_url.txt
+tests/api_key.txt
 man/
 .RData
