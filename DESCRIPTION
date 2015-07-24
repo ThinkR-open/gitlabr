@@ -10,7 +10,8 @@ Depends:
   R (>= 3.2.1),
   dplyr (>= 0.4.1),
   base64enc,
-  httr (>= 1.0.0)
+  httr (>= 1.0.0),
+  functional
 Suggests:
   devtools (>= 1.8.0),
   roxygen2,
