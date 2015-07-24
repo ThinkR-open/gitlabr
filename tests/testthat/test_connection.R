@@ -2,7 +2,7 @@ test_url <- readLines("../test_url.txt")
 test_private_token <- readLines("../api_key.txt")
 
 
-test_that("Connection creation works", {
+test_that("Gitlab connection creation works", {
   
   my_gitlab <- gitlab_connection(test_url,
                                  test_private_token)
@@ -21,4 +21,13 @@ test_that("Connection creation works", {
                          , private_token = test_private_token))
   
   
+})
+
+test_that("Project connection creation works", {
+  
+  my_project <- project_connection(test_url, test_private_token, "testor")
+  expect_is(my_project, "function")
+  
+  expect_is(my_project(list_files), "data.frame")
+
 })

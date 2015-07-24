@@ -1,7 +1,8 @@
 #' Connect to a specific gitlab instance API
 #' 
-#' Creates a function that can be used to issue request to the specified
-#' gitlab API instance with the specified user private token.
+#' Creates a function that can be used to issue requests to the specified
+#' gitlab API instance with the specified user private token and (for \code{project_connection})
+#' only to a specified project.
 #' 
 #' @details
 #' The returned function should serve as the primary way to access the gitlab
@@ -21,6 +22,7 @@
 #' @param gitlab_url URL to the gitlab instance (e.g. \code{https://gitlab.myserver.com})
 #' @param private_token private_token with which to identify; must be created for a user on the gitlab web interface
 #' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/v3/"
+#' @param project id or name of project to issue requests to
 #' 
 #' @return A function to access a specific gitlab API as a specific user, see details
 #' 
@@ -43,5 +45,35 @@ gitlab_connection <- function(gitlab_url
            , ...)
     }
   })
+}
+
+#' @export
+#' @rdname gitlab_connection
+project_connection <- function(gitlab_url
+                             , private_token
+                             , project
+                             , api_location = "/api/v3/") {
+
+  gl_con_root <- paste0(gitlab_url, api_location)
+  
+  return(function(request, ...) {
+    if (is.function(request)) {
+      request(api_root = gl_con_root
+            , private_token = private_token
+            , project = project
+            , ...)
+    } else {
+      gitlab(req = c("projects"
+                   , to_project_id(project
+                                 , api_root = gl_con_root
+                                 , private_token = private_token
+                                 , ...)
+                   , request)
+             , api_root = gl_con_root
+             , private_token = private_token
+             , ...)
+    }
+  })
+  
 }
 
