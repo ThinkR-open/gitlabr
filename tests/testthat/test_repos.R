@@ -6,7 +6,7 @@ my_gitlab <- gitlab_connection(test_url,
 
 test_that("Repo access works", {
   
-  expect_is(my_gitlab(repository, 1), "data.frame")
+  expect_is(my_gitlab(repository, 21), "data.frame")
   expect_is(my_gitlab(repository, "testor"), "data.frame")
   expect_is(my_gitlab(repository, "testor", "contributors"), "data.frame")
   
@@ -20,7 +20,7 @@ test_that("Repo access works", {
 test_that("Commits and diffs work", {
   
   my_commits <- my_gitlab(get_commits, "testor")
-  my_commit <- my_gitlab(get_commits, "testor", "02966531b0226899b936eb7402fae7431c5cf214")
+  my_commit <- my_gitlab(get_commits, "testor", "8ce5ef240123cd78c1537991e5de8d8323666b15")
   
   expect_is(my_commits, "data.frame")
   expect_is(my_commit, "list")

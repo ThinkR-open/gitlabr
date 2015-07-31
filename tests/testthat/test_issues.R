@@ -9,6 +9,6 @@ test_that("getting issues works", {
   expect_is(my_gitlab(get_issues), "data.frame")
   expect_is(my_gitlab(get_issues, "testor"), "data.frame")
   expect_is(my_gitlab(get_issues, "testor", state = "closed"), "data.frame")
-  expect_is(my_gitlab(get_issues, "testor", 10), "data.frame")
+  expect_is(my_gitlab(get_issues, "testor", 83), "data.frame")
   
 })
