@@ -1,7 +1,7 @@
 #' Get issues of a project or user
 #' 
 #' @param project project name or id, may be null for all issues created by user
-#' @param issue_id optional issue id
+#' @param issue_id optional issue id (gitlab API id not iid)
 #' @param ... further parameters passed on to \code{\link{gitlab}}, may be
 #' state, labels, issue id, ...
 #' @export
