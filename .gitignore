@@ -3,5 +3,7 @@
 NAMESPACE
 tests/test_url.txt
 tests/api_key.txt
+tests/test_login.txt
+tests/test_password.txt
 man/
 .RData

@@ -12,7 +12,6 @@
 #' @import httr
 gitlab <- function(req
                  , api_root
-                 , private_token
                  , verb = httr::GET
                  , auto_format = TRUE
                  , ...) {
@@ -20,7 +19,7 @@ gitlab <- function(req
   req %>%
     paste(collapse = "/") %>%
     prefix(api_root, "/") %>%
-    verb(query = list(private_token = private_token, ...)) %>%
+    verb(query = list(...)) %>%
     http_error_or_content() %>%
     iff(auto_format
       , iff, is.nested.list, json_to_flat_df) ## better would be to check MIME type

@@ -2,7 +2,7 @@ test_url <- readLines("../test_url.txt")
 test_private_token <- readLines("../api_key.txt")
 
 my_gitlab <- gitlab_connection(test_url,
-                               test_private_token)
+                               private_token = test_private_token)
 
 test_that("Repo access works", {
   
