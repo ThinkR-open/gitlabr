@@ -105,6 +105,7 @@ get_private_token <- function(api_root
                     , req = "session"
                     , api_root = api_root
                     , verb = httr::POST
+                    , auto_format = FALSE
                     , password = password)
 
   if (!is.null(login)) {
