@@ -11,6 +11,14 @@ test_that("getting comments works", {
   expect_is(my_gitlab(get_comments, "issue", 1, 136), "list")
   expect_is(my_gitlab(get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15"), "data.frame")
   expect_warning(my_gitlab(get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15", 123))
+
+  expect_is(my_gitlab(get_issue_comments, 1), "data.frame")
+  expect_is(my_gitlab(get_issue_comments, 1, 136), "list")
+  expect_is(my_gitlab(get_commit_comments, "8ce5ef240123cd78c1537991e5de8d8323666b15"), "data.frame")
+  expect_warning(my_gitlab(get_commit_comments, "8ce5ef240123cd78c1537991e5de8d8323666b15", note_id = 123))
   
 })
+
+## Posting is not tested to prevent spamming the gitlab test instance
+
 
