@@ -21,7 +21,7 @@ gitlab <- function(req
     paste(collapse = "/") %>%
     prefix(api_root, "/") %T>%
     iff(debug, function(x) { print(paste("URL:", x, "\\n"
-                                       , "query:", capture.output(print((list(...)))))) }) %>%
+                                       , "query:", paste(capture.output(print((list(...)))), collapse = "\n"))) }) %>%
     verb(query = list(...)) %>%
     http_error_or_content() %>%
     iff(auto_format
