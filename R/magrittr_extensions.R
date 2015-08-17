@@ -37,8 +37,3 @@ iffn <- function(obj, test, fun, ...) {
     obj
   }
 }
-
-side_effect <- function(x, fun, ...) {
-  fun(x, ...)
-  return(x)
-}
