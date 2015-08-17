@@ -14,11 +14,14 @@ gitlab <- function(req
                  , api_root
                  , verb = httr::GET
                  , auto_format = TRUE
+                 , debug = FALSE
                  , ...) {
   
   req %>%
     paste(collapse = "/") %>%
-    prefix(api_root, "/") %>%
+    prefix(api_root, "/") %T>%
+    iff(debug, function(x) { print(paste("URL:", x, "\\n"
+                                       , "query:", capture.output(print((list(...)))))) }) %>%
     verb(query = list(...)) %>%
     http_error_or_content() %>%
     iff(auto_format
