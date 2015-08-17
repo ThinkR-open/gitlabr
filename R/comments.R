@@ -8,7 +8,7 @@
 #' @rdname comments
 #' @export
 get_comments <- function(project
-                       , object_type = "issues"
+                       , object_type = "issue"
                        , id
                        , note_id = c()
                        , ...) {
@@ -41,7 +41,7 @@ comments <- function(project
 #' @rdname comments
 #' @export
 get_issue_comments <- function() {
-  ## TODO 
+  ## TODO
 }
 
 #' @rdname comments
