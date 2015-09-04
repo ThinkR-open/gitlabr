@@ -86,7 +86,7 @@ archive <- function(project
     writeBin(raw_archive, save_to_file)
     return(save_to_file)
   } else {
-    return(raw_archives)
+    return(raw_archive)
   }
   
 }

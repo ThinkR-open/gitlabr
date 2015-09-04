@@ -13,8 +13,6 @@
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the Gitlab API
 #' @export
-#' @import dplyr
-#' @import httr
 gitlab <- function(req
                  , api_root
                  , verb = httr::GET

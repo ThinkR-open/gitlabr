@@ -8,6 +8,8 @@ Description: This package provides R functions to access to API of the project
   requests convenience wrappers are provided.
 Depends:
   R (>= 3.2.1),
+  magrittr
+Imports:
   dplyr (>= 0.4.1),
   base64enc,
   httr (>= 1.0.0),

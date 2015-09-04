@@ -99,6 +99,7 @@ edit_comment <- function(object_type
                           , auto_format = FALSE
                           , ...),
          "commit" =  comments(object_type = "commit"
+                            , note_id = NULL ## prevent partial argument match
                             , note = text
                             , verb = httr::PUT
                             , auto_format = FALSE
