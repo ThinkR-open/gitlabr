@@ -2,11 +2,16 @@
 #' 
 #' @param req vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})
 #' @param api_root URL where the gitlab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})
-#' @param private_token to use for the API request
 #' @param verb http verb to use for request in form of one of the \code{httr} functions
 #' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
 #' @param auto_format whether to format the returned object automatically to a flat data.frame
-#' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL)
+#' @param debug if TRUE API URL and query will be printed, defaults to FALSE
+#' @param gitlab_con The function used to call the gitlab_api. It should have the same parameters
+#' and return value as \code{gitlab} does. If NULL (default), the API call is processed and issued as defined
+#' in \code{gitlab}. This argument can be used to systematically modify call or return values of the
+#' API calls. 
+#' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
+#' may include private_token and all other parameters as documented for the Gitlab API
 #' @export
 #' @import dplyr
 #' @import httr
