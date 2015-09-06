@@ -79,3 +79,20 @@ reopen_issue <- function(project
   edit_issue(project, issue_id, state_event = "reopen", ...)
 }
 
+#' @rdname edit_issue
+#' @param assignee numeric id of users as returned in '/users/' API request
+#' @export
+assign_issue <- function(project
+                       , issue_id
+                       , assignee_id = NULL
+                       , ...) {
+  edit_issue(project, issue_id, assignee_id = assignee_id, ...)
+}
+
+#' @rdname edit_issue
+#' @export
+unassign_issue <- function(project
+                         , issue_id
+                         , ...) {
+  assign_issue(project, issue_id, assignee_id = 0, ...)
+}

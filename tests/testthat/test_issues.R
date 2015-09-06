@@ -25,6 +25,13 @@ test_that("editing issues works", {
   my_gitlab(edit_issue, "testor", 2, description = "This is not a test")
   expect_false(my_gitlab(get_issues, "testor", 2)$description == "This is a test")
   
+  ## assign it
+  my_gitlab(assign_issue, "testor", 2, 12)
+  expect_true(my_gitlab(get_issues, "testor", 2)$assignee.username == "testibaer")
+  my_gitlab(unassign_issue, "testor", 2)
+  expect_null(my_gitlab(get_issues, "testor", 2)$assignee.username)
+
+
   ## close it
   my_gitlab(close_issue, "testor", 2)
   expect_true(my_gitlab(get_issues, "testor", 2)$state == "closed")
