@@ -18,30 +18,98 @@ to use `gitlabr`:
 
 ```{r eval=FALSE}
 library(gitlabr)
-my_gitlab <- gitlab_connection(test_url,
+
+# connect as a fixed user to a gitlab instance
+my_gitlab <- gitlab_connection("http://gitlab.points-of-interest.cc",
                                login = "my_username",
                                password = readLines("secrets/gitlab_password.txt"))
+# a function is returned
+# its first argument is the request followed by parameters
 my_gitlab(list_projects)
 my_gitlab(list_files, "test-project", path = "subdir")
-my_gitlab(new_issue, "test-project", "Implement new feature")
+
+new_feature_issue <- my_gitlab(new_issue, "test-project", "Implement new feature")
+
+# requests via gitlabr always return data.frames  ## TODO implement this
+
+example_user <-
+  my_gitlab("users") %>%
+    filter(username == "testibaer")
+
+my_gitlab(assign_issue, "test-project",
+          new_feature_issue$iid,
+          assignee_id = example_user$id)
 ```
 
-There is an equivalent alternative idiom to request the gitlab API. Read the Section "Philosophy" to find out about them.
-
-For a complete list of functions implemented in `gitlabr`, see the section "function list".
+- Common queries are each wrapped in special convenience functions (find a list in the section ["Function list"](#function-list)).
+- `gitlabr` provides access the complete gitlab API - learn how to do this in the section ["Principles"](#principles). 
+- Using `project_connection` instead of `gitlab_connection` also allows you to direct your queries to a specific project and get rid of the redundant repetition of the project name as argument - learn how to do this in the section ["Different ways to do it"](#different-ways-to-do-it).
+- For a brief tour of the design principles of `gitlabr` refer to the section ["Principles"](#principles).
+- Learn how to write your own convenience wrappers on top of the `gitlabr` logic in the section ["Writing custom gitlab request functions"](#Writing-custom-gitlab-request-functions).
 
 # Philosophy
 
 ## Principles
 
-- high and low level interface at the same time
-- translation to data.frames or lists
+### `gitlabr` provides a high and a low level interface at the same time.
 
-## Idiomatics
+While the low level interface allows to issue all possible queries to a gitlab API,
+many common queries are simplified and wrapped in high level functions.
 
-- two equivalent idioms 
+The core function of the **low level** interface is `gitlab`. It takes the request location as a character vector, API endpoint URL, HTTP verb as required arguments and passes additional arguments as query parameters (keeping their names) on to the API request.
+
+```{r eval = FALSE}
+gitlab(c("project", 12, "issues"), 
+       api_root = "http://gitlab.points-of-interest.cc/api/v3",
+       private_token = "XXX", # authentication for API
+       verb = httr::GET,  # defaults to GET, but POST, PUT, DELETE can be used likewise
+       state = "active")
+```
+
+translates to
+
+```
+GET http://gitlab.points-of-interest.cc/api/v3/project/12/issues?state=active&private_token=XXX
+```
+
+This way, any request documented in the [Gitlab API documentation](doc.gitlab.com/ce/api) can be issued from `gitlabr`.
+
+The **high level** interface is consists of a number of functions that each have additional
+arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
+
+```{r eval = FALSE}
+edit_issue(project = "test-project", 12, description = "Really cool new feature") ## TODO further arguments
+```
+
+does nothing but
+
+```{r eval = FALSE}
+gitlab(...) ## TODO
+```
+
+and hence translates to
+
+```
+GET TODO
+```
+
+Find a list of all implemented high level functions in the section ["Function list"](#function-list)) or learn how to write your own in the section ["Writing custom gitlab request functions"](#Writing-custom-gitlab-request-functions).
+
+### `gitlabr` is implemented in the functional paradigm
+
+passing a function as a request to `gitlab`
+
+creating connections -> link to below
+
+### Every output of a `gitlabr` call is a data.frame
+
+TODO
+
+
+## Different ways to do it
+
+- two equivalent idioms: `gitlab(edit_issue, ...)` vs. `edit_issue(...)`
 - creating connections
-- functional implementation: currying (-> how to write custom functions)
 
 # Function list
 
