@@ -73,7 +73,7 @@ get_file <- function(project
 #' @param project Project name or id
 #' @param save_to_file path where to save archive; if this is NULL, the archive
 #' itself is returned as a raw vector
-#' @param ... further parameters passed on to \code{\link{gitlab API}},
+#' @param ... further parameters passed on to \code{\link{gitlab}} API call,
 #' may include parameter \code{sha} for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 

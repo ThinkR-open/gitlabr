@@ -1,5 +1,5 @@
 Package: gitlabr
-Title: R Access to the gitlab API
+Title: Access to the Gitlab API
 Version: 0.0.0.9000
 Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.u", role = c("aut", "cre"))
 Description: This package provides R functions to access to API of the project
