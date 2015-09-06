@@ -17,6 +17,8 @@ Imports:
 Suggests:
   devtools (>= 1.8.0),
   roxygen2,
-  testthat
+  testthat,
+  knitr
+VignetteBuilder: knitr
 License: GPL (>= 3)
 LazyData: true

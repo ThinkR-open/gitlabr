@@ -1,0 +1,57 @@
+---
+title: "Quick Start Guide to gitlabr"
+author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
+date: "September 4, 2015"
+output: pdf_document
+---
+
+<!--
+%\VignetteEngine{knitr::rmarkdown}
+%\VignetteIndexEntry{Quick Start Guide to gitlabr}
+-->
+
+
+# Quick Start Example
+
+Here is example code for some very common tasks and to give an impression of how
+to use `gitlabr`:
+
+```{r eval=FALSE}
+library(gitlabr)
+my_gitlab <- gitlab_connection(test_url,
+                               login = "my_username",
+                               password = readLines("secrets/gitlab_password.txt"))
+my_gitlab(list_projects)
+my_gitlab(list_files, "test-project", path = "subdir")
+my_gitlab(new_issue, "test-project", "Implement new feature")
+```
+
+There is an equivalent alternative idiom to request the gitlab API. Read the Section "Philosophy" to find out about them.
+
+For a complete list of functions implemented in `gitlabr`, see the section "function list".
+
+# Philosophy
+
+## Principles
+
+- high and low level interface at the same time
+- translation to data.frames or lists
+
+## Idiomatics
+
+- two equivalent idioms 
+- creating connections
+- functional implementation: currying (-> how to write custom functions)
+
+# Function list
+
+Table: gitlabr name, API location, parameter translation (in parenthesis those documented by gitlabr but passed on without change)
+
+Note: There are more locations and actions that can be accessed through the gitlab API. See the documentation of the Gitlab API for this.
+
+# Writing custom gitlab request functions
+
+- Link back to philosophy section
+- remind that contribution is possible
+
+
