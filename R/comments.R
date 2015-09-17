@@ -7,10 +7,10 @@
 #' @param ... passed on to \code{\link{gitlab}} API call. See Details.
 #' @rdname comments
 #' @export
-get_comments <- function(project
-                       , object_type = "issue"
+get_comments <- function(object_type = "issue"
                        , id
                        , note_id = c()
+                       , project
                        , ...) {
   comments(project, object_type, id, note_id, ...)
 }

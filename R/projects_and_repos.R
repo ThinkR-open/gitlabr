@@ -36,6 +36,8 @@ proj_req <- function(project, req, ...) {
 #' Get a project id by name
 #' @param project_name project name
 #' @param ... passed on to \code{\link{gitlab}}
+#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
+#' default verb \code{httr::GET}
 #' @export
 get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE, ...) {
   gitlab(req = "projects", ...) %>%
@@ -85,6 +87,7 @@ get_file <- function(project
 #' may include parameter \code{sha} for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 
+#' @export
 archive <- function(project
                   , save_to_file = tempfile(fileext = ".zip")
                   , ...) {
@@ -99,9 +102,7 @@ archive <- function(project
   
 }
 
-#' Compare to refs from a project repository
-#' 
-#' @noRd
+#' Compare two refs from a project repository
 #' 
 #' This function is currently not exported since its output's format is rather ugly
 #' 
@@ -109,6 +110,7 @@ archive <- function(project
 #' @param from commit hash or ref/branch/tag name to compare from
 #' @param tp commit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to \code{\link{gitlab}}
+#' @export
 compare_refs <- function(project
                        , from
                        , to
