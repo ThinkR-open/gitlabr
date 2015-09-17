@@ -70,12 +70,17 @@ is_named <- function(v) {
 }
 
 is_single_row <- function(l) {
-  the_lengths <- lapply(l, length) %>% unlist()
-  if (length(unique(the_lengths)) == 1) {
-    return(FALSE)
+  if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
+    return(TRUE)
   } else {
-    multi_cols <- which(the_lengths > 1) %>% unlist()
-    return(all(lapply(l[multi_cols], is_named) %>% unlist()))
+    the_lengths <- lapply(l, length) %>% unlist()
+    u_length <- unique(the_lengths)
+    if (length(u_length) == 1) {
+      return(u_length == 1)
+    } else {
+      multi_cols <- which(the_lengths > 1) %>% unlist()
+      return(all(lapply(l[multi_cols], is_named) %>% unlist()))
+    }
   }
 }
 

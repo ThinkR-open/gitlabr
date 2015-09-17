@@ -137,7 +137,6 @@ get_commits <- function(project
   
   repository(project = project
            , req = c("commits", commit_sha)
-           , auto_format = is.null(commit_sha)
            , ...)
 }
 

@@ -16,7 +16,6 @@ test_that("Repo access works", {
   expect_is(my_gitlab(repository, project = "testor", "contributors"), "data.frame")
   
   expect_is(my_gitlab(list_files, "testor"), "data.frame")
-
   expect_is(my_gitlab(get_file, "testor", "README"), "character")
   
   ## same with function idiom
@@ -48,20 +47,20 @@ test_that("Commits and diffs work", {
   my_commit <- my_gitlab(get_commits, "testor", "8ce5ef240123cd78c1537991e5de8d8323666b15")
   
   expect_is(my_commits, "data.frame")
-  expect_is(my_commit, "list")
+  expect_is(my_commit, "data.frame")
   expect_more_than(length(intersect(names(my_commits), names(my_commit))), 0L)
   
   ## same with function idiom
   expect_is(get_commits("testor", gitlab_con = my_gitlab), "data.frame")
-  expect_is(get_commits("testor", "8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_gitlab), "list")
+  expect_is(get_commits("testor", "8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_gitlab), "data.frame")
   
   ## same with project connection idiom
   expect_is(my_project(get_commits), "data.frame")
-  expect_is(my_project(get_commits, commit_sha = "8ce5ef240123cd78c1537991e5de8d8323666b15"), "list")
+  expect_is(my_project(get_commits, commit_sha = "8ce5ef240123cd78c1537991e5de8d8323666b15"), "data.frame")
   
   ## same with project connection & function idiom
   expect_is(get_commits(gitlab_con = my_project), "data.frame")
-  expect_is(get_commits(commit_sha = "8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_project), "list")
+  expect_is(get_commits(commit_sha = "8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_project), "data.frame")
   
 })
 

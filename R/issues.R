@@ -12,7 +12,7 @@ get_issues <- function(project = NULL
                      , verb = httr::GET
                      , ...) {
   (if (!missing(project) && is.null(project)) "issues" else proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)) %>%
-    gitlab(auto_format = is.null(issue_id), ...) %>%
+    gitlab(...) %>%
     iffn(is.null(issue_id), function(issue) {
       issue %>%
         unlist(recursive = TRUE) %>%
@@ -59,7 +59,6 @@ new_issue <- function(project
   gitlab(req = proj_req(project, "issues", ...)
        , title = title
        , verb = httr::POST
-       , auto_format = FALSE
        , ...)
 }
 
@@ -72,7 +71,6 @@ edit_issue <- function(project
                     , ...) {
   gitlab(req = proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)
        , verb = httr::PUT
-       , auto_format = FALSE
        , ...)
 }
 
