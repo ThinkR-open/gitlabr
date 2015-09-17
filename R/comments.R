@@ -20,7 +20,6 @@ comments <- function(project
                    , id
                    , note_id = c()
                    , verb = httr::GET
-                   , auto_format = is.null(note_id) || object_type == "commit"
                    , ... ) {
   
   if (object_type == "commit" && !is.null(note_id)) {
@@ -33,7 +32,6 @@ comments <- function(project
                                             , "commit" = c("repository", "commits", id, "comments"))
                       , ...)
        , verb = verb
-       , auto_format = auto_format
        , ...)
   
 }
@@ -68,7 +66,6 @@ comment_commit  <- function(project
          , note_id = NULL
          , note = text
          , verb = httr::POST
-         , auto_format = FALSE
          , ...)
 }
 
@@ -84,7 +81,6 @@ comment_issue <- function(project
          , note_id = NULL
          , body = text
          , verb = httr::POST
-         , auto_format = FALSE
          , ...)
 }
 
@@ -96,13 +92,11 @@ edit_comment <- function(object_type
          "issue" = comments(object_type = "issue"
                           , body = text
                           , verb = httr::PUT
-                          , auto_format = FALSE
                           , ...),
          "commit" =  comments(object_type = "commit"
                             , note_id = NULL ## prevent partial argument match
                             , note = text
                             , verb = httr::PUT
-                            , auto_format = FALSE
                             , ...))
 }
 

@@ -65,13 +65,30 @@ is.nested.list <- function(l) {
   is.list(l) && any(unlist(lapply(l, is.list)))
 }
 
+is_named <- function(v) {
+  !is.null(names(v))
+}
+
+is_single_row <- function(l) {
+  the_lengths <- lapply(l, length) %>% unlist()
+  if (length(unique(the_lengths)) == 1) {
+    return(FALSE)
+  } else {
+    multi_cols <- which(the_lengths > 1) %>% unlist()
+    return(all(lapply(l[multi_cols], is_named) %>% unlist()))
+  }
+}
+
+format_row <- function(row, ...) {
+  row %>%
+    lapply(unlist, use.names = FALSE, ...) %>%
+    as.data.frame(stringsAsFactors = FALSE)
+}
+
 json_to_flat_df <- function(l) {
   l %>%
+    iff(is_single_row, list) %>%
     lapply(unlist, recursive = TRUE) %>%
-    lapply(function(row) {  ## Is there a way to use Compose and Curry instead?
-      row %>%
-        lapply(unlist, use.names = FALSE) %>%
-        as.data.frame(stringsAsFactors = FALSE)
-    }) %>%
+    lapply(format_row) %>%
     bind_rows()
 }
