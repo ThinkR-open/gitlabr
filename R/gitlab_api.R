@@ -21,12 +21,12 @@ gitlab <- function(req
     req %>%
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
-      iff(debug, function(x) { print(paste("URL:", x, "\\n"
-                                           , "query:", paste(capture.output(print((list(...)))), collapse = "\n"))) }) %>%
+      iff(debug, function(x) { print(paste(c("URL:", x, " "
+                                           , "query:", paste(capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
       verb(query = list(...)) %>%
       http_error_or_content() %>%
-      iff(auto_format
-          , iff, is.nested.list, json_to_flat_df) ## better would be to check MIME type
+      iff(auto_format, json_to_flat_df) %>% ## better would be to check MIME type
+      iff(debug, print)
     
   } else {
     
@@ -47,7 +47,8 @@ gitlab <- function(req
     if (!missing(debug)) {
       dot_args <- c(dot_args, debug = debug)
     }
-    do.call(gitlab_con, c(dot_args, ...))
+    do.call(gitlab_con, c(dot_args, ...)) %>%
+      iff(debug, print)
   }
   
 }
