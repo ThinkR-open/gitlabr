@@ -104,13 +104,14 @@ archive <- function(project
 
 #' Compare two refs from a project repository
 #' 
-#' This function is currently not exported since its output's format is rather ugly
+#' This function is currently not exported since its output's format is hard to handle
+#' 
+#' @noRd
 #' 
 #' @param project project name or id
 #' @param from commit hash or ref/branch/tag name to compare from
-#' @param tp commit hash or ref/branch/tag name to compare to
+#' @param to ommit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to \code{\link{gitlab}}
-#' @export
 compare_refs <- function(project
                        , from
                        , to
