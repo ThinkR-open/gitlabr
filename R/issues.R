@@ -21,6 +21,15 @@ get_issues <- function(project = NULL
     })
 }
 
+#' @details 
+#' \code{get_issue} provides a wrapper with swapped arguments for convenience, esp. when
+#' using a project connection
+#' @export
+#' @rdname get_issues
+get_issue <- function(issue_id, project, ...) {
+  get_issues(project = project, issue_id = issue_id, ...)
+}
+
 to_issue_id <- function(issue_id, project, ...) {
   if (is.null(issue_id)) {
     NULL

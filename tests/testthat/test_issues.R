@@ -14,18 +14,24 @@ test_that("getting issues works", {
   expect_is(my_gitlab(get_issues, "testor"), "data.frame")
   expect_is(my_gitlab(get_issues, "testor", state = "closed"), "data.frame")
   expect_is(my_gitlab(get_issues, "testor", 2), "data.frame")
+  expect_is(my_gitlab(get_issue, 2, "testor"), "data.frame")
+  expect_equivalent(my_gitlab(get_issue, 2, "testor"),
+                    my_gitlab(get_issues, "testor", 2),
+                    "data.frame")
   
   ## using project connection
   expect_is(my_project(get_issues), "data.frame")
   expect_equivalent(my_project(get_issues), my_gitlab(get_issues, "testor"))
   expect_is(my_project(get_issues, state = "closed"), "data.frame")
   expect_is(my_project(get_issues, 2), "data.frame")
+  expect_is(my_project(get_issue, 2), "data.frame")
   
   ## function idiom
   expect_is(get_issues(gitlab_con = my_gitlab), "data.frame")
   expect_is(get_issues(gitlab_con = my_project), "data.frame")
   expect_is(get_issues(state = "closed", gitlab_con = my_project), "data.frame")
   expect_is(get_issues(issue_id = 2, gitlab_con = my_project), "data.frame")
+  expect_is(get_issue(2, gitlab_con = my_project), "data.frame")
   
   
 })
