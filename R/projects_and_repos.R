@@ -13,8 +13,8 @@ list_projects <- function(...) {
 #' in gitlab API, as vector or part of URL)
 #' @param ... passed on to \code{\link{gitlab}} API call, may include \code{path} argument for path
 #' @export
-repository <- function(project  
-                     , req = c("tree")
+repository <- function(req = c("tree")
+                     , project
                      , ...) {
   gitlab(proj_req(project, c("repository", req), ...), ...)
 }
@@ -65,7 +65,6 @@ get_file <- function(project
                    , ref = "master"
                    , to_char = TRUE
                    , ...) {
-  
   repository(project = project
            , req = "files"
            , file_path = file_path
@@ -114,8 +113,8 @@ compare_refs <- function(project
                        , from
                        , to
                        , ...) {
-  repository(project = project
-           , req = "compare"
+  repository(req = "compare"
+           , project = project
            , from = from
            , to = to
            , ...)
@@ -132,8 +131,6 @@ compare_refs <- function(project
 get_commits <- function(project
                       , commit_sha = c()
                       , ...) {
-  
-  project <- to_project_id(project, ...)
   
   repository(project = project
            , req = c("commits", commit_sha)
