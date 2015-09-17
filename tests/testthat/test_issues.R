@@ -39,23 +39,23 @@ test_that("getting issues works", {
 test_that("editing issues works", {
   
   ## reopen issue 2
-  my_gitlab(reopen_issue, "testor", 2)
+  my_gitlab(reopen_issue, 2, "testor")
   expect_true(my_gitlab(get_issues, "testor", 2)$state == "reopened")
   
   ## edit its description
-  my_gitlab(edit_issue, "testor", 2, description = "This is a test")
+  my_gitlab(edit_issue, 2, "testor", description = "This is a test")
   expect_true(my_gitlab(get_issues, "testor", 2)$description == "This is a test")
-  my_gitlab(edit_issue, "testor", 2, description = "This is not a test")
+  my_gitlab(edit_issue, 2, "testor", description = "This is not a test")
   expect_false(my_gitlab(get_issues, "testor", 2)$description == "This is a test")
   
   ## assign it
-  my_gitlab(assign_issue, "testor", 2, 12)
+  my_gitlab(assign_issue, 2, 12, "testor")
   expect_true(my_gitlab(get_issues, "testor", 2)$assignee.username == "testibaer")
-  my_gitlab(unassign_issue, "testor", 2)
+  my_gitlab(unassign_issue, 2, "testor")
   expect_null(my_gitlab(get_issues, "testor", 2)$assignee.username)
 
   ## close it
-  my_gitlab(close_issue, "testor", 2)
+  my_gitlab(close_issue, 2, "testor")
   expect_true(my_gitlab(get_issues, "testor", 2)$state == "closed")
   
   ## using project_connection

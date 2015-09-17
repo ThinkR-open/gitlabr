@@ -53,8 +53,8 @@ to_issue_id <- function(issue_id, project, ...) {
 #' 
 #' @rdname edit_issue
 #' @export
-new_issue <- function(project
-                    , title
+new_issue <- function(title
+                    , project
                     , ...) {
   gitlab(req = proj_req(project, "issues", ...)
        , title = title
@@ -66,9 +66,9 @@ new_issue <- function(project
 #' 
 #' @param issue_id id of issue to edit  (projectwide iid, not gitlab API id)
 #' @export
-edit_issue <- function(project
-                    , issue_id
-                    , ...) {
+edit_issue <- function(issue_id
+                     , project
+                     , ...) {
   gitlab(req = proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)
        , verb = httr::PUT
        , ...)
@@ -76,34 +76,34 @@ edit_issue <- function(project
 
 #' @rdname edit_issue
 #' @export
-close_issue <- function(project 
-                      , issue_id
+close_issue <- function(issue_id
+                      , project
                       , ...) {
-  edit_issue(project, issue_id, state_event = "close", ...)
+  edit_issue(issue_id, project, state_event = "close", ...)
 }
 
 #' @rdname edit_issue
 #' @export
-reopen_issue <- function(project 
-                       , issue_id
+reopen_issue <- function(issue_id
+                       , project
                        , ...) {
-  edit_issue(project, issue_id, state_event = "reopen", ...)
+  edit_issue(issue_id, project, state_event = "reopen", ...)
 }
 
 #' @rdname edit_issue
 #' @param assignee numeric id of users as returned in '/users/' API request
 #' @export
-assign_issue <- function(project
-                       , issue_id
+assign_issue <- function(issue_id
                        , assignee_id = NULL
+                       , project
                        , ...) {
-  edit_issue(project, issue_id, assignee_id = assignee_id, ...)
+  edit_issue(issue_id, project, assignee_id = assignee_id, ...)
 }
 
 #' @rdname edit_issue
 #' @export
-unassign_issue <- function(project
-                         , issue_id
+unassign_issue <- function(issue_id
+                         , project
                          , ...) {
-  assign_issue(project, issue_id, assignee_id = 0, ...)
+  assign_issue(issue_id, project, assignee_id = 0, ...)
 }
