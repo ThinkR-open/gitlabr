@@ -20,6 +20,13 @@ test_that("Gitlab connection creation works", {
                          , api_root = paste0(test_url, "/api/v3/")
                          , private_token = test_private_token))
   
+  ## function idiom
+  expect_is(list_projects(gitlab_con = my_gitlab), "data.frame")
+  
+  expect_equivalent(list_projects(gitlab_con = my_gitlab)
+                  , my_gitlab("projects"))
+  
+  
   
 })
 
@@ -41,5 +48,6 @@ test_that("Project connection creation works", {
   expect_is(my_project, "function")
   
   expect_is(my_project(list_files), "data.frame")
-
+  expect_is(list_files(gitlab_con = my_project), "data.frame")
+  
 })

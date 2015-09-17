@@ -27,11 +27,11 @@ comments <- function(project
     warning("Commit comments cannot be get separate by id, parameter note_id is ignored!")
   }
   
-  gitlab(req = c("projects", to_project_id(project, ...)
-               , switch(object_type,
-                        "issue" = c("issues", to_issue_id(id, project, ...)
-                                  , "notes", note_id),
-                        "commit" = c("repository", "commits", id, "comments")))
+  gitlab(req = proj_req(project, req = switch(object_type
+                                            , "issue" = c("issues", to_issue_id(id, project, ...)
+                                                        , "notes", note_id)
+                                            , "commit" = c("repository", "commits", id, "comments"))
+                      , ...)
        , verb = verb
        , auto_format = auto_format
        , ...)

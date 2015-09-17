@@ -4,11 +4,14 @@
 #' @param issue_id optional issue id (projectwide iid, not gitlab API id)
 #' @param ... further parameters passed on to \code{\link{gitlab}}, may be
 #' state, labels, issue id, ...
+#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
+#' default verb \code{httr::GET}
 #' @export
 get_issues <- function(project = NULL
                      , issue_id = NULL
+                     , verb = httr::GET
                      , ...) {
-  (if (is.null(project)) "issues" else c("projects", to_project_id(project, ...), "issues", to_issue_id(issue_id, project, ...))) %>%
+  (if (!missing(project) && is.null(project)) "issues" else proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)) %>%
     gitlab(auto_format = is.null(issue_id), ...) %>%
     iffn(is.null(issue_id), function(issue) {
       issue %>%
@@ -26,6 +29,7 @@ to_issue_id <- function(issue_id, project, ...) {
       filter(iid == issue_id) %>%
       select(id) %>%
       unlist() %>%
+      remove_names() %>%
       iff(function(x){length(x) == 0}, function(x) {
         stop(paste("No issue with id", issue_id, "in project", project))})
   }
@@ -43,11 +47,11 @@ to_issue_id <- function(issue_id, project, ...) {
 new_issue <- function(project
                     , title
                     , ...) {
-  gitlab(c("projects", to_project_id(project, ...), "issues")
-      , title = title
-      , verb = httr::POST
-      , auto_format = FALSE
-      , ...)
+  gitlab(req = proj_req(project, "issues", ...)
+       , title = title
+       , verb = httr::POST
+       , auto_format = FALSE
+       , ...)
 }
 
 #' Post a new issue or edit one
@@ -57,10 +61,10 @@ new_issue <- function(project
 edit_issue <- function(project
                     , issue_id
                     , ...) {
-  gitlab(c("projects", to_project_id(project, ...), "issues", to_issue_id(issue_id, project, ...))
-         , verb = httr::PUT
-         , auto_format = FALSE
-         , ...)
+  gitlab(req = proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)
+       , verb = httr::PUT
+       , auto_format = FALSE
+       , ...)
 }
 
 #' @rdname edit_issue

@@ -37,3 +37,14 @@ iffn <- function(obj, test, fun, ...) {
     obj
   }
 }
+
+remove_names <- function(x) {
+  names(x) <- NULL
+  x
+}
+
+browse_r <- function(x, ...) {
+  print(x)
+  browser(skipCalls = 2, ...)
+  x
+}

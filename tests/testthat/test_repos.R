@@ -14,6 +14,17 @@ test_that("Repo access works", {
 
   expect_is(my_gitlab(get_file, "testor", "README"), "character")
   
+  ## same with second idiom
+
+  expect_is(repository(21, gitlab_con = my_gitlab), "data.frame")
+  expect_is(repository("testor", gitlab_con = my_gitlab), "data.frame")
+  expect_is(repository("testor", "contributors", gitlab_con = my_gitlab), "data.frame")
+  
+  expect_is(list_files("testor", gitlab_con = my_gitlab), "data.frame")
+  
+  expect_is(get_file("testor", "README", gitlab_con = my_gitlab), "character")
+  
+  
   
 })
 

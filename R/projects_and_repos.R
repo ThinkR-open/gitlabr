@@ -16,7 +16,7 @@ list_projects <- function(...) {
 repository <- function(project  
                      , req = c("tree")
                      , ...) {
-  gitlab(c("projects", to_project_id(project, ...), "repository", req), ...)
+  gitlab(proj_req(project, c("repository", req), ...), ...)
 }
 
 #' @rdname repository
@@ -24,12 +24,21 @@ repository <- function(project
 #' @export
 list_files <- functional::Curry(repository, req = "tree") ## should have a recursive option
 
+
+proj_req <- function(project, req, ...) {
+  if (missing(project) || is.null(project)) {
+    return(req)
+  } else {
+    return(c("projects", to_project_id(project, ...), req))
+  }
+}
+
 #' Get a project id by name
 #' @param project_name project name
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
-get_project_id <- function(project_name, ...) {
-  gitlab("projects", ...) %>%
+get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE, ...) {
+  gitlab(req = "projects", ...) %>%
     filter(name == project_name) %>%
     getElement("id") %>%
     as.integer()
@@ -102,9 +111,9 @@ archive <- function(project
 #' @param tp commit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to \code{\link{gitlab}}
 compare_refs <- function(project
-                  , from
-                  , to
-                  , ...) {
+                       , from
+                       , to
+                       , ...) {
   repository(project = project
            , req = "compare"
            , from = from

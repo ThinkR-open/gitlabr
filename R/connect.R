@@ -44,13 +44,13 @@ gitlab_connection <- function(gitlab_url
   }
   
   
-  return(function(request, ...) {
-    if (is.function(request)) {
-      request(api_root = gl_con_root
-            , private_token = private_token
-            , ...)
+  return(function(req, ...) {
+    if (is.function(req)) {
+      req(api_root = gl_con_root
+        , private_token = private_token
+        , ...)
     } else {
-      gitlab(req = request
+      gitlab(req = req
            , api_root = gl_con_root
            , private_token = private_token
            , ...)
@@ -74,22 +74,23 @@ project_connection <- function(gitlab_url
     private_token <- get_private_token(gl_con_root, login, email, password)
   }
   
-  return(function(request, ...) { ## actually this could be curried from connection
-    if (is.function(request)) {
-      request(api_root = gl_con_root
-            , private_token = private_token
-            , project = project
-            , ...)
+  return(function(req, ...) { ## actually this could be curried from connection
+    if (is.function(req)) {
+      req(api_root = gl_con_root
+        , private_token = private_token
+        , project = to_project_id(project
+                                , api_root = gl_con_root
+                                , private_token = private_token)
+        , ...)
     } else {
-      gitlab(req = c("projects"
-                   , to_project_id(project
-                                 , api_root = gl_con_root
-                                 , private_token = private_token
-                                 , ...)
-                   , request)
-             , api_root = gl_con_root
-             , private_token = private_token
-             , ...)
+      gitlab(req = proj_req(project
+                          , req = req
+                          , api_root = gl_con_root
+                          , private_token = private_token
+                          , ...)
+           , api_root = gl_con_root
+           , private_token = private_token
+           , ...)
     }
   })
   

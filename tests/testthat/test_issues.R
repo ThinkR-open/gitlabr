@@ -31,10 +31,23 @@ test_that("editing issues works", {
   my_gitlab(unassign_issue, "testor", 2)
   expect_null(my_gitlab(get_issues, "testor", 2)$assignee.username)
 
-
   ## close it
   my_gitlab(close_issue, "testor", 2)
   expect_true(my_gitlab(get_issues, "testor", 2)$state == "closed")
+  
+  ## using project_connection
+  my_project <- project_connection(test_url, "testor", private_token = test_private_token)
+  my_project(reopen_issue, 2)
+  expect_true(my_project(get_issues, 2)$state == "reopened")
+  my_project(close_issue, 2)
+  expect_true(my_project(get_issues, 2)$state == "closed")
+  
+  ## using function idiom
+  reopen_issue(issue_id = 2, gitlab_con = my_project)
+  expect_true(get_issues(issue_id = 2, gitlab_con = my_project)$state == "reopened")
+  close_issue(issue_id = 2, gitlab_con = my_project)
+  expect_true(get_issues(issue_id = 2, gitlab_con = my_project)$state == "closed")
+  
   
   
 })
