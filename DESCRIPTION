@@ -11,6 +11,7 @@ Depends:
   magrittr
 Imports:
   dplyr (>= 0.4.3),
+  stringr,
   base64enc,
   httr (>= 1.0.0),
   functional

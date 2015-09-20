@@ -105,6 +105,10 @@ creating connections -> link to below
 
 TODO
 
+### Pagination is hidden
+
+TODO
+
 
 ## Different ways to do it
 

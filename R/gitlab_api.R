@@ -15,6 +15,8 @@ gitlab <- function(req
                  , auto_format = TRUE
                  , debug = FALSE
                  , gitlab_con = "self"
+                 , page = "all"
+                 , enforce_api_root = TRUE
                  , ...) {
   
   if (!is.function(gitlab_con)) {
@@ -22,12 +24,31 @@ gitlab <- function(req
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
       iff(debug, function(x) { print(paste(c("URL:", x, " "
-                                           , "query:", paste(capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
-      verb(query = list(...)) %>%
-      http_error_or_content() %>%
+                                             , "query:", paste(capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
+      verb(query = if (page == "all") {list(...)} else { list(page = page, ...)} ) %>%
+      http_error_or_content()   -> resp
+
+    resp$ct %>%
       iff(auto_format, json_to_flat_df) %>% ## better would be to check MIME type
-      iff(debug, print)
-    
+      iff(debug, print) -> resp$ct
+
+    if (page == "all") {
+      private_token <- list(...)[["private_token"]]
+      while (length(resp$nxt) > 0) {
+        nxt_resp <- resp$nxt %>%
+          as.character() %>%
+          iff(enforce_api_root, stringr::str_replace, "^.*/api/v3/", api_root) %>%
+          paste0("&private_token=", private_token) %>%
+          httr::GET() %>%
+          http_error_or_content()
+        resp$nxt <- nxt_resp$nxt
+        resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
+                               iff(auto_format, json_to_flat_df))
+      }
+    }
+
+    return(resp$ct)
+
   } else {
     
     if (!missing(req)) {
@@ -47,17 +68,46 @@ gitlab <- function(req
     if (!missing(debug)) {
       dot_args <- c(dot_args, debug = debug)
     }
+    if (!missing(page)) {
+      dot_args <- c(dot_args, page = page)
+    }
     do.call(gitlab_con, c(dot_args, ...)) %>%
       iff(debug, print)
   }
-  
 }
 
 http_error_or_content <- function(response
                                 , handle = httr::stop_for_status
                                 , ...) {
   if (handle(response)) {
-    httr::content(response, ...)
+    ct <- httr::content(response, ...)
+    nxt <- get_next_link(headers(response)$link)
+    list(ct = ct, nxt = nxt)
+  }
+}
+
+#' @importFrom stringr str_replace_all str_split
+get_rel <- function(links) {
+  links %>%
+    stringr::str_split(",\\s+") %>%
+    getElement(1) -> strs
+  data.frame(link = strs %>%
+               lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
+               unlist(),
+             rel = strs %>%
+               lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
+               unlist(),
+             stringsAsFactors = FALSE)
+}
+
+get_next_link <- function(links) {
+  if(is.null(links)) {
+    return(NULL)
+  } else {
+    links %>%
+      get_rel() %>%
+      filter(rel == "next") %>%
+      getElement("link")
   }
 }
 
