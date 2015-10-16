@@ -135,7 +135,8 @@ is_single_row <- function(l) {
       return(u_length == 1)
     } else {
       multi_cols <- which(the_lengths > 1) %>% unlist()
-      return(all(lapply(l[multi_cols], is_named) %>% unlist()))
+      return(all(lapply(l[multi_cols], is_named) %>% unlist() &
+                   !(lapply(l[multi_cols], is.nested.list) %>% unlist())))
     }
   }
 }
@@ -147,6 +148,7 @@ format_row <- function(row, ...) {
 }
 
 json_to_flat_df <- function(l) {
+  
   l %>%
     iff(is_single_row, list) %>%
     lapply(unlist, recursive = TRUE) %>%
