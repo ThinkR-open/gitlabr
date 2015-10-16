@@ -14,10 +14,16 @@ gitlab <- function(req
                  , verb = httr::GET
                  , auto_format = TRUE
                  , debug = FALSE
-                 , gitlab_con = "self"
+                 , gitlab_con = "default"
                  , page = "all"
                  , enforce_api_root = TRUE
                  , ...) {
+  
+  if (!is.function(gitlab_con) &&
+      gitlab_con == "default" &&
+      !is.null(get_gitlab_connection())) {
+    gitlab_con <- get_gitlab_connection()
+  }
   
   if (!is.function(gitlab_con)) {
     req %>%
@@ -71,7 +77,7 @@ gitlab <- function(req
     if (!missing(page)) {
       dot_args <- c(dot_args, page = page)
     }
-    do.call(gitlab_con, c(dot_args, ...)) %>%
+    do.call(gitlab_con, c(dot_args, gitlab_con = "self", ...)) %>%
       iff(debug, print)
   }
 }

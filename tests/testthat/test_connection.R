@@ -51,3 +51,24 @@ test_that("Project connection creation works", {
   expect_is(list_files(gitlab_con = my_project), "data.frame")
   
 })
+
+test_that("set_gitlab_connection works", {
+  
+  my_gitlab <- gitlab_connection(test_url,
+                                 login = readLines("../test_login.txt"),
+                                 password = readLines("../test_password.txt"))
+  set_gitlab_connection(my_gitlab)
+
+  expect_is(gitlab("projects"), "data.frame")
+  expect_equivalent(gitlab("projects"),
+                    my_gitlab("projects", gitlab_con = "self"))
+  expect_equivalent(list_projects(),
+                    my_gitlab(list_projects, gitlab_con = "self"))
+
+  
+
+  
+  unset_gitlab_connection()
+  
+  
+})
