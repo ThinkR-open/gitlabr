@@ -54,6 +54,7 @@ test_that("Project connection creation works", {
 
 test_that("set_gitlab_connection works", {
   
+  ## using explicit function creation
   my_gitlab <- gitlab_connection(test_url,
                                  login = readLines("../test_login.txt"),
                                  password = readLines("../test_password.txt"))
@@ -65,8 +66,19 @@ test_that("set_gitlab_connection works", {
   expect_equivalent(list_projects(),
                     my_gitlab(list_projects, gitlab_con = "self"))
 
+  unset_gitlab_connection()
   
-
+  
+  ## using dots
+  set_gitlab_connection(gitlab_url = test_url,
+                        login = readLines("../test_login.txt"),
+                        password = readLines("../test_password.txt"))
+  
+  expect_is(gitlab("projects"), "data.frame")
+  expect_equivalent(gitlab("projects"),
+                    my_gitlab("projects", gitlab_con = "self"))
+  expect_equivalent(list_projects(),
+                    my_gitlab(list_projects, gitlab_con = "self"))
   
   unset_gitlab_connection()
   
