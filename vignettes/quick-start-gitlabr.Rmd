@@ -1,18 +1,14 @@
 ---
 title: "Quick Start Guide to gitlabr"
 author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "October 25, 2015"
+date: "2015-10-25"
+tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
 output:
   pdf_document:
     number_sections: yes
     toc: yes
+slug: gitlabr
 ---
-
-<!--
-%\VignetteEngine{knitr::rmarkdown}
-%\VignetteIndexEntry{Quick Start Guide to gitlabr}
--->
-
 
 # Quick Start Example
 
@@ -69,7 +65,7 @@ my_gitlab(get_issues, "testor", state = "opened")
 my_gitlab(close_issue, project = "testor", new_feature_issue$iid)$state
 ```
 
-# Central features of `gitlabr`
+# Central features of gitlabr
 
 - `gitlabr` provides a high and a low level interface to the gitlab API at the same time:
     - Common queries are wrapped in special convenience functions that can be used without any knowledge of the gitlab API itself -- find a list to start right away in the section ["Convenience function list"](#convenience-function-list).

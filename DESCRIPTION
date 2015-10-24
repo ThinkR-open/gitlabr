@@ -21,10 +21,11 @@ Suggests:
   devtools (>= 1.8.0),
   roxygen2,
   testthat,
+  R.rsp,
   knitr
 URL: http://blog.points-of-interest.cc/post/gitlabr/
 BugReports: http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/issues/
 Reference: http://doc.gitlab.com/ce/api/
-VignetteBuilder: knitr
+VignetteBuilder: R.rsp
 License: GPL (>= 3)
 LazyData: true
