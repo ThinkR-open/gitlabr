@@ -23,9 +23,8 @@ Suggests:
   testthat,
   R.rsp,
   knitr
-URL: http://blog.points-of-interest.cc/post/gitlabr/
+URL: http://blog.points-of-interest.cc/post/gitlabr/ http://doc.gitlab.com/ce/api/
 BugReports: http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/issues/
-Reference: http://doc.gitlab.com/ce/api/
 VignetteBuilder: R.rsp
 License: GPL (>= 3)
 LazyData: true
