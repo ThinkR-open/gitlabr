@@ -97,7 +97,7 @@ reopen_issue <- function(issue_id
 }
 
 #' @rdname edit_issue
-#' @param assignee numeric id of users as returned in '/users/' API request
+#' @param assignee_id numeric id of users as returned in '/users/' API request
 #' @export
 assign_issue <- function(issue_id
                        , assignee_id = NULL

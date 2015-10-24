@@ -43,10 +43,12 @@ proj_req <- function(project, req, ...) {
 }
 
 #' Get a project id by name
+#' 
 #' @param project_name project name
 #' @param ... passed on to \code{\link{gitlab}}
 #' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
 #' default verb \code{httr::GET}
+#' @param auto_format ignored
 #' @export
 get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE, ...) {
   gitlab(req = "projects", ...) %>%

@@ -6,6 +6,14 @@
 #' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
 #' @param auto_format whether to format the returned object automatically to a flat data.frame
 #' @param debug if TRUE API URL and query will be printed, defaults to FALSE
+#' @param gitlab_con function to use for issuing API requests (e.g. as returned by 
+#' \code{\link{gitlab_connection}}
+#' @param page number of page of API response to get; if "all" (default), all pages are queried
+#' successively and combined.
+#' @param enforce_api_root if multiple pages are requested, the API root URL is ensured
+#' to be the same as in the original call for all calls using the "next page" URL returned
+#' by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
+#' and ignorant about its URL from external.
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the Gitlab API
 #' @export
