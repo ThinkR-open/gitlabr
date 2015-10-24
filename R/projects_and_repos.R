@@ -25,6 +25,15 @@ repository <- function(req = c("tree")
 list_files <- functional::Curry(repository, req = "tree") ## should have a recursive option
 
 
+#' Create a project specific request
+#' 
+#' Prefixes the request location with "project/:id" and automatically
+#' translates project names into ids
+#' 
+#' @param project project name or id
+#' @param req character vector of request location
+#' @param ... passed on to \code{\link{get_project_id}}
+#' @export
 proj_req <- function(project, req, ...) {
   if (missing(project) || is.null(project)) {
     return(req)

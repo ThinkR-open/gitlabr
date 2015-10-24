@@ -30,6 +30,12 @@ get_issue <- function(issue_id, project, ...) {
   get_issues(project = project, issue_id = issue_id, ...)
 }
 
+#' Translate projectwide issue id to global gitlab API issue id
+#' 
+#' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
+#' @param project project name or id
+#' @param ... passed on to \code{\link{gitlab}}
+#' @export
 to_issue_id <- function(issue_id, project, ...) {
   if (is.null(issue_id)) {
     NULL
