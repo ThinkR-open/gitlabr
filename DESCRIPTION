@@ -2,12 +2,14 @@ Package: gitlabr
 Title: Access to the Gitlab API
 Version: 0.5.1
 Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.u", role = c("aut", "cre"))
-Description: This package provides R functions to access to API of the project
-  and repository management web application gitlab. Every API request that is allowed
-  by the gitlab API can be issued by specifying it manually and for many important
-  requests convenience wrappers are provided.
+Description: Provides R functions to access the API of the project
+  and repository management web application gitlab.
+  For many common tasks (repository file access,
+  issue assignment and status, commenting) convenience wrappers
+  are provided, and in addition the full API can be used by specifying request locations.
+  Gitlab is open-source software and can be self-hosted or used on gitlab.com.
 Depends:
-  R (>= 3.2.1),
+  R (>= 3.1.2),
   magrittr
 Imports:
   dplyr (>= 0.4.3),
@@ -20,6 +22,9 @@ Suggests:
   roxygen2,
   testthat,
   knitr
+URL: http://blog.points-of-interest.cc/post/gitlabr/
+BugReports: http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/issues/
+Reference: http://doc.gitlab.com/ce/api/
 VignetteBuilder: knitr
 License: GPL (>= 3)
 LazyData: true
