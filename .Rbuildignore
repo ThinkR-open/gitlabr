@@ -1,5 +1,6 @@
 .*.Rproj
 tests/
+notes/
 vignettes/secrets/
 ^.*\.Rproj$
 ^\.Rproj\.user$
