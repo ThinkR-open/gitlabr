@@ -16,6 +16,7 @@
 #' and ignorant about its URL from external.
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the Gitlab API
+#' @importFrom utils capture.output
 #' @export
 gitlab <- function(req
                  , api_root
@@ -38,7 +39,7 @@ gitlab <- function(req
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
       iff(debug, function(x) { print(paste(c("URL:", x, " "
-                                             , "query:", paste(capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
+                                             , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
       verb(query = if (page == "all") {list(...)} else { list(page = page, ...)} ) %>%
       http_error_or_content()   -> resp
 
