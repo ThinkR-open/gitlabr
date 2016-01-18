@@ -19,6 +19,43 @@ repository <- function(req = c("tree")
   gitlab(proj_req(project, c("repository", req), ...), ...)
 }
 
+#' List, create and delete branches
+#' 
+#' @rdname branches
+#' @param verb is ignored, will always be forced to match the action the function name indicates
+#' @export
+list_branches <- function(project, verb = httr::GET, ...) {
+  gitlab(proj_req(project, c("repository", "branches"), ...), ...)
+}
+
+#' List, create and delete branches
+#' 
+#' @param branch_name name of branch to create/delete
+#' @param ref ref name of origin for newly created branch
+#' @rdname branches
+#' @export
+create_branch <- function(project, branch_name, ref = "master", verb = httr::POST, ...) {
+  gitlab(proj_req(project, c("repository", "branches"), ...),
+         verb = httr::POST,
+         branch_name = branch_name,
+         ref = ref,
+         auto_format = FALSE,
+         ...) %>%
+    as.data.frame()
+}
+
+#' List, create and delete branches
+#' 
+#' @rdname branches
+#' @export
+delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
+  gitlab(proj_req(project, c("repository", "branches", branch_name), ...),
+         verb = httr::DELETE,
+         auto_format = FALSE,
+         ...) %>%
+    as.data.frame()
+}
+
 #' @rdname repository
 #' @import functional
 #' @export
