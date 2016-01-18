@@ -26,7 +26,8 @@ gitlab <- function(req
                  , gitlab_con = "default"
                  , page = "all"
                  , enforce_api_root = TRUE
-                 , argname_verb = if (identical(verb, httr::GET)) { "query" } else { "body" }
+                 , argname_verb = if (identical(verb, httr::GET) |
+                                      identical(verb, httr::DELETE)) { "query" } else { "body" }
                  , ...) {
   
   if (!is.function(gitlab_con) &&
