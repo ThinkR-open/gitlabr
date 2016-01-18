@@ -61,6 +61,17 @@ delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
 #' @export
 list_files <- functional::Curry(repository, req = "tree") ## should have a recursive option
 
+#' @param ... passed on to \code{\link{list_files}} and gitlab API call
+#' @export
+#' @rdname get_file
+file_exists <- function(project, file_path, ...) {
+  list(...) %>%
+    iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
+    c(project = project) %>%
+    pipe_into("args", do.call, what = list_files) %>%
+    dplyr::filter(name == basename(file_path)) %>%
+    { nrow(.) > 0 }
+}
 
 #' Create a project specific request
 #' 
