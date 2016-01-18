@@ -38,6 +38,20 @@ iffn <- function(obj, test, fun, ...) {
   }
 }
 
+#' Pipe into specific formal argument
+#' 
+#' This rotates the order of the arguments such that the one named
+#' in param_name comes first and then calls the function.
+#' 
+#' @export
+pipe_into <- function(x, param_name, fun, ...) {
+  x %>%
+    list() %>%
+    set_names(param_name) %>%
+    c(list(...)) %>%
+    { do.call(fun, .) }
+}
+
 remove_names <- function(x) {
   names(x) <- NULL
   x
