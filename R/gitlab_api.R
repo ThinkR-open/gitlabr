@@ -26,6 +26,7 @@ gitlab <- function(req
                  , gitlab_con = "default"
                  , page = "all"
                  , enforce_api_root = TRUE
+                 , argname_verb = if (identical(verb, httr::GET)) { "query" } else { "body" }
                  , ...) {
   
   if (!is.function(gitlab_con) &&
@@ -35,12 +36,14 @@ gitlab <- function(req
   }
   
   if (!is.function(gitlab_con)) {
-    req %>%
+    url <- req %>%
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
       iff(debug, function(x) { print(paste(c("URL:", x, " "
-                                             , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x }) %>%
-      verb(query = if (page == "all") {list(...)} else { list(page = page, ...)} ) %>%
+                                             , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
+    
+    (if (page == "all") {list(...)} else { list(page = page, ...)}) %>%
+      pipe_into(argname_verb, verb, url = url) %>%
       http_error_or_content()   -> resp
 
     resp$ct %>%
