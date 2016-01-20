@@ -173,7 +173,7 @@ push_file <- function(project
 
   exists <- file_exists(project = project, file_path, ref = branch_name, ...)
   if (!exists || overwrite) {
-    gitlab(req = proj_req(project = "testor", c("repository", "files"), ...)
+    gitlab(req = proj_req(project = project, c("repository", "files"), ...)
            , branch_name = branch_name
            , file_path = file_path
            , content = content
