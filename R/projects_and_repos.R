@@ -22,6 +22,7 @@ repository <- function(req = c("tree")
 #' List, create and delete branches
 #' 
 #' @rdname branches
+#' @param project name or id of project (not repository!)
 #' @param verb is ignored, will always be forced to match the action the function name indicates
 #' @export
 list_branches <- function(project, verb = httr::GET, ...) {
@@ -56,7 +57,16 @@ delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
     as.data.frame()
 }
 
-#' @rdname branches
+#' Create a merge request
+#' 
+#' @param project name or id of project (not repository!)
+#' @param source_branch name of branch to be merged
+#' @param target_branch name of branch into which to merge
+#' @param title title of the merge request
+#' @param description description text for the merge request
+#' @param verb is ignored, will always be forced to match the action the function name indicates
+#' @param ... passed on to \code{\link{gitlab}}. Might contain more fields documented in gitlab API doc.
+#' 
 #' @export
 create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
   gitlab(req = proj_req(project = project, c("merge_requests"), ...),
@@ -73,7 +83,7 @@ create_merge_request <- function(project, source_branch, target_branch = "master
 #' @export
 list_files <- functional::Curry(repository, req = "tree") ## should have a recursive option
 
-#' @param ... passed on to \code{\link{list_files}} and gitlab API call
+#' For \code{file_exists} dots are passed on to \code{\link{list_files}} and gitlab API call
 #' @export
 #' @rdname get_file
 file_exists <- function(project, file_path, ...) {
@@ -161,6 +171,7 @@ get_file <- function(project
 #' @param content file content (text)
 #' @param branch_name name of branch where to append newly generated commit with new/updated file
 #' @param commit_message Message to use for commit with new/updated file
+#' @param overwrite whether to overwrite files that already exist
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
 push_file <- function(project

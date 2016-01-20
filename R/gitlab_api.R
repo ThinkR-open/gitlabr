@@ -14,6 +14,7 @@
 #' to be the same as in the original call for all calls using the "next page" URL returned
 #' by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
 #' and ignorant about its URL from external.
+#' @param argname_verb name of the argument of the verb that fields and information are passed on to
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the Gitlab API
 #' @importFrom utils capture.output
