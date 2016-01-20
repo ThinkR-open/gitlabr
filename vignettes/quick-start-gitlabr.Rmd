@@ -192,18 +192,22 @@ Note that the set style is not purely functional, since `set_gitlab_connection` 
 
 # Convenience function list
 
-Here is a list of all convenience wrapper functions that come with `gitlabr` 0.5. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
+Here is a list of all convenience wrapper functions that come with `gitlabr` 0.6.2. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
 
 - assign_issue
 - close_issue
+- create_branch
+- create_merge_request
 - comment_commit
 - comment_issue
 - comments
 - compare_refs
+- delete_branch
 - edit_comment
 - edit_commit_comment
 - edit_issue
 - edit_issue_comment
+- file_exists
 - get_comments
 - get_commit_comments
 - get_commits
@@ -212,9 +216,11 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.5
 - get_issue
 - get_issue_comments
 - get_issues
+- list_branches
 - list_files
 - list_projects
 - new_issue
+- push_file
 - reopen_issue
 - repository
 - unassign_issue
