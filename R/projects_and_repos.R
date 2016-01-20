@@ -162,13 +162,14 @@ get_file <- function(project
 #' @param branch_name name of branch where to append newly generated commit with new/updated file
 #' @param commit_message Message to use for commit with new/updated file
 #' @param ... passed on to \code{\link{gitlab}}
-upload_file <- function(project
-                      , file_path
-                      , content
-                      , commit_message
-                      , branch_name = "master"
-                      , overwrite = TRUE
-                      , ...) {
+#' @export
+push_file <- function(project
+                    , file_path
+                    , content
+                    , commit_message
+                    , branch_name = "master"
+                    , overwrite = TRUE
+                    , ...) {
 
   exists <- file_exists(project = project, file_path, ref = branch_name, ...)
   if (!exists || overwrite) {
