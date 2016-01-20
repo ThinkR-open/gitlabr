@@ -56,6 +56,18 @@ delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
     as.data.frame()
 }
 
+#' @rdname branches
+#' @export
+create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
+  gitlab(req = proj_req(project = project, c("merge_requests"), ...),
+         source_branch = source_branch,
+         target_branch =target_branch,
+         title = title,
+         description = description,
+         verb = httr::POST,
+         ...)
+}
+
 #' @rdname repository
 #' @import functional
 #' @export
