@@ -24,6 +24,7 @@ repository <- function(req = c("tree")
 #' @rdname branches
 #' @param project name or id of project (not repository!)
 #' @param verb is ignored, will always be forced to match the action the function name indicates
+#' @param ... passed on to \code{\link{gitlab}}
 #' @export
 list_branches <- function(project, verb = httr::GET, ...) {
   gitlab(proj_req(project, c("repository", "branches"), ...), ...)
