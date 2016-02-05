@@ -99,7 +99,8 @@ gitlab <- function(req
 http_error_or_content <- function(response
                                 , handle = httr::stop_for_status
                                 , ...) {
-  if (handle(response)) {
+  
+  if (!identical(handle(response), FALSE)) {
     ct <- httr::content(response, ...)
     nxt <- get_next_link(headers(response)$link)
     list(ct = ct, nxt = nxt)
