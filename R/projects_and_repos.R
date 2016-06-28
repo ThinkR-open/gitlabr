@@ -88,9 +88,12 @@ list_files <- functional::Curry(repository, req = "tree") ## should have a recur
 #' @export
 #' @rdname get_file
 file_exists <- function(project, file_path, ...) {
+  
+  project_missing <- missing(project)
+  
   list(...) %>%
     iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
-    c(project = project) %>%
+    iffn(project_missing, c, project = project) %>%
     pipe_into("args", do.call, what = list_files) %>%
     dplyr::filter(name == basename(file_path)) %>%
     { nrow(.) > 0 }
