@@ -5,17 +5,17 @@
 #' @param id id of object: (project-wide) issue_id or commit sha
 #' @param note_id id of note
 #' @param ... passed on to \code{\link{gitlab}} API call. See Details.
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-get_comments <- function(object_type = "issue"
+gl_get_comments <- function(object_type = "issue"
                        , id
                        , note_id = c()
                        , project
                        , ...) {
-  comments(project, object_type, id, note_id, ...)
+  gl_comments(project, object_type, id, note_id, ...)
 }
 
-comments <- function(project
+gl_comments <- function(project
                    , object_type = "issue"
                    , id
                    , note_id = c()
@@ -26,8 +26,8 @@ comments <- function(project
     warning("Commit comments cannot be get separate by id, parameter note_id is ignored!")
   }
   
-  gitlab(req = proj_req(project, req = switch(object_type
-                                            , "issue" = c("issues", to_issue_id(id, project, ...)
+  gitlab(req = gl_proj_req(project, req = switch(object_type
+                                            , "issue" = c("issues", gl_to_issue_id(id, project, ...)
                                                         , "notes", note_id)
                                             , "commit" = c("repository", "commits", id, "comments"))
                       , ...)
@@ -36,31 +36,31 @@ comments <- function(project
   
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-get_issue_comments <- function(...) {
-  get_comments(object_type = "issue", ...)
+get_issue_gl_comments <- function(...) {
+  get_gl_comments(object_type = "issue", ...)
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-get_commit_comments <- function(...) {
-  get_comments(object_type = "commit", ...)
+get_commit_gl_comments <- function(...) {
+  get_gl_comments(object_type = "commit", ...)
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' 
 #' @details
-#' For \code{comment_commit} ... might also contain \code{path}, \code{line}
+#' For \code{gl_comment_commit} ... might also contain \code{path}, \code{line}
 #' and \code{line_type} (old or new) to attach the comment to a specific in a file.
 #' See http://doc.gitlab.com/ce/api/commits.html
 #' @param text Text of comment/note to add or edit (translates to gitlab API note/body respectively)
 #' @export
-comment_commit  <- function(project
+gl_comment_commit  <- function(project
                           , id
                           , text
                           , ...) {
-  comments(project = project
+  gl_comments(project = project
          , object_type = "commit"
          , id = id
          , note_id = NULL
@@ -69,13 +69,13 @@ comment_commit  <- function(project
          , ...)
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-comment_issue <- function(project
+gl_comment_issue <- function(project
                         , id
                         , text
                         , ...) {
-  comments(project = project
+  gl_comments(project = project
          , object_type = "issue"
          , id = id
          , note_id = NULL
@@ -84,30 +84,30 @@ comment_issue <- function(project
          , ...)
 }
 
-#' @rdname comments
-edit_comment <- function(object_type
+#' @rdname gl_comments
+gl_edit_comment <- function(object_type
                        , text
                        , ...) {
   switch(object_type,
-         "issue" = comments(object_type = "issue"
+         "issue" = gl_comments(object_type = "issue"
                           , body = text
                           , verb = httr::PUT
                           , ...),
-         "commit" =  comments(object_type = "commit"
+         "commit" =  gl_comments(object_type = "commit"
                             , note_id = NULL ## prevent partial argument match
                             , note = text
                             , verb = httr::PUT
                             , ...))
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-edit_issue_comment <- function(...) {
-  edit_comment(object_type = "issue", ...)
+gl_edit_issue_comment <- function(...) {
+  gl_edit_comment(object_type = "issue", ...)
 }
 
-#' @rdname comments
+#' @rdname gl_comments
 #' @export
-edit_commit_comment <- function(...) {
-  edit_comment(object_type = "commit", ...)
+gl_edit_commit_comment <- function(...) {
+  gl_edit_comment(object_type = "commit", ...)
 }  

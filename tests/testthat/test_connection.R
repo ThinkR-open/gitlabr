@@ -4,7 +4,7 @@ test_private_token <- readLines("../api_key.txt")
 
 test_that("Gitlab connection creation works", {
   
-  my_gitlab <- gitlab_connection(test_url,
+  my_gitlab <- gl_connection(test_url,
                                  private_token = test_private_token)
   
   expect_is(my_gitlab, "function")
@@ -21,9 +21,9 @@ test_that("Gitlab connection creation works", {
                          , private_token = test_private_token))
   
   ## function idiom
-  expect_is(list_projects(gitlab_con = my_gitlab), "data.frame")
+  expect_is(gl_list_projects(gitlab_con = my_gitlab), "data.frame")
   
-  expect_equivalent(list_projects(gitlab_con = my_gitlab)
+  expect_equivalent(gl_list_projects(gitlab_con = my_gitlab)
                   , my_gitlab("projects"))
   
   
@@ -32,7 +32,7 @@ test_that("Gitlab connection creation works", {
 
 test_that("Connection with login and user works", {
   
-  my_gitlab <- gitlab_connection(test_url,
+  my_gitlab <- gl_connection(test_url,
                                  login = readLines("../test_login.txt"),
                                  password = readLines("../test_password.txt"))
   
@@ -44,18 +44,18 @@ test_that("Connection with login and user works", {
 
 test_that("Project connection creation works", {
   
-  my_project <- project_connection(test_url, "testor", private_token = test_private_token)
+  my_project <- gl_project_connection(test_url, "testor", private_token = test_private_token)
   expect_is(my_project, "function")
   
   expect_is(my_project(list_files), "data.frame")
-  expect_is(list_files(gitlab_con = my_project), "data.frame")
+  expect_is(gl_list_files(gitlab_con = my_project), "data.frame")
   
 })
 
-test_that("set_gitlab_connection works", {
+test_that("set_gl_connection works", {
   
   ## using explicit function creation
-  my_gitlab <- gitlab_connection(test_url,
+  my_gitlab <- gl_connection(test_url,
                                  login = readLines("../test_login.txt"),
                                  password = readLines("../test_password.txt"))
   set_gitlab_connection(my_gitlab)
@@ -63,8 +63,8 @@ test_that("set_gitlab_connection works", {
   expect_is(gitlab("projects"), "data.frame")
   expect_equivalent(gitlab("projects"),
                     my_gitlab("projects", gitlab_con = "self"))
-  expect_equivalent(list_projects(),
-                    my_gitlab(list_projects, gitlab_con = "self"))
+  expect_equivalent(gl_list_projects(),
+                    my_gitlab(gl_list_projects, gitlab_con = "self"))
 
   unset_gitlab_connection()
   
@@ -77,8 +77,8 @@ test_that("set_gitlab_connection works", {
   expect_is(gitlab("projects"), "data.frame")
   expect_equivalent(gitlab("projects"),
                     my_gitlab("projects", gitlab_con = "self"))
-  expect_equivalent(list_projects(),
-                    my_gitlab(list_projects, gitlab_con = "self"))
+  expect_equivalent(gl_list_projects(),
+                    my_gitlab(gl_list_projects, gitlab_con = "self"))
   
   unset_gitlab_connection()
   

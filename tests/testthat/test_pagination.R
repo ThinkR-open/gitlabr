@@ -5,7 +5,7 @@ test_private_token <- readLines("../api_key.txt")
 test_that("Pagination produces the same results", {
   
   ## per_page argument
-  my_gitlab <- gitlab_connection(test_url,
+  my_gitlab <- gl_connection(test_url,
                                  private_token = test_private_token)
   users_2 <- my_gitlab("users", per_page = 2)
   users_10 <- my_gitlab("users", per_page = 10)

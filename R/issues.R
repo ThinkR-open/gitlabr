@@ -7,11 +7,11 @@
 #' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
 #' default verb \code{httr::GET}
 #' @export
-get_issues <- function(project = NULL
+gl_get_issues <- function(project = NULL
                      , issue_id = NULL
                      , verb = httr::GET
                      , ...) {
-  (if (!missing(project) && is.null(project)) "issues" else proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)) %>%
+  (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...)) %>%
     gitlab(...) %>%
     iffn(is.null(issue_id), function(issue) {
       issue %>%
@@ -22,12 +22,12 @@ get_issues <- function(project = NULL
 }
 
 #' @details 
-#' \code{get_issue} provides a wrapper with swapped arguments for convenience, esp. when
+#' \code{gl_get_issue} provides a wrapper with swapped arguments for convenience, esp. when
 #' using a project connection
 #' @export
-#' @rdname get_issues
-get_issue <- function(issue_id, project, ...) {
-  get_issues(project = project, issue_id = issue_id, ...)
+#' @rdname gl_get_issues
+gl_get_issue <- function(issue_id, project, ...) {
+  gl_get_issues(project = project, issue_id = issue_id, ...)
 }
 
 #' Translate projectwide issue id to global gitlab API issue id
@@ -36,11 +36,11 @@ get_issue <- function(issue_id, project, ...) {
 #' @param project project name or id
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
-to_issue_id <- function(issue_id, project, ...) {
+gl_to_issue_id <- function(issue_id, project, ...) {
   if (is.null(issue_id)) {
     NULL
   } else {
-    get_issues(project = project, ...) %>%
+    gl_get_issues(project = project, ...) %>%
       filter(iid == issue_id) %>%
       select(id) %>%
       unlist() %>%
@@ -57,12 +57,12 @@ to_issue_id <- function(issue_id, project, ...) {
 #' @param ... further parameters passed to the API call, may 
 #' contain description, asignee_id, milestone_id, labels, state_event (for edit_issue).
 #' 
-#' @rdname edit_issue
+#' @rdname gl_edit_issue
 #' @export
-new_issue <- function(title
+gl_new_issue <- function(title
                     , project
                     , ...) {
-  gitlab(req = proj_req(project, "issues", ...)
+  gitlab(req = gl_proj_req(project, "issues", ...)
        , title = title
        , verb = httr::POST
        , ...)
@@ -72,44 +72,44 @@ new_issue <- function(title
 #' 
 #' @param issue_id id of issue to edit  (projectwide iid, not gitlab API id)
 #' @export
-edit_issue <- function(issue_id
+gl_edit_issue <- function(issue_id
                      , project
                      , ...) {
-  gitlab(req = proj_req(project, req = c("issues", to_issue_id(issue_id, project, ...)), ...)
+  gitlab(req = gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...)
        , verb = httr::PUT
        , ...)
 }
 
-#' @rdname edit_issue
+#' @rdname gl_edit_issue
 #' @export
-close_issue <- function(issue_id
+gl_close_issue <- function(issue_id
                       , project
                       , ...) {
-  edit_issue(issue_id, project, state_event = "close", ...)
+  gl_edit_issue(issue_id, project, state_event = "close", ...)
 }
 
-#' @rdname edit_issue
+#' @rdname gl_edit_issue
 #' @export
-reopen_issue <- function(issue_id
+gl_reopen_issue <- function(issue_id
                        , project
                        , ...) {
-  edit_issue(issue_id, project, state_event = "reopen", ...)
+  gl_edit_issue(issue_id, project, state_event = "reopen", ...)
 }
 
-#' @rdname edit_issue
+#' @rdname gl_edit_issue
 #' @param assignee_id numeric id of users as returned in '/users/' API request
 #' @export
-assign_issue <- function(issue_id
+gl_assign_issue <- function(issue_id
                        , assignee_id = NULL
                        , project
                        , ...) {
-  edit_issue(issue_id, project, assignee_id = assignee_id, ...)
+  gl_edit_issue(issue_id, project, assignee_id = assignee_id, ...)
 }
 
-#' @rdname edit_issue
+#' @rdname gl_edit_issue
 #' @export
-unassign_issue <- function(issue_id
+gl_unassign_issue <- function(issue_id
                          , project
                          , ...) {
-  assign_issue(issue_id, project, assignee_id = 0, ...)
+  gl_assign_issue(issue_id, project, assignee_id = 0, ...)
 }
