@@ -27,7 +27,7 @@ get_gitlab_connection <- function() {
   get(GITLAB_CON, envir = gitlabr_env)
 }
 
-#' @rdname set_gl_connection
+#' @rdname set_gitlab_connection
 #' @export
 unset_gitlab_connection <- function() {
   set_gitlab_connection(NULL)

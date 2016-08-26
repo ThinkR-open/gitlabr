@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Guide to gitlabr"
 author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "2016-01-20"
+date: "2016-08-26"
 tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
 output:
   pdf_document:
@@ -24,29 +24,29 @@ httr::set_config(httr::config(ssl_verifypeer = 0L))
 
 ```{r}
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gitlab_connection("https://gitlab.points-of-interest.cc",
-                               login = "jlewando",
-                               password = readLines("secrets/gitlab_password.txt"))
+my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
+                           login = "jlewando",
+                           password = readLines("secrets/gitlab_password.txt"))
 ```
 
 ```{r include = TRUE, eval = FALSE}
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
-my_gitlab(list_projects)
+my_gitlab(gl_list_projects)
 ```
 
 ```{r echo = FALSE, eval = TRUE, message=FALSE}
 require(dplyr)
-my_gitlab(list_projects) %>%
+my_gitlab(gl_list_projects) %>%
   filter(public == "TRUE") %>%
   select(name, everything())
 ```
 
 ```{r}
-my_gitlab(list_files, project = "gitlabr", path = "R")
+my_gitlab(gl_list_files, project = "gitlabr", path = "R")
 
 # create a new issue
-new_feature_issue <- my_gitlab(new_issue, project = "testor", "Implement new feature")
+new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new feature")
 
 # requests via gitlabr always return data.frames, so you can use all common manipulations
 require(dplyr)
@@ -55,14 +55,14 @@ example_user <-
     filter(username == "testibaer")
 
 # assign issue to a user
-my_gitlab(assign_issue, project = "testor",
+my_gitlab(gl_assign_issue, project = "testor",
           new_feature_issue$iid,
           assignee_id = example_user$id)
 
-my_gitlab(get_issues, "testor", state = "opened")
+my_gitlab(gl_get_issues, "testor", state = "opened")
 
 # close issue
-my_gitlab(close_issue, project = "testor", new_feature_issue$iid)$state
+my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 ```
 
 # Central features of gitlabr
@@ -101,7 +101,7 @@ The high level interface consists of a number of functions that each have additi
 arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
 
 ```{r eval = FALSE}
-edit_issue(project = "test-project", 12, description = "Really cool new feature",
+gl_edit_issue(project = "test-project", 12, description = "Really cool new feature",
            api_root = "...", private_token = "XXX")
 ```
 
@@ -135,7 +135,7 @@ To spare you the repetitive task of specifying the API root and key in every cal
 The idea of connections in `gitlabr` is to generate functions with the same signature and capability of the central API call function `gitlab`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)). This way these more specialized functions represent and provide the connection -- for example -- to a specific gitlab instance as a specific user. Such specialized functions can be created by the function `gitlab_connection` and then used exactly as you would use `gitlab`:
 
 ```{r eval = FALSE}
-my_gitlab <- gitlab_connection("https://gitlab.points-of-interest.cc/",
+my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc/",
                                login = "jlewando",
                                password = readLines("secrets/gitlab_password.txt"))
 my_gitlab("projects")
@@ -159,7 +159,7 @@ For combining so created gitlab connections with the convenience functions to pe
 Instead of the query as character vector `gitlab` and thus also all connections accept equivalently a *function* as first argument, that is then called with the additional parameters and using the connection for all API calls:
 
 ```{r eval = FALSE}
-my_gitlab(new_issue, "Implement new feature", project = "testor")
+my_gitlab(gl_new_issue, "Implement new feature", project = "testor")
 ```
 
 `new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -171,7 +171,7 @@ Some of the convenience perform additional transformation or renaming of paramet
 Alternatively, `gitlab` as well as all convenience wrappers accept a parameter `gitlab_con` specifying the function to use for the actual API call. Hence, you can pass a gitlab connection (as returned by `gitlab_connection`) with the R function call:
 
 ```{r eval = FALSE}
-new_issue("Implement new feature", project = "testor", gitlab_con = my_gitlab)
+gl_new_issue("Implement new feature", project = "testor", gitlab_con = my_gitlab)
 ```
 
 Again, `new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -183,7 +183,7 @@ In order to avoid the repeated specification of `gitlab_con` in the parameter st
 
 ```{r eval = FALSE}
 set_gitlab_connection(my_gitlab)
-new_issue("Implement new feature", project = "testor")
+gl_new_issue("Implement new feature", project = "testor")
 ```
 
 Again, `new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -192,38 +192,36 @@ Note that the set style is not purely functional, since `set_gitlab_connection` 
 
 # Convenience function list
 
-Here is a list of all convenience wrapper functions that come with `gitlabr` 0.6.2. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
+Here is a list of all convenience wrapper functions that come with `gitlabr` 0.7 Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
 
-- assign_issue
-- close_issue
-- create_branch
-- create_merge_request
-- comment_commit
-- comment_issue
-- comments
-- compare_refs
-- delete_branch
-- edit_comment
-- edit_commit_comment
-- edit_issue
-- edit_issue_comment
-- file_exists
-- get_comments
-- get_commit_comments
-- get_commits
-- get_diff
-- get_file
-- get_issue
-- get_issue_comments
-- get_issues
-- list_branches
-- list_files
-- list_projects
-- new_issue
-- push_file
-- reopen_issue
-- repository
-- unassign_issue
+- gl_assign_issue
+- gl_close_issue
+- gl_create_branch
+- gl_create_merge_request
+- gl_comment_commit
+- gl_comment_issue
+- gl_delete_branch
+- gl_edit_comment
+- gl_edit_commit_comment
+- gl_edit_issue
+- gl_edit_issue_comment
+- gl_file_exists
+- gl_get_comments
+- gl_get_commit_comments
+- gl_get_commits
+- gl_get_diff
+- gl_get_file
+- gl_get_issue
+- gl_get_issue_comments
+- gl_get_issues
+- gl_list_branches
+- gl_list_files
+- gl_list_projects
+- gl_new_issue
+- gl_push_file
+- gl_reopen_issue
+- gl_repository
+- gl_unassign_issue
 
 Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](http://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 

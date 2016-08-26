@@ -235,7 +235,7 @@ gl_archive <- function(project
 #' @param from commit hash or ref/branch/tag name to compare from
 #' @param to ommit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to \code{\link{gitlab}}
-compare_refs <- function(project
+gl_compare_refs <- function(project
                        , from
                        , to
                        , ...) {

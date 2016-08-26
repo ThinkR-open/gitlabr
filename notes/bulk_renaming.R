@@ -14,7 +14,7 @@ data_frame(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
   )) %>%
   subset(old_name != new_name) %>%
   mutate(complete = paste0("#' @export
-#' @rdname gitlabr_legacy
+#' @rdname gitlabr-deprecated
 ", old_name, " <- function(...) {
   .Deprecated('", new_name, "', package = 'gitlabr', old = '", old_name, "')
   ", new_name, "(...)
