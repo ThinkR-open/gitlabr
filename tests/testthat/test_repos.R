@@ -39,6 +39,11 @@ test_that("Repo access works", {
   expect_is(gl_get_file(file_path = "README", gitlab_con = my_project), "character")
   
   
+  ## old API
+  expect_warning(my_gitlab(repository, project = 21), regexp = "deprecated")
+  
+  
+  
 })
 
 test_that("Commits and diffs work", {

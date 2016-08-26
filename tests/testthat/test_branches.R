@@ -19,6 +19,10 @@ test_that("branch access works", {
   # my_project(gl_create_branch, branch_name = "testbranch")
   # my_project(gl_delete_branch, branch_name = "testbranch")
   
+  
+  ## old API
+  expect_warning(my_project(list_branches), regexp = "deprecated")
+  
 
 })
 

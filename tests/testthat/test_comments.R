@@ -25,6 +25,10 @@ test_that("getting comments works", {
   expect_is(gl_get_issue_comments(1, 136, gitlab_con = my_gitlab), "data.frame")
   expect_is(gl_get_commit_comments("8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_gitlab), "data.frame")
   
+  ## old API
+  expect_warning(my_gitlab(get_comments, "issue", 1), regexp = "deprecated")
+  
+  
 })
 
 ## Posting is not tested to prevent spamming the gitlab test instance

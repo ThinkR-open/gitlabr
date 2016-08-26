@@ -33,6 +33,9 @@ test_that("getting issues works", {
   expect_is(gl_get_issues(issue_id = 2, gitlab_con = my_project), "data.frame")
   expect_is(gl_get_issue(2, gitlab_con = my_project), "data.frame")
   
+  ## old API
+  expect_warning(my_gitlab(get_issues), regexp = "deprecated")
+  
   
 })
 
