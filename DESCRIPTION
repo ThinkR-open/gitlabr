@@ -16,7 +16,8 @@ Imports:
     stringr,
     base64enc,
     httr (>= 1.1.0),
-    functional
+    functional,
+    purrr (>= 0.2.2)
 Suggests:
     devtools (>= 1.8.0),
     roxygen2,
