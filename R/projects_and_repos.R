@@ -43,7 +43,7 @@ gl_create_branch <- function(project, branch_name, ref = "master", verb = httr::
          ref = ref,
          auto_format = FALSE,
          ...) %>%
-    as.data.frame()
+    as_data_frame()
 }
 
 #' List, create and delete branches
@@ -55,7 +55,7 @@ gl_delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
          verb = httr::DELETE,
          auto_format = FALSE,
          ...) %>%
-    as.data.frame()
+    as_data_frame()
 }
 
 #' Create a merge request
@@ -167,7 +167,7 @@ gl_get_file <- function(project
 #'
 #' If the file already exists, it is updated/overwritten by default
 #'
-#' @return returns a data.frame with changed branch and path (0 rows if
+#' @return returns a data_frame with changed branch and path (0 rows if
 #' nothing was changed, since overwrite is FALSE)
 #'
 #' @param project Project name or id
@@ -196,7 +196,7 @@ gl_push_file <- function(project
            , verb = if (exists) { httr::PUT } else { httr::POST }
            , ...)
   } else {
-    data.frame(file_path = character(0),
+    data_frame(file_path = character(0),
                branch_name = character(0))
   }
 }
@@ -242,7 +242,6 @@ gl_compare_refs <- function(project
   gl_repository(req = "compare"
            , project = project
            , from = from
-           , to = to
            , ...)
 }
 

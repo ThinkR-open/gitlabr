@@ -48,7 +48,7 @@ my_gitlab(gl_list_files, project = "gitlabr", path = "R")
 # create a new issue
 new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new feature")
 
-# requests via gitlabr always return data.frames, so you can use all common manipulations
+# requests via gitlabr always return data_frames, so you can use all common manipulations
 require(dplyr)
 example_user <-
   my_gitlab("users") %>%
@@ -70,7 +70,7 @@ my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 - `gitlabr` provides a high and a low level interface to the gitlab API at the same time:
     - Common queries are wrapped in special convenience functions that can be used without any knowledge of the gitlab API itself -- find a list to start right away in the section ["Convenience function list"](#convenience-function-list).
     - Still, the package can be used to access the complete gitlab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
-- The output of every call to a `gitlabr` function is a `data.frame` to integrate seamless into R's data manipulation mindset
+- The output of every call to a `gitlabr` function is a `data_frame` to integrate seamless into dplyr's data manipulation mindset 
 - Pagination is wrapped for the user, but can be controlled via parameters `page` and `per_page` if necessary.
 - To allow programming in your favorite style, everything you can do with `gitlabr` you can do using any of a set of general idioms  -- get to know them in the section ["Different ways to do it"](#different-ways-to-do-it).
 - You can write your own convenience wrappers on top of the `gitlabr` logic following only one principle as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -240,7 +240,7 @@ block_user <- function(uid, ...) {
 
 More hints for more convenience:
 
-- To be consistent with another important `gitlabr` principle, make sure your function returns a data.frame (which it does if you simply pass up the return value of `gitlab` or one of the package's own convenience functions). `gitlab` has some heuristics to format the API response to a data.frame, if these fail for your specific request, you can pass `auto_format = FALSE` and format the response manually.
+- To be consistent with another important `gitlabr` principle, make sure your function returns a `data_frame` (which it does if you simply pass up the return value of `gitlab` or one of the package's own convenience functions). `gitlab` has some heuristics to format the API response to a `data_frame`, if these fail for your specific request, you can pass `auto_format = FALSE` and format the response manually.
 - To translate project names to numeric ids automatically, you can use `gitlabr`'s internal functions `proj_req` translating the request location.
 - To translate user-visible project-wide issue ids to global ids used by the gitlab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
 

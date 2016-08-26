@@ -18,6 +18,7 @@
 #' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the Gitlab API
 #' @importFrom utils capture.output
+#' @importFrom tibble data_frame as_data_frame
 #' @export
 gitlab <- function(req
                  , api_root
@@ -112,7 +113,7 @@ get_rel <- function(links) {
   links %>%
     stringr::str_split(",\\s+") %>%
     getElement(1) -> strs
-  data.frame(link = strs %>%
+  data_frame(link = strs %>%
                lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
                unlist(),
              rel = strs %>%
@@ -159,7 +160,7 @@ is_single_row <- function(l) {
 format_row <- function(row, ...) {
   row %>%
     lapply(unlist, use.names = FALSE, ...) %>%
-    as.data.frame(stringsAsFactors = FALSE)
+    as_data_frame(stringsAsFactors = FALSE)
 }
 
 json_to_flat_df <- function(l) {
