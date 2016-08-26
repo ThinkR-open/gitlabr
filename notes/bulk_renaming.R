@@ -16,16 +16,19 @@ data_frame(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
   mutate(complete = paste0("#' @export
 #' @rdname gitlabr_legacy
 ", old_name, " <- function(...) {
-  .Deprecated('", new_name, "', package = 'gitlabr')
+  .Deprecated('", new_name, "', package = 'gitlabr', old = '", old_name, "')
   ", new_name, "(...)
 }
 ")) -> replacements
 
 replacements %>%
   mutate(doc_entry = paste0("#'    \\code{", old_name, "} \\tab is now called \\code{", new_name, "}")) %$%
-  { c("#' Legacy functions",
+  { c("#' Deprecated functions",
+      "#'", 
+      "#' Many functions were renamed with version 0.7 to the \\code{gl_} naming scheme.",
+      "#' ",
       "#' @param ... Parameters to the new function",
-      "#' @name gitlabr_legacy",
+      "#' @name gitlabr-deprecated",
       "#' @section Details:",
       "#' \\tabular{rl}{",
       doc_entry,
