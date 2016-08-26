@@ -13,12 +13,12 @@ update_gitlabr_code <- function(file,
   data("gitlabr_0_7_renaming")
   
   gitlabr_0_7_renaming %$%
-    mapply(partial,
-           pattern = paste0("(", old_name, ")(\\s*)(\\(|,|$)"),
-           replacement = paste0(new_name, "\\2\\3"),
+    mapply(purrr::partial,
+           pattern = paste0("(", old_name, ")(\\(|\\}|,|$|\\s)"),
+           replacement = paste0(new_name, "\\2"),
            MoreArgs = list(...f = gsub, .lazy = FALSE, .first = FALSE),
            USE.NAMES = FALSE, SIMPLIFY = FALSE) %>%
-    reduce(.f = function(prv, nxt) {
+    purrr::reduce(.f = function(prv, nxt) {
       nxt(prv)
     }, .init = text) %>%
     iffn(is.null(file), writeLines, file)

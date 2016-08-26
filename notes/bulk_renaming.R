@@ -7,7 +7,7 @@ library(gitlabr)
 
 data_frame(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
   mutate(new_name = case_when(
-    .$old_name == "gitlab" ~ "gl",
+    .$old_name == "gitlab" ~ "gitlab",
     .$old_name == "gitlab_connection" ~ "gl_connection",
     grepl("(gitlab_connection)|(pipe_into)", .$old_name) ~ .$old_name,
     TRUE ~ paste0("gl_", .$old_name)
