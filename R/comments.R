@@ -38,14 +38,14 @@ gl_comments <- function(project
 
 #' @rdname gl_comments
 #' @export
-get_issue_gl_comments <- function(...) {
-  get_gl_comments(object_type = "issue", ...)
+gl_get_issue_comments <- function(...) {
+  gl_get_comments(object_type = "issue", ...)
 }
 
 #' @rdname gl_comments
 #' @export
-get_commit_gl_comments <- function(...) {
-  get_gl_comments(object_type = "commit", ...)
+gl_get_commit_comments <- function(...) {
+  gl_get_comments(object_type = "commit", ...)
 }
 
 #' @rdname gl_comments
