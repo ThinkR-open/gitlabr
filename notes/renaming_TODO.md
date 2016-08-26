@@ -1,0 +1,5 @@
+- export legacy functions
+- write code replacement function
+- replace gitlabrs own code
+- write tests for legacy code
+- update vignette
