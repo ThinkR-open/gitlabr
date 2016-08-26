@@ -10,9 +10,9 @@ test_that("Gitlab connection creation works", {
   expect_is(my_gitlab, "function")
   
   expect_is(my_gitlab("projects"), "data.frame")
-  expect_is(my_gitlab(list_projects), "data.frame")
+  expect_is(my_gitlab(gl_list_projects), "data.frame")
   
-  expect_equivalent(my_gitlab(list_projects)
+  expect_equivalent(my_gitlab(gl_list_projects)
                   , my_gitlab("projects"))
   
   expect_equivalent(my_gitlab("projects")
@@ -47,7 +47,7 @@ test_that("Project connection creation works", {
   my_project <- gl_project_connection(test_url, "testor", private_token = test_private_token)
   expect_is(my_project, "function")
   
-  expect_is(my_project(list_files), "data.frame")
+  expect_is(my_project(gl_list_files), "data.frame")
   expect_is(gl_list_files(gitlab_con = my_project), "data.frame")
   
 })

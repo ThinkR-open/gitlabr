@@ -10,7 +10,7 @@ my_project <- gl_project_connection(test_url,
 
 test_that("getting issues works", {
   
-  expect_is(my_gitlab(get_issues), "data.frame")
+  expect_is(my_gitlab(gl_get_issues), "data.frame")
   expect_is(my_gitlab(gl_get_issues, "testor"), "data.frame")
   expect_is(my_gitlab(gl_get_issues, "testor", state = "closed"), "data.frame")
   expect_is(my_gitlab(gl_get_issues, "testor", 2), "data.frame")
@@ -20,8 +20,8 @@ test_that("getting issues works", {
                     "data.frame")
   
   ## using project connection
-  expect_is(my_project(get_issues), "data.frame")
-  expect_equivalent(my_project(get_issues), my_gitlab(gl_get_issues, "testor"))
+  expect_is(my_project(gl_get_issues), "data.frame")
+  expect_equivalent(my_project(gl_get_issues), my_gitlab(gl_get_issues, "testor"))
   expect_is(my_project(gl_get_issues, state = "closed"), "data.frame")
   expect_is(my_project(gl_get_issues, 2), "data.frame")
   expect_is(my_project(gl_get_issue, 2), "data.frame")

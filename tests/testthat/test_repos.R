@@ -28,7 +28,7 @@ test_that("Repo access works", {
   
   ## same with project connection
   
-  expect_is(my_project(repository), "data.frame")
+  expect_is(my_project(gl_repository), "data.frame")
   expect_is(my_project(gl_repository, "contributors"), "data.frame")
   expect_is(my_project(gl_get_file, file_path = "README"), "character")
 
@@ -55,7 +55,7 @@ test_that("Commits and diffs work", {
   expect_is(gl_get_commits("testor", "8ce5ef240123cd78c1537991e5de8d8323666b15", gitlab_con = my_gitlab), "data.frame")
   
   ## same with project connection idiom
-  expect_is(my_project(get_commits), "data.frame")
+  expect_is(my_project(gl_get_commits), "data.frame")
   expect_is(my_project(gl_get_commits, commit_sha = "8ce5ef240123cd78c1537991e5de8d8323666b15"), "data.frame")
   
   ## same with project connection & function idiom
