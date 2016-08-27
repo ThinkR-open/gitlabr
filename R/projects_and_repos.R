@@ -220,7 +220,7 @@ gl_archive <- function(project
     writeBin(raw_gl_archive, save_to_file)
     return(save_to_file)
   } else {
-    return(raw_archive)
+    return(raw_gl_archive)
   }
   
 }
