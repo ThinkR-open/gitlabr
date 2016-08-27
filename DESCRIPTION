@@ -16,7 +16,6 @@ Imports:
     stringr,
     base64enc,
     httr (>= 1.1.0),
-    functional,
     purrr (>= 0.2.2),
     tibble (>= 1.1)
 Suggests:

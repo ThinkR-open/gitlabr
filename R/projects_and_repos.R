@@ -80,9 +80,9 @@ gl_create_merge_request <- function(project, source_branch, target_branch = "mas
 }
 
 #' @rdname gl_repository
-#' @import functional
+#' @importFrom purrr partial
 #' @export
-gl_list_files <- functional::Curry(gl_repository, req = "tree") ## should have a recursive option
+gl_list_files <- purrr::partial(gl_repository, req = "tree") ## should have a recursive option
 
 #' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
 #' @export

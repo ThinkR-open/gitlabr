@@ -102,7 +102,7 @@ get_private_token <- function(api_root
                             , password = NULL) {
   
   token_req <-
-    functional::Curry(gitlab
+    purrr::partial(gitlab
                     , req = "session"
                     , api_root = api_root
                     , verb = httr::POST
