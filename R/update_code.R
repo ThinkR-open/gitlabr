@@ -12,7 +12,7 @@ update_gitlabr_code <- function(file,
                                 text = readLines(file),
                                 internal = FALSE) {
   
-  data("gitlabr_0_7_renaming")
+  data("gitlabr_0_7_renaming", envir = environment())
   
   gitlabr_0_7_renaming %>%
     iff(internal, function(x,y) { bind_rows(y,x) }, data_frame(old_name = c("edit_comment", "comments"),
