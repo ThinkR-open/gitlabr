@@ -74,7 +74,7 @@ gl_project_connection <- function(gitlab_url
     private_token <- get_private_token(gl_con_root, login, email, password)
   }
   
-  return(function(req, ...) { ## actually this could be curried from connection
+  return(function(req, ...) {
     if (is.function(req)) {
       req(api_root = gl_con_root
         , private_token = private_token
