@@ -23,4 +23,5 @@ NULL
 
 ## A fix to let CRAN check NOTEs diasappear for non-standard-evaluation used
 ## cf. http://stackoverflow.com/questions/9439256/how-can-i-handle-r-cmd-check-no-visible-binding-for-global-variable-notes-when
-globalVariables(c("name", "id", "iid", "rel", "."))
+globalVariables(c("name", "id", "iid", "rel", ".",
+                  "gitlabr_0_7_renaming", "old_name", "new_name"))
