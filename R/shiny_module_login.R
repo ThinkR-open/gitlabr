@@ -1,24 +1,26 @@
-#' A shiny module to login to gitlab API
+#' Shiny module to login to gitlab API
 #' 
-#' UI contains login and password field, and server side function
-#' returns a reactive gitlab connection, just as \code{\link{gl_connection}}
+#' The UI contains a login and a password field as well as an (optional)
+#' login button. The server side function returns a reactive gitlab connection, just as \code{\link{gl_connection}}
 #' and \code{\link{gl_project_connection}}.
 #' 
 #' \code{glLoginInput} is supposed to be used inside a \code{shinyUI}, while
 #' \code{glReactiveLogin} is supposed to be passed on to \code{\link[shiny]{callModule}}
 #' 
 #' @param id shiny namespace for the login module
-#' @param login_check whether to show a login button and success messages (TRUE) or be purely reactive (FALSE)
+#' @param login_button whether to show a login button (TRUE) or be purely reactive (FALSE)
 #' @param input from shinyServer function, usually not user provided
 #' @param output from shinyServer function, usually not user provided
 #' @param session from shinyServer function, usually not user provided
 #' @param gitlab_url root URL of gitlab instance to login to
 #' @param project if not NULL, a code{\link{gl_project_connection}} is created to this project
-#' @param ... 
+#' @param success_message message text to be displayed in the UI on sucessful login 
+#' @param failure_message message text to be displayed in the UI on login failure in addition to HTTP status
+#' @param on_error function to be returned instead of gitlab connection in case of login failure
 #' 
 #' @rdname gl_shiny_login
 #' @export
-glLoginInput <- function(id, ...) {
+glLoginInput <- function(id, login_button = TRUE) {
   
   if (!require(shiny)) {
     stop("Package shiny needs to be installed to use gl login module!")
@@ -26,10 +28,10 @@ glLoginInput <- function(id, ...) {
   
   ns <- shiny::NS(id)
   
-  shiny::tagList(textInput(ns("login"), "Login"),
-                 passwordInput(ns("password"), "Password:"),
-                 textOutput(ns("login_status")),
-                 actionButton(ns("login_button"), label = "Login"))
+  shiny::tagList(shiny::textInput(ns("login"), "Login"),
+                 shiny::passwordInput(ns("password"), "Password:"),
+                 shiny::textOutput(ns("login_status"))) %>%
+    iff(login_button, shiny::tagAppendChild, shiny::actionButton(ns("login_button"), label = "Login"))
   
 }
 
@@ -40,27 +42,32 @@ glReactiveLogin <- function(input, output, session,
                             project = NULL,
                             success_message = "Gitlab login successful!",
                             failure_message = "Gitlab login failed!",
-                            error_handler = function(...) {
+                            on_error = function(...) {
                               stop(failure_message)
                             }) {
   
-  eventReactive(input$login_button, {
-    
-    ## TODO how to handle optional login button & response
-    ## 
-    
+  input_changed <- reactive(
+    if(!is.null(input$login_button)) {
+      input$login_button
+    } else {
+      c(input$login, input$password)
+    }
+  )
+  
+  eventReactive(input_changed(), {
+
     arglist <- list(gitlab_url = gitlab_url,
                     login = input$login,
                     password = input$password)
     
-    tryCatch( {
-      fun <- if(is.null(project)) {
-        do.call(gl_connection, arglist)
-      } else {
-        do.call(gl_project_connection, c(arglist, project = project))
-      }
-      output$login_status <- renderText(success_message)
-      fun
+    tryCatch({
+        gl_con <- if(is.null(project)) {
+            do.call(gl_connection, arglist)
+          } else {
+            do.call(gl_project_connection, c(arglist, project = project))
+          }
+        output$login_status <- renderText(success_message)
+        gl_con
       },
       error = function(e) {
         output$login_status <- renderText(paste(c(failure_message,
@@ -68,7 +75,7 @@ glReactiveLogin <- function(input, output, session,
                                                   if(grepl("Unauthorized.*401", conditionMessage(e))) {
                                                   "Probably the provided login/password combination is incorrect."}),
                                                 collapse = " "))
-        error_handler
+        on_error
       })
   })
   
