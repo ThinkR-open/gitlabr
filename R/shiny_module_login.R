@@ -22,7 +22,7 @@
 #' @export
 glLoginInput <- function(id, login_button = TRUE) {
   
-  if (!require(shiny)) {
+  if (!requireNamespace("shiny", quietly = TRUE)) {
     stop("Package shiny needs to be installed to use gl login module!")
   }
   
@@ -46,7 +46,7 @@ glReactiveLogin <- function(input, output, session,
                               stop(failure_message)
                             }) {
   
-  input_changed <- reactive(
+  input_changed <- shiny::reactive(
     if(!is.null(input$login_button)) {
       input$login_button
     } else {
@@ -54,7 +54,7 @@ glReactiveLogin <- function(input, output, session,
     }
   )
   
-  eventReactive(input_changed(), {
+  shiny::eventReactive(input_changed(), {
 
     arglist <- list(gitlab_url = gitlab_url,
                     login = input$login,
@@ -66,11 +66,11 @@ glReactiveLogin <- function(input, output, session,
           } else {
             do.call(gl_project_connection, c(arglist, project = project))
           }
-        output$login_status <- renderText(success_message)
+        output$login_status <- shiny::renderText(success_message)
         gl_con
       },
       error = function(e) {
-        output$login_status <- renderText(paste(c(failure_message,
+        output$login_status <- shiny::renderText(paste(c(failure_message,
                                                   conditionMessage(e),
                                                   if(grepl("Unauthorized.*401", conditionMessage(e))) {
                                                   "Probably the provided login/password combination is incorrect."}),

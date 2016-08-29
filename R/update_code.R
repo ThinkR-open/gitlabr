@@ -7,12 +7,13 @@
 #' @param text lines of code to convert
 #' @param file file to read from/write to. Maybe NULL for input and return only
 #' @param internal whether to also replace names of internal functions
+#' @importFrom utils data
 #' @export
 update_gitlabr_code <- function(file,
                                 text = readLines(file),
                                 internal = FALSE) {
   
-  data("gitlabr_0_7_renaming", envir = environment())
+  utils::data("gitlabr_0_7_renaming", envir = environment())
   
   gitlabr_0_7_renaming %>%
     iff(internal, function(x,y) { bind_rows(y,x) }, data_frame(old_name = c("edit_comment", "comments"),

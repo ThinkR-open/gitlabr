@@ -17,7 +17,8 @@ Imports:
     base64enc,
     httr (>= 1.1.0),
     purrr (>= 0.2.2),
-    tibble (>= 1.1)
+    tibble (>= 1.1),
+    utils
 Suggests:
     devtools (>= 1.8.0),
     roxygen2,
