@@ -225,6 +225,8 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.7
 
 Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](http://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 
+Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and will be removed with gitlabr version 1.0.
+
 # Writing custom gitlab request functions
 
 It is very easy to write your own convenience wrappers for accessing API endpoints you whish and make sure they fully integrate into `gitlabr` and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to `gitlab` (or another convenience function) to which the `...` argument is passed on.
