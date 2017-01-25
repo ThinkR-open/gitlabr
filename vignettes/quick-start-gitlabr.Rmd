@@ -59,7 +59,7 @@ my_gitlab(gl_assign_issue, project = "testor",
           new_feature_issue$iid,
           assignee_id = example_user$id)
 
-my_gitlab(gl_get_issues, "testor", state = "opened")
+my_gitlab(gl_list_issues, "testor", state = "opened")
 
 # close issue
 my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
@@ -213,7 +213,7 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.7
 - gl_get_file
 - gl_get_issue
 - gl_get_issue_comments
-- gl_get_issues
+- gl_list_issues
 - gl_list_branches
 - gl_list_files
 - gl_list_projects

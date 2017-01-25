@@ -25,7 +25,7 @@
 #'    \code{get_file} \tab is now called \code{gl_get_file} \cr
 #'    \code{get_issue} \tab is now called \code{gl_get_issue} \cr
 #'    \code{get_issue_comments} \tab is now called \code{gl_get_issue_comments} \cr
-#'    \code{get_issues} \tab is now called \code{gl_get_issues} \cr
+#'    \code{get_issues} \tab is now called \code{gl_list_issues} \cr
 #'    \code{get_project_id} \tab is now called \code{gl_get_project_id} \cr
 #'    \code{gitlab_connection} \tab is now called \code{gl_connection} \cr
 #'    \code{list_branches} \tab is now called \code{gl_list_branches} \cr
@@ -189,8 +189,8 @@ get_issue_comments <- function(...) {
 #' @export
 #' @rdname gitlabr-deprecated
 get_issues <- function(...) {
-  .Deprecated('gl_get_issues', package = 'gitlabr', old = 'get_issues')
-  gl_get_issues(...)
+  .Deprecated('gl_list_issues', package = 'gitlabr', old = 'get_issues')
+  gl_list_issues(...)
 }
 
 #' @export

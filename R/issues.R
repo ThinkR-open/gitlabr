@@ -1,12 +1,3 @@
-#' Get issues of a project or user
-#' 
-#' @param project project name or id, may be null for all issues created by user
-#' @param issue_id optional issue id (projectwide iid, not gitlab API id)
-#' @param ... further parameters passed on to \code{\link{gitlab}}, may be
-#' state, labels, issue id, ...
-#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
-#' default verb \code{httr::GET}
-#' @export
 gl_get_issues <- function(project = NULL
                      , issue_id = NULL
                      , verb = httr::GET
@@ -20,6 +11,17 @@ gl_get_issues <- function(project = NULL
         as.data.frame()
     })
 }
+
+#' Get issues of a project or user
+#' 
+#' @param project project name or id, may be null for all issues created by user
+#' @param issue_id optional issue id (projectwide iid, not gitlab API id)
+#' @param ... further parameters passed on to \code{\link{gitlab}}, may be
+#' state, labels, issue id, ...
+#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
+#' default verb \code{httr::GET}
+#' @export
+gl_list_issues <- gl_get_issues
 
 #' @details 
 #' \code{gl_get_issue} provides a wrapper with swapped arguments for convenience, esp. when
