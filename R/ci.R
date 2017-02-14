@@ -71,14 +71,18 @@ gl_default_ci_pipeline <- function() {
 }
 
 #' @export
+#' @param image Docker image to use in gitlab ci. If NULL, not specified!
 #' @rdname gitlabci
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
+                          image = "rocker/r-devel:latest",
                           path = ".gitlab-ci.yml",
                           overwrite = TRUE) {
   
   mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE) %>%
+    iff(!is.null(image), . %>% { c(list(image = image), .)} ) %>%
     c(list(stages = names(pipeline))) %>%
     yaml::as.yaml() %>%
+    str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
     iff(overwrite || !file.exists(path), writeLines, con = path)
   
 }
