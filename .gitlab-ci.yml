@@ -1,4 +1,4 @@
-image: jirkalewandowski/gitlabr:latest
+image: pointsofinterest/gitlabr:latest
 
 document:
   stage: document
