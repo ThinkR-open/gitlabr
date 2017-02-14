@@ -4,27 +4,81 @@
 #' @param ... passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name
 #' @export
 #' @rdname gitlabci
-gl_ci_job <- function(job_name = "build", ...) {
+gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
-         "prepare_devtools" = list(script = ci_r_script({
-           x <- 5
-           test_var <- '5.0'
-           print(test_var)
-           }, ...)),
-         "document" = list(),
-         "build" = list()
-         )
+         "prepare_devtools" = list(stage = stage,
+                                   script = ci_r_script({
+                                   if (!require(devtools)) {
+                                     install.packages("devtools")
+                                     library(devtools)
+                                   }
+                                   devtools::install_dev_deps()
+                                   },
+                                   ...)),
+         "document" = list(stage = stage,
+                           script = ci_r_script({
+                             library(devtools)
+                             devtools::document()
+                             devtools::document()
+                           },
+                           ...)),
+         "test" = list(stage = stage,
+                       script = ci_r_script({
+                         library(devtools)
+                         devtools::test(reporter = StopReporter())
+                       },
+                       ...)),
+         "build" = list(stage = stage,
+                        script = ci_r_script({
+                           library(devtools)
+                           devtools::build(path = "./")
+                         }, ...),
+                         artifacts = list(paths = list("*.tar.gz"))
+                        ),
+         "check" = list(stage = stage,
+                        script = ci_r_script({
+                           library(devtools)
+                           devtools::check_built()
+                        }, ...)
+                        )
+      )
 }
 
 ci_r_script <- function(expr, vanilla = TRUE, slave = FALSE) {
   substitute(expr) %>%
     deparse() %>%
-    str_trim() %>%
+    lapply(str_trim) %>%
     paste(collapse = "; ") %>%
     str_replace_all("(^\\{\\;)|(\\;\\s\\})$", "") %>%
+    str_replace_all("\\{\\;", "{") %>%
+    str_replace_all("\\;\\}", "}") %>%
     { paste0(c("R ",
                if (vanilla) {"--vanilla "} else { c() },
                if (slave) {"--slave "} else { c() },
                "-e '", ., "'"),
-              collapse = "") }
+              collapse = "") } %>%
+    list()
+}
+
+#' @export
+#' @rdname gitlabci
+gl_default_ci_pipeline <- function() {
+  list("prepare" = "prepare_devtools",
+       "document" = "document",
+       "test" = "test",
+       "build" = "build",
+       "check" = "check")
+}
+
+#' @export
+#' @rdname gitlabci
+use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
+                          path = ".gitlab-ci.yml",
+                          overwrite = TRUE) {
+  
+  mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE) %>%
+    c(list(stages = names(pipeline))) %>%
+    yaml::as.yaml() %>%
+    iff(overwrite || !file.exists(path), writeLines, con = path)
+  
 }
