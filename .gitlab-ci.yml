@@ -1,9 +1,4 @@
-prepare:
-  stage: prepare
-  script:
-  - apt-get install -y r-base r-base-dev libssl-dev libxml2-dev
-  - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools", repos
-    = "https://cran.rstudio.com"); library(devtools); }; devtools::install_dev_deps()'
+image: jirkalewandowski/gitlabr:latest
 
 document:
   stage: document
@@ -29,7 +24,6 @@ check:
   - R --vanilla -e ' library(devtools); devtools::check_built()'
 
 stages:
-- prepare
 - document
 - test
 - build
