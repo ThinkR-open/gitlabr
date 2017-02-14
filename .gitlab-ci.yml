@@ -1,9 +1,7 @@
-image: rocker/r-devel:latest
-
 prepare:
   stage: prepare
   script:
-  - apt-get install -y libssl-dev libxml2-dev
+  - apt-get install -y r-base r-base-dev libssl-dev libxml2-dev
   - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools", repos
     = "https://cran.rstudio.com"); library(devtools); }; devtools::install_dev_deps()'
 
