@@ -3,7 +3,7 @@ image: rocker/r-devel:latest
 prepare:
   stage: prepare
   script:
-  - apt-get install libssl-dev
+  - apt-get install -y libssl-dev
   - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools", repos
     = "https://cran.rstudio.com"); library(devtools); }; devtools::install_dev_deps()'
 
