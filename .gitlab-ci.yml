@@ -1,0 +1,5 @@
+image: rocker/r-devel
+
+test_job:
+  script:
+    - echo "Hello world"
