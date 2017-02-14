@@ -1,5 +1,38 @@
-image: rocker/r-devel
+image: rocker/r-devel:latest
 
-test_job:
+prepare:
+  stage: prepare
   script:
-    - echo "Hello world"
+  - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools"); library(devtools);
+    }; devtools::install_dev_deps()'
+
+document:
+  stage: document
+  script:
+  - R --vanilla -e ' library(devtools); devtools::document(); devtools::document()'
+
+test:
+  stage: test
+  script:
+  - R --vanilla -e ' library(devtools); devtools::test(reporter = StopReporter())'
+
+build:
+  stage: build
+  script:
+  - R --vanilla -e ' library(devtools); devtools::build(path = "./")'
+  artifacts:
+    paths:
+    - '*.tar.gz'
+
+check:
+  stage: check
+  script:
+  - R --vanilla -e ' library(devtools); devtools::check_built()'
+
+stages:
+- prepare
+- document
+- test
+- build
+- check
+
