@@ -9,7 +9,7 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
          "prepare_devtools" = list(stage = stage,
                                    script = ci_r_script({
                                    if (!require(devtools)) {
-                                     install.packages("devtools")
+                                     install.packages("devtools", repos = "https://cran.rstudio.com")
                                      library(devtools)
                                    }
                                    devtools::install_dev_deps()

@@ -3,8 +3,8 @@ image: rocker/r-devel:latest
 prepare:
   stage: prepare
   script:
-  - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools"); library(devtools);
-    }; devtools::install_dev_deps()'
+  - R --vanilla -e ' if (!require(devtools)) { install.packages("devtools", repos
+    = "https://cran.rstudio.com"); library(devtools); }; devtools::install_dev_deps()'
 
 document:
   stage: document
