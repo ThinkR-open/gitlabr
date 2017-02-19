@@ -63,8 +63,7 @@ ci_r_script <- function(expr, vanilla = TRUE, slave = FALSE) {
 #' @export
 #' @rdname gitlabci
 gl_default_ci_pipeline <- function() {
-  list("prepare" = "prepare_devtools",
-       "document" = "document",
+  list("document" = "document",
        "test" = "test",
        "build" = "build",
        "check" = "check")
