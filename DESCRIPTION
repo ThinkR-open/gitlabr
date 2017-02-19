@@ -18,7 +18,9 @@ Imports:
     httr (>= 1.1.0),
     purrr (>= 0.2.2),
     tibble (>= 1.1),
-    utils
+    utils,
+    stringr,
+    yaml
 Suggests:
     devtools (>= 1.8.0),
     roxygen2,
