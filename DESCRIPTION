@@ -28,8 +28,7 @@ Suggests:
     R.rsp,
     knitr,
     shiny (>= 0.13.0)
-URL: http://blog.points-of-interest.cc/post/gitlabr/ http://doc.gitlab.com/ce/
-    api/
+URL: http://blog.points-of-interest.cc/post/gitlabr/ http://doc.gitlab.com/ce/api/
 BugReports: http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/issues/
 VignetteBuilder: R.rsp
 License: GPL (>= 3)
