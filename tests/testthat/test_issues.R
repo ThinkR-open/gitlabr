@@ -52,7 +52,7 @@ test_that("editing issues works", {
   expect_false(my_gitlab(gl_list_issues, "testor", 2)$description == "This is a test")
   
   ## assign it
-  my_gitlab(gl_assign_issue, 2, 12, "testor")
+  my_gitlab(gl_assign_issue, 2, assignee_id = 12, "testor")
   expect_true(my_gitlab(gl_list_issues, "testor", 2)$assignee.username == "testibaer")
   my_gitlab(gl_unassign_issue, 2, "testor")
   expect_null(my_gitlab(gl_list_issues, "testor", 2)$assignee.username)
