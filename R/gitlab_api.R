@@ -103,7 +103,7 @@ http_error_or_content <- function(response
   
   if (!identical(handle(response), FALSE)) {
     ct <- httr::content(response, ...)
-    nxt <- get_next_link(headers(response)$link)
+    nxt <- get_next_link(httr::headers(response)$link)
     list(ct = ct, nxt = nxt)
   }
 }
