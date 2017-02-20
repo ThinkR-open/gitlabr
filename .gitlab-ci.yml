@@ -4,9 +4,13 @@ document:
   stage: document
   script:
   - R --vanilla -e ' library(devtools); devtools::document(); devtools::document()'
+  artifacts:
+   paths:
+   - man/
 
 test:
   stage: test
+  dependencies: document
   script:
   - R --vanilla -e ' library(devtools); library(testthat); devtools::test(reporter
     = StopReporter)'
