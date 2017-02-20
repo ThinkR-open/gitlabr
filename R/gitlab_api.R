@@ -113,14 +113,14 @@ get_rel <- function(links) {
   links %>%
     stringr::str_split(",\\s+") %>%
     getElement(1) -> strs
-  data_frame(link = strs %>%
-               lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
-               unlist(),
-             rel = strs %>%
-               lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
-               unlist(),
-             stringsAsFactors = FALSE)
-}
+  tibble::data_frame(link = strs %>%
+                       lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
+                       unlist(),
+                     rel = strs %>%
+                       lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
+                       unlist(),
+                     stringsAsFactors = FALSE)
+        }
 
 get_next_link <- function(links) {
   if(is.null(links)) {
@@ -160,7 +160,7 @@ is_single_row <- function(l) {
 format_row <- function(row, ...) {
   row %>%
     lapply(unlist, use.names = FALSE, ...) %>%
-    as_data_frame(stringsAsFactors = FALSE)
+    tibble::as_data_frame(stringsAsFactors = FALSE)
 }
 
 json_to_flat_df <- function(l) {

@@ -43,7 +43,7 @@ gl_create_branch <- function(project, branch_name, ref = "master", verb = httr::
          ref = ref,
          auto_format = FALSE,
          ...) %>%
-    as_data_frame()
+    tibble::as_data_frame()
 }
 
 #' List, create and delete branches
@@ -55,7 +55,7 @@ gl_delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
          verb = httr::DELETE,
          auto_format = FALSE,
          ...) %>%
-    as_data_frame()
+    tibble::as_data_frame()
 }
 
 #' Create a merge request
@@ -212,8 +212,8 @@ gl_push_file <- function(project
            , verb = if (exists) { httr::PUT } else { httr::POST }
            , ...)
   } else {
-    data_frame(file_path = character(0),
-               branch_name = character(0))
+    tibble::data_frame(file_path = character(0),
+                       branch_name = character(0))
   }
 }
 
