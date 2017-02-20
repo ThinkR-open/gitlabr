@@ -5,17 +5,17 @@ document:
   script:
   - R --vanilla -e ' library(devtools); devtools::document(); devtools::document()'
   artifacts:
-   paths:
-   - man/
-   - NAMESPACE
+    paths:
+    - man/
+    - NAMESPACE
 
 test:
   stage: test
-  dependencies: 
-  - document
   script:
   - R --vanilla -e ' library(devtools); library(testthat); devtools::test(reporter
     = StopReporter)'
+  dependencies:
+  - document
 
 build:
   stage: build
@@ -24,11 +24,15 @@ build:
   artifacts:
     paths:
     - '*.tar.gz'
+  dependencies:
+  - document
 
 check:
   stage: check
   script:
   - R --vanilla -e ' library(devtools); devtools::check_built()'
+  dependencies:
+  - build
 
 stages:
 - document
