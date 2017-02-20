@@ -48,11 +48,11 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
 ci_r_script <- function(expr, vanilla = TRUE, slave = FALSE) {
   substitute(expr) %>%
     deparse() %>%
-    lapply(str_trim) %>%
+    lapply(stringr::str_trim) %>%
     paste(collapse = "; ") %>%
-    str_replace_all("(^\\{\\;)|(\\;\\s\\})$", "") %>%
-    str_replace_all("\\{\\;", "{") %>%
-    str_replace_all("\\;\\}", "}") %>%
+    stringr::str_replace_all("(^\\{\\;)|(\\;\\s\\})$", "") %>%
+    stringr::str_replace_all("\\{\\;", "{") %>%
+    stringr::str_replace_all("\\;\\}", "}") %>%
     { paste0(c("R ",
                if (vanilla) {"--vanilla "} else { c() },
                if (slave) {"--slave "} else { c() },
