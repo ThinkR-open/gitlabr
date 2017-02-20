@@ -10,7 +10,8 @@ document:
 
 test:
   stage: test
-  dependencies: document
+  dependencies: 
+  - document
   script:
   - R --vanilla -e ' library(devtools); library(testthat); devtools::test(reporter
     = StopReporter)'
