@@ -9,7 +9,7 @@ test:
   stage: test
   script:
   - R --vanilla -e ' library(devtools); library(testthat); devtools::test(reporter
-    = StopReporter())'
+    = StopReporter)'
 
 build:
   stage: build
