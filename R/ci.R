@@ -26,7 +26,7 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
                        script = ci_r_script({
                          library(devtools)
                          library(testthat)
-                         devtools::test(reporter = StopReporter())
+                         devtools::test(reporter = StopReporter)
                        },
                        ...)),
          "build" = list(stage = stage,
