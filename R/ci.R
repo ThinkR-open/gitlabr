@@ -21,27 +21,31 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
                              devtools::document()
                              devtools::document()
                            },
-                           ...)),
+                           ...),
+                           artifacts = list(paths = list("man/", "NAMESPACE"))),
          "test" = list(stage = stage,
                        script = ci_r_script({
                          library(devtools)
                          library(testthat)
                          devtools::test(reporter = StopReporter)
                        },
-                       ...)),
+                       ...)) %>%
+           iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "build" = list(stage = stage,
                         script = ci_r_script({
                            library(devtools)
                            devtools::build(path = "./")
                          }, ...),
                          artifacts = list(paths = list("*.tar.gz"))
-                        ),
+                        ) %>%
+           iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "check" = list(stage = stage,
                         script = ci_r_script({
                            library(devtools)
                            devtools::check_built()
                         }, ...)
-                        )
+                        ) %>%
+           iff("build" %in% allowed_dependencies, c, list(dependencies = list("build")))
       )
 }
 
@@ -78,7 +82,8 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           path = ".gitlab-ci.yml",
                           overwrite = TRUE) {
   
-  mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE) %>%
+  mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE,
+         MoreArgs = list(allowed_dependencies = names(pipeline))) %>%
     iff(!is.null(image), . %>% { c(list(image = image), .)} ) %>%
     c(list(stages = names(pipeline))) %>%
     yaml::as.yaml() %>%
