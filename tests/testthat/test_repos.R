@@ -1,3 +1,6 @@
+test_url <- Sys.getenv("GITLABR_TEST_URL")
+test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
+
 my_gitlab <- gl_connection(test_url,
                                private_token = test_private_token)
 
