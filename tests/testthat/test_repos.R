@@ -1,6 +1,3 @@
-test_url <- readLines("../test_url.txt")
-test_private_token <- readLines("../api_key.txt")
-
 my_gitlab <- gl_connection(test_url,
                                private_token = test_private_token)
 

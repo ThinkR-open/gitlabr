@@ -1,7 +1,3 @@
-test_url <- readLines("../test_url.txt")
-test_private_token <- readLines("../api_key.txt")
-
-
 test_that("Gitlab connection creation works", {
   
   my_gitlab <- gl_connection(test_url,
@@ -33,8 +29,8 @@ test_that("Gitlab connection creation works", {
 test_that("Connection with login and user works", {
   
   my_gitlab <- gl_connection(test_url,
-                                 login = readLines("../test_login.txt"),
-                                 password = readLines("../test_password.txt"))
+                                 login = test_login,
+                                 password = test_password)
   
   expect_is(my_gitlab, "function")
   
@@ -56,8 +52,8 @@ test_that("set_gl_connection works", {
   
   ## using explicit function creation
   my_gitlab <- gl_connection(test_url,
-                                 login = readLines("../test_login.txt"),
-                                 password = readLines("../test_password.txt"))
+                                 login = test_login,
+                                 password = test_password)
   set_gitlab_connection(my_gitlab)
 
   expect_is(gitlab("projects"), "data.frame")
@@ -71,8 +67,8 @@ test_that("set_gl_connection works", {
   
   ## using dots
   set_gitlab_connection(gitlab_url = test_url,
-                        login = readLines("../test_login.txt"),
-                        password = readLines("../test_password.txt"))
+                        login = test_login,
+                        password = test_password)
   
   expect_is(gitlab("projects"), "data.frame")
   expect_equivalent(gitlab("projects"),

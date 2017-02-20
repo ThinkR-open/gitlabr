@@ -1,7 +1,3 @@
-test_url <- readLines("../test_url.txt")
-test_private_token <- readLines("../api_key.txt")
-
-
 test_that("Pagination produces the same results", {
   
   ## per_page argument
