@@ -92,3 +92,42 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
     iff(overwrite || !file.exists(path), writeLines, con = path)
   
 }
+
+#' Access the Gitlab CI builds
+#' 
+#' @export
+gl_builds <- function(project, ...) {
+  gitlab(gl_proj_req(project = project, "builds", ...), ...)
+}
+
+#' @export
+#' @rdname gl_builds
+#' @importFrom dplyr rename filter top_n
+gl_latest_build <- function(ref = "master", successful = TRUE, job = NULL, n = 1, ...) {
+  
+  gl_builds(...) %>%
+    dplyr::rename(ref_name = ref) %>%
+    dplyr::filter( (is.null(job) | name == job) &
+              (!successful | status == "success") &
+              (ref_name == ref | commit.id == ref | commit.short_id == ref )) %>%
+    dplyr::top_n(n = 1, wt = as.POSIXct(created_at)) %>%
+    dplyr::rename(ref = ref_name)
+  
+}
+
+#' @export
+#' @rdname gl_builds
+gl_latest_build_artifact <- function(job, branch_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
+  
+  
+  raw_build_archive <- gitlab(c("builds", "artifacts", branch_name, "download"),
+                                job = job, auto_format = FALSE, ...)
+  
+  if (!is.null(save_to_file)) {
+    writeBin(raw_build_archive, save_to_file)
+    return(save_to_file)
+  }
+  else {
+    return(raw_build_archive)
+  }
+}

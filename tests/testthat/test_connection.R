@@ -6,7 +6,7 @@ test_password <- Sys.getenv("GITLABR_TEST_PASSWORD")
 test_that("Gitlab connection creation works", {
   
   my_gitlab <- gl_connection(test_url,
-                                 private_token = test_private_token)
+                             private_token = test_private_token)
   
   expect_is(my_gitlab, "function")
   
