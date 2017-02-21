@@ -17,13 +17,16 @@ test_that("CI builds access works", {
   
   my_gitlab <- gl_connection(test_url,
                              private_token = test_private_token)
+  my_project <- gl_project_connection(test_url,
+                                      project = "testor",
+                                      private_token = private_token)
   
   expect_is(my_gitlab(gl_builds, project = "testor"), "data.frame")
-  expect_is(my_gitlab(gl_latest_build, project = "testor"), "data.frame")
-  
-  artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = "testor")
+  expect_is(my_project(gl_builds), "data.frame")
+
+  artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = "testor", job = "test_job")
   expect_true(file.exists(artifacts_zip))
-  expect_true("test.txt" %in% unzip(artifacts_zip, list = TRUE))
+  expect_true("test.txt" %in% unzip(artifacts_zip, list = TRUE)$Name)
   
 })
   
