@@ -171,3 +171,14 @@ json_to_flat_df <- function(l) {
     lapply(format_row) %>%
     bind_rows()
 }
+
+call_filter_dots <- function(fun,
+                              .dots = list(),
+                              .dots_allowed = gitlab %>%
+                                formals() %>%
+                                names() %>%
+                                setdiff("...") %>%
+                                c("api_root", "private_token"),
+                              ...) {
+  do.call(fun, args = c(list(...), .dots[intersect(.dots_allowed, names(.dots))]))
+}
