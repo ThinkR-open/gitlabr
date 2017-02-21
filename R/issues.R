@@ -42,7 +42,11 @@ gl_to_issue_id <- function(issue_id, project, ...) {
   if (is.null(issue_id)) {
     NULL
   } else {
-    call_filter_dots(gl_get_issues, .dots = list(...), project = project) %>%
+    (if (missing(project)) {
+      call_filter_dots(gl_get_issues, .dots = list(...))
+    } else {
+      call_filter_dots(gl_get_issues, .dots = list(...), project = project)  
+    }) %>%
       filter(iid == issue_id) %>%
       select(id) %>%
       unlist() %>%
