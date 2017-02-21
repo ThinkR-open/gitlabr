@@ -30,7 +30,8 @@ build:
 check:
   stage: check
   script:
-  - R --vanilla -e ' library(devtools); devtools::check_built(list.files("./", pattern = ".tar.gz", full.names = TRUE))'
+  - R --vanilla -e ' library(devtools); devtools::check_built(list.files("./", pattern
+    = ".tar.gz",; full.names = TRUE))'
   dependencies:
   - build
 
