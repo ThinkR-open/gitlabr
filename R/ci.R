@@ -42,7 +42,7 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
          "check" = list(stage = stage,
                         script = ci_r_script({
                            library(devtools)
-                           tar_file <- list.files("./", pattern = ".tar.gz", full.names = TRUE)
+                           tar_file <- file.path(getwd(), list.files(".", pattern = ".tar.gz"))
                            devtools::check_built(tar_file)
                         }, ...)
                         ) %>%
