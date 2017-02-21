@@ -19,7 +19,7 @@ test_that("CI builds access works", {
                              private_token = test_private_token)
   my_project <- gl_project_connection(test_url,
                                       project = "testor",
-                                      private_token = private_token)
+                                      private_token = test_private_token)
   
   expect_is(my_gitlab(gl_builds, project = "testor"), "data.frame")
   expect_is(my_project(gl_builds), "data.frame")
