@@ -6,3 +6,4 @@ vignettes/secrets/
 ^\.Rproj\.user$
 .gitlab-ci.yml
 Dockerfile
+^CONDUCT\.md$
