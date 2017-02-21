@@ -43,7 +43,8 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
                         script = ci_r_script({
                            library(devtools)
                            tar_file <- file.path(getwd(), list.files(".", pattern = ".tar.gz"))
-                           devtools::check_built(tar_file)
+                           results <- devtools::check_built(tar_file)
+                           stopifnot(sum(sapply(results, length)) <= 0)
                         }, ...)
                         ) %>%
            iff("build" %in% allowed_dependencies, c, list(dependencies = list("build")))
