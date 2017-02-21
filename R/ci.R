@@ -6,7 +6,7 @@
 #' @param ... passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name
 #' @export
 #' @rdname gitlabci
-#' @importFrom util install.packages
+#' @importFrom utils install.packages
 #' @importFrom testthat StopReporter
 gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
