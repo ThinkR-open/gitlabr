@@ -85,11 +85,13 @@ gl_default_ci_pipeline <- function() {
 #' @param pipeline a CI pipeline defined as a list of lists
 #' @param path destination path for writing gitlab CI yml file
 #' @param overwrite whether to overwrite existing gitlab CI yml file
+#' @param add_to_Rbuildignore add CI yml file (from \code{path}) to .Rbuildignore?
 #' @rdname gitlabci
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
                           path = ".gitlab-ci.yml",
-                          overwrite = TRUE) {
+                          overwrite = TRUE,
+                          add_to_Rbuildignore = TRUE) {
   
   mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE,
          MoreArgs = list(allowed_dependencies = names(pipeline))) %>%
@@ -98,6 +100,11 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
     yaml::as.yaml() %>%
     str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
     iff(overwrite || !file.exists(path), writeLines, con = path)
+  
+  r_build_ignore <- readLines(".Rbuildignore")
+  if (add_to_Rbuildignore && !path %in% r_build_ignore) {
+    writeLines(c(r_build_ignore, path), ".Rbuildignore")
+  }
   
 }
 
