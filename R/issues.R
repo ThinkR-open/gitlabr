@@ -27,7 +27,7 @@ gl_list_issues <- gl_get_issues
 #' \code{gl_get_issue} provides a wrapper with swapped arguments for convenience, esp. when
 #' using a project connection
 #' @export
-#' @rdname gl_get_issues
+#' @rdname gl_list_issues
 gl_get_issue <- function(issue_id, project, ...) {
   gl_get_issues(project = project, issue_id = issue_id, ...)
 }
