@@ -19,7 +19,6 @@ Imports:
     purrr (>= 0.2.2),
     tibble (>= 1.1),
     utils,
-    stringr,
     yaml
 Suggests:
     devtools (>= 1.8.0),

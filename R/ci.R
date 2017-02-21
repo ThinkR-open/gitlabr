@@ -1,9 +1,13 @@
 #' Define Gitlab CI jobs
 #' 
 #' @param job_name Name of job template to get CI definition elements
+#' @param stage Name of stage job belongs to
+#' @param allowed_dependencies List of job names that are allowed to be listed as dependencies of jobs. Usually this is all existing other jobs.
 #' @param ... passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name
 #' @export
 #' @rdname gitlabci
+#' @importFrom util install.packages
+#' @importFrom testthat StopReporter
 gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
          "prepare_devtools" = list(stage = stage,
@@ -78,6 +82,9 @@ gl_default_ci_pipeline <- function() {
 
 #' @export
 #' @param image Docker image to use in gitlab ci. If NULL, not specified!
+#' @param pipeline a CI pipeline defined as a list of lists
+#' @param path destination path for writing gitlab CI yml file
+#' @param overwrite whether to overwrite existing gitlab CI yml file
 #' @rdname gitlabci
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
@@ -96,6 +103,12 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
 
 #' Access the Gitlab CI builds
 #' 
+#' List the build with \code{gl_builds} or download the most recent artifacts
+#' archive with \code{gl_latest_build_artifact}. For every branch and job combination
+#' only the most recent artifacts archive is available
+#' 
+#' @param project project name or id, required
+#' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
 gl_builds <- function(project, ...) {
   gitlab(gl_proj_req(project = project, "builds", ...), ...)
@@ -103,6 +116,10 @@ gl_builds <- function(project, ...) {
 
 #' @export
 #' @rdname gl_builds
+#' @param job Name of the job to get build artifacts from
+#' @param branch_name name of branch
+#' @param save_to_file either a path where to store .zip file or NULL if raw should be returned
+#' @return returns the file path if \code{save_to_file} is TRUE, or the archive as raw otherwise.
 gl_latest_build_artifact <- function(project, job, branch_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
   
   
