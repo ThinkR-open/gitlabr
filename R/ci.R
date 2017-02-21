@@ -101,9 +101,11 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
     str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
     iff(overwrite || !file.exists(path), writeLines, con = path)
   
-  r_build_ignore <- readLines(".Rbuildignore")
-  if (add_to_Rbuildignore && !path %in% r_build_ignore) {
-    writeLines(c(r_build_ignore, path), ".Rbuildignore")
+  if (file.exists(".Rbuildignore")) {
+    r_build_ignore <- readLines(".Rbuildignore")
+    if (add_to_Rbuildignore && !path %in% r_build_ignore) {
+      writeLines(c(r_build_ignore, path), ".Rbuildignore")
+    }
   }
   
 }
