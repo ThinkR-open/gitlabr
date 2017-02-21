@@ -4,3 +4,5 @@ notes/
 vignettes/secrets/
 ^.*\.Rproj$
 ^\.Rproj\.user$
+.gitlab-ci.yml
+Dockerfile
