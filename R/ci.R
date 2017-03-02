@@ -7,7 +7,6 @@
 #' @export
 #' @rdname gitlabci
 #' @importFrom utils install.packages
-#' @importFrom testthat StopReporter
 gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
          "document" = list(stage = stage,
