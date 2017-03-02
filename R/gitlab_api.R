@@ -1,5 +1,8 @@
 #' Request Gitlab API
 #' 
+#' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
+#' be added soon.
+#' 
 #' @param req vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})
 #' @param api_root URL where the gitlab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})
 #' @param verb http verb to use for request in form of one of the \code{httr} functions

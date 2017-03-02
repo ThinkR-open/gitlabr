@@ -12,6 +12,9 @@
 #' function it calls it with the arguments provided in \code{...} and the gitlab
 #' URL, api location and private_token provided when creating it via \code{gl_connection}.
 #' 
+#' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
+#' be added soon.
+#' 
 #' @examples
 #' \dontrun{
 #' my_gitlab <- gl_connection("http://gitlab.example.com", "123####89")

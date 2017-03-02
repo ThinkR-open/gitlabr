@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Guide to gitlabr"
 author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "2016-08-26"
+date: "2017-03-02"
 tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
 output:
   pdf_document:
@@ -24,8 +24,8 @@ httr::set_config(httr::config(ssl_verifypeer = 0L))
 
 ```{r}
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
-                           login = "jlewando",
+my_gitlab <- gl_connection("http://gitlab.points-of-interest.cc",
+                           login = "testibaer",
                            password = readLines("secrets/gitlab_password.txt"))
 ```
 
@@ -125,6 +125,9 @@ PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%2
 ```
 
 To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
+
+Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (from Gitlab version >= 9.0) will
+be added soon.
 
 # Different ways to do it
 
@@ -252,3 +255,4 @@ And last but not least, if you've written a convenience wrapper for yourself, ke
 # Using gitlab CI with gitlabr
 
 `gitlabr` can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package using gitlabs CI software. See the `use_gitlab_ci` and related functions for documentation.
+
