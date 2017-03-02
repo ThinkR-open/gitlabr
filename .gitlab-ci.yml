@@ -3,7 +3,7 @@ image: pointsofinterest/gitlabr:latest
 document:
   stage: document
   script:
-  - R --vanilla -e ' library(devtools); devtools::document(); devtools::document()'
+  - R --vanilla -e 'library(devtools);  devtools::document(); devtools::document()'
   artifacts:
     paths:
     - man/
@@ -12,7 +12,7 @@ document:
 test:
   stage: test
   script:
-  - R --vanilla -e ' library(devtools); library(testthat); devtools::test(reporter
+  - R --vanilla -e 'library(devtools); library(testthat); devtools::test(reporter
     = StopReporter)'
   dependencies:
   - document
@@ -20,7 +20,7 @@ test:
 build:
   stage: build
   script:
-  - R --vanilla -e ' library(devtools); devtools::build(path = "./")'
+  - R --vanilla -e 'library(devtools); devtools::build(path = "./")'
   artifacts:
     paths:
     - '*.tar.gz'
@@ -30,7 +30,7 @@ build:
 check:
   stage: check
   script:
-  - R --vanilla -e ' library(devtools); tar_file <- file.path(getwd(), list.files(".",
+  - R --vanilla -e 'library(devtools);  tar_file <- file.path(getwd(), list.files(".",
     pattern = ".tar.gz")); results <- devtools::check_built(tar_file); stopifnot(sum(sapply(results,
     length)) <= 0)'
   dependencies:
