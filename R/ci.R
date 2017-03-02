@@ -10,42 +10,28 @@
 #' @importFrom testthat StopReporter
 gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
-         "prepare_devtools" = list(stage = stage,
-                                   script = ci_r_script({
-                                   if (!require(devtools)) {
-                                     install.packages("devtools", repos = "https://cran.rstudio.com")
-                                     library(devtools)
-                                   }
-                                   devtools::install_dev_deps()
-                                   },
-                                   ...)),
          "document" = list(stage = stage,
                            script = ci_r_script({
-                             library(devtools)
                              devtools::document()
                              devtools::document()
                            },
                            ...),
                            artifacts = list(paths = list("man/", "NAMESPACE"))),
          "test" = list(stage = stage,
-                       script = ci_r_script({
-                         library(devtools)
-                         library(testthat)
-                         devtools::test(reporter = StopReporter)
-                       },
+                       script = ci_r_script(
+                         packages = c("devtools", "testthat"),
+                         devtools::test(reporter = StopReporter),
                        ...)) %>%
            iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "build" = list(stage = stage,
-                        script = ci_r_script({
-                           library(devtools)
+                        script = ci_r_script(
                            devtools::build(path = "./")
-                         }, ...),
+                         , ...),
                          artifacts = list(paths = list("*.tar.gz"))
                         ) %>%
            iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "check" = list(stage = stage,
                         script = ci_r_script({
-                           library(devtools)
                            tar_file <- file.path(getwd(), list.files(".", pattern = ".tar.gz"))
                            results <- devtools::check_built(tar_file)
                            stopifnot(sum(sapply(results, length)) <= 0)
@@ -55,7 +41,7 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
       )
 }
 
-ci_r_script <- function(expr, vanilla = TRUE, slave = FALSE) {
+ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = FALSE) {
   substitute(expr) %>%
     deparse() %>%
     lapply(stringr::str_trim) %>%
@@ -63,6 +49,7 @@ ci_r_script <- function(expr, vanilla = TRUE, slave = FALSE) {
     stringr::str_replace_all("(^\\{\\;)|(\\;\\s\\})$", "") %>%
     stringr::str_replace_all("\\{\\;", "{") %>%
     stringr::str_replace_all("\\;\\}", "}") %>%
+    { c(paste0("library(", packages, "); "), .) } %>%
     { paste0(c("R ",
                if (vanilla) {"--vanilla "} else { c() },
                if (slave) {"--slave "} else { c() },
