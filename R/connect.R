@@ -38,7 +38,7 @@ gl_connection <- function(gitlab_url
                             , email = NULL
                             , password = NULL
                             , private_token = NULL
-                            , api_location = "/api/v3/") {
+                            , api_location = "/api/v4/") {
   
   gl_con_root <- paste0(gitlab_url, api_location)
   
@@ -69,7 +69,7 @@ gl_project_connection <- function(gitlab_url
                              , email = NULL
                              , password = NULL
                              , private_token = NULL
-                             , api_location = "/api/v3/") {
+                             , api_location = "/api/v4/") {
 
   gl_con_root <- paste0(gitlab_url, api_location)
   
