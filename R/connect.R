@@ -40,6 +40,12 @@
 #' API v3 until gitlabr 1.0 (to be released in 2017), with which it will become deprecated also in gitlabr.
 #' "v4" is the default setting in gitlabr from version 0.9 on.
 #' 
+#' For some functions, where the API endpoints
+#' differ in logic, a parameter `force_api_v3` is provided with functions to enforce API v3 logic. This
+#' has to be set manually with each call in addition to the api_version parameter of the connection.
+#' Rather than using this parameter, it is intended to update your Gitlab installation to support API v4.
+#' Use this parameter only as a workaround when this is not possible!
+#' 
 #' @export
 gl_connection <- function(gitlab_url,
                           login = NULL,

@@ -1,8 +1,9 @@
-#' Get the comments of a commit or issue
+#' Get the comments/notes of a commit or issue
 #' 
 #' @param project project name or id
 #' @param object_type one of "issue" or "commit". Snippets and merge_requests are not implemented yet.
-#' @param id id of object: (project-wide) issue_id or commit sha
+#' @param id id of object: sha for commits, not issues notes/comments:
+#' (project-wide) id for api version 4, (global) iid for api version 3
 #' @param note_id id of note
 #' @param ... passed on to \code{\link{gitlab}} API call. See Details.
 #' @rdname gl_comments
@@ -20,14 +21,19 @@ gl_comments <- function(project,
                         id,
                         note_id = c(),
                         verb = httr::GET,
+                        force_api_v3 = FALSE,
                         ... ) {
   
   if (object_type == "commit" && !is.null(note_id)) {
     warning("Commit comments cannot be get separate by id, parameter note_id is ignored!")
   }
   
+  if (object_type == "issue" && force_api_v3) {
+      id <- gl_to_issue_id(id, project, ...)
+  }
+  
   gitlab(req = gl_proj_req(project, req = switch(object_type,
-                                                 "issue" = c("issues", gl_to_issue_id(id, project, ...),
+                                                 "issue" = c("issues", id,
                                                              "notes", note_id),
                                                  "commit" = c("repository", "commits", id, "comments")),
                            ...),

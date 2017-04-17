@@ -1,8 +1,14 @@
 gl_get_issues <- function(project = NULL,
                           issue_id = NULL,
                           verb = httr::GET,
+                          force_api_v3 = FALSE,
                           ...) {
-  (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...)) %>%
+  
+  if (force_api_v3) {
+    issued_id <- gl_to_issue_id(issue_id, project, ...)
+  }
+  
+  (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", issue_id), ...)) %>%
     gitlab(...) %>%
     iffn(is.null(issue_id), function(issue) {
       issue %>%
@@ -15,7 +21,9 @@ gl_get_issues <- function(project = NULL,
 #' Get issues of a project or user
 #' 
 #' @param project project name or id, may be null for all issues created by user
-#' @param issue_id optional issue id (projectwide iid, not gitlab API id)
+#' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE`)
+#' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
+#' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
 #' @param ... further parameters passed on to \code{\link{gitlab}}, may be
 #' state, labels, issue id, ...
 #' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
@@ -34,11 +42,19 @@ gl_get_issue <- function(issue_id, project, ...) {
 
 #' Translate projectwide issue id to global gitlab API issue id
 #' 
+#' This functions is only intended to be used with gitlab API v3. With v4, issues
+#' do no longer have a global iid!
+#' 
 #' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
 #' @param project project name or id
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
-gl_to_issue_id <- function(issue_id, project, ...) {
+gl_to_issue_id <- function(issue_id, project, force_api_v3 = TRUE, ...) {
+  
+  if(!force_api_v3) {
+    .Deprecated("gl_get_issue", package = "gitlabr",
+                msg = "Usage deprecated! gl_to_issue_id can sensibly be used only with gitlab API v3!")
+  }
   if (is.null(issue_id)) {
     NULL
   } else {
@@ -76,12 +92,21 @@ gl_new_issue <- function(title,
 
 #' Post a new issue or edit one
 #' 
-#' @param issue_id id of issue to edit  (projectwide iid, not gitlab API id)
+#' @param issue_id issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)
+#' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
+#' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
 #' @export
 gl_edit_issue <- function(issue_id,
                           project,
+                          force_api_v3 = FALSE,
                           ...) {
-  gitlab(req = gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...),
+  
+  if (force_api_v3) {
+    issued_id <- gl_to_issue_id(issue_id, project, ...)
+  }
+  
+  
+  gitlab(req = gl_proj_req(project, req = c("issues", issue_id), ...),
          verb = httr::PUT,
          ...)
 }
