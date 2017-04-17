@@ -29,7 +29,7 @@ gl_comments <- function(project,
   }
   
   if (object_type == "issue" && force_api_v3) {
-      id <- gl_to_issue_id(id, project, ...)
+      id <- gl_to_issue_id(id, project, force_api_v3 = force_api_v3, ...)
   }
   
   gitlab(req = gl_proj_req(project, req = switch(object_type,

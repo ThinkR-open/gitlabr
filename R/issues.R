@@ -5,7 +5,7 @@ gl_get_issues <- function(project = NULL,
                           ...) {
   
   if (force_api_v3) {
-    issued_id <- gl_to_issue_id(issue_id, project, ...)
+    issue_id <- gl_to_issue_id(issue_id, project, force_api_v3 = force_api_v3, ...)
   }
   
   (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", issue_id), ...)) %>%
@@ -59,9 +59,9 @@ gl_to_issue_id <- function(issue_id, project, force_api_v3 = TRUE, ...) {
     NULL
   } else {
     (if (missing(project)) {
-      call_filter_dots(gl_get_issues, .dots = list(...))
+      call_filter_dots(gl_get_issues, .dots = list(...), force_api_3 = force_api_v3)
     } else {
-      call_filter_dots(gl_get_issues, .dots = list(...), project = project)  
+      call_filter_dots(gl_get_issues, .dots = list(...), project = project, force_api_v3 = force_api_v3)  
     }) %>%
       filter(iid == issue_id) %>%
       select(id) %>%
@@ -102,7 +102,7 @@ gl_edit_issue <- function(issue_id,
                           ...) {
   
   if (force_api_v3) {
-    issued_id <- gl_to_issue_id(issue_id, project, ...)
+    issue_id <- gl_to_issue_id(issue_id, project, ...)
   }
   
   
