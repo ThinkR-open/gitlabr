@@ -1,6 +1,6 @@
 Package: gitlabr
 Title: Access to the Gitlab API
-Version: 0.7
+Version: 0.8.9
 Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.eu", role = c("aut", "cre"))
 Description: Provides R functions to access the API of the project and
     repository management web application gitlab. For many common tasks (repository
@@ -23,7 +23,7 @@ Imports:
 Suggests:
     devtools (>= 1.8.0),
     roxygen2,
-    testthat,
+    testthat (>= 1.0.2),
     R.rsp,
     knitr,
     shiny (>= 0.13.0)

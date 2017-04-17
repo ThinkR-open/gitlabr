@@ -56,7 +56,7 @@ test_that("Commits and diffs work", {
   
   expect_is(my_commits, "data.frame")
   expect_is(my_commit, "data.frame")
-  expect_more_than(length(intersect(names(my_commits), names(my_commit))), 0L)
+  expect_gt(length(intersect(names(my_commits), names(my_commit))), 0L)
   
   ## same with function idiom
   expect_is(gl_get_commits("testor", gitlab_con = my_gitlab), "data.frame")
