@@ -98,28 +98,47 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
 
 #' Access the Gitlab CI builds
 #' 
-#' List the build with \code{gl_builds} or download the most recent artifacts
+#' List the jobs with \code{gl_jobs}, the pipelines with \code{gl_pipelines} or
+#' download the most recent artifacts
 #' archive with \code{gl_latest_build_artifact}. For every branch and job combination
-#' only the most recent artifacts archive is available
+#' only the most recent artifacts archive is available.
+#' \code{gl_builds} is the equivalent for gitlab API v3.
 #' 
 #' @param project project name or id, required
 #' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
-gl_builds <- function(project, ...) {
-  gitlab(gl_proj_req(project = project, "builds", ...), ...)
+#' @rdname gl_pipelines
+gl_pipelines <- function(project, ...) {
+  gitlab(gl_proj_req(project = project, "pipelines", ...), ...)
 }
 
 #' @export
 #' @rdname gl_builds
+gl_jobs <- function(project, ...) {
+  gitlab(gl_proj_req(project = project, "pipelines", ...), ...)
+}
+
+#' @export
+#' @rdname gl_builds
+gl_builds <- function(project, force_api_v3 = TRUE, ...) {
+  if (!force_api_v3) {
+    .Deprecated("gl_pipelines", package = "gitlabr", old = "gl_builds")
+  }
+  gitlab(gl_proj_req(project = project, "builds", ...), ...)
+}
+
+
+#' @export
+#' @rdname gl_builds
 #' @param job Name of the job to get build artifacts from
-#' @param branch_name name of branch
+#' @param ref_name name of ref (i.e. branch, commit, tag)
 #' @param save_to_file either a path where to store .zip file or NULL if raw should be returned
 #' @return returns the file path if \code{save_to_file} is TRUE, or the archive as raw otherwise.
-gl_latest_build_artifact <- function(project, job, branch_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
+gl_latest_build_artifact <- function(project, job, ref_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
   
   
   raw_build_archive <- gitlab(gl_proj_req(project = project,
-                                          c("builds", "artifacts", branch_name, "download"),
+                                          c("jobs", "artifacts", ref_name, "download"),
                                           ...),
                               job = job, auto_format = FALSE, ...)
   

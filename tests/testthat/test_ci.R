@@ -25,9 +25,17 @@ test_that("CI builds access works", {
                                       private_token = test_private_token,
                                       api_version = test_api_version)
   
-  expect_is(my_gitlab(gl_builds, project = "testor"), "data.frame")
-  expect_is(my_project(gl_builds), "data.frame")
-
+  if (test_api_version == "v4") {
+    expect_is(my_gitlab(gl_jobs, project = "testor"), "data.frame")
+    expect_is(my_project(gl_jobs), "data.frame")
+    expect_is(my_gitlab(gl_pipelines, project = "testor"), "data.frame")
+    expect_is(my_project(gl_pipelines), "data.frame")
+  } else if (test_api_version == "v3") {
+    expect_is(my_gitlab(gl_builds, project = "testor"), "data.frame")
+    expect_is(my_project(gl_builds), "data.frame")
+    expect_warning(my_project(gl_builds, force_api_v3 = FALSE), regexp = "deprecated")
+  }
+  
   artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = "testor", job = "test_job")
   expect_true(file.exists(artifacts_zip))
   expect_true("test.txt" %in% unzip(artifacts_zip, list = TRUE)$Name)
