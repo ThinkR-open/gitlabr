@@ -1,12 +1,15 @@
 test_url <- Sys.getenv("GITLABR_TEST_URL")
 test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
+test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
 
 my_gitlab <- gl_connection(test_url,
-                               private_token = test_private_token)
+                           private_token = test_private_token,
+                           api_version = test_api_version)
 
 my_project <- gl_project_connection(test_url,
                                  "testor",
-                                 private_token = test_private_token)
+                                 private_token = test_private_token,
+                                 api_version = test_api_version)
 
 
 test_that("Repo access works", {

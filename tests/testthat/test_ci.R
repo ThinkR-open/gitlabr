@@ -1,5 +1,7 @@
 test_url <- Sys.getenv("GITLABR_TEST_URL")
 test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
+test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
+
 
 test_that("CI yml generation works", {
   
@@ -16,10 +18,12 @@ test_that("CI yml generation works", {
 test_that("CI builds access works", {
   
   my_gitlab <- gl_connection(test_url,
-                             private_token = test_private_token)
+                             private_token = test_private_token,
+                             api_version = test_api_version)
   my_project <- gl_project_connection(test_url,
                                       project = "testor",
-                                      private_token = test_private_token)
+                                      private_token = test_private_token,
+                                      api_version = test_api_version)
   
   expect_is(my_gitlab(gl_builds, project = "testor"), "data.frame")
   expect_is(my_project(gl_builds), "data.frame")

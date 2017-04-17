@@ -27,10 +27,18 @@
 #' @param email email of user to login; either this or login or private token must be specified
 #' @param password password of user to login; if no private token but login or email is given, this must be specified
 #' @param private_token private_token with which to identify; either this or login/email + passsword must be specified to init connection
-#' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/v3/"
+#' @param api_version Either "v3" or "v4" for one of the two gitlab API version. See Details section on API versions.
+#' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"
 #' @param project id or name of project to issue requests to
 #' 
 #' @return A function to access a specific gitlab API as a specific user, see details
+#' 
+#' @section API versions
+#' Currently (April 2017, Gitlab version 9.0), Gitlab provides two API versions "v3" and "v4",
+#' where "v3" is deprecated and to be removed soon from Gitlab. "v4" is the standard API since Gitlab version 9.0.
+#' gitlabr supports both API versions, since "v3" was the standard until very recently. gitlabr will support
+#' API v3 until gitlabr 1.0 (to be released in 2017), with which it will become deprecated also in gitlabr.
+#' "v4" is the default setting in gitlabr from version 0.9 on.
 #' 
 #' @export
 gl_connection <- function(gitlab_url
@@ -38,7 +46,8 @@ gl_connection <- function(gitlab_url
                             , email = NULL
                             , password = NULL
                             , private_token = NULL
-                            , api_location = "/api/v4/") {
+                            , api_version = "v4"
+                            , api_location = paste0("/api/", api_version, "/")) {
   
   gl_con_root <- paste0(gitlab_url, api_location)
   
@@ -69,7 +78,8 @@ gl_project_connection <- function(gitlab_url
                              , email = NULL
                              , password = NULL
                              , private_token = NULL
-                             , api_location = "/api/v4/") {
+                             , api_version = "v4"
+                             , api_location = paste0("/api/", api_version, "/")) {
 
   gl_con_root <- paste0(gitlab_url, api_location)
   
