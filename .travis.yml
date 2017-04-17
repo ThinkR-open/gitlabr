@@ -3,3 +3,6 @@
 language: R
 sudo: false
 cache: packages
+before_script:
+  - R --vanilla -e 'library(devtools);  devtools::document(); devtools::document()'
+
