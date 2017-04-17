@@ -27,10 +27,10 @@ gl_comments <- function(project,
   }
   
   gitlab(req = gl_proj_req(project, req = switch(object_type,
-                                                "issue" = c("issues", gl_to_issue_id(id, project, ...),
-                                                            "notes", note_id),
-                                                "commit" = c("repository", "commits", id, "comments")),
-                      ...),
+                                                 "issue" = c("issues", gl_to_issue_id(id, project, ...),
+                                                             "notes", note_id),
+                                                 "commit" = c("repository", "commits", id, "comments")),
+                           ...),
          verb = verb,
          ...)
   

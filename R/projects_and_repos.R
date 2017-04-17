@@ -201,7 +201,7 @@ gl_push_file <- function(project,
                          branch_name = "master",
                          overwrite = TRUE,
                          ...) {
-
+  
   exists <- gl_file_exists(project = project, file_path, ref_name = branch_name, ...)
   if (!exists || overwrite) {
     gitlab(req = gl_proj_req(project = project, c("repository", "files"), ...),

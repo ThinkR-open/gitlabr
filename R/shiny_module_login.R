@@ -55,28 +55,28 @@ glReactiveLogin <- function(input, output, session,
   )
   
   shiny::eventReactive(input_changed(), {
-
+    
     arglist <- list(gitlab_url = gitlab_url,
                     login = input$login,
                     password = input$password)
     
     tryCatch({
-        gl_con <- if(is.null(project)) {
-            do.call(gl_connection, arglist)
-          } else {
-            do.call(gl_project_connection, c(arglist, project = project))
-          }
-        output$login_status <- shiny::renderText(success_message)
-        gl_con
-      },
-      error = function(e) {
-        output$login_status <- shiny::renderText(paste(c(failure_message,
-                                                  conditionMessage(e),
-                                                  if(grepl("Unauthorized.*401", conditionMessage(e))) {
-                                                  "Probably the provided login/password combination is incorrect."}),
-                                                collapse = " "))
-        on_error
-      })
+      gl_con <- if(is.null(project)) {
+        do.call(gl_connection, arglist)
+      } else {
+        do.call(gl_project_connection, c(arglist, project = project))
+      }
+      output$login_status <- shiny::renderText(success_message)
+      gl_con
+    },
+    error = function(e) {
+      output$login_status <- shiny::renderText(paste(c(failure_message,
+                                                       conditionMessage(e),
+                                                       if(grepl("Unauthorized.*401", conditionMessage(e))) {
+                                                         "Probably the provided login/password combination is incorrect."}),
+                                                     collapse = " "))
+      on_error
+    })
   })
   
 }

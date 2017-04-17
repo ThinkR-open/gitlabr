@@ -80,7 +80,7 @@ gl_project_connection <- function(gitlab_url,
                                   private_token = NULL,
                                   api_version = "v4",
                                   api_location = paste0("/api/", api_version, "/")) {
-
+  
   gl_con_root <- paste0(gitlab_url, api_location)
   
   if (is.null(private_token)) {
@@ -120,7 +120,7 @@ get_private_token <- function(api_root,
                               verb = httr::POST,
                               auto_format = FALSE,
                               password = password)
-
+  
   if (!is.null(login)) {
     token_req(login = login)$private_token
   } else {

@@ -51,11 +51,11 @@ gitlab <- function(req,
     (if (page == "all") {list(...)} else { list(page = page, ...)}) %>%
       pipe_into(argname_verb, verb, url = url) %>%
       http_error_or_content()   -> resp
-
+    
     resp$ct %>%
       iff(auto_format, json_to_flat_df) %>% ## better would be to check MIME type
       iff(debug, print) -> resp$ct
-
+    
     if (page == "all") {
       private_token <- list(...)[["private_token"]]
       while (length(resp$nxt) > 0) {
@@ -70,9 +70,9 @@ gitlab <- function(req,
                                iff(auto_format, json_to_flat_df))
       }
     }
-
+    
     return(resp$ct)
-
+    
   } else {
     
     if (!missing(req)) {
@@ -123,7 +123,7 @@ get_rel <- function(links) {
                        lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
                        unlist(),
                      stringsAsFactors = FALSE)
-        }
+}
 
 get_next_link <- function(links) {
   if(is.null(links)) {
@@ -176,12 +176,12 @@ json_to_flat_df <- function(l) {
 }
 
 call_filter_dots <- function(fun,
-                              .dots = list(),
-                              .dots_allowed = gitlab %>%
-                                formals() %>%
-                                names() %>%
-                                setdiff("...") %>%
-                                c("api_root", "private_token"),
-                              ...) {
+                             .dots = list(),
+                             .dots_allowed = gitlab %>%
+                               formals() %>%
+                               names() %>%
+                               setdiff("...") %>%
+                               c("api_root", "private_token"),
+                             ...) {
   do.call(fun, args = c(list(...), .dots[intersect(.dots_allowed, names(.dots))]))
 }

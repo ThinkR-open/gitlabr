@@ -20,24 +20,24 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
                        script = ci_r_script(
                          packages = c("devtools", "testthat"),
                          devtools::test(reporter = StopReporter),
-                       ...)) %>%
+                         ...)) %>%
            iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "build" = list(stage = stage,
                         script = ci_r_script(
-                           devtools::build(path = "./")
-                         , ...),
-                         artifacts = list(paths = list("*.tar.gz"))
-                        ) %>%
+                          devtools::build(path = "./")
+                          , ...),
+                        artifacts = list(paths = list("*.tar.gz"))
+         ) %>%
            iff("document" %in% allowed_dependencies, c, list(dependencies = list("document"))),
          "check" = list(stage = stage,
                         script = ci_r_script({
-                           tar_file <- file.path(getwd(), list.files(".", pattern = ".tar.gz"))
-                           results <- devtools::check_built(tar_file)
-                           stopifnot(sum(sapply(results, length)) <= 0)
+                          tar_file <- file.path(getwd(), list.files(".", pattern = ".tar.gz"))
+                          results <- devtools::check_built(tar_file)
+                          stopifnot(sum(sapply(results, length)) <= 0)
                         }, ...)
-                        ) %>%
+         ) %>%
            iff("build" %in% allowed_dependencies, c, list(dependencies = list("build")))
-      )
+  )
 }
 
 ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = FALSE) {
@@ -53,7 +53,7 @@ ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = 
                if (vanilla) {"--vanilla "} else { c() },
                if (slave) {"--slave "} else { c() },
                "-e '", ., "'"),
-              collapse = "") } %>%
+             collapse = "") } %>%
     list()
 }
 
@@ -121,7 +121,7 @@ gl_latest_build_artifact <- function(project, job, branch_name = "master", save_
   raw_build_archive <- gitlab(gl_proj_req(project = project,
                                           c("builds", "artifacts", branch_name, "download"),
                                           ...),
-                                job = job, auto_format = FALSE, ...)
+                              job = job, auto_format = FALSE, ...)
   
   if (!is.null(save_to_file)) {
     writeBin(raw_build_archive, save_to_file)
