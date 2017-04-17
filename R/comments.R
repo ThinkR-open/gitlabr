@@ -7,32 +7,32 @@
 #' @param ... passed on to \code{\link{gitlab}} API call. See Details.
 #' @rdname gl_comments
 #' @export
-gl_get_comments <- function(object_type = "issue"
-                       , id
-                       , note_id = c()
-                       , project
-                       , ...) {
+gl_get_comments <- function(object_type = "issue",
+                            id,
+                            note_id = c(),
+                            project,
+                            ...) {
   gl_comments(project, object_type, id, note_id, ...)
 }
 
-gl_comments <- function(project
-                   , object_type = "issue"
-                   , id
-                   , note_id = c()
-                   , verb = httr::GET
-                   , ... ) {
+gl_comments <- function(project,
+                        object_type = "issue",
+                        id,
+                        note_id = c(),
+                        verb = httr::GET,
+                        ... ) {
   
   if (object_type == "commit" && !is.null(note_id)) {
     warning("Commit comments cannot be get separate by id, parameter note_id is ignored!")
   }
   
-  gitlab(req = gl_proj_req(project, req = switch(object_type
-                                            , "issue" = c("issues", gl_to_issue_id(id, project, ...)
-                                                        , "notes", note_id)
-                                            , "commit" = c("repository", "commits", id, "comments"))
-                      , ...)
-       , verb = verb
-       , ...)
+  gitlab(req = gl_proj_req(project, req = switch(object_type,
+                                                "issue" = c("issues", gl_to_issue_id(id, project, ...),
+                                                            "notes", note_id),
+                                                "commit" = c("repository", "commits", id, "comments")),
+                      ...),
+         verb = verb,
+         ...)
   
 }
 
@@ -56,48 +56,48 @@ gl_get_commit_comments <- function(...) {
 #' See http://doc.gitlab.com/ce/api/commits.html
 #' @param text Text of comment/note to add or edit (translates to gitlab API note/body respectively)
 #' @export
-gl_comment_commit  <- function(project
-                          , id
-                          , text
-                          , ...) {
-  gl_comments(project = project
-         , object_type = "commit"
-         , id = id
-         , note_id = NULL
-         , note = text
-         , verb = httr::POST
-         , ...)
+gl_comment_commit  <- function(project,
+                               id,
+                               text,
+                               ...) {
+  gl_comments(project = project,
+              object_type = "commit",
+              id = id,
+              note_id = NULL,
+              note = text,
+              verb = httr::POST,
+              ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_comment_issue <- function(project
-                        , id
-                        , text
-                        , ...) {
-  gl_comments(project = project
-         , object_type = "issue"
-         , id = id
-         , note_id = NULL
-         , body = text
-         , verb = httr::POST
-         , ...)
+gl_comment_issue <- function(project,
+                             id,
+                             text,
+                             ...) {
+  gl_comments(project = project,
+              object_type = "issue",
+              id = id,
+              note_id = NULL,
+              body = text,
+              verb = httr::POST,
+              ...)
 }
 
 #' @rdname gl_comments
-gl_edit_comment <- function(object_type
-                       , text
-                       , ...) {
+gl_edit_comment <- function(object_type,
+                            text,
+                            ...) {
   switch(object_type,
-         "issue" = gl_comments(object_type = "issue"
-                          , body = text
-                          , verb = httr::PUT
-                          , ...),
-         "commit" =  gl_comments(object_type = "commit"
-                            , note_id = NULL ## prevent partial argument match
-                            , note = text
-                            , verb = httr::PUT
-                            , ...))
+         "issue" = gl_comments(object_type = "issue",
+                               body = text,
+                               verb = httr::PUT,
+                               ...),
+         "commit" =  gl_comments(object_type = "commit",
+                                 note_id = NULL, ## prevent partial argument match
+                                 note = text,
+                                 verb = httr::PUT,
+                                 ...))
 }
 
 #' @rdname gl_comments

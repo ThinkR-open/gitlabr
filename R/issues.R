@@ -1,7 +1,7 @@
-gl_get_issues <- function(project = NULL
-                     , issue_id = NULL
-                     , verb = httr::GET
-                     , ...) {
+gl_get_issues <- function(project = NULL,
+                          issue_id = NULL,
+                          verb = httr::GET,
+                          ...) {
   (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...)) %>%
     gitlab(...) %>%
     iffn(is.null(issue_id), function(issue) {
@@ -65,57 +65,57 @@ gl_to_issue_id <- function(issue_id, project, ...) {
 #' 
 #' @rdname gl_edit_issue
 #' @export
-gl_new_issue <- function(title
-                    , project
-                    , ...) {
-  gitlab(req = gl_proj_req(project, "issues", ...)
-       , title = title
-       , verb = httr::POST
-       , ...)
+gl_new_issue <- function(title,
+                         project,
+                         ...) {
+  gitlab(req = gl_proj_req(project, "issues", ...),
+         title = title,
+         verb = httr::POST,
+         ...)
 }
 
 #' Post a new issue or edit one
 #' 
 #' @param issue_id id of issue to edit  (projectwide iid, not gitlab API id)
 #' @export
-gl_edit_issue <- function(issue_id
-                     , project
-                     , ...) {
-  gitlab(req = gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...)
-       , verb = httr::PUT
-       , ...)
+gl_edit_issue <- function(issue_id,
+                          project,
+                          ...) {
+  gitlab(req = gl_proj_req(project, req = c("issues", gl_to_issue_id(issue_id, project, ...)), ...),
+         verb = httr::PUT,
+         ...)
 }
 
 #' @rdname gl_edit_issue
 #' @export
-gl_close_issue <- function(issue_id
-                      , project
-                      , ...) {
+gl_close_issue <- function(issue_id,
+                           project,
+                           ...) {
   gl_edit_issue(issue_id, project, state_event = "close", ...)
 }
 
 #' @rdname gl_edit_issue
 #' @export
-gl_reopen_issue <- function(issue_id
-                       , project
-                       , ...) {
+gl_reopen_issue <- function(issue_id,
+                            project,
+                            ...) {
   gl_edit_issue(issue_id, project, state_event = "reopen", ...)
 }
 
 #' @rdname gl_edit_issue
 #' @param assignee_id numeric id of users as returned in '/users/' API request
 #' @export
-gl_assign_issue <- function(issue_id
-                       , assignee_id = NULL
-                       , project
-                       , ...) {
+gl_assign_issue <- function(issue_id,
+                            assignee_id = NULL,
+                            project,
+                            ...) {
   gl_edit_issue(issue_id, project, assignee_id = assignee_id, ...)
 }
 
 #' @rdname gl_edit_issue
 #' @export
-gl_unassign_issue <- function(issue_id
-                         , project
-                         , ...) {
+gl_unassign_issue <- function(issue_id,
+                              project,
+                              ...) {
   gl_assign_issue(issue_id, project, assignee_id = 0, ...)
 }

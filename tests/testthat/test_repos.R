@@ -7,9 +7,9 @@ my_gitlab <- gl_connection(test_url,
                            api_version = test_api_version)
 
 my_project <- gl_project_connection(test_url,
-                                 "testor",
-                                 private_token = test_private_token,
-                                 api_version = test_api_version)
+                                    "testor",
+                                    private_token = test_private_token,
+                                    api_version = test_api_version)
 
 
 test_that("Repo access works", {

@@ -23,17 +23,17 @@
 #' @importFrom utils capture.output
 #' @importFrom tibble data_frame as_data_frame
 #' @export
-gitlab <- function(req
-                 , api_root
-                 , verb = httr::GET
-                 , auto_format = TRUE
-                 , debug = FALSE
-                 , gitlab_con = "default"
-                 , page = "all"
-                 , enforce_api_root = TRUE
-                 , argname_verb = if (identical(verb, httr::GET) |
-                                      identical(verb, httr::DELETE)) { "query" } else { "body" }
-                 , ...) {
+gitlab <- function(req,
+                   api_root,
+                   verb = httr::GET,
+                   auto_format = TRUE,
+                   debug = FALSE,
+                   gitlab_con = "default",
+                   page = "all",
+                   enforce_api_root = TRUE,
+                   argname_verb = if (identical(verb, httr::GET) |
+                                      identical(verb, httr::DELETE)) { "query" } else { "body" },
+                   ...) {
   
   if (!is.function(gitlab_con) &&
       gitlab_con == "default" &&
@@ -100,9 +100,9 @@ gitlab <- function(req
   }
 }
 
-http_error_or_content <- function(response
-                                , handle = httr::stop_for_status
-                                , ...) {
+http_error_or_content <- function(response,
+                                  handle = httr::stop_for_status,
+                                  ...) {
   
   if (!identical(handle(response), FALSE)) {
     ct <- httr::content(response, ...)

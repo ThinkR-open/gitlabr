@@ -15,19 +15,19 @@ test_that("Gitlab connection creation works", {
   expect_is(my_gitlab("projects"), "data.frame")
   expect_is(my_gitlab(gl_list_projects), "data.frame")
   
-  expect_equivalent(my_gitlab(gl_list_projects)
-                  , my_gitlab("projects"))
+  expect_equivalent(my_gitlab(gl_list_projects),
+                    my_gitlab("projects"))
   
-  expect_equivalent(my_gitlab("projects")
-                  , gitlab("projects"
-                         , api_root = paste0(test_url, "/api/", test_api_version, "/")
-                         , private_token = test_private_token))
+  expect_equivalent(my_gitlab("projects"),
+                    gitlab("projects",
+                           api_root = paste0(test_url, "/api/", test_api_version, "/"),
+                           private_token = test_private_token))
   
   ## function idiom
   expect_is(gl_list_projects(gitlab_con = my_gitlab), "data.frame")
   
-  expect_equivalent(gl_list_projects(gitlab_con = my_gitlab)
-                  , my_gitlab("projects"))
+  expect_equivalent(gl_list_projects(gitlab_con = my_gitlab),
+                    my_gitlab("projects"))
   
   
   
