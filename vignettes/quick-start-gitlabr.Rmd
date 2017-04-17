@@ -195,7 +195,7 @@ Note that the set style is not purely functional, since `set_gitlab_connection` 
 
 # Convenience function list
 
-Here is a list of all convenience wrapper functions that come with `gitlabr` 0.7 Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
+Here is a list of all convenience wrapper functions that come with `gitlabr` 0.9 Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
 
 - gl_assign_issue
 - gl_builds
@@ -217,11 +217,14 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.7
 - gl_get_file
 - gl_get_issue
 - gl_get_issue_comments
+- gl_jobs
+- gl_latest_build_artifact
 - gl_list_issues
 - gl_list_branches
 - gl_list_files
 - gl_list_projects
 - gl_new_issue
+- gl_pipelines
 - gl_push_file
 - gl_reopen_issue
 - gl_repository
