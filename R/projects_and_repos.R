@@ -160,6 +160,7 @@ to_project_id <- function(x, ...) {
 #' @param file_path path to file
 #' @param ref name of ref (commit branch or tag)
 #' @param to_char flag if output should be converted to char; otherwise it is of class raw
+#' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
 #' @importFrom base64enc base64decode
@@ -167,13 +168,22 @@ gl_get_file <- function(project,
                         file_path,
                         ref = "master",
                         to_char = TRUE,
+                        force_api_v3 = FALSE,
                         ...) {
-  gl_repository(project = project,
-                req = "files",
-                file_path = file_path,
-                ref = ref,
-                verb = httr::GET,
-                ...)$content %>% 
+  (if (force_api_v3) {
+    gl_repository(project = project,
+                  req = "files",
+                  file_path = file_path,
+                  ref = ref,
+                  verb = httr::GET,
+                  ...)
+  } else {
+    gl_repository(project = project,
+                  req = c("files", file_path),
+                  ref = ref,
+                  verb = httr::GET,
+                  ...)
+  })$content %>% 
     base64decode() %>%
     iff(to_char, rawToChar)
   

@@ -19,7 +19,7 @@ test_that("Repo access works", {
   expect_is(my_gitlab(gl_repository, project = "testor", "contributors"), "data.frame")
   
   expect_is(my_gitlab(gl_list_files, "testor"), "data.frame")
-  expect_is(my_gitlab(gl_get_file, "testor", "README"), "character")
+  expect_is(my_gitlab(gl_get_file, "testor", "README", force_api_v3 = (test_api_version == "v3")), "character")
   
   ## same with function idiom
 
@@ -27,19 +27,19 @@ test_that("Repo access works", {
   expect_is(gl_repository(project = "testor", gitlab_con = my_gitlab), "data.frame")
   expect_is(gl_repository("contributors", project = "testor", gitlab_con = my_gitlab), "data.frame")
   expect_is(gl_list_files("testor", gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_get_file("testor", "README", gitlab_con = my_gitlab), "character")
+  expect_is(gl_get_file("testor", "README", gitlab_con = my_gitlab, force_api_v3 = (test_api_version == "v3")), "character")
   
   ## same with project connection
   
   expect_is(my_project(gl_repository), "data.frame")
   expect_is(my_project(gl_repository, "contributors"), "data.frame")
-  expect_is(my_project(gl_get_file, file_path = "README"), "character")
+  expect_is(my_project(gl_get_file, file_path = "README", force_api_v3 = (test_api_version == "v3")), "character")
 
   ## same with project connection & function idiom
   
   expect_is(gl_repository(gitlab_con = my_project), "data.frame")
   expect_is(gl_repository("contributors", gitlab_con = my_project), "data.frame")
-  expect_is(gl_get_file(file_path = "README", gitlab_con = my_project), "character")
+  expect_is(gl_get_file(file_path = "README", gitlab_con = my_project, force_api_v3 = (test_api_version == "v3")), "character")
   
   
   ## old API
