@@ -42,10 +42,13 @@ gl_get_issue <- function(issue_id, project, ...) {
 
 #' Translate projectwide issue id to global gitlab API issue id
 #' 
-#' This functions is only intended to be used with gitlab API v3. With v4, issues
-#' do no longer have a global iid!
+#' This functions is only intended to be used with gitlab API v3. With v4, the
+#' global iid is no longer functional.
 #' 
 #' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
+#' @param force_api_v3 Since this function is no longer necessary for Gitlab API v4,
+#' this must be set to TRUE in order to avoid deprecation warning and HTTP error. It currently
+#' default to TRUE, but this will change with gitlabr 1.0.
 #' @param project project name or id
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export

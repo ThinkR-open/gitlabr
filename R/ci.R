@@ -107,7 +107,7 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
 #' @param project project name or id, required
 #' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
-#' @rdname gl_pipelines
+#' @rdname gl_builds
 gl_pipelines <- function(project, ...) {
   gitlab(gl_proj_req(project = project, "pipelines", ...), ...)
 }
@@ -119,6 +119,9 @@ gl_jobs <- function(project, ...) {
 }
 
 #' @export
+#' @param force_api_v3 Since \code{gl_builds} is no longer working for Gitlab API v4,
+#' this must be set to TRUE in order to avoid deprecation warning and HTTP error.  It currently
+#' default to TRUE, but this will change with gitlabr 1.0.
 #' @rdname gl_builds
 gl_builds <- function(project, force_api_v3 = TRUE, ...) {
   if (!force_api_v3) {
