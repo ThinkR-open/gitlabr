@@ -8,6 +8,13 @@
 #' @param ... passed on to \code{\link{gitlab}} API call. See Details.
 #' @rdname gl_comments
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_project <- gl_project_connection(project = "testor"...) ## fill in login parameters
+#' my_project(gl_get_comments, "issue", 1)
+#' my_project(gl_get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
+#' my_project(gl_comment_issue, 1, text = "Almost done!")
+#' }
 gl_get_comments <- function(object_type = "issue",
                             id,
                             note_id = c(),

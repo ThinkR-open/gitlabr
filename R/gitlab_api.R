@@ -1,5 +1,9 @@
 #' Request Gitlab API
 #' 
+#' This is gitlabr's core function to talk to Gitlab's server API via HTTP(S). Usually you will not
+#' use this function directly too often, but either use gitlabr's convenience wrappers or write your
+#' own. See the \code{gitlabr} vignette for more information on this.
+#' 
 #' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
 #' be added soon.
 #' 
@@ -23,6 +27,17 @@
 #' @importFrom utils capture.output
 #' @importFrom tibble data_frame as_data_frame
 #' @export
+#' 
+#' @return the response from the Gitlab API, usually as a `data_frame` and including all pages
+#' 
+#' @examples \dontrun{
+#' gitlab(req = "projects",
+#'        api_root = "https://gitlab.example.com/api/v4/",
+#'        private_token = "123####89")
+#' gitlab(req = c("projects", 21, "issues"),
+#'        state = "closed",
+#'        gitlab_con = my_gitlab)
+#' }
 gitlab <- function(req,
                    api_root,
                    verb = httr::GET,

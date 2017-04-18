@@ -29,6 +29,13 @@ gl_get_issues <- function(project = NULL,
 #' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
 #' default verb \code{httr::GET}
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_project <- gl_project_connection(project = "testor"...) ## fill in login parameters
+#' my_project(gl_list_issues)
+#' my_project(gl_get_issue, 1)
+#' my_project(gl_new_issue, 1, "Implement new feature", description = "It should be awesome.")
+#' }
 gl_list_issues <- gl_get_issues
 
 #' @details 

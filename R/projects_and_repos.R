@@ -2,17 +2,28 @@
 #' 
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_gitlab <- gl_connection(...) ## fill in login parameters
+#' my_gitlab(gl_list_projects)
+#' }
 gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
-#' Access to repository functions in Gitlab API
+#' Access to repository functions and files in Gitlab API
 #' 
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
 #' in gitlab API, as vector or part of URL)
-#' @param ... passed on to \code{\link{gitlab}} API call, may include \code{path} argument for path
+#' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
+#' my_project(gl_list_files)
+#' my_project(gl_get_file, "data.csv")
+#' }
 gl_repository <- function(req = c("tree"),
                           project,
                           ...) {
@@ -86,7 +97,7 @@ gl_list_files <- purrr::partial(gl_repository, req = "tree") ## should have a re
 
 #' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
 #' @export
-#' @rdname gl_get_file
+#' @rdname gl_repository
 gl_file_exists <- function(project, file_path, ...) {
   
   project_missing <- missing(project)
@@ -156,14 +167,13 @@ to_project_id <- function(x, ...) {
 
 #' Get a file from a gitlab repository
 #' 
-#' @param project name or id of project
 #' @param file_path path to file
 #' @param ref name of ref (commit branch or tag)
 #' @param to_char flag if output should be converted to char; otherwise it is of class raw
 #' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
-#' @param ... passed on to \code{\link{gitlab}}
 #' @export
 #' @importFrom base64enc base64decode
+#' @rdname gl_repository
 gl_get_file <- function(project,
                         file_path,
                         ref = "master",
@@ -204,6 +214,13 @@ gl_get_file <- function(project,
 #' @param overwrite whether to overwrite files that already exist
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
+#' my_project(gl_push_file, "data/test_data.csv",
+#'            content = readLines("test-data.csv"),
+#'            commit_message = "New test data")
+#' }
 gl_push_file <- function(project,
                          file_path,
                          content,
@@ -237,6 +254,10 @@ gl_push_file <- function(project,
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 
 #' @export
+#' @examples \dontrun{
+#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
+#' my_project(gl_archive, save_to_file = "example-project.zip")
+#' }
 gl_archive <- function(project,
                        save_to_file = tempfile(fileext = ".zip"),
                        ...) {

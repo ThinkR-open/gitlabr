@@ -7,6 +7,8 @@
 #' @export
 #' @rdname gitlabci
 #' @importFrom utils install.packages
+#' 
+#' @examples gl_ci_job("build", allowed_dependencies = "test")
 gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ...) {
   switch(job_name,
          "document" = list(stage = stage,
@@ -73,6 +75,8 @@ gl_default_ci_pipeline <- function() {
 #' @param overwrite whether to overwrite existing gitlab CI yml file
 #' @param add_to_Rbuildignore add CI yml file (from \code{path}) to .Rbuildignore?
 #' @rdname gitlabci
+#' 
+#' @examples use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
                           path = ".gitlab-ci.yml",
@@ -108,6 +112,13 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
 #' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
 #' @rdname gl_builds
+#' 
+#' @examples \dontrun{
+#' my_gitlab <- gl_connection(...) ## fill in login parameters
+#' my_gitlab(gl_pipelines, "test-project")
+#' my_gitlab(gl_jobs, "test-project")
+#' my_gitlab(gl_latest_build_artifact, "test-project", job = "build")
+#' }
 gl_pipelines <- function(project, ...) {
   gitlab(gl_proj_req(project = project, "pipelines", ...), ...)
 }

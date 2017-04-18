@@ -14,7 +14,11 @@ assign(GITLAB_CON, NULL, gitlabr_env)
 #' @param ... if gitlab_con is NULL, a new connection is created used the parameters
 #' is ... using \code{\link{gl_connection}}
 #' 
-#' @export 
+#' @export
+#' 
+#' @examples \dontrun{
+#' set_gitlab_connection("http://gitlab.example.com", private_token = "123####89")
+#' }
 set_gitlab_connection <- function(gitlab_con = NULL, ...) {
   stopifnot(is.null(gitlab_con) || is.function(gitlab_con))
   if (is.null(gitlab_con) && length(list(...)) > 0) {
