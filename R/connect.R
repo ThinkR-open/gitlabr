@@ -33,7 +33,7 @@
 #' 
 #' @return A function to access a specific gitlab API as a specific user, see details
 #' 
-#' @section API versions
+#' @section API versions:
 #' Currently (April 2017, Gitlab version 9.0), Gitlab provides two API versions "v3" and "v4",
 #' where "v3" is deprecated and to be removed soon from Gitlab. "v4" is the standard API since Gitlab version 9.0.
 #' gitlabr supports both API versions, since "v3" was the standard until very recently. gitlabr will support
