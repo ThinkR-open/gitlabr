@@ -5,4 +5,6 @@ sudo: false
 cache: packages
 before_script:
   - R --vanilla -e 'library(devtools);  devtools::document(); devtools::document()'
+  - R --vanilla -e 'library(devtools); library(testthat); devtools::test(reporter
+    = StopReporter)'
 
