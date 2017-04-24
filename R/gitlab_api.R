@@ -64,7 +64,7 @@ gitlab <- function(req,
                                              , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
     
     (if (page == "all") {list(...)} else { list(page = page, ...)}) %>%
-      pipe_into(argname_verb, verb, url = url) %>%
+      pipe_into(argname_verb, gl_retry, verb = verb, url = url) %>%
       http_error_or_content()   -> resp
     
     resp$ct %>%
@@ -78,7 +78,7 @@ gitlab <- function(req,
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
           paste0("&private_token=", private_token) %>%
-          httr::GET() %>%
+          gl_retry() %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
@@ -113,6 +113,24 @@ gitlab <- function(req,
     do.call(gitlab_con, c(dot_args, gitlab_con = "self", ...)) %>%
       iff(debug, print)
   }
+}
+
+gl_retry <- function(url, verb = httr::GET, times = 3, wait_secs = 25, ...) {
+  
+  while(times > 0L) {
+    response <- verb(url = url, ...)
+    
+    if (httr::http_status(response)$category == "Server error") {
+      message("Encountered ", httr::http_status(response)$message, ". Retrying in ", wait_secs)
+      Sys.sleep(wait_secs)
+    } else {
+      times <- 0L
+    }
+    
+    times <- times - 1
+  }
+  
+  response
 }
 
 http_error_or_content <- function(response,
