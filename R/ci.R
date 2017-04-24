@@ -82,12 +82,18 @@ gl_default_ci_pipeline <- function() {
 #' @export
 #' @param image Docker image to use in gitlab ci. If NULL, not specified!
 #' @param pipeline a CI pipeline defined as a list of lists
+#' @param push_to_remotes named list of remotes the code should be pushed to. Only master
+#' is pushed and for every remote a job of stage "push" is generated. See example for how
+#' to use credentials from environment variables.
 #' @param path destination path for writing gitlab CI yml file
 #' @param overwrite whether to overwrite existing gitlab CI yml file
 #' @param add_to_Rbuildignore add CI yml file (from \code{path}) to .Rbuildignore?
 #' @rdname gitlabci
 #' 
-#' @examples use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
+#' @examples
+#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
+#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
+#'   push_to_remotes = list("github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
                           push_to_remotes = c(),
