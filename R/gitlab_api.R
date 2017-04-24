@@ -121,7 +121,7 @@ gl_retry <- function(url, verb = httr::GET, times = 3, wait_secs = 25, ...) {
     response <- verb(url = url, ...)
     
     if (httr::http_status(response)$category == "Server error") {
-      message("Encountered ", httr::http_status(response)$message, ". Retrying in ", wait_secs)
+      message("Encountered ", httr::http_status(response)$message, ". Retrying in ", wait_secs, " seconds.")
       Sys.sleep(wait_secs)
     } else {
       times <- 0L
