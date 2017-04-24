@@ -12,6 +12,12 @@ You can install the most recent stable version from CRAN using:
 install.packages("gitlabr")
 ```
 
+To install the development version, in a console type:
+```
+git clone https://github.com/jirkalewandowski/gitlabr.git
+R -e "library(devtools); document('gitlabr'); install('gitlabr')"
+```
+
 ## Recommended Gitlab versions & Roadmap
 
 Gitlab 9.0 or higher is generally recommended when using gitlabr version 0.9 or higher, since this package version uses the gitlab API v4, older versions use API v3, which was the standard before Gitlab 9.0. Older versions of Gitlab using API v3 are sill supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.0 on (expected in the second half of 2017), API v3 usage will be deprecated.
