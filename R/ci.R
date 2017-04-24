@@ -42,6 +42,12 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
   )
 }
 
+gl_ci_push_job <- function(remote) {
+  list(stage = "push",
+       only = list("master"),
+       script = list(paste("git push", shQuote(remote), "$(git symbolic-ref --short -q HEAD)")))
+}
+
 ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = FALSE) {
   substitute(expr) %>%
     deparse() %>%
@@ -57,6 +63,11 @@ ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = 
                "-e '", ., "'"),
              collapse = "") } %>%
     list()
+}
+
+prefix_names <- function(obj, prefix) {
+  obj %>%
+    set_names(paste0(prefix, names(obj)))
 }
 
 #' @export
@@ -79,14 +90,21 @@ gl_default_ci_pipeline <- function() {
 #' @examples use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
+                          push_to_remotes = c(),
                           path = ".gitlab-ci.yml",
                           overwrite = TRUE,
                           add_to_Rbuildignore = TRUE) {
   
   mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE,
          MoreArgs = list(allowed_dependencies = names(pipeline))) %>%
+    iff(!is.null(push_to_remotes),
+        c, push_to_remotes %>%
+            lapply(gl_ci_push_job) %>%
+            prefix_names("push_to_")) %>%
     iff(!is.null(image), . %>% { c(list(image = image), .)} ) %>%
-    c(list(stages = names(pipeline))) %>%
+    c(list(stages = pipeline %>%
+                      names() %>%
+                      iff(!is.null(push_to_remotes), c, "push"))) %>%
     yaml::as.yaml() %>%
     str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
     iff(overwrite || !file.exists(path), writeLines, con = path)

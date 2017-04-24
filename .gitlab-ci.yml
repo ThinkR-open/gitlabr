@@ -36,9 +36,26 @@ check:
   dependencies:
   - build
 
+push_to_github:
+  stage: push
+  only:
+  - master
+  script:
+  - git push 'https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git'
+    $(git symbolic-ref --short -q HEAD)
+
+push_to_gitlab_com:
+  stage: push
+  only:
+  - master
+  script:
+  - git push 'https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/jirkalewandowski/gitlabr.git'
+    $(git symbolic-ref --short -q HEAD)
+
 stages:
 - document
 - test
 - build
 - check
+- push
 

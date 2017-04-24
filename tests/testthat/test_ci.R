@@ -5,7 +5,10 @@ test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
 
 test_that("CI yml generation works", {
   
-  use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = ".gitlab-ci.yml.test")
+  use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
+                path = ".gitlab-ci.yml.test",
+                push_to_remotes = list("github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git",
+                                       "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/jirkalewandowski/gitlabr.git"))
   
   expect_equal(yaml::yaml.load_file(".gitlab-ci.yml.test"),
                yaml::yaml.load_file("../../.gitlab-ci.yml"))
