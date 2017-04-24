@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Guide to gitlabr"
 author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "2017-03-02"
+date: "2017-04-24"
 tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
 output:
   pdf_document:
