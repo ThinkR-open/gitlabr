@@ -1,4 +1,4 @@
-# gitlabr 0.9
+# gitlabr 0.9 (2017-04-24)
 
 * Support for Gitlab API v4 (default from Gitlab version 9.0 onwards) was added. Gitlab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section "API version" of the documentation of `gl_connection`.
   * Several convenience functions now have a `force_api_v3` parameter to force old API version logic.
@@ -13,7 +13,7 @@
 
 *There is no gitlabr 0.8. Version number 0.9 was used to align with Gitlab version 9.0, for which this version is appropriate.*
 
-# gitlabr 0.7
+# gitlabr 0.7 (2017-03-06)
 
 * All functions were renamed to a new scheme starting with "gl_"
 * A shiny module with gitlab login was added
