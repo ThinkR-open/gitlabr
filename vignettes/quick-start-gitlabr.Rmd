@@ -24,7 +24,7 @@ httr::set_config(httr::config(ssl_verifypeer = 0L))
 
 ```{r}
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("http://gitlab.points-of-interest.cc",
+my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
                            login = "testibaer",
                            password = readLines("secrets/gitlab_password.txt"))
 ```
@@ -95,7 +95,7 @@ translates to
 GET https://gitlab.points-of-interest.cc/api/v3/projects/12/issues?state=active&private_token=XXX
 ```
 
-This way, any request documented in the [Gitlab API documentation](http://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
+This way, any request documented in the [Gitlab API documentation](https://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
 
 The high level interface consists of a number of functions that each have additional
 arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
@@ -151,7 +151,7 @@ my_gitlab("projects") %>%
   select(name, everything())
 ```
 
-`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set. In addition, the different ways to login in the gitlab API (see [http://doc.gitlab.com/ce/api/session.html](http://doc.gitlab.com/ce/api/session.html)) are all auto-detected and handled by replacing the login information with a private authentification token provided by the API in future calls using the returned function. 
+`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set. In addition, the different ways to login in the gitlab API (see [https://doc.gitlab.com/ce/api/session.html](https://doc.gitlab.com/ce/api/session.html)) are all auto-detected and handled by replacing the login information with a private authentification token provided by the API in future calls using the returned function. 
 
 As a convenience wrapper to directly connect to a specific project in a gitlab instance, `project_connection` exists.
 
@@ -230,7 +230,7 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.9
 - gl_repository
 - gl_unassign_issue
 
-Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](http://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
+Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 
 Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and will be removed with gitlabr version 1.0.
 
@@ -242,7 +242,7 @@ That is, a simple function to block users directly from R is as simple as:
 ```{r}
 block_user <- function(uid, ...) {
   gitlab(c("users", uid, "block"),  ## for API side documentation see:
-         verb = httr::PUT, ## http://doc.gitlab.com/ce/api/users.html#block-user
+         verb = httr::PUT, ## https://doc.gitlab.com/ce/api/users.html#block-user
          ...) ## don't forget the dots to make gitlabr features fully available
 }
 ```
@@ -253,7 +253,7 @@ More hints for more convenience:
 - To translate project names to numeric ids automatically, you can use `gitlabr`'s internal functions `proj_req` translating the request location.
 - To translate user-visible project-wide issue ids to global ids used by the gitlab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
 
-And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/](http://gitlab.points-of-interest.cc/points-of-interest/gitlabr/).
+And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://gitlab.points-of-interest.cc/points-of-interest/gitlabr/](https://gitlab.points-of-interest.cc/points-of-interest/gitlabr/).
 
 # Using gitlab CI with gitlabr
 
