@@ -5,6 +5,7 @@
 #' 
 #' @param text goes to the end, rest 
 #' @param ... goes to the front. 
+#' @noRd
 prefix <- function(text, ...) {
   paste0(..., text)
 }
@@ -19,6 +20,7 @@ prefix <- function(text, ...) {
 #' @param test logical or function to apply to test
 #' @param fun function to apply
 #' @param ... passed on to test
+#' @export
 iff <- function(obj, test, fun, ...) {
   if ( (is.function(test) && test(obj)) || 
        (is.logical(test) && test) ) {
