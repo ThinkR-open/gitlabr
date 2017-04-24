@@ -75,7 +75,7 @@ gitlab(c("projects", 12, "issues"),
 translates to
 
 ```
-GET https://gitlab.points-of-interest.cc/api/v3/projects/12/issues?state=active&private_token=XXX
+GET https://gitlab.points-of-interest.cc/api/v4/projects/12/issues?state=active&private_token=XXX
 ```
 
 This way, any request documented in the [Gitlab API documentation](https://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
@@ -109,8 +109,7 @@ PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%2
 
 To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
 
-Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (from Gitlab version >= 9.0) will
-be added soon.
+Note: currently (gitlabr version 0.9) gitlab API v4 is supported. Support for Gitlab API v3 (from Gitlab version < 9.0) is still included via flag parameters, but will be deprecated from gitlab version 1.0 onwards. For details see the section "API version" of the documentation of `gl_connection`.
 
 # Different ways to do it
 
