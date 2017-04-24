@@ -16,33 +16,16 @@ R code using gitlabr to perform some easy, common gitlab actions can look like t
 
 ```{r message = FALSE}
 library(gitlabr)
-```
 
-```{r include = FALSE, eval = TRUE}
-httr::set_config(httr::config(ssl_verifypeer = 0L))
-```
-
-```{r}
 # connect as a fixed user to a gitlab instance
 my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
                            login = "testibaer",
                            password = readLines("secrets/gitlab_password.txt"))
-```
-
-```{r include = TRUE, eval = FALSE}
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
+
 my_gitlab(gl_list_projects)
-```
 
-```{r echo = FALSE, eval = TRUE, message=FALSE}
-require(dplyr)
-my_gitlab(gl_list_projects) %>%
-  filter(public == "TRUE") %>%
-  select(name, everything())
-```
-
-```{r}
 my_gitlab(gl_list_files, project = "gitlabr", path = "R")
 
 # create a new issue
