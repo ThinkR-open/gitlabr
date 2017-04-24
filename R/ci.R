@@ -93,7 +93,8 @@ gl_default_ci_pipeline <- function() {
 #' @examples
 #' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
 #' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
-#'   push_to_remotes = list("github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
+#'  push_to_remotes = list("github" =
+#'  "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
                           image = "rocker/r-devel:latest",
                           push_to_remotes = c(),
