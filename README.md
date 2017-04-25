@@ -1,5 +1,5 @@
 [![Travis-CI Build Status](https://travis-ci.org/jirkalewandowski/gitlabr.svg?branch=master)](https://travis-ci.org/jirkalewandowski/gitlabr)
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/gitlabr)](http://cran.r-project.org/package=gitlabr)
+[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](http://cranlogs.r-pkg.org/badges/gitlabr)
 
 # gitlabr
@@ -62,7 +62,7 @@ my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 
 ## Further information
 
-- For a comprehensive overview & introduction see the [gitlabr vignette](https://cran.r-project.org/web/packages/gitlabr/vignettes/quick-start-gitlabr.pdf)
-- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [Gitlab API documentation](https://doc.gitlab.com/ce/api/) can be helpful.
+- For a comprehensive overview & introduction see the `vignette("quick-start-gitlabr")`
+- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [Gitlab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
 - gitlabr is developed on https://gitlab.points-of-interest.cc/points-of-interest/gitlabr -- Github and Gitlab.com are mirrors of this repository, but can be used for filing issues or merge requests.
 
