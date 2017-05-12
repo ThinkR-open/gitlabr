@@ -12,11 +12,13 @@ You can install the most recent stable version from CRAN using:
 install.packages("gitlabr")
 ```
 
-To install the development version, in a console type:
+To install the development version using [devtools](https://cran.r-project.org/package=devtools)), type:
+```{r}
+library(devtools)
+install_github("jirkalewandowski/gitlabr")
 ```
-git clone https://github.com/jirkalewandowski/gitlabr.git
-R -e "library(devtools); document('gitlabr'); install('gitlabr')"
-```
+
+See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
 
 ## Recommended Gitlab versions & Roadmap
 
