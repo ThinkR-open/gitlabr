@@ -7,4 +7,5 @@ vignettes/secrets/
 .gitlab-ci.yml
 Dockerfile
 ^CONDUCT\.md$
+^CONTRIBUTING\.md$
 ^\.travis\.yml$
