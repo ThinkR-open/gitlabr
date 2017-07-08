@@ -9,3 +9,4 @@ Dockerfile
 ^CONDUCT\.md$
 ^CONTRIBUTING\.md$
 ^\.travis\.yml$
+^jenny-review\.md$
