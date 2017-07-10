@@ -1,7 +1,3 @@
-test_url <- Sys.getenv("GITLABR_TEST_URL")
-test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
-test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
-
 my_project <- gl_project_connection(test_url,
                                     project = "testor",
                                     private_token = test_private_token,
