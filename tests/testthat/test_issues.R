@@ -48,6 +48,8 @@ test_that("getting issues works", {
 
 test_that("editing issues works", {
   
+  skip("Jenny doesn't have necessary permission")
+
   ## close issue
   my_gitlab(gl_close_issue, new_issue$id[1], "testor", force_api_v3 = (test_api_version == "v3"))
   expect_true(my_gitlab(gl_list_issues, "testor", new_issue$id[1], force_api_v3 = (test_api_version == "v3"))$state == "closed")
