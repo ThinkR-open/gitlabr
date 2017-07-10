@@ -15,6 +15,7 @@
 #' @references \url{http://blog.points-of-interest.cc/}
 #' 
 #' 
+#' @importFrom purrr %>%
 #' @importFrom dplyr filter select bind_rows
 #' @import httr
 
