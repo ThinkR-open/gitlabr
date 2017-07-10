@@ -54,7 +54,7 @@ iffn <- function(obj, test, fun, ...) {
 pipe_into <- function(x, param_name, fun, ...) {
   x %>%
     list() %>%
-    set_names(param_name) %>%
+    purrr::set_names(param_name) %>%
     c(list(...)) %>%
     { do.call(fun, .) }
 }
