@@ -18,7 +18,8 @@ Imports:
     purrr (>= 0.2.2),
     tibble (>= 1.1),
     utils,
-    yaml
+    yaml,
+    magrittr
 Suggests:
     devtools (>= 1.8.0),
     roxygen2,
