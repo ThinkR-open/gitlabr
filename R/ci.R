@@ -67,7 +67,7 @@ ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = 
 
 prefix_names <- function(obj, prefix) {
   obj %>%
-    set_names(paste0(prefix, names(obj)))
+    purrr::set_names(paste0(prefix, names(obj)))
 }
 
 #' @export
