@@ -17,6 +17,7 @@
 #' 
 #' @importFrom purrr %>%
 #' @importFrom dplyr filter select bind_rows
+#' @importFrom magrittr %T>% %$%
 #' @import httr
 
 NULL
