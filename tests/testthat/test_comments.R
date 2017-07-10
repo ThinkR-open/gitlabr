@@ -1,3 +1,5 @@
+context("comments")
+
 my_gitlab <- gl_project_connection(test_url,
                                    project = "testor",
                                    private_token = test_private_token,

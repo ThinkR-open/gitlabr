@@ -1,3 +1,5 @@
+context("CI")
+
 test_that("CI yml generation works", {
   
   use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",

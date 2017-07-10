@@ -1,3 +1,5 @@
+context("connection")
+
 test_that("Gitlab connection creation works", {
   
   my_gitlab <- gl_connection(test_url,

@@ -1,3 +1,5 @@
+context("pagination")
+
 test_that("Pagination produces the same results", {
   
   ## per_page argument
