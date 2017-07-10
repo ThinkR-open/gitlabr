@@ -9,8 +9,7 @@ Description: Provides R functions to access the API of the project and
     locations. Gitlab is open-source software and can be self-hosted or used on
     gitlab.com.
 Depends:
-    R (>= 3.1.2),
-    magrittr
+    R (>= 3.1.2)
 Imports:
     dplyr (>= 0.4.3),
     stringr,

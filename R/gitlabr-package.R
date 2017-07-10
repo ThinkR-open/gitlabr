@@ -15,7 +15,6 @@
 #' @references \url{http://blog.points-of-interest.cc/}
 #' 
 #' 
-#' @import magrittr
 #' @importFrom dplyr filter select bind_rows
 #' @import httr
 
