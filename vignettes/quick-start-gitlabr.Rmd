@@ -109,7 +109,7 @@ PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%2
 
 To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
 
-Note: currently (gitlabr version 0.9) gitlab API v4 is supported. Support for Gitlab API v3 (from Gitlab version < 9.0) is still included via flag parameters, but will be deprecated from gitlab version 1.0 onwards. For details see the section "API version" of the documentation of `gl_connection`.
+Note: currently (gitlabr version 0.9) gitlab API v4 is supported. Support for Gitlab API v3 (from Gitlab version < 9.0) is still included via flag parameters, but will be deprecated from gitlab version 1.0 onward. For details see the section "API version" of the documentation of `gl_connection`.
 
 # Different ways to do it
 
@@ -133,7 +133,7 @@ my_gitlab("projects") %>%
   select(name, everything())
 ```
 
-`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set. In addition, the different ways to login in the gitlab API (see [https://doc.gitlab.com/ce/api/session.html](https://doc.gitlab.com/ce/api/session.html)) are all auto-detected and handled by replacing the login information with a private authentification token provided by the API in future calls using the returned function. 
+`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set. In addition, the different ways to login in the gitlab API (see [https://doc.gitlab.com/ce/api/session.html](https://doc.gitlab.com/ce/api/session.html)) are all auto-detected and handled by replacing the login information with a private authentication token provided by the API in future calls using the returned function. 
 
 As a convenience wrapper to directly connect to a specific project in a gitlab instance, `project_connection` exists.
 
@@ -218,7 +218,7 @@ Note also that since gitlabr version 0.7 all functions of this package follow a 
 
 # Writing custom gitlab request functions
 
-It is very easy to write your own convenience wrappers for accessing API endpoints you whish and make sure they fully integrate into `gitlabr` and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to `gitlab` (or another convenience function) to which the `...` argument is passed on.
+It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into `gitlabr` and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to `gitlab` (or another convenience function) to which the `...` argument is passed on.
 
 That is, a simple function to block users directly from R is as simple as:
 ```{r}
