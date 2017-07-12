@@ -4,8 +4,8 @@
 \alias{gl_push_file}
 \title{Upload a file to a gitlab repository}
 \usage{
-gl_push_file(project, file_path, content, commit_message,
-  branch_name = "master", overwrite = TRUE, ...)
+gl_push_file(project, file_path, content, commit_message, branch = "master",
+  overwrite = TRUE, ...)
 }
 \arguments{
 \item{project}{Project name or id}
@@ -16,7 +16,7 @@ gl_push_file(project, file_path, content, commit_message,
 
 \item{commit_message}{Message to use for commit with new/updated file}
 
-\item{branch_name}{name of branch where to append newly generated commit with new/updated file}
+\item{branch}{name of branch where to append newly generated commit with new/updated file}
 
 \item{overwrite}{whether to overwrite files that already exist}
 

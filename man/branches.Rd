@@ -8,10 +8,9 @@
 \usage{
 gl_list_branches(project, verb = httr::GET, ...)
 
-gl_create_branch(project, branch_name, ref = "master", verb = httr::POST,
-  ...)
+gl_create_branch(project, branch, ref = "master", verb = httr::POST, ...)
 
-gl_delete_branch(project, branch_name, verb = httr::POST, ...)
+gl_delete_branch(project, branch, verb = httr::POST, ...)
 }
 \arguments{
 \item{project}{name or id of project (not repository!)}
@@ -20,7 +19,7 @@ gl_delete_branch(project, branch_name, verb = httr::POST, ...)
 
 \item{...}{passed on to \code{\link{gitlab}}}
 
-\item{branch_name}{name of branch to create/delete}
+\item{branch}{name of branch to create/delete}
 
 \item{ref}{ref name of origin for newly created branch}
 }

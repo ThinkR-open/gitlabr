@@ -11,7 +11,7 @@ gl_repository(req = c("tree"), project, ...)
 
 gl_list_files(...)
 
-gl_file_exists(project, file_path, ...)
+gl_file_exists(project, file_path, ref, ...)
 
 gl_get_file(project, file_path, ref = "master", to_char = TRUE,
   force_api_v3 = FALSE, ...)
