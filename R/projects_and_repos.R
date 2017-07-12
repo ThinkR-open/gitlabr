@@ -106,7 +106,7 @@ gl_file_exists <- function(project, file_path, ...) {
   list(...) %>%
     iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
     iffn(project_missing, c, project = project) %>%
-    pipe_into("args", do.call, what = list_files) %>%
+    pipe_into("args", do.call, what = gl_list_files) %>%
     dplyr::filter(name == basename(file_path)) %>%
     { nrow(.) > 0 }
 }
