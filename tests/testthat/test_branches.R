@@ -19,8 +19,8 @@ test_that("branch access works", {
   expect_is(gl_list_branches(gitlab_con = my_gitlab, project = "testor"), "data.frame")
   
   ## creating and deleteing branches not tested automatically for security and load reasons
-  # my_project(gl_create_branch, branch_name = "testbranch")
-  # my_project(gl_delete_branch, branch_name = "testbranch")
+  # my_project(gl_create_branch, branch = "testbranch")
+  # my_project(gl_delete_branch, branch = "testbranch")
   
   
   ## old API

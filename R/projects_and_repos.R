@@ -47,10 +47,11 @@ gl_list_branches <- function(project, verb = httr::GET, ...) {
 #' @param ref ref name of origin for newly created branch
 #' @rdname branches
 #' @export
-gl_create_branch <- function(project, branch_name, ref = "master", verb = httr::POST, ...) {
+gl_create_branch <- function(project, branch, ref = "master", verb = httr::POST, ...) {
   gitlab(gl_proj_req(project, c("repository", "branches"), ...),
          verb = httr::POST,
-         branch_name = branch_name,
+         branch_name = branch, ## This is legacy for API v3 use and will be ignored by API v4
+         branch = branch,
          ref = ref,
          auto_format = FALSE,
          ...) %>%
@@ -61,8 +62,8 @@ gl_create_branch <- function(project, branch_name, ref = "master", verb = httr::
 #' 
 #' @rdname branches
 #' @export
-gl_delete_branch <- function(project, branch_name, verb = httr::POST, ...) {
-  gitlab(gl_proj_req(project, c("repository", "branches", branch_name), ...),
+gl_delete_branch <- function(project, branch, verb = httr::POST, ...) {
+  gitlab(gl_proj_req(project, c("repository", "branches", branch), ...),
          verb = httr::DELETE,
          auto_format = FALSE,
          ...) %>%
