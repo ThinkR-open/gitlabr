@@ -99,11 +99,13 @@ gl_list_files <- purrr::partial(gl_repository, req = "tree") ## should have a re
 #' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
 #' @export
 #' @rdname gl_repository
-gl_file_exists <- function(project, file_path, ...) {
+gl_file_exists <- function(project, file_path, ref, ...) {
   
   project_missing <- missing(project)
   
-  list(...) %>%
+  list(ref = ref,
+       ref_name = ref, ## This is legacy for API v3 use and will be ignored by API v4
+       ...) %>%
     iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
     iffn(project_missing, c, project = project) %>%
     pipe_into("args", do.call, what = gl_list_files) %>%
@@ -230,7 +232,7 @@ gl_push_file <- function(project,
                          overwrite = TRUE,
                          ...) {
   
-  exists <- gl_file_exists(project = project, file_path, ref_name = branch, ...)
+  exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
   if (!exists || overwrite) {
     gitlab(req = gl_proj_req(project = project, c("repository", "files"), ...),
            branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
