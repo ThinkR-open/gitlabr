@@ -43,7 +43,7 @@ gl_list_branches <- function(project, verb = httr::GET, ...) {
 
 #' List, create and delete branches
 #' 
-#' @param branch_name name of branch to create/delete
+#' @param branch name of branch to create/delete
 #' @param ref ref name of origin for newly created branch
 #' @rdname branches
 #' @export
@@ -210,7 +210,7 @@ gl_get_file <- function(project,
 #' @param project Project name or id
 #' @param file_path path where to store file in gl_repository
 #' @param content file content (text)
-#' @param branch_name name of branch where to append newly generated commit with new/updated file
+#' @param branch name of branch where to append newly generated commit with new/updated file
 #' @param commit_message Message to use for commit with new/updated file
 #' @param overwrite whether to overwrite files that already exist
 #' @param ... passed on to \code{\link{gitlab}}
@@ -226,14 +226,15 @@ gl_push_file <- function(project,
                          file_path,
                          content,
                          commit_message,
-                         branch_name = "master",
+                         branch = "master",
                          overwrite = TRUE,
                          ...) {
   
-  exists <- gl_file_exists(project = project, file_path, ref_name = branch_name, ...)
+  exists <- gl_file_exists(project = project, file_path, ref_name = branch, ...)
   if (!exists || overwrite) {
     gitlab(req = gl_proj_req(project = project, c("repository", "files"), ...),
-           branch_name = branch_name,
+           branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
+           branch = branch,
            file_path = file_path,
            content = content,
            commit_message = commit_message,
