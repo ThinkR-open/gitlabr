@@ -234,17 +234,16 @@ gl_push_file <- function(project,
   
   exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
   if (!exists || overwrite) {
-    gitlab(req = gl_proj_req(project = project, c("repository", "files"), ...),
+    gitlab(req = gl_proj_req(project = project, c("repository", "files", file_path), ...),
            branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
            branch = branch,
-           file_path = file_path,
            content = content,
            commit_message = commit_message,
            verb = if (exists) { httr::PUT } else { httr::POST },
            ...)
   } else {
     tibble::data_frame(file_path = character(0),
-                       branch_name = character(0))
+                       branch = character(0))
   }
 }
 
