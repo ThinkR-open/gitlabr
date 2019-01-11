@@ -22,7 +22,7 @@ See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests 
 
 ## Recommended Gitlab versions & Roadmap
 
-Gitlab 9.0 or higher is generally recommended when using gitlabr version 0.9 or higher, since this package version uses the gitlab API v4, older versions use API v3, which was the standard before Gitlab 9.0. Older versions of Gitlab using API v3 are sill supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.0 on (expected in the second half of 2017), API v3 usage will be deprecated.
+Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This package version uses the gitlab API v4, older versions use API v3, which was the standard before Gitlab 9.0. Older versions of Gitlab using API v3 are still supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.1.6 on API v3 is be deprecated and will no longer be tested or maintained, although still present in the code. Also within API v4, changes have been made to the gitlab API, most notably for gitlabr, the session endpoint was removed. The versions of gitlabr will always be tested on the corresponding gitlab version, i.e. gitlabr 1.1.6 works with gitlab 11.6.
 
 ## Quick Start Example
 
@@ -32,7 +32,7 @@ R code using gitlabr to perform some easy, common gitlab actions can look like t
 library(gitlabr)
 
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
+my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",   ## TODO new logon mechanism!
                            login = "testibaer",
                            password = readLines("secrets/gitlab_password.txt"))
 # a function is returned

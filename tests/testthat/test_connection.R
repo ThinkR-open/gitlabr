@@ -1,7 +1,7 @@
 test_url <- Sys.getenv("GITLABR_TEST_URL")
 test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
-test_login <- Sys.getenv("GITLABR_TEST_LOGIN")
-test_password <- Sys.getenv("GITLABR_TEST_PASSWORD")
+#test_login <- Sys.getenv("GITLABR_TEST_LOGIN")
+#test_password <- Sys.getenv("GITLABR_TEST_PASSWORD")
 test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
 
 test_that("Gitlab connection creation works", {
@@ -33,18 +33,18 @@ test_that("Gitlab connection creation works", {
   
 })
 
-test_that("Connection with login and user works", {
-  
-  my_gitlab <- gl_connection(test_url,
-                             login = test_login,
-                             password = test_password,
-                             api_version = test_api_version)
-  
-  expect_is(my_gitlab, "function")
-  
-  expect_is(my_gitlab("projects"), "data.frame")
-  
-})
+# test_that("Connection with login and user works", {
+#   
+#   my_gitlab <- gl_connection(test_url,
+#                              login = test_login,
+#                              password = test_password,
+#                              api_version = test_api_version)
+#   
+#   expect_is(my_gitlab, "function")
+#   
+#   expect_is(my_gitlab("projects"), "data.frame")
+#   
+# })
 
 test_that("Project connection creation works", {
   
@@ -62,8 +62,7 @@ test_that("set_gl_connection works", {
   
   ## using explicit function creation
   my_gitlab <- gl_connection(test_url,
-                             login = test_login,
-                             password = test_password,
+                             private_token = test_private_token,
                              api_version = test_api_version)
   set_gitlab_connection(my_gitlab)
 
@@ -78,8 +77,7 @@ test_that("set_gl_connection works", {
   
   ## using dots
   set_gitlab_connection(gitlab_url = test_url,
-                        login = test_login,
-                        password = test_password,
+                        private_token = test_private_token,
                         api_version = test_api_version)
   
   expect_is(gitlab("projects"), "data.frame")

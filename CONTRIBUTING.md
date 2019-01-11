@@ -18,6 +18,15 @@ test() ## run tests
 
 With this configuration, your computer will connect over HTTPS to gitlab.points-of-interest.cc to perform test operations. *Please use the resources on this server responsibly*.
 
+## How to create a test server
+
+- install & make gitlab instance reachable at a certain address
+- create a user
+- generate a private access token for the user
+- note the server, user and access token in the environment.yml or environment variables as in "Setup a local development environment"
+- create a project called "testor", owned by the testuser
+- give it a CI file that writes to a "test.txt" file (see e.g. https://test-gitlab.points-of-interest.cc/testuser/testor/blob/master/.gitlab-ci.yml)
+
 ### API version
 
 By default the test suite is run against API version 4. Since Gitlab instances also still serve API v3, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `v3`. From gitlabr 1.0 on (expected in the second half of 2017), API v3 usage will be deprecated and the environment variable will be ignored.
