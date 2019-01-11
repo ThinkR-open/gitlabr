@@ -39,7 +39,7 @@ test_that("CI builds access works", {
     expect_warning(my_project(gl_builds, force_api_v3 = FALSE), regexp = "deprecated")
   }
   
-  artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = "testor", job = "test_job")
+  artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = "testor", job = "build")
   expect_true(file.exists(artifacts_zip))
   expect_true("test.txt" %in% unzip(artifacts_zip, list = TRUE)$Name)
   
