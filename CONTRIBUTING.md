@@ -24,7 +24,7 @@ With this configuration, your computer will connect over HTTPS to gitlab.points-
 - create a user
 - generate a private access token for the user
 - note the server, user and access token in the environment.yml or environment variables as in "Setup a local development environment"
-- create a project called "testor", owned by the testuser
+- create a project called "testor", owned by the testuser, and containing a README.md file
 - give it a CI file that writes to a "test.txt" file (see e.g. https://test-gitlab.points-of-interest.cc/testuser/testor/blob/master/.gitlab-ci.yml)
 
 ### API version

@@ -1,3 +1,8 @@
+# gitlabr 1.1.6
+
+* `gl_create_issue` is introduced as new alias for `gl_new_issue`
+* tests are migrated and adapated to test server https://test-gitlab.points-of-interest.cc and to gitlab version 11.6. More specifically a private access tokens is used and login via username and password is no longer possible.
+
 # gitlabr 0.9 (2017-04-24)
 
 * Support for Gitlab API v4 (default from Gitlab version 9.0 onwards) was added. Gitlab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section "API version" of the documentation of `gl_connection`.
