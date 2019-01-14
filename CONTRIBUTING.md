@@ -16,7 +16,7 @@ do.call(Sys.setenv, yaml.load_file("tests/environment.yml")) ## load test enviro
 test() ## run tests
 ```
 
-With this configuration, your computer will connect over HTTPS to gitlab.points-of-interest.cc to perform test operations. *Please use the resources on this server responsibly*.
+With this configuration, your computer will connect over HTTPS to test-gitlab.points-of-interest.cc to perform test operations. *Please use the resources on this server responsibly*.
 
 ## How to create a test server
 
