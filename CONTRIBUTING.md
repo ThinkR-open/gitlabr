@@ -26,6 +26,8 @@ With this configuration, your computer will connect over HTTPS to gitlab.points-
 - note the server, user and access token in the environment.yml or environment variables as in "Setup a local development environment"
 - create a project called "testor", owned by the testuser, and containing a README.md file
 - give it a CI file that writes to a "test.txt" file (see e.g. https://test-gitlab.points-of-interest.cc/testuser/testor/blob/master/.gitlab-ci.yml)
+- create an issue #1 with a comment
+- comment on a commit and note its SHA1 in the environment.yml as variable named 'COMMENTED_COMMIT'
 
 ### API version
 
