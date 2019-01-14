@@ -17,7 +17,6 @@ test_that("Pagination produces the same results", {
   users_2_1 <- my_gitlab("users", per_page = 2, page = 1)
   users_2_2 <- my_gitlab("users", per_page = 2, page = 2)
   expect_true(nrow(users_2_1) == 2)
-  expect_true(nrow(users_2_2) == 2)
   expect_true(setdiff(users_2_1, users_2_2) %>% length() > 0)
   
   users_2_1 <- my_gitlab("users", per_page = 2, page = 100)
