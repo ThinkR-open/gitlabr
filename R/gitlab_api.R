@@ -15,8 +15,12 @@
 #' @param debug if TRUE API URL and query will be printed, defaults to FALSE
 #' @param gitlab_con function to use for issuing API requests (e.g. as returned by 
 #' \code{\link{gitlab_connection}}
-#' @param page number of page of API response to get; if "all" (default), all pages are queried
-#' successively and combined.
+#' @param page number of page of API response to get; if "all" (default), all pages
+#' (up to max_page parameter!) are queried successively and combined.
+#' @param max_page maximum number of pages to retrieve. Defaults to 100. This is an upper limit
+#' to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+#' project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
+#' is recommended only under controlled circumstances.
 #' @param enforce_api_root if multiple pages are requested, the API root URL is ensured
 #' to be the same as in the original call for all calls using the "next page" URL returned
 #' by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
@@ -45,6 +49,7 @@ gitlab <- function(req,
                    debug = FALSE,
                    gitlab_con = "default",
                    page = "all",
+                   max_page = 100,
                    enforce_api_root = TRUE,
                    argname_verb = if (identical(verb, httr::GET) |
                                       identical(verb, httr::DELETE)) { "query" } else { "body" },
@@ -73,7 +78,8 @@ gitlab <- function(req,
     
     if (page == "all") {
       private_token <- list(...)[["private_token"]]
-      while (length(resp$nxt) > 0) {
+      pages_retrieved <- 0L
+      while (length(resp$nxt) > 0 && is.finite(max_page) && pages_retrieved < max_page) {
         nxt_resp <- resp$nxt %>%
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
@@ -83,6 +89,7 @@ gitlab <- function(req,
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
                                iff(auto_format, json_to_flat_df))
+        pages_retrieved <- pages_retrieved + 1
       }
     }
     
