@@ -23,10 +23,8 @@
 #' }
 #' 
 #' @param gitlab_url URL to the gitlab instance (e.g. \code{https://gitlab.myserver.com})
-#' @param login name of user to login; either this or email or private token must be specified
-#' @param email email of user to login; either this or login or private token must be specified
-#' @param password password of user to login; if no private token but login or email is given, this must be specified
-#' @param private_token private_token with which to identify; either this or login/email + passsword must be specified to init connection
+#' @param private_token private_token with which to identify. You can generate one in the webinterface under
+#' \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.
 #' @param api_version Either "v3" or "v4" for one of the two gitlab API version. See Details section on API versions.
 #' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"
 #' @param project id or name of project to issue requests to
@@ -48,19 +46,11 @@
 #' 
 #' @export
 gl_connection <- function(gitlab_url,
-                          login = NULL,
-                          email = NULL,
-                          password = NULL,
-                          private_token = NULL,
+                          private_token,
                           api_version = "v4",
                           api_location = paste0("/api/", api_version, "/")) {
   
   gl_con_root <- paste0(gitlab_url, api_location)
-  
-  if (is.null(private_token)) {
-    private_token <- get_private_token(gl_con_root, login, email, password)
-  }
-  
   
   return(function(req, ...) {
     if (is.function(req)) {
@@ -80,19 +70,12 @@ gl_connection <- function(gitlab_url,
 #' @rdname gl_connection
 gl_project_connection <- function(gitlab_url,
                                   project,
-                                  login = NULL,
-                                  email = NULL,
-                                  password = NULL,
-                                  private_token = NULL,
+                                  private_token,
                                   api_version = "v4",
                                   api_location = paste0("/api/", api_version, "/")) {
   
   gl_con_root <- paste0(gitlab_url, api_location)
-  
-  if (is.null(private_token)) {
-    private_token <- get_private_token(gl_con_root, login, email, password)
-  }
-  
+
   return(function(req, ...) {
     if (is.function(req)) {
       req(api_root = gl_con_root,
@@ -114,25 +97,3 @@ gl_project_connection <- function(gitlab_url,
   })
   
 }
-
-get_private_token <- function(api_root,
-                              login = NULL,
-                              email = NULL,
-                              password = NULL) {
-  
-  token_req <- purrr::partial(gitlab,
-                              req = "session",
-                              api_root = api_root,
-                              verb = httr::POST,
-                              auto_format = FALSE,
-                              password = password)
-  
-  if (!is.null(login)) {
-    token_req(login = login)$private_token
-  } else {
-    token_req(email = email)$private_token
-  }
-  
-  
-}
-
