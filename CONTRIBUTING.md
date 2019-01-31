@@ -16,7 +16,7 @@ do.call(Sys.setenv, yaml.load_file("tests/environment.yml")) ## load test enviro
 test() ## run tests
 ```
 
-With this configuration, your computer will connect over HTTPS to test-gitlab.points-of-interest.cc to perform test operations. *Please use the resources on this server responsibly*.
+With this configuration, your computer will connect over HTTPS to test-gitlab.points-of-interest.cc to perform test operations. *Please use the resources on this server responsibly*. Server responses might be slow, which is intended. If you need a higher performance test server, you can setup one easily as described in the next section.
 
 ## How to create a test server
 
@@ -32,4 +32,4 @@ With this configuration, your computer will connect over HTTPS to test-gitlab.po
 
 ### API version
 
-By default the test suite is run against API version 4. Since Gitlab instances also still serve API v3, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `v3`. From gitlabr 1.0 on (expected in the second half of 2017), API v3 usage will be deprecated and the environment variable will be ignored.
+The test suite is intended for use with Gitlab API v4, compatibility with API v3 is no longer maintained. Still, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `v3`.
