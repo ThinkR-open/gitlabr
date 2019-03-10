@@ -1,4 +1,3 @@
-[![Travis-CI Build Status](https://travis-ci.org/jirkalewandowski/gitlabr.svg?branch=master)](https://travis-ci.org/jirkalewandowski/gitlabr)
 [![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](http://cranlogs.r-pkg.org/badges/gitlabr)
 
@@ -20,9 +19,9 @@ install_github("jirkalewandowski/gitlabr")
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
 
-## Recommended Gitlab versions & Roadmap
+## Recommended Gitlab versions
 
-Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This gitlabr version uses the gitlab API v4, older versions of Gitlab using API v3 are still supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.1.6 on API v3 is be deprecated and will no longer be tested or maintained, although it is still present in the code. Also within API v4, changes have been made to the gitlab API, most notably for gitlabr, the session endpoint was removed. The versions of gitlabr will always be tested on the corresponding gitlab version, i.e. gitlabr 1.1.6 works best with gitlab 11.6.
+Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This gitlabr version uses the gitlab API v4, older versions of Gitlab using API v3 are still supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.1.6 on API v3 is deprecated and will no longer be tested or maintained, although it is still present in the code. Also within API v4, changes have been made to the gitlab API, most notably for gitlabr, the session endpoint was removed. The versions of gitlabr will always be tested on the corresponding gitlab version, i.e. gitlabr 1.1.6 works best with gitlab 11.6. However, not for every nwe gitlab version there will be a gitlabr version.
 
 ## Quick Start Example
 

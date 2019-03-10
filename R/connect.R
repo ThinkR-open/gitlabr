@@ -12,8 +12,8 @@
 #' function it calls it with the arguments provided in \code{...} and the gitlab
 #' URL, api location and private_token provided when creating it via \code{gl_connection}.
 #' 
-#' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
-#' be added soon.
+#' Note: currently gitlab API v4 is supported. Gitlab API v3 is no longer supported, but
+#' you can give it a try.
 #' 
 #' @examples
 #' \dontrun{
@@ -32,17 +32,10 @@
 #' @return A function to access a specific gitlab API as a specific user, see details
 #' 
 #' @section API versions:
-#' Currently (April 2017, Gitlab version 9.0), Gitlab provides two API versions "v3" and "v4",
-#' where "v3" is deprecated and to be removed soon from Gitlab. "v4" is the standard API since Gitlab version 9.0.
-#' gitlabr supports both API versions, since "v3" was the standard until very recently. gitlabr will support
-#' API v3 until gitlabr 1.0 (to be released in 2017), with which it will become deprecated also in gitlabr.
-#' "v4" is the default setting in gitlabr from version 0.9 on.
+#' "v4" is the standard API since Gitlab version 9.0 and only this version is officially supported by
+#' gitlabr since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
+#' code will still work if you try.
 #' 
-#' For some functions, where the API endpoints
-#' differ in logic, a parameter `force_api_v3` is provided with functions to enforce API v3 logic. This
-#' has to be set manually with each call in addition to the api_version parameter of the connection.
-#' Rather than using this parameter, it is intended to update your Gitlab installation to support API v4.
-#' Use this parameter only as a workaround when this is not possible!
 #' 
 #' @export
 gl_connection <- function(gitlab_url,
