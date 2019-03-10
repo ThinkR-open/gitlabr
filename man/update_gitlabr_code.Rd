@@ -18,4 +18,3 @@ CAUTION: This functions output/results should be checked manually before
 committing the code, since it uses regular expression heuristically
 to parse code and cannot guarantee complete and correct code replacement
 }
-

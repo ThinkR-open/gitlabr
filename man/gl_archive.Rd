@@ -28,4 +28,3 @@ my_project <- gl_project_connection(project = "example-project", ...) ## fill in
 my_project(gl_archive, save_to_file = "example-project.zip")
 }
 }
-

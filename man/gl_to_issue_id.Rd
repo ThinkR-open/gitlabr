@@ -21,4 +21,3 @@ default to TRUE, but this will change with gitlabr 1.0.}
 This functions is only intended to be used with gitlab API v3. With v4, the
 global iid is no longer functional.
 }
-

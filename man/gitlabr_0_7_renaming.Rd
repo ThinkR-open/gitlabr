@@ -9,4 +9,3 @@
 List of of old and new function name. Used internally by
 \code{\link{update_gitlabr_code}}
 }
-

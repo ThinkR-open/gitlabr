@@ -4,10 +4,11 @@
 \alias{gitlab}
 \title{Request Gitlab API}
 \usage{
-gitlab(req, api_root, verb = httr::GET, auto_format = TRUE, debug = FALSE,
-  gitlab_con = "default", page = "all", enforce_api_root = TRUE,
-  argname_verb = if (identical(verb, httr::GET) | identical(verb,
-  httr::DELETE)) {     "query" } else {     "body" }, ...)
+gitlab(req, api_root, verb = httr::GET, auto_format = TRUE,
+  debug = FALSE, gitlab_con = "default", page = "all",
+  max_page = 100, enforce_api_root = TRUE, argname_verb = if
+  (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {    
+  "query" } else {     "body" }, ...)
 }
 \arguments{
 \item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
@@ -24,8 +25,13 @@ gitlab(req, api_root, verb = httr::GET, auto_format = TRUE, debug = FALSE,
 \item{gitlab_con}{function to use for issuing API requests (e.g. as returned by 
 \code{\link{gitlab_connection}}}
 
-\item{page}{number of page of API response to get; if "all" (default), all pages are queried
-successively and combined.}
+\item{page}{number of page of API response to get; if "all" (default), all pages
+(up to max_page parameter!) are queried successively and combined.}
+
+\item{max_page}{maximum number of pages to retrieve. Defaults to 100. This is an upper limit
+to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
+is recommended only under controlled circumstances.}
 
 \item{enforce_api_root}{if multiple pages are requested, the API root URL is ensured
 to be the same as in the original call for all calls using the "next page" URL returned
@@ -59,4 +65,3 @@ gitlab(req = c("projects", 21, "issues"),
        gitlab_con = my_gitlab)
 }
 }
-

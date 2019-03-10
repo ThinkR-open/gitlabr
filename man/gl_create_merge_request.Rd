@@ -25,4 +25,3 @@ gl_create_merge_request(project, source_branch, target_branch = "master",
 \description{
 Create a merge request
 }
-

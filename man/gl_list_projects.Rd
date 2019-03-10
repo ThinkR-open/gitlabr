@@ -18,4 +18,3 @@ my_gitlab <- gl_connection(...) ## fill in login parameters
 my_gitlab(gl_list_projects)
 }
 }
-

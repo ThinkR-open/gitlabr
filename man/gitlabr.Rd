@@ -17,10 +17,9 @@ License: \tab GPL (>= 3)\cr
 LazyLoad: \tab yes\cr
 }
 }
-\author{
-Jirka Lewandowski \email{jirka.lewandowski@wzb.eu}
-}
 \references{
 \url{http://blog.points-of-interest.cc/}
 }
-
+\author{
+Jirka Lewandowski \email{jirka.lewandowski@wzb.eu}
+}

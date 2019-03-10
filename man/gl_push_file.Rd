@@ -4,8 +4,8 @@
 \alias{gl_push_file}
 \title{Upload a file to a gitlab repository}
 \usage{
-gl_push_file(project, file_path, content, commit_message, branch = "master",
-  overwrite = TRUE, ...)
+gl_push_file(project, file_path, content, commit_message,
+  branch = "master", overwrite = TRUE, ...)
 }
 \arguments{
 \item{project}{Project name or id}
@@ -37,4 +37,3 @@ my_project(gl_push_file, "data/test_data.csv",
            commit_message = "New test data")
 }
 }
-

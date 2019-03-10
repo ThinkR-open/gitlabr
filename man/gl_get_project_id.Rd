@@ -4,7 +4,8 @@
 \alias{gl_get_project_id}
 \title{Get a project id by name}
 \usage{
-gl_get_project_id(project_name, verb = httr::GET, auto_format = TRUE, ...)
+gl_get_project_id(project_name, verb = httr::GET, auto_format = TRUE,
+  ...)
 }
 \arguments{
 \item{project_name}{project name}
@@ -19,4 +20,3 @@ default verb \code{httr::GET}}
 \description{
 Get a project id by name
 }
-

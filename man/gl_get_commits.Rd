@@ -21,4 +21,3 @@ gl_get_diff(project, commit_sha, ...)
 \description{
 Get commits and diff from a project repository
 }
-

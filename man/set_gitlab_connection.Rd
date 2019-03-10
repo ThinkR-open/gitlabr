@@ -25,4 +25,3 @@ in a call to \code{\link{gitlab}}
 set_gitlab_connection("http://gitlab.example.com", private_token = "123####89")
 }
 }
-

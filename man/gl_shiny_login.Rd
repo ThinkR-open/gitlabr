@@ -8,9 +8,9 @@
 glLoginInput(id, login_button = TRUE)
 
 glReactiveLogin(input, output, session, gitlab_url, project = NULL,
-  success_message = "Gitlab login successful!",
-  failure_message = "Gitlab login failed!", on_error = function(...) {    
-  stop(failure_message) })
+  api_version = "v4", success_message = "Gitlab login successful!",
+  failure_message = "Gitlab login failed!", on_error = function(...) { 
+     stop(failure_message) })
 }
 \arguments{
 \item{id}{shiny namespace for the login module}
@@ -27,6 +27,8 @@ glReactiveLogin(input, output, session, gitlab_url, project = NULL,
 
 \item{project}{if not NULL, a code{\link{gl_project_connection}} is created to this project}
 
+\item{api_version}{A character with value either "v3" or "v4" to specify the API version that should be used}
+
 \item{success_message}{message text to be displayed in the UI on sucessful login}
 
 \item{failure_message}{message text to be displayed in the UI on login failure in addition to HTTP status}
@@ -42,4 +44,3 @@ and \code{\link{gl_project_connection}}.
 \code{glLoginInput} is supposed to be used inside a \code{shinyUI}, while
 \code{glReactiveLogin} is supposed to be passed on to \code{\link[shiny]{callModule}}
 }
-
