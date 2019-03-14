@@ -2,6 +2,7 @@
 % Please edit documentation in R/issues.R
 \name{gl_new_issue}
 \alias{gl_new_issue}
+\alias{gl_create_issue}
 \alias{gl_edit_issue}
 \alias{gl_close_issue}
 \alias{gl_reopen_issue}
@@ -10,6 +11,8 @@
 \title{Post a new issue or edit one}
 \usage{
 gl_new_issue(title, project, ...)
+
+gl_create_issue(title, project, ...)
 
 gl_edit_issue(issue_id, project, force_api_v3 = FALSE, ...)
 

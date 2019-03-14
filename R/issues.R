@@ -99,7 +99,9 @@ gl_new_issue <- function(title,
          verb = httr::POST,
          ...)
 }
+
 #' @export
+#' @rdname gl_edit_issue
 gl_create_issue <- gl_new_issue
 
 #' Post a new issue or edit one
