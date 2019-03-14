@@ -1,5 +1,5 @@
-[![CRAN\_Status\_Badge](http://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
-![CRAN\ Downloads\ Badge](http://cranlogs.r-pkg.org/badges/gitlabr)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
+![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 
 # gitlabr
 
