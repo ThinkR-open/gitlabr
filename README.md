@@ -27,7 +27,7 @@ Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 
 
 R code using gitlabr to perform some easy, common gitlab actions can look like this:
 
-```{r}
+```{r eval = FALSE}
 library(gitlabr)
 
 # connect as a fixed user to a gitlab instance

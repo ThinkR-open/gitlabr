@@ -108,8 +108,8 @@ unassign_issue(...)
 }
 \description{
 Many functions were renamed with version 0.7 to the \code{gl_} naming scheme.
-Note that the old function names will be removed with version 1.0, expected to
-be released in 2017.
+Note that the old function names are deprecated and might be removed without
+further notive.
 }
 \section{Details}{
 

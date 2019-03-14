@@ -1,7 +1,7 @@
 ---
 title: "Quick Start Guide to gitlabr"
 author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "2017-04-24"
+date: "2019-03-14"
 tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
 output:
   pdf_document:
@@ -14,13 +14,12 @@ slug: gitlabr
 
 R code using gitlabr to perform some easy, common gitlab actions can look like this:
 
-```{r message = FALSE}
+```{r eval = FALSE}
 library(gitlabr)
 
-# connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc",
-                           login = "testibaer",
-                           password = readLines("secrets/gitlab_password.txt"))
+# connect to a gitlab instance
+my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
+                           private_token = readLines("secrets/gitlab_token.txt"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
@@ -35,7 +34,7 @@ new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new 
 require(dplyr)
 example_user <-
   my_gitlab("users") %>%
-    filter(username == "testibaer")
+    filter(username == "testuser")
 
 # assign issue to a user
 my_gitlab(gl_assign_issue, project = "testor",
@@ -53,7 +52,7 @@ my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 - `gitlabr` provides a high and a low level interface to the gitlab API at the same time:
     - Common queries are wrapped in special convenience functions that can be used without any knowledge of the gitlab API itself -- find a list to start right away in the section ["Convenience function list"](#convenience-function-list).
     - Still, the package can be used to access the complete gitlab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
-- The output of every call to a `gitlabr` function is a `data_frame` to integrate seamless into dplyr's data manipulation mindset 
+- The output of every call to a `gitlabr` function is a `data_frame` to integrate seamless into dplyr's data manipulation mindset (often called the "tidyverse")
 - Pagination is wrapped for the user, but can be controlled via parameters `page` and `per_page` if necessary.
 - To allow programming in your favorite style, everything you can do with `gitlabr` you can do using any of a set of general idioms  -- get to know them in the section ["Different ways to do it"](#different-ways-to-do-it).
 - You can write your own convenience wrappers on top of the `gitlabr` logic following only one principle as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -109,31 +108,30 @@ PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%2
 
 To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
 
-Note: currently (gitlabr version 0.9) gitlab API v4 is supported. Support for Gitlab API v3 (from Gitlab version < 9.0) is still included via flag parameters, but will be deprecated from gitlab version 1.0 onwards. For details see the section "API version" of the documentation of `gl_connection`.
+Note: currently (gitlabr version 1.1.6) gitlab API v4 is supported. Support for Gitlab API v3 (for Gitlab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection`.
 
 # Different ways to do it
 
-`gitlabr` is implemented following the functional programming paradigm. Several of its functions return or accept functions as arguments. This results in huge flexibility in how API requests using `gitlabr` can be formulated your R code. Three major styles are described below, after introducing the central mechanism of creating more specific API connection functions.
+`gitlabr` is implemented following the functional programming paradigm. Several of its functions return or accept functions as arguments. This results in huge flexibility in how API requests using `gitlabr` can be formulated in your R code. Three major styles are described below, after introducing the central mechanism of creating more specific API connection functions.
 
 ## Creating connections
 
 The idea of connections in `gitlabr` is to generate functions with the same signature and capability of the central API call function `gitlab`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)). This way these more specialized functions represent and provide the connection -- for example -- to a specific gitlab instance as a specific user. Such specialized functions can be created by the function `gitlab_connection` and then used exactly as you would use `gitlab`:
 
 ```{r eval = FALSE}
-my_gitlab <- gl_connection("https://gitlab.points-of-interest.cc/",
-                               login = "jlewando",
-                               password = readLines("secrets/gitlab_password.txt"))
+my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
+                           private_token = readLines("secrets/gitlab_token.txt"))
 my_gitlab("projects")
 ```
 
-```{r echo = FALSE, eval = TRUE, message=FALSE}
+```{r echo = FALSE, eval = FALSE, message=FALSE}
 require(dplyr)
 my_gitlab("projects") %>%
   filter(public == "TRUE") %>%
   select(name, everything())
 ```
 
-`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set. In addition, the different ways to login in the gitlab API (see [https://doc.gitlab.com/ce/api/session.html](https://doc.gitlab.com/ce/api/session.html)) are all auto-detected and handled by replacing the login information with a private authentification token provided by the API in future calls using the returned function. 
+`gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set.
 
 As a convenience wrapper to directly connect to a specific project in a gitlab instance, `project_connection` exists.
 
@@ -147,19 +145,19 @@ Instead of the query as character vector `gitlab` and thus also all connections 
 my_gitlab(gl_new_issue, "Implement new feature", project = "testor")
 ```
 
-`new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+`gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
 
 Some of the convenience perform additional transformation or renaming of parameters. Hence, the parameters given to the exemplary `my_gitlab(...)` call after the function should be valid according the documentation of the respective function and may differ from names used in the gitlab API itself, although this is the case only in very few cases.
 
 ## parameter style
 
-Alternatively, `gitlab` as well as all convenience wrappers accept a parameter `gitlab_con` specifying the function to use for the actual API call. Hence, you can pass a gitlab connection (as returned by `gitlab_connection`) with the R function call:
+Alternatively, `gitlab` as well as all convenience wrappers accept a parameter `gitlab_con` specifying the function to use for the actual API call. Hence, you can pass a gitlab connection (as returned by `gl_connection`) with the R function call:
 
 ```{r eval = FALSE}
 gl_new_issue("Implement new feature", project = "testor", gitlab_con = my_gitlab)
 ```
 
-Again, `new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
 
 
 ## set style
@@ -171,13 +169,13 @@ set_gitlab_connection(my_gitlab)
 gl_new_issue("Implement new feature", project = "testor")
 ```
 
-Again, `new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined as described in  the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
 
 Note that the set style is not purely functional, since `set_gitlab_connection` changes a saved global variable affecting the results of all future `gitlab` calls. You can reset this variable to the default value using `unset_gitlab_connection()`.
 
 # Convenience function list
 
-Here is a list of all convenience wrapper functions that come with `gitlabr` 0.9 Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
+Here is a list of all convenience wrapper functions that come with `gitlabr` 1.1.6. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
 
 - gl_assign_issue
 - gl_builds
@@ -214,7 +212,7 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 0.9
 
 Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 
-Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and will be removed with gitlabr version 1.0.
+Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and might be removed without further notice.
 
 # Writing custom gitlab request functions
 
@@ -222,7 +220,7 @@ It is very easy to write your own convenience wrappers for accessing API endpoin
 
 That is, a simple function to block users directly from R is as simple as:
 ```{r}
-block_user <- function(uid, ...) {
+gl_block_user <- function(uid, ...) {
   gitlab(c("users", uid, "block"),  ## for API side documentation see:
          verb = httr::PUT, ## https://doc.gitlab.com/ce/api/users.html#block-user
          ...) ## don't forget the dots to make gitlabr features fully available
@@ -235,7 +233,7 @@ More hints for more convenience:
 - To translate project names to numeric ids automatically, you can use `gitlabr`'s internal functions `proj_req` translating the request location.
 - To translate user-visible project-wide issue ids to global ids used by the gitlab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
 
-And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://gitlab.points-of-interest.cc/points-of-interest/gitlabr/](https://gitlab.points-of-interest.cc/points-of-interest/gitlabr/).
+And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://github.com/jirkalewandowski/gitlabr/](https://github.com/jirkalewandowski/gitlabr/).
 
 # Using gitlab CI with gitlabr
 
