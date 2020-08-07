@@ -5,7 +5,7 @@ library(gitlabr)
 
 ## bulk renaming
 
-data_frame(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
+tibble(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
   mutate(new_name = case_when(
     .$old_name == "gitlab" ~ "gitlab",
     .$old_name == "gitlab_connection" ~ "gl_connection",

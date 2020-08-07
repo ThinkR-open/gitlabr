@@ -4,11 +4,20 @@
 \alias{gitlab}
 \title{Request Gitlab API}
 \usage{
-gitlab(req, api_root, verb = httr::GET, auto_format = TRUE,
-  debug = FALSE, gitlab_con = "default", page = "all",
-  max_page = 100, enforce_api_root = TRUE, argname_verb = if
-  (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {    
-  "query" } else {     "body" }, ...)
+gitlab(
+  req,
+  api_root,
+  verb = httr::GET,
+  auto_format = TRUE,
+  debug = FALSE,
+  gitlab_con = "default",
+  page = "all",
+  max_page = 100,
+  enforce_api_root = TRUE,
+  argname_verb = if (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {    
+    "query" } else {     "body" },
+  ...
+)
 }
 \arguments{
 \item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
@@ -44,7 +53,7 @@ and ignorant about its URL from external.}
 may include private_token and all other parameters as documented for the Gitlab API}
 }
 \value{
-the response from the Gitlab API, usually as a `data_frame` and including all pages
+the response from the Gitlab API, usually as a `tibble` and including all pages
 }
 \description{
 This is gitlabr's core function to talk to Gitlab's server API via HTTP(S). Usually you will not

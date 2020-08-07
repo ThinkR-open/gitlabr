@@ -4,8 +4,15 @@
 \alias{gl_push_file}
 \title{Upload a file to a gitlab repository}
 \usage{
-gl_push_file(project, file_path, content, commit_message,
-  branch = "master", overwrite = TRUE, ...)
+gl_push_file(
+  project,
+  file_path,
+  content,
+  commit_message,
+  branch = "master",
+  overwrite = TRUE,
+  ...
+)
 }
 \arguments{
 \item{project}{Project name or id}
@@ -23,7 +30,7 @@ gl_push_file(project, file_path, content, commit_message,
 \item{...}{passed on to \code{\link{gitlab}}}
 }
 \value{
-returns a data_frame with changed branch and path (0 rows if
+returns a tibble with changed branch and path (0 rows if
 nothing was changed, since overwrite is FALSE)
 }
 \description{

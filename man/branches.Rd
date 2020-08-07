@@ -8,8 +8,7 @@
 \usage{
 gl_list_branches(project, verb = httr::GET, ...)
 
-gl_create_branch(project, branch, ref = "master", verb = httr::POST,
-  ...)
+gl_create_branch(project, branch, ref = "master", verb = httr::POST, ...)
 
 gl_delete_branch(project, branch, verb = httr::POST, ...)
 }

@@ -4,7 +4,9 @@
 \name{gitlabr_0_7_renaming}
 \alias{gitlabr_0_7_renaming}
 \title{renamings from gitlabr version 0.6.4 to 0.7}
-\format{A data frame with 33 rows and 2 variables}
+\format{
+A data frame with 33 rows and 2 variables
+}
 \description{
 List of of old and new function name. Used internally by
 \code{\link{update_gitlabr_code}}

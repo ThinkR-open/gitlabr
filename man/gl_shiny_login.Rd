@@ -7,10 +7,17 @@
 \usage{
 glLoginInput(id, login_button = TRUE)
 
-glReactiveLogin(input, output, session, gitlab_url, project = NULL,
-  api_version = "v4", success_message = "Gitlab login successful!",
-  failure_message = "Gitlab login failed!", on_error = function(...) { 
-     stop(failure_message) })
+glReactiveLogin(
+  input,
+  output,
+  session,
+  gitlab_url,
+  project = NULL,
+  api_version = "v4",
+  success_message = "Gitlab login successful!",
+  failure_message = "Gitlab login failed!",
+  on_error = function(...) {     stop(failure_message) }
+)
 }
 \arguments{
 \item{id}{shiny namespace for the login module}

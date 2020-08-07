@@ -55,7 +55,7 @@ gl_create_branch <- function(project, branch, ref = "master", verb = httr::POST,
          ref = ref,
          auto_format = FALSE,
          ...) %>%
-    tibble::as_data_frame()
+    tibble::as_tibble()
 }
 
 #' List, create and delete branches
@@ -67,7 +67,7 @@ gl_delete_branch <- function(project, branch, verb = httr::POST, ...) {
          verb = httr::DELETE,
          auto_format = FALSE,
          ...) %>%
-    tibble::as_data_frame()
+    tibble::as_tibble()
 }
 
 #' Create a merge request
@@ -206,7 +206,7 @@ gl_get_file <- function(project,
 #'
 #' If the file already exists, it is updated/overwritten by default
 #'
-#' @return returns a data_frame with changed branch and path (0 rows if
+#' @return returns a tibble with changed branch and path (0 rows if
 #' nothing was changed, since overwrite is FALSE)
 #'
 #' @param project Project name or id
@@ -242,7 +242,7 @@ gl_push_file <- function(project,
            verb = if (exists) { httr::PUT } else { httr::POST },
            ...)
   } else {
-    tibble::data_frame(file_path = character(0),
+    tibble::tibble(file_path = character(0),
                        branch = character(0))
   }
 }

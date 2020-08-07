@@ -13,8 +13,13 @@ gl_jobs(project, ...)
 
 gl_builds(project, force_api_v3 = TRUE, ...)
 
-gl_latest_build_artifact(project, job, ref_name = "master",
-  save_to_file = tempfile(fileext = ".zip"), ...)
+gl_latest_build_artifact(
+  project,
+  job,
+  ref_name = "master",
+  save_to_file = tempfile(fileext = ".zip"),
+  ...
+)
 }
 \arguments{
 \item{project}{project name or id, required}

@@ -4,8 +4,15 @@
 \alias{gl_create_merge_request}
 \title{Create a merge request}
 \usage{
-gl_create_merge_request(project, source_branch, target_branch = "master",
-  title, description, verb = httr::POST, ...)
+gl_create_merge_request(
+  project,
+  source_branch,
+  target_branch = "master",
+  title,
+  description,
+  verb = httr::POST,
+  ...
+)
 }
 \arguments{
 \item{project}{name or id of project (not repository!)}
