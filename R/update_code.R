@@ -16,7 +16,7 @@ update_gitlabr_code <- function(file,
   utils::data("gitlabr_0_7_renaming", envir = environment())
   
   gitlabr_0_7_renaming %>%
-    iff(internal, function(x,y) { bind_rows(y,x) }, tibble::data_frame(old_name = c("edit_comment", "comments"),
+    iff(internal, function(x,y) { bind_rows(y,x) }, tibble::tibble(old_name = c("edit_comment", "comments"),
                                                                        new_name = c("gl_edit_comment", "gl_comments"))) %$%
     mapply(purrr::partial,
            pattern = paste0("(", old_name, ")(\\(|\\}|,|$|\\s)"),

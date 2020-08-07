@@ -5,8 +5,13 @@
 \alias{gl_get_issue}
 \title{Get issues of a project or user}
 \usage{
-gl_list_issues(project = NULL, issue_id = NULL, verb = httr::GET,
-  force_api_v3 = FALSE, ...)
+gl_list_issues(
+  project = NULL,
+  issue_id = NULL,
+  verb = httr::GET,
+  force_api_v3 = FALSE,
+  ...
+)
 
 gl_get_issue(issue_id, project, ...)
 }

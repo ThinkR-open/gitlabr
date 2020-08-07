@@ -11,7 +11,7 @@ test_that("CI yml generation works", {
                                        "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/jirkalewandowski/gitlabr.git"))
   
   expect_equal(yaml::yaml.load_file(".gitlab-ci.yml.test"),
-               yaml::yaml.load_file("../../.gitlab-ci.yml"))
+               yaml::yaml.load_file(".gitlab-ci.yml"))
   
   on.exit(unlink(".gitlab-ci.yml.test"))
   

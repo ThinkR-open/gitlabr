@@ -5,11 +5,20 @@
 \alias{gl_project_connection}
 \title{Connect to a specific gitlab instance API}
 \usage{
-gl_connection(gitlab_url, private_token, api_version = "v4",
-  api_location = paste0("/api/", api_version, "/"))
+gl_connection(
+  gitlab_url,
+  private_token,
+  api_version = "v4",
+  api_location = paste0("/api/", api_version, "/")
+)
 
-gl_project_connection(gitlab_url, project, private_token,
-  api_version = "v4", api_location = paste0("/api/", api_version, "/"))
+gl_project_connection(
+  gitlab_url,
+  project,
+  private_token,
+  api_version = "v4",
+  api_location = paste0("/api/", api_version, "/")
+)
 }
 \arguments{
 \item{gitlab_url}{URL to the gitlab instance (e.g. \code{https://gitlab.myserver.com})}

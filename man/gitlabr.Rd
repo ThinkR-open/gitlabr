@@ -3,7 +3,6 @@
 \docType{package}
 \name{gitlabr}
 \alias{gitlabr}
-\alias{gitlabr-package}
 \title{Interface to gitlab API on high and low levels}
 \description{
 gitlabr R package
