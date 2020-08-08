@@ -70,7 +70,6 @@ jobs:
       - name: Check
         env:
           _R_CHECK_CRAN_INCOMING_REMOTE_: false
-        with:
           COMMENTED_COMMIT: ${{ secrets.COMMENTED_COMMIT }}
           GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
           GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
