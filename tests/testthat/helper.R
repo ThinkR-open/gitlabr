@@ -1,7 +1,9 @@
-do.call(
-  Sys.setenv,
-  yaml::yaml.load_file("../environment.yml")
-)
+if (file.exists("../environment.yml")) {
+  do.call(
+    Sys.setenv,
+    yaml::yaml.load_file("../environment.yml")
+  )
+}
 
 # Set environment variables in github CI
 test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
