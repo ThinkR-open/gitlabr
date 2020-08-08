@@ -1,5 +1,5 @@
 my_gitlab <- gl_project_connection(test_url,
-                                   project = "testor",
+                                   project = test_project,
                                    private_token = test_private_token,
                                    api_version = test_api_version)
 

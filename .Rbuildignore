@@ -14,3 +14,4 @@ Dockerfile
 ^dev_history\.R$
 ^README\.Rmd$
 ^tests/testthat/\.gitlab-ci\.yml$
+^\.github$

@@ -1,5 +1,5 @@
 my_project <- gl_project_connection(test_url,
-                                    project = "testor",
+                                    project = test_project,
                                     private_token = test_private_token,
                                     api_version = test_api_version)
 my_gitlab <- gl_connection(test_url,
@@ -11,8 +11,8 @@ test_that("branch access works", {
   ## different call formats for listing
   expect_is(my_project(gl_list_branches), "data.frame")
   expect_is(gl_list_branches(gitlab_con = my_project), "data.frame")
-  expect_is(my_gitlab(project = "testor", gl_list_branches), "data.frame")
-  expect_is(gl_list_branches(gitlab_con = my_gitlab, project = "testor"), "data.frame")
+  expect_is(my_gitlab(project = test_project, gl_list_branches), "data.frame")
+  expect_is(gl_list_branches(gitlab_con = my_gitlab, project = test_project), "data.frame")
   
   ## creating and deleteing branches not tested automatically for security and load reasons
   # my_project(gl_create_branch, branch = "testbranch")
