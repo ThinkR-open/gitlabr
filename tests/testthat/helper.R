@@ -21,6 +21,7 @@ print(paste("test user id:", test_user_id))
 print(paste("test_url:", test_url))
 print(paste("test_project_name:", test_project_name))
 print(paste("test testor:", Sys.getenv("GITLABR_TEST_PROJECT_NAME") == "testor"))
+print(paste("test_private_token:", test_private_token))
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
@@ -29,7 +30,9 @@ my_gitlab <- gl_connection(
   api_version = test_api_version)
 
 suppressPackageStartupMessages(library(dplyr))
+print("users")
 users <- my_gitlab("users", max_page = 2)
+print("projects")
 projects <- my_gitlab("projects", max_page = 1)
 
 # If there are too many users and you do not appear in the first ones,
@@ -49,3 +52,4 @@ if (nrow(my_project) == 0) {
 } else {
   test_project <- test_project_name
 }
+
