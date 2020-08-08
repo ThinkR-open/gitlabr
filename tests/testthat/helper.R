@@ -20,6 +20,7 @@ print("helper.R")
 print(paste("test user id:", test_user_id))
 print(paste("test_url:", test_url))
 print(paste("test_project_name:", test_project_name))
+print(paste("test testor:", Sys.getenv("GITLABR_TEST_PROJECT_NAME") == "testor"))
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
