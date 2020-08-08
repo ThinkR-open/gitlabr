@@ -16,12 +16,15 @@ test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "6b9d22115a93ab0
 test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor")
 test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
 
-print("helper.R")
-print(paste("test user id:", test_user_id))
-print(paste("test_url:", test_url))
-print(paste("test_project_name:", test_project_name))
-print(paste("test testor:", Sys.getenv("GITLABR_TEST_PROJECT_NAME") == "testor"))
-print(paste("test_private_token:", test_private_token))
+# test direct link
+print("test google")
+httr::GET("https://google.com")
+print("test gitlab")
+httr::GET("https://gitlab.com")
+print("test direct link")
+query <- paste0("https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=2&per_page=20&private_token=",
+       test_private_token, "&skip_ldap=false&with_custom_attributes=false")
+httr::GET(query)
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
