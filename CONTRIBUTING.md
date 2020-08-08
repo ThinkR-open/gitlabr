@@ -7,7 +7,7 @@ Please also note the [Code of Conduct](CONDUCT.md).
 
 ## Setup a local development environment
 
-If you want to run the test suite locally, you need to setup a a Gitlab instance for testing. Then, in the file `tests/environment.yml` configuration variables are recorded about how to connect to the gitlab instance. [tests/environment.yml.example](tests/environment.yml.example) contains an example configuration for a server that is, however, not publicly available for a testing.
+If you want to run the test suite locally, you need to setup a Gitlab instance for testing. Then, in the file `tests/environment.yml` configuration variables are recorded about how to connect to the gitlab instance. [tests/environment.yml.example](tests/environment.yml.example) contains an example configuration for a server that is, however, not publicly available for a testing.
 
 ## How to create a test server
 

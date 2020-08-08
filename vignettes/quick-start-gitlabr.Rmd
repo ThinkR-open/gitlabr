@@ -216,7 +216,7 @@ Note also that since gitlabr version 0.7 all functions of this package follow a 
 
 # Writing custom gitlab request functions
 
-It is very easy to write your own convenience wrappers for accessing API endpoints you whish and make sure they fully integrate into `gitlabr` and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to `gitlab` (or another convenience function) to which the `...` argument is passed on.
+It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into `gitlabr` and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to `gitlab` (or another convenience function) to which the `...` argument is passed on.
 
 That is, a simple function to block users directly from R is as simple as:
 ```{r}

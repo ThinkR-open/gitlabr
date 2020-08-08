@@ -91,8 +91,8 @@ gl_default_ci_pipeline <- function() {
 #' @rdname gitlabci
 #' 
 #' @examples
-#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
-#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
+#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = tempfile(fileext = ".yml"))
+#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", , path = tempfile(fileext = ".yml"),
 #'  push_to_remotes = list("github" =
 #'  "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
 use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
