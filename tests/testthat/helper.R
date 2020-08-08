@@ -16,6 +16,8 @@ test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "6b9d22115a93ab0
 test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor")
 test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
 
+print("helper.R")
+print(paste("test user id:", test_user_id))
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
