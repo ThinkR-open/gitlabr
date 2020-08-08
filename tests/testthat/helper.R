@@ -25,7 +25,7 @@ my_gitlab <- gl_connection(
   private_token = test_private_token,
   api_version = test_api_version)
 
-library(dplyr)
+suppressPackageStartupMessages(library(dplyr))
 users <- my_gitlab("users", max_page = 2)
 projects <- my_gitlab("projects", max_page = 1)
 
