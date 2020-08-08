@@ -1,14 +1,16 @@
+ci_path <- tempfile(fileext = ".yml")
+
 test_that("CI yml generation works", {
   
   use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
-                path = ".gitlab-ci.yml.test",
+                path = ci_path,
                 push_to_remotes = list("github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git",
                                        "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/jirkalewandowski/gitlabr.git"))
   
-  expect_equal(yaml::yaml.load_file(".gitlab-ci.yml.test"),
+  expect_equal(yaml::yaml.load_file(ci_path),
                yaml::yaml.load_file(".gitlab-ci.yml"))
   
-  on.exit(unlink(".gitlab-ci.yml.test"))
+  on.exit(unlink(ci_path))
   
 })
 

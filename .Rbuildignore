@@ -11,3 +11,6 @@ Dockerfile
 ^\.travis\.yml$
 ^\.gitlab-ci\.yml$
 .gitlab-ci.yml.test
+^dev_history\.R$
+^README\.Rmd$
+^tests/testthat/\.gitlab-ci\.yml$

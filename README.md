@@ -1,33 +1,53 @@
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
-![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 
 # gitlabr
+
+<!-- badges: start -->
+
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
+![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
+<!-- badges: end -->
 
 ## Installation
 
 You can install the most recent stable version from CRAN using:
 
-```{r}
+``` r
 install.packages("gitlabr")
 ```
 
-To install the development version using [devtools](https://cran.r-project.org/package=devtools)), type:
-```{r}
-library(devtools)
-install_github("jirkalewandowski/gitlabr")
+To install the development version using
+[devtools](https://cran.r-project.org/package=devtools)), type:
+
+``` r
+devtools::install_github("statnmap/gitlabr")
 ```
 
-See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
+See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to
+run tests locally and contributor information.
 
 ## Recommended Gitlab versions
 
-Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This gitlabr version uses the gitlab API v4, older versions of Gitlab using API v3 are still supported by gitlabr 0.9, see details section "API version" of the documentation of `gl_connection` on how to use them. From gitlabr 1.1.6 on API v3 is deprecated and will no longer be tested or maintained, although it is still present in the code. Also within API v4, changes have been made to the gitlab API, most notably for gitlabr, the session endpoint was removed. The versions of gitlabr will always be tested on the corresponding gitlab version, i.e. gitlabr 1.1.6 works best with gitlab 11.6. However, not for every new gitlab version there will be a gitlabr version.
+Gitlab 11.6 or higher is generally recommended when using gitlabr
+version 1.1.6 or higher. This gitlabr version uses the gitlab API v4,
+older versions of Gitlab using API v3 are still supported by gitlabr
+0.9, see details section “API version” of the documentation of
+`gl_connection` on how to use them. From gitlabr 1.1.6 on API v3 is
+deprecated and will no longer be tested or maintained, although it is
+still present in the code. Also within API v4, changes have been made to
+the gitlab API, most notably for gitlabr, the session endpoint was
+removed. The versions of gitlabr will always be tested on the
+corresponding gitlab version, i.e. gitlabr 1.1.6 works best with gitlab
+11.6. However, not for every new gitlab version there will be a gitlabr
+version.
 
 ## Quick Start Example
 
-R code using gitlabr to perform some easy, common gitlab actions can look like this:
+R code using gitlabr to perform some easy, common gitlab actions can
+look like this:
 
-```{r eval = FALSE}
+``` r
 library(gitlabr)
 
 # connect as a fixed user to a gitlab instance
@@ -44,7 +64,7 @@ my_gitlab(gl_list_files, project = "testor")
 new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new feature")
 
 # requests via gitlabr always return data_frames, so you can use all common manipulations
-require(dplyr)
+library(dplyr)
 example_user <-
   my_gitlab("users") %>%
     filter(username == "testuser")
@@ -62,6 +82,88 @@ my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 
 ## Further information
 
-- For a comprehensive overview & introduction see the `vignette("quick-start-gitlabr")`
-- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [Gitlab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
-- The gitlabr development repository is https://github.com/jirkalewandowski/gitlabr
+  - For a comprehensive overview & introduction see the
+    `vignette("quick-start-gitlabr")`
+  - When writing custom extensions (“convenience functions”) for gitlabr
+    or when you experience any trouble, the very extensive [Gitlab API
+    documentation](http://doc.gitlab.com/ce/api/) can be helpful.
+  - The gitlabr development repository is
+    <https://github.com/jirkalewandowski/gitlabr>
+
+## To Do - If you do not know how to contribute, here is a list…
+
+From [Jenny Brian
+review](https://github.com/jennybc/gitlabr/blob/jenny-review/jenny-review.md)
+
+1.  I have not been able to run basic code against gitlab.com. I *can*
+    run essentially all code I see in tests, vignette, etc. against
+    gitlab.points-of-interest.cc. It’s not clear if this is a real
+    problem or a documentation problem, leading to user error. Either
+    way, it needs to be addressed.
+
+<!-- end list -->
+
+  - It would probably be best if examples, README, etc. featured
+    gitlab.com, as most users would probably be doing that. It might
+    also reveal now or in the future if there is some underlying problem
+    that I am experiencing.
+  - For example, here’s code adapted from the examples in
+    `gl_connection()`:
+
+<!-- end list -->
+
+``` r
+my_gitlab <- gl_connection(
+  "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_PVT_TOKEN")
+)
+my_gitlab("projects")
+```
+
+  - First, the `gl_connection()` call needs to specify the name of the
+    second argument or else it’s interpreted as the `login`. Second, the
+    `my_gitlab()` call hangs indefinitely for me.
+
+<!-- end list -->
+
+2.  **Automated tests:**
+
+*See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to
+run tests locally and contributor information.*
+
+I was able to run tests for this package without too much pain, which is
+pretty impressive, so big kudos for that\! I have yet to write tests for
+an API-wrapping package that achieves this worthy goal. Some thoughts
+and suggestions:
+
+  - Why test against your gitlab server vs gitlab.com? It’s not
+    completely hard-wired, given the URL in `environment.yml` but I
+    suspect there would be some undocumented setup required if I
+    actually changed the target gitlab server.
+  - The instructions don’t tell me how to populate `environment.yml`.
+    Where do I get this info on gitlab? Is the token supposed to be the
+    private token displayed in the account tab of user settings or an
+    access token generated from the access tokens tab?
+  - Once I populate `environment.yml` with real info, I should
+    `.gitignore` it, right? That would be good to clarify. If testing on
+    CI, then I assume there’s an encryption strategy for this file. Or
+    maybe secure env vars are used?
+  - Each test file should use `context("blah blah")` at the top for
+    nicer reporting. I’ve done this is my review branch.
+  - I had to `skip()` the test about issue editing, because I don’t have
+    necessary permission. Would be good to implement this such that
+    tester is editing an issue they have permission on. Again, pretty
+    impressive that it’s the *only* test I had to skip\! I’ve done this
+    is my review branch.
+  - [These lines re: API version in
+    `testthat.R`](https://github.com/jirkalewandowski/gitlabr/blob/3525479b1316abd2f2122f7778be2c3c4f8b3d06/tests/testthat.R#L4-L14)
+    are pretty unusual. I can’t infer the exact goal, but wonder if
+    there’s a better / more conventional way to achieve it. Obviously, I
+    understand it’s got something to do with testing against different
+    API versions.
+  - I’ve moved common env var setup into `helper.R` and out of
+    individual test files. Looking at the top of these files, I suspect
+    even more setup could probably be similarly centralized? `helper.R`
+    is always sourced by `devtools::load_all()` so this makes for a nice
+    workflow even when developing / running tests interactively,
+    i.e. the info doesn’t *need* to live in each file.

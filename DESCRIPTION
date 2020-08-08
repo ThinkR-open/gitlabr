@@ -1,36 +1,42 @@
 Package: gitlabr
 Title: Access to the Gitlab API
 Version: 1.1.6
-Authors@R: person("Jirka", "Lewandowski", email = "jirka.lewandowski@wzb.eu", role = c("aut", "cre"))
-Description: Provides R functions to access the API of the project and
-    repository management web application gitlab. For many common tasks (repository
-    file access, issue assignment and status, commenting) convenience wrappers
-    are provided, and in addition the full API can be used by specifying request
-    locations. Gitlab is open-source software and can be self-hosted or used on
-    gitlab.com.
+Authors@R: 
+    person(given = "Jirka",
+           family = "Lewandowski",
+           role = c("aut", "cre"),
+           email = "jirka.lewandowski@wzb.eu")
+Description: Provides R functions to access the API of the
+    project and repository management web application gitlab. For many
+    common tasks (repository file access, issue assignment and status,
+    commenting) convenience wrappers are provided, and in addition the
+    full API can be used by specifying request locations. Gitlab is
+    open-source software and can be self-hosted or used on gitlab.com.
+License: GPL (>= 3)
+URL: https://blog.points-of-interest.cc/post/gitlabr/
+    http://doc.gitlab.com/ce/api/
+BugReports: https://github.com/statnmap/gitlabr/
 Depends:
     R (>= 3.1.2)
 Imports:
-    dplyr (>= 0.4.3),
-    stringr,
+    arpr,
     base64enc,
+    devtools (>= 1.8.0),
+    dplyr (>= 0.4.3),
     httr (>= 1.1.0),
+    magrittr,
     purrr (>= 0.2.2),
+    shiny (>= 0.13.0),
+    stringr,
     tibble (>= 1.1),
     utils,
-    yaml,
-    arpr,    
-    magrittr
+    yaml
 Suggests:
-    devtools (>= 1.8.0),
-    roxygen2,
-    testthat (>= 1.0.2),
-    R.rsp,
     knitr,
-    shiny (>= 0.13.0)
-URL: https://blog.points-of-interest.cc/post/gitlabr/ http://doc.gitlab.com/ce/api/
-BugReports: https://github.com/jirkalewandowski/gitlabr/
-VignetteBuilder: R.rsp
-License: GPL (>= 3)
+    R.rsp,
+    rmarkdown,
+    testthat (>= 1.0.2)
+VignetteBuilder: 
+    R.rsp
 LazyData: true
 RoxygenNote: 7.1.0

@@ -47,8 +47,8 @@ Define Gitlab CI jobs
 }
 \examples{
 gl_ci_job("build", allowed_dependencies = "test")
-use_gitlab_ci(image = "pointsofinterest/gitlabr:latest")
-use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
+use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = tempfile(fileext = ".yml"))
+use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", , path = tempfile(fileext = ".yml"),
  push_to_remotes = list("github" =
  "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
 }
