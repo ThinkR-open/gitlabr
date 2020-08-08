@@ -1,3 +1,7 @@
+# gitlabr 1.1.6.9000
+
+* Reduce `max_page` to retrieve to allow to work with big Gitlab servers like Gitlab.com
+
 # gitlabr 1.1.6
 
 * `gl_create_issue` is introduced as new alias for `gl_new_issue`

@@ -16,7 +16,8 @@ gl_list_issues(
 gl_get_issue(issue_id, project, ...)
 }
 \arguments{
-\item{project}{project name or id, may be null for all issues created by user}
+\item{project}{project name or id, may be null for all issues created by user.
+If using the ID, set it as numeric, otherwise this is used as project name.}
 
 \item{issue_id}{optional issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE`)}
 

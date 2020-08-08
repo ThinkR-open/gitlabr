@@ -6,7 +6,9 @@
 <!-- badges: start -->
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
-![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
+![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr) [![R
+build
+status](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
 <!-- badges: end -->
 
 ## Installation
@@ -50,34 +52,46 @@ look like this:
 ``` r
 library(gitlabr)
 
+# Store your token in .Renviron and restart your session
+usethis::edit_r_environ()
+# Add: GITLAB_COM_TOKEN=YourTokenHere
+# You can verify it worked
+Sys.getenv("GITLAB_COM_TOKEN")
+
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
-                           private_token = readLines("secrets/gitlab_token.txt"))
+my_gitlab <- gl_connection("https://gitlab.com",
+                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
 my_gitlab(gl_list_projects) # a data_frame is returned, as is always by gitlabr functions
 
-my_gitlab(gl_list_files, project = "testor")
+my_gitlab(gl_list_files, project = my_project)
+
+# Define the project you want to work on
+my_project <- my_project
+# It is even better if you use the project ID (as numeric),
+# in particular, if you have a big Gitlab server
+my_project <- 20416969
 
 # create a new issue
-new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new feature")
+new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
 
 # requests via gitlabr always return data_frames, so you can use all common manipulations
 library(dplyr)
 example_user <-
   my_gitlab("users") %>%
-    filter(username == "testuser")
+    filter(username == "statnmap")
 
 # assign issue to a user
-my_gitlab(gl_assign_issue, project = "testor",
+my_gitlab(gl_assign_issue, project = my_project,
           new_feature_issue$iid,
           assignee_id = example_user$id)
 
-my_gitlab(gl_list_issues, "testor", state = "opened")
+my_gitlab(gl_list_issues, my_project, state = "opened")
 
 # close issue
-my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
+my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
 ```
 
 ## Further information
@@ -95,22 +109,17 @@ my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
 From [Jenny Brian
 review](https://github.com/jennybc/gitlabr/blob/jenny-review/jenny-review.md)
 
-1.  I have not been able to run basic code against gitlab.com. I *can*
-    run essentially all code I see in tests, vignette, etc. against
-    gitlab.points-of-interest.cc. It’s not clear if this is a real
-    problem or a documentation problem, leading to user error. Either
-    way, it needs to be addressed.
+### Example with gitlab.com
 
-<!-- end list -->
-
-  - It would probably be best if examples, README, etc. featured
-    gitlab.com, as most users would probably be doing that. It might
-    also reveal now or in the future if there is some underlying problem
-    that I am experiencing.
-  - For example, here’s code adapted from the examples in
-    `gl_connection()`:
-
-<!-- end list -->
+I have not been able to run basic code against gitlab.com. I *can* run
+essentially all code I see in tests, vignette, etc. against
+gitlab.points-of-interest.cc. It’s not clear if this is a real problem
+or a documentation problem, leading to user error. Either way, it needs
+to be addressed. + It would probably be best if examples, README, etc.
+featured gitlab.com, as most users would probably be doing that. It
+might also reveal now or in the future if there is some underlying
+problem that I am experiencing. + For example, here’s code adapted from
+the examples in `gl_connection()`:
 
 ``` r
 my_gitlab <- gl_connection(
@@ -124,9 +133,7 @@ my_gitlab("projects")
     second argument or else it’s interpreted as the `login`. Second, the
     `my_gitlab()` call hangs indefinitely for me.
 
-<!-- end list -->
-
-2.  **Automated tests:**
+### Automated tests
 
 *See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to
 run tests locally and contributor information.*

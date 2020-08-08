@@ -17,7 +17,7 @@
 #' \code{\link{gitlab_connection}}
 #' @param page number of page of API response to get; if "all" (default), all pages
 #' (up to max_page parameter!) are queried successively and combined.
-#' @param max_page maximum number of pages to retrieve. Defaults to 100. This is an upper limit
+#' @param max_page maximum number of pages to retrieve. Defaults to 10. This is an upper limit
 #' to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 #' project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 #' is recommended only under controlled circumstances.
@@ -49,7 +49,7 @@ gitlab <- function(req,
                    debug = FALSE,
                    gitlab_con = "default",
                    page = "all",
-                   max_page = 100,
+                   max_page = 10,
                    enforce_api_root = TRUE,
                    argname_verb = if (identical(verb, httr::GET) |
                                       identical(verb, httr::DELETE)) { "query" } else { "body" },

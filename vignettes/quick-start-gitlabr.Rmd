@@ -17,9 +17,15 @@ R code using gitlabr to perform some easy, common gitlab actions can look like t
 ```{r eval = FALSE}
 library(gitlabr)
 
-# connect to a gitlab instance
-my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
-                           private_token = readLines("secrets/gitlab_token.txt"))
+# Store your token in .Renviron and restart your session
+usethis::edit_r_environ()
+# Add: GITLAB_COM_TOKEN=YourTokenHere
+# You can verify it worked
+Sys.getenv("GITLAB_COM_TOKEN")
+
+# connect as a fixed user to a gitlab instance
+my_gitlab <- gl_connection("https://gitlab.com",
+                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
@@ -27,8 +33,14 @@ my_gitlab(gl_list_projects)
 
 my_gitlab(gl_list_files, project = "gitlabr", path = "R")
 
+# Define the project you want to work on
+my_project <- my_project
+# It is even better if you use the project ID (as numeric),
+# in particular, if you have a big Gitlab server
+my_project <- 20416969
+
 # create a new issue
-new_feature_issue <- my_gitlab(gl_new_issue, project = "testor", "Implement new feature")
+new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
 
 # requests via gitlabr always return tibbles, so you can use all common manipulations
 require(dplyr)
@@ -37,14 +49,14 @@ example_user <-
     filter(username == "testuser")
 
 # assign issue to a user
-my_gitlab(gl_assign_issue, project = "testor",
+my_gitlab(gl_assign_issue, project = my_project,
           new_feature_issue$iid,
           assignee_id = example_user$id)
 
-my_gitlab(gl_list_issues, "testor", state = "opened")
+my_gitlab(gl_list_issues, my_project, state = "opened")
 
 # close issue
-my_gitlab(gl_close_issue, project = "testor", new_feature_issue$iid)$state
+my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
 ```
 
 # Central features of gitlabr
@@ -142,7 +154,7 @@ For combining so created gitlab connections with the convenience functions to pe
 Instead of the query as character vector `gitlab` and thus also all connections accept equivalently a *function* as first argument, that is then called with the additional parameters and using the connection for all API calls:
 
 ```{r eval = FALSE}
-my_gitlab(gl_new_issue, "Implement new feature", project = "testor")
+my_gitlab(gl_new_issue, "Implement new feature", project = my_project)
 ```
 
 `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -154,7 +166,7 @@ Some of the convenience perform additional transformation or renaming of paramet
 Alternatively, `gitlab` as well as all convenience wrappers accept a parameter `gitlab_con` specifying the function to use for the actual API call. Hence, you can pass a gitlab connection (as returned by `gl_connection`) with the R function call:
 
 ```{r eval = FALSE}
-gl_new_issue("Implement new feature", project = "testor", gitlab_con = my_gitlab)
+gl_new_issue("Implement new feature", project = my_project, gitlab_con = my_gitlab)
 ```
 
 Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
@@ -166,7 +178,7 @@ In order to avoid the repeated specification of `gitlab_con` in the parameter st
 
 ```{r eval = FALSE}
 set_gitlab_connection(my_gitlab)
-gl_new_issue("Implement new feature", project = "testor")
+gl_new_issue("Implement new feature", project = my_project)
 ```
 
 Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).

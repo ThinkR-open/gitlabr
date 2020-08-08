@@ -1,4 +1,12 @@
-GITLABR_TEST_TOKEN: eLV6xqUv2Qjo8M9UbEeq
-GITLABR_TEST_URL: https://test-gitlab.points-of-interest.cc
+# Set values
+# On Gitlab.com for instance. Change URL with your own server
+# Got to: https://gitlab.com/profile/personal_access_tokens
+
+GITLABR_TEST_URL: https://gitlab.com
 GITLABR_TEST_LOGIN: testuser
-COMMENTED_COMMIT: 38012cb85b09b58aedceb9bb52af7e1cf6ceb441
+GITLABR_TEST_LOGIN_ID: 4809823
+GITLABR_TEST_PASSWORD: MyPassword
+GITLABR_TEST_TOKEN: eLV6xqUv2Qjo8M9UbEeq
+COMMENTED_COMMIT: 6b9d22115a93ab009d64f857dca346c0e105d64a
+GITLABR_TEST_PROJECT_NAME: testor
+GITLABR_TEST_PROJECT_ID: 20416969
