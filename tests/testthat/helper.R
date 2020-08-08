@@ -18,13 +18,13 @@ test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
 
 # test direct link
 print("test google")
-httr::GET("https://google.com")
+print(httr::GET("https://google.com"))
 print("test gitlab")
-httr::GET("https://gitlab.com")
+print(httr::GET("https://gitlab.com"))
 print("test direct link")
 query <- paste0("https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=2&per_page=20&private_token=",
        test_private_token, "&skip_ldap=false&with_custom_attributes=false")
-httr::GET(query)
+print(httr::GET(query))
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
