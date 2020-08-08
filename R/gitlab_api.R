@@ -83,7 +83,7 @@ gitlab <- function(req,
         nxt_resp <- resp$nxt %>%
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
-          paste0("&private_token=", private_token) %>%
+          # paste0("&private_token=", private_token) %>%
           httr::GET() %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt

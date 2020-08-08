@@ -25,6 +25,11 @@ print("test direct link")
 query <- paste0("https://gitlab.com/api/v4/users?active=false&blocked=false&external=false&page=2&per_page=20&private_token=",
        test_private_token, "&skip_ldap=false&with_custom_attributes=false")
 print(httr::GET(query))
+print("http_error_or_content - 1")
+print(gitlabr:::http_error_or_content(httr::GET(query)))
+print("http_error_or_content - 2")
+print(gitlabr:::http_error_or_content(httr::GET("https://gitlab.com")))
+# gitlabr:::http_error_or_content(httr::GET("***"))
 
 # Test if too many users and projects
 my_gitlab <- gl_connection(
