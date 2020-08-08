@@ -104,7 +104,11 @@ my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
   - The gitlabr development repository is
     <https://github.com/jirkalewandowski/gitlabr>
 
-## To Do - If you do not know how to contribute, here is a list…
+## To Do - If you want to contribute
+
+*See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to
+run tests locally and contributor information.*  
+**Please help me pass unit tests \!**
 
 From [Jenny Brian
 review](https://github.com/jennybc/gitlabr/blob/jenny-review/jenny-review.md)
@@ -174,3 +178,12 @@ and suggestions:
     is always sourced by `devtools::load_all()` so this makes for a nice
     workflow even when developing / running tests interactively,
     i.e. the info doesn’t *need* to live in each file.
+
+# Contributing to {gitlabr}
+
+You’re welcome to contribute to {gitlabr} by editing the source code,
+adding more convenience functions, filing issues, etc.
+[CONTRIBUTING.md](CONTRIBUTING.md) compiles some information helpful in
+that process.
+
+Please also note the [Code of Conduct](CONDUCT.md).
