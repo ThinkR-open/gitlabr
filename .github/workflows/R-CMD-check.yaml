@@ -28,12 +28,16 @@ jobs:
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
       RSPM: ${{ matrix.config.rspm }}
+      COMMENTED_COMMIT: ${{ secrets.COMMENTED_COMMIT }}
+      GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
+      GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
+      GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
+      GITLABR_TEST_PROJECT_ID: ${{ secrets.GITLABR_TEST_PROJECT_ID }}
+      GITLABR_TEST_PROJECT_NAME: ${{ secrets.GITLABR_TEST_PROJECT_NAME }}
+      GITLABR_TEST_TOKEN: ${{ secrets.GITLABR_TEST_TOKEN }}
+      GITLABR_TEST_URL: ${{ secrets.GITLABR_TEST_URL }}
 
     steps:
-    - name: Set encrypted env variables
-      env: # Or as an environment variable
-        super_secret: ${{ secrets.SuperSecret }}
-
       - uses: actions/checkout@v2
 
       - uses: r-lib/actions/setup-r@master
