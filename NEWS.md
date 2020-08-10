@@ -1,6 +1,7 @@
 # gitlabr 1.1.6.9000
 
-* Reduce `max_page` to retrieve to allow to work with big Gitlab servers like Gitlab.com
+* Reduce `max_page` to retrieve content to allow to work with big Gitlab servers like Gitlab.com
+* Change maintainer
 
 # gitlabr 1.1.6
 
