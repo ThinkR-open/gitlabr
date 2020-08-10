@@ -94,7 +94,9 @@ my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
 
 - For a comprehensive overview & introduction see the `vignette("quick-start-gitlabr")`
 - When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [Gitlab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
-- The gitlabr development repository is https://github.com/jirkalewandowski/gitlabr
+
+_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
+
 
 ## To Do - If you want to contribute
 

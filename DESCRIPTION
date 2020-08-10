@@ -1,11 +1,12 @@
 Package: gitlabr
 Title: Access to the Gitlab API
-Version: 1.1.6
+Version: 1.1.6.9000
 Authors@R: 
-    person(given = "Jirka",
+    c(person(given = "Jirka",
            family = "Lewandowski",
-           role = c("aut", "cre"),
-           email = "jirka.lewandowski@wzb.eu")
+           role = "aut",
+           email = "jirka.lewandowski@wzb.eu"),
+           person(given = "Sébastien", family = "Rochette", role = c("aut", "cre"), email = "sebastien@thinkr.fr", comment = c(ORCID = "0000-0002-1565-9313")))
 Description: Provides R functions to access the API of the
     project and repository management web application gitlab. For many
     common tasks (repository file access, issue assignment and status,
@@ -13,9 +14,8 @@ Description: Provides R functions to access the API of the
     full API can be used by specifying request locations. Gitlab is
     open-source software and can be self-hosted or used on gitlab.com.
 License: GPL (>= 3)
-URL: https://blog.points-of-interest.cc/post/gitlabr/
-    http://doc.gitlab.com/ce/api/
-BugReports: https://github.com/statnmap/gitlabr/
+URL: https://statnmap.github.io/gitlabr/
+BugReports: https://github.com/statnmap/gitlabr/issues
 Depends:
     R (>= 3.1.2)
 Imports:
