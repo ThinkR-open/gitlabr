@@ -43,47 +43,67 @@ Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 
 
 ## Quick Start Example
 
-R code using gitlabr to perform some easy, common gitlab actions can look like this:
+R code using {gitlabr} to perform some common gitlab actions can look like this
 
-```{r, eval=FALSE}
+- Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
+
+- Set a connection to Gitlab instance
+```{r}
 library(gitlabr)
 
-# Store your token in .Renviron and restart your session
-usethis::edit_r_environ()
 # Add: GITLAB_COM_TOKEN=YourTokenHere
 # You can verify it worked
 Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://gitlab.com",
-                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
+```
 
-my_gitlab(gl_list_projects) # a data_frame is returned, as is always by gitlabr functions
+- Find the list of projects available to you
+  + Define a limit of pages of projects to search in with `max_page`, otherwise the entire Gitlab.com will be downloaded here...
+```{r}
+# a data_frame is returned, as is always by gitlabr functions
+my_gitlab(gl_list_projects, max_page = 2) 
+```
 
+- Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above. 
+  + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on Gitlab.com
+  
+```{r}
+my_project <- 20384533 #repo.rtask",
+```
+
+- List files of the project using `gl_list_files`
+```{r}
 my_gitlab(gl_list_files, project = my_project)
+```
 
-# Define the project you want to work on
-my_project <- my_project
-# It is even better if you use the project ID (as numeric),
-# in particular, if you have a big Gitlab server
-my_project <- 20416969
+- List issues with `gl_list_issues`
 
+```{r}
+my_gitlab(gl_list_issues, project = my_project)
+```
+
+- Create an issue
+
+```{r}
 # create a new issue
 new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
 
-# requests via gitlabr always return data_frames, so you can use all common manipulations
-library(dplyr)
-example_user <-
-  my_gitlab("users") %>%
-    filter(username == "statnmap")
+# statnmap user ID
+my_id <- 4809823
 
-# assign issue to a user
-my_gitlab(gl_assign_issue, project = my_project,
+# assign issue to me
+my_gitlab(gl_assign_issue, 
+          project = my_project,
           new_feature_issue$iid,
-          assignee_id = example_user$id)
+          assignee_id = my_id)
 
+# Verify new issue is here
 my_gitlab(gl_list_issues, my_project, state = "opened")
 
 # close issue
