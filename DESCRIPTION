@@ -3,10 +3,14 @@ Title: Access to the Gitlab API
 Version: 1.1.6.9000
 Authors@R: 
     c(person(given = "Jirka",
-           family = "Lewandowski",
-           role = "aut",
-           email = "jirka.lewandowski@wzb.eu"),
-           person(given = "Sébastien", family = "Rochette", role = c("aut", "cre"), email = "sebastien@thinkr.fr", comment = c(ORCID = "0000-0002-1565-9313")))
+             family = "Lewandowski",
+             role = "aut",
+             email = "jirka.lewandowski@wzb.eu"),
+      person(given = "Sébastien",
+             family = "Rochette",
+             role = c("aut", "cre"),
+             email = "sebastien@thinkr.fr",
+             comment = c(ORCID = "0000-0002-1565-9313")))
 Description: Provides R functions to access the API of the
     project and repository management web application gitlab. For many
     common tasks (repository file access, issue assignment and status,
@@ -38,5 +42,6 @@ Suggests:
     testthat (>= 1.0.2)
 VignetteBuilder: 
     R.rsp
+Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0
