@@ -137,18 +137,18 @@ own. See the <code>gitlabr</code> vignette for more information on this.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gitlab</span>(
-  <span class='no'>req</span>,
-  <span class='no'>api_root</span>,
-  <span class='kw'>verb</span> <span class='kw'>=</span> <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='no'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
-  <span class='kw'>auto_format</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>debug</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>gitlab_con</span> <span class='kw'>=</span> <span class='st'>"default"</span>,
-  <span class='kw'>page</span> <span class='kw'>=</span> <span class='st'>"all"</span>,
-  <span class='kw'>max_page</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>enforce_api_root</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>argname_verb</span> <span class='kw'>=</span> <span class='kw'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>verb</span>, <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='no'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>) <span class='kw'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='no'>verb</span>, <span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='no'><a href='https://httr.r-lib.org/reference/DELETE.html'>DELETE</a></span>)) {
-    <span class='st'>"query"</span> } <span class='kw'>else</span> {     <span class='st'>"body"</span> },
-  <span class='no'>...</span>
+  <span class='kw'>req</span>,
+  <span class='kw'>api_root</span>,
+  verb = <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
+  auto_format = <span class='fl'>TRUE</span>,
+  debug = <span class='fl'>FALSE</span>,
+  gitlab_con = <span class='st'>"default"</span>,
+  page = <span class='st'>"all"</span>,
+  max_page = <span class='fl'>10</span>,
+  enforce_api_root = <span class='fl'>TRUE</span>,
+  argname_verb = <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw'>verb</span>, <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>) <span class='op'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw'>verb</span>, <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/DELETE.html'>DELETE</a></span>)) {    
+    <span class='st'>"query"</span> } <span class='co'>else</span> {     <span class='st'>"body"</span> },
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -219,14 +219,15 @@ may include private_token and all other parameters as documented for the Gitlab 
 be added soon.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>gitlab</span>(<span class='kw'>req</span> <span class='kw'>=</span> <span class='st'>"projects"</span>,
-       <span class='kw'>api_root</span> <span class='kw'>=</span> <span class='st'>"https://gitlab.example.com/api/v4/"</span>,
-       <span class='kw'>private_token</span> <span class='kw'>=</span> <span class='st'>"123####89"</span>)
-<span class='fu'>gitlab</span>(<span class='kw'>req</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"projects"</span>, <span class='fl'>21</span>, <span class='st'>"issues"</span>),
-       <span class='kw'>state</span> <span class='kw'>=</span> <span class='st'>"closed"</span>,
-       <span class='kw'>gitlab_con</span> <span class='kw'>=</span> <span class='no'>my_gitlab</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='fu'>gitlab</span>(req = <span class='st'>"projects"</span>,
+       api_root = <span class='st'>"https://gitlab.example.com/api/v4/"</span>,
+       private_token = <span class='st'>"123####89"</span>)
+<span class='fu'>gitlab</span>(req = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"projects"</span>, <span class='fl'>21</span>, <span class='st'>"issues"</span>),
+       state = <span class='st'>"closed"</span>,
+       gitlab_con = <span class='kw'>my_gitlab</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -242,7 +243,7 @@ be added soon.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

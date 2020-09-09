@@ -136,18 +136,18 @@ login button. The server side function returns a reactive gitlab connection, jus
 and <code><a href='gl_connection.html'>gl_project_connection</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>glLoginInput</span>(<span class='no'>id</span>, <span class='kw'>login_button</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>glLoginInput</span>(<span class='kw'>id</span>, login_button = <span class='fl'>TRUE</span>)
 
 <span class='fu'>glReactiveLogin</span>(
-  <span class='no'>input</span>,
-  <span class='no'>output</span>,
-  <span class='no'>session</span>,
-  <span class='no'>gitlab_url</span>,
-  <span class='kw'>project</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>api_version</span> <span class='kw'>=</span> <span class='st'>"v4"</span>,
-  <span class='kw'>success_message</span> <span class='kw'>=</span> <span class='st'>"Gitlab login successful!"</span>,
-  <span class='kw'>failure_message</span> <span class='kw'>=</span> <span class='st'>"Gitlab login failed!"</span>,
-  <span class='kw'>on_error</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>...</span>) {     <span class='fu'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span>(<span class='no'>failure_message</span>) }
+  <span class='kw'>input</span>,
+  <span class='kw'>output</span>,
+  <span class='kw'>session</span>,
+  <span class='kw'>gitlab_url</span>,
+  project = <span class='kw'>NULL</span>,
+  api_version = <span class='st'>"v4"</span>,
+  success_message = <span class='st'>"Gitlab login successful!"</span>,
+  failure_message = <span class='st'>"Gitlab login failed!"</span>,
+  on_error = <span class='fu'>function</span>(<span class='kw'>...</span>) {     <span class='fu'><a href='https://rdrr.io/r/base/stop.html'>stop</a></span>(<span class='kw'>failure_message</span>) }
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -219,7 +219,7 @@ and <code><a href='gl_connection.html'>gl_project_connection</a></code>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

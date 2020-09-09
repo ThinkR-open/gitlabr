@@ -132,7 +132,7 @@
     <p>Get zip archive of a specific repository</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_archive</span>(<span class='no'>project</span>, <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".zip"</span>), <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gl_archive</span>(<span class='kw'>project</span>, save_to_file = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".zip"</span>), <span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,10 +159,11 @@ may include parameter <code>sha</code> for specifying a commit hash</p></td>
 to the saved archived file</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>my_project</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span>(<span class='kw'>project</span> <span class='kw'>=</span> <span class='st'>"example-project"</span>, <span class='no'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_project</span>(<span class='no'>gl_archive</span>, <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='st'>"example-project.zip"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span>(project = <span class='st'>"example-project"</span>, <span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_project</span>(<span class='kw'>gl_archive</span>, save_to_file = <span class='st'>"example-project.zip"</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -178,7 +179,7 @@ to the saved archived file</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

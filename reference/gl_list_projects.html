@@ -132,7 +132,7 @@
     <p>List projects in Gitlab</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_list_projects</span>(<span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gl_list_projects</span>(<span class='kw'>...</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,10 +145,11 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>my_gitlab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='no'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_gitlab</span>(<span class='no'>gl_list_projects</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_gitlab</span>(<span class='kw'>gl_list_projects</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -164,7 +165,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

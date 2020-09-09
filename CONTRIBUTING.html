@@ -198,7 +198,7 @@
 <h3 class="hasAnchor">
 <a href="#how-to-run-the-test-suite" class="anchor"></a>How to run the test suite</h3>
 <p>When the test server is set up as described above tests can be run with the following R code that loads the recorded environment variables and runs the test code:</p>
-<pre class="{r}"><code><a href="https://devtools.r-lib.org//reference">library(devtools)
+<pre class="{r}"><code><a href="https://devtools.r-lib.org">library(devtools)
 library(yaml)
 do.call(Sys.setenv, yaml.load_file("tests/environment.yml")) ## load test environment variables
 test() ## run tests</a></code></pre>
@@ -229,7 +229,7 @@ test() ## run tests</a></code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

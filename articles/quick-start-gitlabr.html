@@ -99,48 +99,50 @@
 <h1 class="hasAnchor">
 <a href="#quick-start-example" class="anchor"></a>Quick Start Example</h1>
 <p>R code using gitlabr to perform some easy, common gitlab actions can look like this:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gitlabr</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://statnmap.github.io/gitlabr">gitlabr</a></span>)
 
 <span class="co"># Store your token in .Renviron and restart your session</span>
-<span class="kw pkg">usethis</span><span class="kw ns">::</span><span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html">edit_r_environ</a></span>()
+<span class="kw">usethis</span>::<span class="fu"><a href="https://usethis.r-lib.org/reference/edit.html">edit_r_environ</a></span>()
 <span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span>
 <span class="co"># You can verify it worked</span>
 <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_COM_TOKEN"</span>)
 
 <span class="co"># connect as a fixed user to a gitlab instance</span>
-<span class="no">my_gitlab</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span>(<span class="st">"https://gitlab.com"</span>,
-                           <span class="kw">private_token</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_COM_TOKEN"</span>))
+<span class="kw">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span>(<span class="st">"https://gitlab.com"</span>,
+                           private_token = <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_COM_TOKEN"</span>))
 <span class="co"># a function is returned</span>
 <span class="co"># its first argument is the request (name or function), optionally followed by parameters</span>
 
-<span class="fu">my_gitlab</span>(<span class="no">gl_list_projects</span>)
+<span class="fu">my_gitlab</span>(<span class="kw">gl_list_projects</span>)
 
-<span class="fu">my_gitlab</span>(<span class="no">gl_list_files</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="st">"gitlabr"</span>, <span class="kw">path</span> <span class="kw">=</span> <span class="st">"R"</span>)
+<span class="fu">my_gitlab</span>(<span class="kw">gl_list_files</span>, project = <span class="st">"gitlabr"</span>, path = <span class="st">"R"</span>)
 
 <span class="co"># Define the project you want to work on</span>
-<span class="no">my_project</span> <span class="kw">&lt;-</span> <span class="no">my_project</span>
+<span class="kw">my_project</span> <span class="op">&lt;-</span> <span class="kw">my_project</span>
 <span class="co"># It is even better if you use the project ID (as numeric),</span>
 <span class="co"># in particular, if you have a big Gitlab server</span>
-<span class="no">my_project</span> <span class="kw">&lt;-</span> <span class="fl">20416969</span>
+<span class="kw">my_project</span> <span class="op">&lt;-</span> <span class="fl">20416969</span>
 
 <span class="co"># create a new issue</span>
-<span class="no">new_feature_issue</span> <span class="kw">&lt;-</span> <span class="fu">my_gitlab</span>(<span class="no">gl_new_issue</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>, <span class="st">"Implement new feature"</span>)
+<span class="kw">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu">my_gitlab</span>(<span class="kw">gl_new_issue</span>, project = <span class="kw">my_project</span>, <span class="st">"Implement new feature"</span>)
 
 <span class="co"># requests via gitlabr always return tibbles, so you can use all common manipulations</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="no">dplyr</span>)
-<span class="no">example_user</span> <span class="kw">&lt;-</span>
-  <span class="fu">my_gitlab</span>(<span class="st">"users"</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="no">username</span> <span class="kw">==</span> <span class="st">"testuser"</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">require</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
+<span class="kw">example_user</span> <span class="op">&lt;-</span>
+  <span class="fu">my_gitlab</span>(<span class="st">"users"</span>) <span class="op">%&gt;%</span>
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html">filter</a></span>(<span class="kw">username</span> <span class="op">==</span> <span class="st">"testuser"</span>)
 
 <span class="co"># assign issue to a user</span>
-<span class="fu">my_gitlab</span>(<span class="no">gl_assign_issue</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>,
-          <span class="no">new_feature_issue</span>$<span class="no">iid</span>,
-          <span class="kw">assignee_id</span> <span class="kw">=</span> <span class="no">example_user</span>$<span class="no">id</span>)
+<span class="fu">my_gitlab</span>(<span class="kw">gl_assign_issue</span>, project = <span class="kw">my_project</span>,
+          <span class="kw">new_feature_issue</span><span class="op">$</span><span class="kw">iid</span>,
+          assignee_id = <span class="kw">example_user</span><span class="op">$</span><span class="kw">id</span>)
 
-<span class="fu">my_gitlab</span>(<span class="no">gl_list_issues</span>, <span class="no">my_project</span>, <span class="kw">state</span> <span class="kw">=</span> <span class="st">"opened"</span>)
+<span class="fu">my_gitlab</span>(<span class="kw">gl_list_issues</span>, <span class="kw">my_project</span>, state = <span class="st">"opened"</span>)
 
 <span class="co"># close issue</span>
-<span class="fu">my_gitlab</span>(<span class="no">gl_close_issue</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>, <span class="no">new_feature_issue</span>$<span class="no">iid</span>)$<span class="no">state</span></pre></body></html></div>
+<span class="fu">my_gitlab</span>(<span class="kw">gl_close_issue</span>, project = <span class="kw">my_project</span>, <span class="kw">new_feature_issue</span><span class="op">$</span><span class="kw">iid</span>)<span class="op">$</span><span class="kw">state</span>
+</pre></div>
 </div>
 <div id="central-features-of-gitlabr" class="section level1">
 <h1 class="hasAnchor">
@@ -164,26 +166,30 @@
 <a href="#api-calls" class="anchor"></a>API calls</h1>
 <p>This section describes how R function calls are translated into HTTP requests to the gitlab API (<code>gitlabr</code>’s “low level interface”). For a documentation using <code>gitlabr</code> without knowledge of the gitlab API (<code>gitlabr</code>’s “high level interface”), see the <a href="#quick-start-example">“Quick Start Example”</a> above, the <a href="#convenience-function-list">“Convenience function list”</a> below or the individual function documentation.</p>
 <p>The core function of the low level interface is <code>gitlab</code>, with the help of which arbitrary calls to the gitlab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span>),
-       <span class="kw">api_root</span> <span class="kw">=</span> <span class="st">"https://gitlab.points-of-interest.cc/api/v3"</span>,
-       <span class="kw">private_token</span> <span class="kw">=</span> <span class="st">"XXX"</span>, <span class="co"># authentication for API</span>
-       <span class="kw">verb</span> <span class="kw">=</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="no"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span>
-       <span class="kw">state</span> <span class="kw">=</span> <span class="st">"active"</span>) <span class="co"># additional parameters (...) for the query</span></pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="../reference/gitlab.html">gitlab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span>), 
+       api_root = <span class="st">"https://gitlab.points-of-interest.cc/api/v3"</span>,
+       private_token = <span class="st">"XXX"</span>, <span class="co"># authentication for API</span>
+       verb = <span class="kw">httr</span>::<span class="kw"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span>
+       state = <span class="st">"active"</span>) <span class="co"># additional parameters (...) for the query</span>
+</pre></div>
 <p>translates to</p>
 <pre><code>GET https://gitlab.points-of-interest.cc/api/v4/projects/12/issues?state=active&amp;private_token=XXX</code></pre>
 <p>This way, any request documented in the <a href="https://doc.gitlab.com/ce/api">Gitlab API documentation</a> can be issued from <code>gitlabr</code>.</p>
 <p>The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to <code>gitlab</code>. For example:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/gl_edit_issue.html">gl_edit_issue</a></span>(<span class="kw">project</span> <span class="kw">=</span> <span class="st">"test-project"</span>, <span class="fl">12</span>, <span class="kw">description</span> <span class="kw">=</span> <span class="st">"Really cool new feature"</span>,
-           <span class="kw">api_root</span> <span class="kw">=</span> <span class="st">"..."</span>, <span class="kw">private_token</span> <span class="kw">=</span> <span class="st">"XXX"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="../reference/gl_new_issue.html">gl_edit_issue</a></span>(project = <span class="st">"test-project"</span>, <span class="fl">12</span>, description = <span class="st">"Really cool new feature"</span>,
+           api_root = <span class="st">"..."</span>, private_token = <span class="st">"XXX"</span>)
+</pre></div>
 <p>does nothing but</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r">gitlab(c("projects",
-         4,  # numeric id of test-project is found by search
-         "issues",
-         12),
-       description = "Really cool new feature",
-       api_root = "...",
-       private_token = "XXX",
-       verb = httr::PUT))</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1"></a><span class="kw">gitlab</span>(<span class="kw">c</span>(<span class="st">"projects"</span>,</span>
+<span id="cb5-2"><a href="#cb5-2"></a>         <span class="dv">4</span>,  <span class="co"># numeric id of test-project is found by search</span></span>
+<span id="cb5-3"><a href="#cb5-3"></a>         <span class="st">"issues"</span>,</span>
+<span id="cb5-4"><a href="#cb5-4"></a>         <span class="dv">12</span>),</span>
+<span id="cb5-5"><a href="#cb5-5"></a>       <span class="dt">description =</span> <span class="st">"Really cool new feature"</span>,</span>
+<span id="cb5-6"><a href="#cb5-6"></a>       <span class="dt">api_root =</span> <span class="st">"..."</span>,</span>
+<span id="cb5-7"><a href="#cb5-7"></a>       <span class="dt">private_token =</span> <span class="st">"XXX"</span>,</span>
+<span id="cb5-8"><a href="#cb5-8"></a>       <span class="dt">verb =</span> httr<span class="op">::</span>PUT)<span class="er">)</span></span></code></pre></div>
 <p>and hence translates to</p>
 <pre><code>PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%20feature</code></pre>
 <p>To spare you the repetitive task of specifying the API root and key in every call, you can use <code>gitlab_connection</code> as described in the next section <a href="#different-ways-to-do-it">“Different ways to do it”</a>.</p>
@@ -197,9 +203,11 @@
 <h2 class="hasAnchor">
 <a href="#creating-connections" class="anchor"></a>Creating connections</h2>
 <p>The idea of connections in <code>gitlabr</code> is to generate functions with the same signature and capability of the central API call function <code>gitlab</code>, but with certain parameters set to fixed values (<a href="https://en.wikipedia.org/wiki/Currying">“curried”</a>). This way these more specialized functions represent and provide the connection – for example – to a specific gitlab instance as a specific user. Such specialized functions can be created by the function <code>gitlab_connection</code> and then used exactly as you would use <code>gitlab</code>:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="no">my_gitlab</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span>(<span class="st">"https://test-gitlab.points-of-interest.cc"</span>,
-                           <span class="kw">private_token</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"secrets/gitlab_token.txt"</span>))
-<span class="fu">my_gitlab</span>(<span class="st">"projects"</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span>(<span class="st">"https://test-gitlab.points-of-interest.cc"</span>,
+                           private_token = <span class="fu"><a href="https://rdrr.io/r/base/readLines.html">readLines</a></span>(<span class="st">"secrets/gitlab_token.txt"</span>))
+<span class="fu">my_gitlab</span>(<span class="st">"projects"</span>)
+</pre></div>
 <p><code>gitlab_connection</code> can take arbitrary parameters, returning a function that issues API requests with these parameter values set.</p>
 <p>As a convenience wrapper to directly connect to a specific project in a gitlab instance, <code>project_connection</code> exists.</p>
 <p>For combining so created gitlab connections with the convenience functions to perform common tasks, several possible styles/idioms exist:</p>
@@ -208,7 +216,9 @@
 <h2 class="hasAnchor">
 <a href="#function-in-function-style" class="anchor"></a>function-in-function style</h2>
 <p>Instead of the query as character vector <code>gitlab</code> and thus also all connections accept equivalently a <em>function</em> as first argument, that is then called with the additional parameters and using the connection for all API calls:</p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu">my_gitlab</span>(<span class="no">gl_new_issue</span>, <span class="st">"Implement new feature"</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu">my_gitlab</span>(<span class="kw">gl_new_issue</span>, <span class="st">"Implement new feature"</span>, project = <span class="kw">my_project</span>)
+</pre></div>
 <p><code>gl_new_issue</code> is an example function here, the principle style works for all convenience functions of <code>gitlabr</code> listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom gitlab request functions”</a>.</p>
 <p>Some of the convenience perform additional transformation or renaming of parameters. Hence, the parameters given to the exemplary <code>my_gitlab(...)</code> call after the function should be valid according the documentation of the respective function and may differ from names used in the gitlab API itself, although this is the case only in very few cases.</p>
 </div>
@@ -216,15 +226,19 @@
 <h2 class="hasAnchor">
 <a href="#parameter-style" class="anchor"></a>parameter style</h2>
 <p>Alternatively, <code>gitlab</code> as well as all convenience wrappers accept a parameter <code>gitlab_con</code> specifying the function to use for the actual API call. Hence, you can pass a gitlab connection (as returned by <code>gl_connection</code>) with the R function call:</p>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="../reference/gl_edit_issue.html">gl_new_issue</a></span>(<span class="st">"Implement new feature"</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>, <span class="kw">gitlab_con</span> <span class="kw">=</span> <span class="no">my_gitlab</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="fu"><a href="../reference/gl_new_issue.html">gl_new_issue</a></span>(<span class="st">"Implement new feature"</span>, project = <span class="kw">my_project</span>, gitlab_con = <span class="kw">my_gitlab</span>)
+</pre></div>
 <p>Again, <code>gl_new_issue</code> is an example function here, the principle style works for all convenience functions of <code>gitlabr</code> listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom gitlab request functions”</a>.</p>
 </div>
 <div id="set-style" class="section level2">
 <h2 class="hasAnchor">
 <a href="#set-style" class="anchor"></a>set style</h2>
 <p>In order to avoid the repeated specification of <code>gitlab_con</code> in the parameter style, you can also set a global variable managed by gitlabr to use a specific connection function for every call:</p>
-<div class="sourceCode" id="cb10"><html><body><pre class="r"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span>(<span class="no">my_gitlab</span>)
-<span class="fu"><a href="../reference/gl_edit_issue.html">gl_new_issue</a></span>(<span class="st">"Implement new feature"</span>, <span class="kw">project</span> <span class="kw">=</span> <span class="no">my_project</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span>(<span class="kw">my_gitlab</span>)
+<span class="fu"><a href="../reference/gl_new_issue.html">gl_new_issue</a></span>(<span class="st">"Implement new feature"</span>, project = <span class="kw">my_project</span>)
+</pre></div>
 <p>Again, <code>gl_new_issue</code> is an example function here, the principle style works for all convenience functions of <code>gitlabr</code> listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom gitlab request functions”</a>.</p>
 <p>Note that the set style is not purely functional, since <code>set_gitlab_connection</code> changes a saved global variable affecting the results of all future <code>gitlab</code> calls. You can reset this variable to the default value using <code><a href="../reference/set_gitlab_connection.html">unset_gitlab_connection()</a></code>.</p>
 </div>
@@ -232,7 +246,7 @@
 <div id="convenience-function-list" class="section level1">
 <h1 class="hasAnchor">
 <a href="#convenience-function-list" class="anchor"></a>Convenience function list</h1>
-<p>Here is a list of all convenience wrapper functions that come with <code>gitlabr</code> 1.1.6. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the <code>?</code> operator.</p>
+<p>Here is a list of all convenience wrapper functions that come with <code>gitlabr</code> 1.1.6. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the <code><a href="https://rdrr.io/r/utils/Question.html">?</a></code> operator.</p>
 <ul>
 <li>gl_assign_issue</li>
 <li>gl_builds</li>
@@ -275,11 +289,13 @@
 <a href="#writing-custom-gitlab-request-functions" class="anchor"></a>Writing custom gitlab request functions</h1>
 <p>It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into <code>gitlabr</code> and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to <code>gitlab</code> (or another convenience function) to which the <code>...</code> argument is passed on.</p>
 <p>That is, a simple function to block users directly from R is as simple as:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="no">gl_block_user</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">uid</span>, <span class="no">...</span>) {
-  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"users"</span>, <span class="no">uid</span>, <span class="st">"block"</span>),  <span class="co">## for API side documentation see:</span>
-         <span class="kw">verb</span> <span class="kw">=</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="no"><a href="https://httr.r-lib.org/reference/PUT.html">PUT</a></span>, <span class="co">## https://doc.gitlab.com/ce/api/users.html#block-user</span>
-         <span class="no">...</span>) <span class="co">## don't forget the dots to make gitlabr features fully available</span>
-}</pre></body></html></div>
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">gl_block_user</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">uid</span>, <span class="kw">...</span>) {
+  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"users"</span>, <span class="kw">uid</span>, <span class="st">"block"</span>),  <span class="co">## for API side documentation see:</span>
+         verb = <span class="kw">httr</span>::<span class="kw"><a href="https://httr.r-lib.org/reference/PUT.html">PUT</a></span>, <span class="co">## https://doc.gitlab.com/ce/api/users.html#block-user</span>
+         <span class="kw">...</span>) <span class="co">## don't forget the dots to make gitlabr features fully available</span>
+}
+</pre></div>
 <p>More hints for more convenience:</p>
 <ul>
 <li>To be consistent with another important <code>gitlabr</code> principle, make sure your function returns a <code>tibble</code> (which it does if you simply pass up the return value of <code>gitlab</code> or one of the package’s own convenience functions). <code>gitlab</code> has some heuristics to format the API response to a <code>tibble</code>, if these fail for your specific request, you can pass <code>auto_format = FALSE</code> and format the response manually.</li>
@@ -310,7 +326,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>

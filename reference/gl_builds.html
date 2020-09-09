@@ -140,18 +140,18 @@ only the most recent artifacts archive is available.
 <code>gl_builds</code> is the equivalent for gitlab API v3.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_pipelines</span>(<span class='no'>project</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>gl_pipelines</span>(<span class='kw'>project</span>, <span class='kw'>...</span>)
 
-<span class='fu'>gl_jobs</span>(<span class='no'>project</span>, <span class='no'>...</span>)
+<span class='fu'>gl_jobs</span>(<span class='kw'>project</span>, <span class='kw'>...</span>)
 
-<span class='fu'>gl_builds</span>(<span class='no'>project</span>, <span class='kw'>force_api_v3</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='no'>...</span>)
+<span class='fu'>gl_builds</span>(<span class='kw'>project</span>, force_api_v3 = <span class='fl'>TRUE</span>, <span class='kw'>...</span>)
 
 <span class='fu'>gl_latest_build_artifact</span>(
-  <span class='no'>project</span>,
-  <span class='no'>job</span>,
-  <span class='kw'>ref_name</span> <span class='kw'>=</span> <span class='st'>"master"</span>,
-  <span class='kw'>save_to_file</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(<span class='kw'>fileext</span> <span class='kw'>=</span> <span class='st'>".zip"</span>),
-  <span class='no'>...</span>
+  <span class='kw'>project</span>,
+  <span class='kw'>job</span>,
+  ref_name = <span class='st'>"master"</span>,
+  save_to_file = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".zip"</span>),
+  <span class='kw'>...</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -190,12 +190,13 @@ default to TRUE, but this will change with gitlabr 1.0.</p></td>
     <p>returns the file path if <code>save_to_file</code> is TRUE, or the archive as raw otherwise.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='no'>my_gitlab</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='no'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_gitlab</span>(<span class='no'>gl_pipelines</span>, <span class='st'>"test-project"</span>)
-<span class='fu'>my_gitlab</span>(<span class='no'>gl_jobs</span>, <span class='st'>"test-project"</span>)
-<span class='fu'>my_gitlab</span>(<span class='no'>gl_latest_build_artifact</span>, <span class='st'>"test-project"</span>, <span class='kw'>job</span> <span class='kw'>=</span> <span class='st'>"build"</span>)
-}</div></pre>
+    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
+<span class='kw'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_gitlab</span>(<span class='kw'>gl_pipelines</span>, <span class='st'>"test-project"</span>)
+<span class='fu'>my_gitlab</span>(<span class='kw'>gl_jobs</span>, <span class='st'>"test-project"</span>)
+<span class='fu'>my_gitlab</span>(<span class='kw'>gl_latest_build_artifact</span>, <span class='st'>"test-project"</span>, job = <span class='st'>"build"</span>)
+}
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -211,7 +212,7 @@ default to TRUE, but this will change with gitlabr 1.0.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
 </div>
 
       </footer>
