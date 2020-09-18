@@ -9,7 +9,7 @@ gl_list_issues(
   project = NULL,
   issue_id = NULL,
   verb = httr::GET,
-  force_api_v3 = FALSE,
+  api_version = 4,
   ...
 )
 
@@ -19,12 +19,12 @@ gl_get_issue(issue_id, project, ...)
 \item{project}{project name or id, may be null for all issues created by user.
 If using the ID, set it as numeric, otherwise this is used as project name.}
 
-\item{issue_id}{optional issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE`)}
+\item{issue_id}{optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)}
 
 \item{verb}{ignored; all calls with this function will have \code{\link{gitlab}}'s
 default verb \code{httr::GET}}
 
-\item{force_api_v3}{a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
+\item{api_version}{a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)}
 
 \item{...}{further parameters passed on to \code{\link{gitlab}}, may be

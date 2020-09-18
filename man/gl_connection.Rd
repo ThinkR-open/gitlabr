@@ -8,16 +8,16 @@
 gl_connection(
   gitlab_url,
   private_token,
-  api_version = "v4",
-  api_location = paste0("/api/", api_version, "/")
+  api_version = 4,
+  api_location = paste0("/api/v", api_version, "/")
 )
 
 gl_project_connection(
   gitlab_url,
   project,
   private_token,
-  api_version = "v4",
-  api_location = paste0("/api/", api_version, "/")
+  api_version = 4,
+  api_location = paste0("/api/v", api_version, "/")
 )
 }
 \arguments{
@@ -26,7 +26,7 @@ gl_project_connection(
 \item{private_token}{private_token with which to identify. You can generate one in the webinterface under
 \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.}
 
-\item{api_version}{Either "v3" or "v4" for one of the two gitlab API version. See Details section on API versions.}
+\item{api_version}{Currently "4" for the latest gitlab API version. See Details section on API versions.}
 
 \item{api_location}{location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"}
 

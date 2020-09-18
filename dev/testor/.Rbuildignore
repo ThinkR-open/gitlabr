@@ -1,0 +1,5 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^\.gitlab-ci\.yml$
+^dev_history\.R$
+^LICENSE\.md$

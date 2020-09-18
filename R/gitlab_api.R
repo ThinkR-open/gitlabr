@@ -78,7 +78,8 @@ gitlab <- function(req,
     
     if (page == "all") {
       private_token <- list(...)[["private_token"]]
-      pages_retrieved <- 0L
+      # pages_retrieved <- 0L
+      pages_retrieved <- 1L
       while (length(resp$nxt) > 0 && is.finite(max_page) && pages_retrieved < max_page) {
         nxt_resp <- resp$nxt %>%
           as.character() %>%

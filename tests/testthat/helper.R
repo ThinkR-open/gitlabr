@@ -5,8 +5,10 @@ if (file.exists("../environment.yml")) {
   )
 }
 
+suppressPackageStartupMessages(library(dplyr))
+
 # Set environment variables in github CI
-test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")
+test_api_version <- Sys.getenv("GITLABR_TEST_API_VERSION", unset = 4)
 test_private_token <- Sys.getenv("GITLABR_TEST_TOKEN")
 test_url <- Sys.getenv("GITLABR_TEST_URL", unset = "https://gitlab.com")
 test_login <- Sys.getenv("GITLABR_TEST_LOGIN", unset = "statnmap")
@@ -25,7 +27,6 @@ my_gitlab <- gl_connection(
   private_token = test_private_token,
   api_version = test_api_version)
 
-suppressPackageStartupMessages(library(dplyr))
 users <- my_gitlab("users", max_page = 2)
 projects <- my_gitlab("projects", max_page = 1)
 

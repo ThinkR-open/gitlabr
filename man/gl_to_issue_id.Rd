@@ -4,16 +4,16 @@
 \alias{gl_to_issue_id}
 \title{Translate projectwide issue id to global gitlab API issue id}
 \usage{
-gl_to_issue_id(issue_id, project, force_api_v3 = TRUE, ...)
+gl_to_issue_id(issue_id, project, api_version = 4, ...)
 }
 \arguments{
 \item{issue_id}{projectwide issue id (as seen by e.g. gitlab website users)}
 
 \item{project}{project name or id}
 
-\item{force_api_v3}{Since this function is no longer necessary for Gitlab API v4,
-this must be set to TRUE in order to avoid deprecation warning and HTTP error. It currently
-default to TRUE, but this will change with gitlabr 1.0.}
+\item{api_version}{Since this function is no longer necessary for Gitlab API v4,
+this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
+default to 4}
 
 \item{...}{passed on to \code{\link{gitlab}}}
 }

@@ -28,15 +28,15 @@ gl_comments <- function(project,
                         id,
                         note_id = c(),
                         verb = httr::GET,
-                        force_api_v3 = FALSE,
+                        api_version = 4,
                         ... ) {
   
   if (object_type == "commit" && !is.null(note_id)) {
     warning("Commit comments cannot be get separate by id, parameter note_id is ignored!")
   }
   
-  if (object_type == "issue" && force_api_v3) {
-      id <- gl_to_issue_id(id, project, force_api_v3 = force_api_v3, ...)
+  if (object_type == "issue" && api_version == 3) {
+      id <- gl_to_issue_id(id, project, api_version = 3, ...)
   }
   
   gitlab(req = gl_proj_req(project, req = switch(object_type,

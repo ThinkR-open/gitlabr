@@ -1,7 +1,18 @@
 # gitlabr 1.1.6.9000
 
+Breaking change
+
+* Changed use of `api_version = "v4"` by `api_version = 4`
+* Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default
+
+Minor
+
+* Correction of api that downloaded twice the first page when `page == "all"`
 * Reduce `max_page` to retrieve content to allow to work with big Gitlab servers like Gitlab.com
 * Change maintainer
+* Update CONTRIBUTING for tests with Gitlab.com
+
+
 
 # gitlabr 1.1.6
 

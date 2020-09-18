@@ -18,7 +18,7 @@ gl_get_file(
   file_path,
   ref = "master",
   to_char = TRUE,
-  force_api_v3 = FALSE,
+  api_version = 4,
   ...
 )
 }
@@ -36,7 +36,7 @@ in gitlab API, as vector or part of URL)}
 
 \item{to_char}{flag if output should be converted to char; otherwise it is of class raw}
 
-\item{force_api_v3}{a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}}}
+\item{api_version}{a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}}}
 }
 \description{
 Access to repository functions and files in Gitlab API

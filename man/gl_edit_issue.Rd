@@ -14,7 +14,7 @@ gl_new_issue(title, project, ...)
 
 gl_create_issue(title, project, ...)
 
-gl_edit_issue(issue_id, project, force_api_v3 = FALSE, ...)
+gl_edit_issue(issue_id, project, api_version = 4, ...)
 
 gl_close_issue(issue_id, project, ...)
 
@@ -34,8 +34,8 @@ contain description, asignee_id, milestone_id, labels, state_event (for edit_iss
 
 \item{issue_id}{issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)}
 
-\item{force_api_v3}{a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
-filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)}
+\item{api_version}{a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)}
 
 \item{assignee_id}{numeric id of users as returned in '/users/' API request}
 }
