@@ -139,8 +139,9 @@
 <a href="#how-to-create-a-test-server" class="anchor"></a>How to create a test server</h2>
 <p>The gitlab test suite expects certain entities (user, project, files) to be present in the test server. Here is how to setup a test server:</p>
 <ul>
-<li>install &amp; make gitlab instance reachable at a certain address (The easiest way is to use the a docker image of the gitlab version of interest.)</li>
-<li>create a user
+<li><p>install &amp; make gitlab instance reachable at a certain address (The easiest way is to use the a docker image of the gitlab version of interest or use <a href="https://gitlab.com" class="uri">https://gitlab.com</a>)</p></li>
+<li>
+<p>create a user</p>
 <ul>
 <li>Add your username in environment.yml as GITLABR_TEST_LOGIN</li>
 <li>Add your user ID in environment.yml as GITLABR_TEST_LOGIN_ID (numeric)
@@ -151,34 +152,39 @@
 <li>Add your user password in environment.yml as GITLABR_TEST_PASSWORD</li>
 </ul>
 </li>
-<li>generate a private access token for the user for the complete API
+<li>
+<p>generate a private access token for the user for the complete API</p>
 <ul>
 <li>For instance on Gitlab.com: <a href="https://gitlab.com/profile/personal_access_tokens" class="uri">https://gitlab.com/profile/personal_access_tokens</a>
 </li>
 <li>Add in the environment.yml or environment variables as “GITLABR_TEST_TOKEN”</li>
 </ul>
 </li>
-<li>create a project called <code>testor</code>, owned by the user, and containing a README.md file
+<li>
+<p>create a project called <code>testor</code>, owned by the user, and containing a README.md file</p>
 <ul>
 <li>New Project &gt; Initialize with a README</li>
 <li>Add this name in the environment.yml as variable named “GITLABR_TEST_PROJECT_NAME”</li>
 </ul>
 </li>
-<li>get the ID of the project and note it in the environment.yml as variable named ‘GITLABR_TEST_PROJECT_ID’
+<li>
+<p>get the ID of the project and note it in the environment.yml as variable named ‘GITLABR_TEST_PROJECT_ID’</p>
 <ul>
 <li>Project Overview &gt; Details</li>
 <li>The Project ID is under the name of your project</li>
 </ul>
 </li>
-<li>give it a CI file that writes to a “test.txt” file</li>
-<li>create an issue #1 with a comment
+<li><p>give it a CI file that writes to a “test.txt” file</p></li>
+<li>
+<p>create an issue #1 with a comment</p>
 <ul>
 <li>Issues &gt; List &gt; New issue</li>
 <li>Add title and description &gt; Open</li>
 <li>Add comment</li>
 </ul>
 </li>
-<li>comment on a commit and note its SHA1 in the environment.yml as variable named ‘COMMENTED_COMMIT’
+<li>
+<p>Comment on a commit and note its SHA1 in the environment.yml as variable named ‘COMMENTED_COMMIT’</p>
 <ul>
 <li>Repository &gt; Commits</li>
 <li>Click on one commit</li>
@@ -187,10 +193,22 @@
 </li>
 </ul>
 </li>
-<li>do not create more than 100 users
-<ul>
+<li><p>Create a branch named “for-tests”</p></li>
 <li>
-<em>This is currently a problem with using gitlab.com</em> as functions will explore the entire Gitlab repository for every open projects and will thus take forever…</li>
+<p>On your computer:</p>
+<ul>
+<li>Clone the repository
+<ul>
+<li>Rstudio &gt; New project &gt; Version control &gt; git</li>
+<li>Or git clone <a href="https://" class="uri">https://</a>…..testor.git</li>
+</ul>
+</li>
+<li>Copy the content of “dev/testor” in the directory
+<ul>
+<li>It contains a R package with CI for tests</li>
+</ul>
+</li>
+<li>Send to the <em>master</em> on the server</li>
 </ul>
 </li>
 </ul>
@@ -229,7 +247,7 @@ test() ## run tests</a></code></pre>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

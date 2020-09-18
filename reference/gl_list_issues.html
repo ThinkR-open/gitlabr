@@ -136,7 +136,7 @@
   project = <span class='kw'>NULL</span>,
   issue_id = <span class='kw'>NULL</span>,
   verb = <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
-  force_api_v3 = <span class='fl'>FALSE</span>,
+  api_version = <span class='fl'>4</span>,
   <span class='kw'>...</span>
 )
 
@@ -152,7 +152,7 @@ If using the ID, set it as numeric, otherwise this is used as project name.</p><
     </tr>
     <tr>
       <th>issue_id</th>
-      <td><p>optional issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE`)</p></td>
+      <td><p>optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)</p></td>
     </tr>
     <tr>
       <th>verb</th>
@@ -160,8 +160,8 @@ If using the ID, set it as numeric, otherwise this is used as project name.</p><
 default verb <code><a href='https://httr.r-lib.org/reference/GET.html'>httr::GET</a></code></p></td>
     </tr>
     <tr>
-      <th>force_api_v3</th>
-      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
+      <th>api_version</th>
+      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)</p></td>
     </tr>
     <tr>
@@ -193,7 +193,7 @@ using a project connection</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

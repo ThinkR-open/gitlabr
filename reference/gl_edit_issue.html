@@ -138,7 +138,7 @@ Post a new issue or edit one" />
 
 <span class='fu'>gl_create_issue</span>(<span class='kw'>title</span>, <span class='kw'>project</span>, <span class='kw'>...</span>)
 
-<span class='fu'>gl_edit_issue</span>(<span class='kw'>issue_id</span>, <span class='kw'>project</span>, force_api_v3 = <span class='fl'>FALSE</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_edit_issue</span>(<span class='kw'>issue_id</span>, <span class='kw'>project</span>, api_version = <span class='fl'>4</span>, <span class='kw'>...</span>)
 
 <span class='fu'>gl_close_issue</span>(<span class='kw'>issue_id</span>, <span class='kw'>project</span>, <span class='kw'>...</span>)
 
@@ -169,9 +169,9 @@ contain description, asignee_id, milestone_id, labels, state_event (for edit_iss
       <td><p>issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)</p></td>
     </tr>
     <tr>
-      <th>force_api_v3</th>
-      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
-filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)</p></td>
+      <th>api_version</th>
+      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)</p></td>
     </tr>
     <tr>
       <th>assignee_id</th>
@@ -195,7 +195,7 @@ filtering happens by global iid, if false, it happens by projectwide ID. For API
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

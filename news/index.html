@@ -130,9 +130,19 @@
 <h1 class="page-header" data-toc-text="1.1.6.9000">
 <a href="#gitlabr-1169000" class="anchor"></a>gitlabr 1.1.6.9000<small> Unreleased </small>
 </h1>
+<p>Breaking change</p>
 <ul>
+<li>Changed use of <code>api_version = "v4"</code> by <code>api_version = 4</code>
+</li>
+<li>Changed use of <code>force_api_v3 = TRUE</code> by <code>api_version = 4</code> for deprecation by default</li>
+</ul>
+<p>Minor</p>
+<ul>
+<li>Correction of api that downloaded twice the first page when <code>page == "all"</code>
+</li>
 <li>Reduce <code>max_page</code> to retrieve content to allow to work with big Gitlab servers like Gitlab.com</li>
 <li>Change maintainer</li>
+<li>Update CONTRIBUTING for tests with Gitlab.com</li>
 </ul>
 </div>
     <div id="gitlabr-116" class="section level1">
@@ -198,7 +208,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

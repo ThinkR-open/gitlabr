@@ -139,16 +139,16 @@ only to a specified project.</p>
     <pre class="usage"><span class='fu'>gl_connection</span>(
   <span class='kw'>gitlab_url</span>,
   <span class='kw'>private_token</span>,
-  api_version = <span class='st'>"v4"</span>,
-  api_location = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"/api/"</span>, <span class='kw'>api_version</span>, <span class='st'>"/"</span>)
+  api_version = <span class='fl'>4</span>,
+  api_location = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"/api/v"</span>, <span class='kw'>api_version</span>, <span class='st'>"/"</span>)
 )
 
 <span class='fu'>gl_project_connection</span>(
   <span class='kw'>gitlab_url</span>,
   <span class='kw'>project</span>,
   <span class='kw'>private_token</span>,
-  api_version = <span class='st'>"v4"</span>,
-  api_location = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"/api/"</span>, <span class='kw'>api_version</span>, <span class='st'>"/"</span>)
+  api_version = <span class='fl'>4</span>,
+  api_location = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"/api/v"</span>, <span class='kw'>api_version</span>, <span class='st'>"/"</span>)
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -165,7 +165,7 @@ only to a specified project.</p>
     </tr>
     <tr>
       <th>api_version</th>
-      <td><p>Either "v3" or "v4" for one of the two gitlab API version. See Details section on API versions.</p></td>
+      <td><p>Currently "4" for the latest gitlab API version. See Details section on API versions.</p></td>
     </tr>
     <tr>
       <th>api_location</th>
@@ -221,7 +221,7 @@ code will still work if you try.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
