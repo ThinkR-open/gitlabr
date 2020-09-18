@@ -13,7 +13,7 @@
 #' @param output from shinyServer function, usually not user provided
 #' @param session from shinyServer function, usually not user provided
 #' @param gitlab_url root URL of gitlab instance to login to
-#' @param api_version A character with value either "v3" or "v4" to specify the API version that should be used
+#' @param api_version A character with value either "3" or "4" to specify the API version that should be used
 #' @param project if not NULL, a code{\link{gl_project_connection}} is created to this project
 #' @param success_message message text to be displayed in the UI on sucessful login 
 #' @param failure_message message text to be displayed in the UI on login failure in addition to HTTP status
@@ -41,7 +41,7 @@ glLoginInput <- function(id, login_button = TRUE) {
 glReactiveLogin <- function(input, output, session,
                             gitlab_url,
                             project = NULL,
-                            api_version = "v4",
+                            api_version = 4,
                             success_message = "Gitlab login successful!",
                             failure_message = "Gitlab login failed!",
                             on_error = function(...) {

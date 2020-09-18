@@ -25,7 +25,7 @@
 #' @param gitlab_url URL to the gitlab instance (e.g. \code{https://gitlab.myserver.com})
 #' @param private_token private_token with which to identify. You can generate one in the webinterface under
 #' \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.
-#' @param api_version Either "v3" or "v4" for one of the two gitlab API version. See Details section on API versions.
+#' @param api_version Currently "4" for the latest gitlab API version. See Details section on API versions.
 #' @param api_location location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"
 #' @param project id or name of project to issue requests to
 #' 
@@ -40,8 +40,8 @@
 #' @export
 gl_connection <- function(gitlab_url,
                           private_token,
-                          api_version = "v4",
-                          api_location = paste0("/api/", api_version, "/")) {
+                          api_version = 4,
+                          api_location = paste0("/api/v", api_version, "/")) {
   
   gl_con_root <- httr::modify_url(gitlab_url, path = api_location)
   
@@ -64,8 +64,8 @@ gl_connection <- function(gitlab_url,
 gl_project_connection <- function(gitlab_url,
                                   project,
                                   private_token,
-                                  api_version = "v4",
-                                  api_location = paste0("/api/", api_version, "/")) {
+                                  api_version = 4,
+                                  api_location = paste0("/api/v", api_version, "/")) {
   
   gl_con_root <- paste0(gitlab_url, api_location)
 

@@ -1,11 +1,11 @@
 gl_get_issues <- function(project = NULL,
                           issue_id = NULL,
                           verb = httr::GET,
-                          force_api_v3 = FALSE,
+                          api_version = 4,
                           ...) {
   
-  if (force_api_v3) {
-    issue_id <- gl_to_issue_id(issue_id, project, force_api_v3 = force_api_v3, ...)
+  if (api_version == 3) {
+    issue_id <- gl_to_issue_id(issue_id, project, api_version = 3, ...)
   }
   
   (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", issue_id), ...)) %>%
@@ -22,8 +22,8 @@ gl_get_issues <- function(project = NULL,
 #' 
 #' @param project project name or id, may be null for all issues created by user.
 #' If using the ID, set it as numeric, otherwise this is used as project name.
-#' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE`)
-#' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
+#' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)
+#' @param api_version a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
 #' @param ... further parameters passed on to \code{\link{gitlab}}, may be
 #' state, labels, issue id, ...
@@ -54,15 +54,15 @@ gl_get_issue <- function(issue_id, project, ...) {
 #' global iid is no longer functional.
 #' 
 #' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
-#' @param force_api_v3 Since this function is no longer necessary for Gitlab API v4,
-#' this must be set to TRUE in order to avoid deprecation warning and HTTP error. It currently
-#' default to TRUE, but this will change with gitlabr 1.0.
+#' @param api_version Since this function is no longer necessary for Gitlab API v4,
+#' this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
+#' default to 4
 #' @param project project name or id
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
-gl_to_issue_id <- function(issue_id, project, force_api_v3 = TRUE, ...) {
+gl_to_issue_id <- function(issue_id, project, api_version = 4, ...) {
   
-  if(!force_api_v3) {
+  if(api_version != 3) {
     .Deprecated("gl_get_issue", package = "gitlabr",
                 msg = "Usage deprecated! gl_to_issue_id can sensibly be used only with gitlab API v3!")
   }
@@ -70,9 +70,9 @@ gl_to_issue_id <- function(issue_id, project, force_api_v3 = TRUE, ...) {
     NULL
   } else {
     (if (missing(project)) {
-      call_filter_dots(gl_get_issues, .dots = list(...), force_api_3 = force_api_v3)
+      call_filter_dots(gl_get_issues, .dots = list(...), api_version = 3)
     } else {
-      call_filter_dots(gl_get_issues, .dots = list(...), project = project, force_api_v3 = force_api_v3)  
+      call_filter_dots(gl_get_issues, .dots = list(...), project = project, api_version = 3)  
     }) %>%
       filter(iid == issue_id) %>%
       select(id) %>%
@@ -108,15 +108,15 @@ gl_create_issue <- gl_new_issue
 #' Post a new issue or edit one
 #' 
 #' @param issue_id issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)
-#' @param force_api_v3 a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `TRUE`
-#' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
+#' @param api_version a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+#' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)
 #' @export
 gl_edit_issue <- function(issue_id,
                           project,
-                          force_api_v3 = FALSE,
+                          api_version = 4,
                           ...) {
   
-  if (force_api_v3) {
+  if (api_version == 3) {
     issue_id <- gl_to_issue_id(issue_id, project, ...)
   }
   

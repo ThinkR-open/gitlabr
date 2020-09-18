@@ -5,7 +5,7 @@
 # is provided, a list of project appears below.
 
 test_login_module <- function(test_url = Sys.getenv("GITLABR_TEST_URL"),
-                              test_api_version = Sys.getenv("GITLABR_TEST_API_VERSION", unset = "v4")) {
+                              test_api_version = Sys.getenv("GITLABR_TEST_API_VERSION", unset = 4)) {
   require(shiny)
   
   shinyApp(ui  = fluidPage(mainPanel(glLoginInput("login"),

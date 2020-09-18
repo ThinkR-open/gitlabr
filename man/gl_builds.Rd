@@ -11,7 +11,7 @@ gl_pipelines(project, ...)
 
 gl_jobs(project, ...)
 
-gl_builds(project, force_api_v3 = TRUE, ...)
+gl_builds(project, api_version = 4, ...)
 
 gl_latest_build_artifact(
   project,
@@ -26,9 +26,9 @@ gl_latest_build_artifact(
 
 \item{...}{passed on to \code{\link{gitlab}} API call}
 
-\item{force_api_v3}{Since \code{gl_builds} is no longer working for Gitlab API v4,
-this must be set to TRUE in order to avoid deprecation warning and HTTP error.  It currently
-default to TRUE, but this will change with gitlabr 1.0.}
+\item{api_version}{Since \code{gl_builds} is no longer working for Gitlab API v4,
+this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
+default to "4" with deprecation message.}
 
 \item{job}{Name of the job to get build artifacts from}
 

@@ -13,7 +13,7 @@ glReactiveLogin(
   session,
   gitlab_url,
   project = NULL,
-  api_version = "v4",
+  api_version = 4,
   success_message = "Gitlab login successful!",
   failure_message = "Gitlab login failed!",
   on_error = function(...) {     stop(failure_message) }
@@ -34,7 +34,7 @@ glReactiveLogin(
 
 \item{project}{if not NULL, a code{\link{gl_project_connection}} is created to this project}
 
-\item{api_version}{A character with value either "v3" or "v4" to specify the API version that should be used}
+\item{api_version}{A character with value either "3" or "4" to specify the API version that should be used}
 
 \item{success_message}{message text to be displayed in the UI on sucessful login}
 

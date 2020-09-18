@@ -1,6 +1,7 @@
 library(testthat)
 library(gitlabr)
 
+# Create your own "environment.yml" from "environment.yml.example"
 if (file.exists("environment.yml")) {
   do.call(
     Sys.setenv,
@@ -8,20 +9,26 @@ if (file.exists("environment.yml")) {
   )
 }
 
+# There must be a token
+# Testers should own a project on gitlab.com named "testor"
 if (Sys.getenv("GITLABR_TEST_TOKEN") != "") {
-  # Skip all tests if no token
-  
-  if (Sys.getenv("GITLABR_TEST_API_VERSION") == "") {
+  if (Sys.getenv("GITLABR_TEST_TOKEN") != "") {
+    # Skip all tests if no token
     
-    Sys.setenv(GITLABR_TEST_API_VERSION = "v3")
-    test_check("gitlabr")
-    Sys.setenv(GITLABR_TEST_API_VERSION = "v4")
-    test_check("gitlabr")
-    Sys.setenv(GITLABR_TEST_API_VERSION = "")
-    
-  } else {
-    
-    test_check("gitlabr")
-    
+    if (Sys.getenv("GITLABR_TEST_API_VERSION") == "") {
+      
+      # Sys.setenv(GITLABR_TEST_API_VERSION = 3)
+      # test_check("gitlabr")
+      Sys.setenv(GITLABR_TEST_API_VERSION = 4)
+      test_check("gitlabr")
+      # Sys.setenv(GITLABR_TEST_API_VERSION = "")
+      
+    } else {
+      
+      test_check("gitlabr")
+      
+    }
   }
+} else {
+  # dont test
 }

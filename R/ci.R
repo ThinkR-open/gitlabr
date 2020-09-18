@@ -155,12 +155,12 @@ gl_jobs <- function(project, ...) {
 }
 
 #' @export
-#' @param force_api_v3 Since \code{gl_builds} is no longer working for Gitlab API v4,
-#' this must be set to TRUE in order to avoid deprecation warning and HTTP error.  It currently
-#' default to TRUE, but this will change with gitlabr 1.0.
+#' @param api_version Since \code{gl_builds} is no longer working for Gitlab API v4,
+#' this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
+#' default to "4" with deprecation message.
 #' @rdname gl_builds
-gl_builds <- function(project, force_api_v3 = TRUE, ...) {
-  if (!force_api_v3) {
+gl_builds <- function(project, api_version = 4, ...) {
+  if (api_version != 3) {
     .Deprecated("gl_pipelines", package = "gitlabr", old = "gl_builds")
   }
   gitlab(gl_proj_req(project = project, "builds", ...), ...)

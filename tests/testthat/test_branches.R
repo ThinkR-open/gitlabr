@@ -15,14 +15,15 @@ test_that("branch access works", {
   expect_is(gl_list_branches(gitlab_con = my_gitlab, project = test_project), "data.frame")
   
   ## creating and deleteing branches not tested automatically for security and load reasons
-  # my_project(gl_create_branch, branch = "testbranch")
-  # my_project(gl_delete_branch, branch = "testbranch")
-  
+  my_project(gl_create_branch, branch = "testbranch", ref = "for-tests")
+  all_branches <- gl_list_branches(gitlab_con = my_project)
+  expect_true("testbranch" %in% all_branches$name)
+  my_project(gl_delete_branch, branch = "testbranch")
+  all_branches <- gl_list_branches(gitlab_con = my_project)
+  expect_false("testbranch" %in% all_branches$name)
   
   ## old API
   expect_warning(my_project(list_branches), regexp = "deprecated")
-  
-
 })
 
 
