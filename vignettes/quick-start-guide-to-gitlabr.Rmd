@@ -1,14 +1,18 @@
 ---
 title: "Quick Start Guide to gitlabr"
-author: "Jirka Lewandowski <jirka.lewandowski@wzb.eu>"
-date: "2019-03-14"
-tags: ["gitlab", "gitlabr", "R", "API", "package", "git", "project-management", "collaboration", "productivity", "automatization"]
-output:
-  pdf_document:
-    number_sections: yes
-    toc: yes
-slug: gitlabr
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick-Start-Guide-to-gitlabr}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
 
 # Quick Start Example
 
@@ -250,4 +254,3 @@ And last but not least, if you've written a convenience wrapper for yourself, ke
 # Using gitlab CI with gitlabr
 
 `gitlabr` can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package using gitlabs CI software. See the `use_gitlab_ci` and related functions for documentation.
-

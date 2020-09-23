@@ -3,3 +3,4 @@
 .RData
 notes/
 environment.yml
+inst/doc
