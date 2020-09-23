@@ -47,7 +47,7 @@ my_project <- 20416969
 new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
 
 # requests via gitlabr always return tibbles, so you can use all common manipulations
-require(dplyr)
+library(dplyr)
 example_user <-
   my_gitlab("users") %>%
     filter(username == "testuser")
@@ -113,7 +113,7 @@ gitlab(c("projects",
        description = "Really cool new feature",
        api_root = "...",
        private_token = "XXX",
-       verb = httr::PUT))
+       verb = httr::PUT)
 ```
 
 and hence translates to
@@ -141,7 +141,7 @@ my_gitlab("projects")
 ```
 
 ```{r echo = FALSE, eval = FALSE, message=FALSE}
-require(dplyr)
+library(dplyr)
 my_gitlab("projects") %>%
   filter(public == "TRUE") %>%
   select(name, everything())
