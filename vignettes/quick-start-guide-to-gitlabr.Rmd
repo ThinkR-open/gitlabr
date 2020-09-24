@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 # Quick Start Example
 
-R code using gitlabr to perform some easy, common gitlab actions can look like this:
+R code using gitlabr to perform some easy, common GitLab actions can look like this:
 
 ```{r eval = FALSE}
 library(gitlabr)
@@ -40,7 +40,7 @@ my_gitlab(gl_list_files, project = "gitlabr", path = "R")
 # Define the project you want to work on
 my_project <- my_project
 # It is even better if you use the project ID (as numeric),
-# in particular, if you have a big Gitlab server
+# in particular, if you have a big GitLab server
 my_project <- 20416969
 
 # create a new issue
@@ -65,19 +65,19 @@ my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
 
 # Central features of gitlabr
 
-- `gitlabr` provides a high and a low level interface to the gitlab API at the same time:
-    - Common queries are wrapped in special convenience functions that can be used without any knowledge of the gitlab API itself -- find a list to start right away in the section ["Convenience function list"](#convenience-function-list).
-    - Still, the package can be used to access the complete gitlab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
+- `gitlabr` provides a high and a low level interface to the GitLab API at the same time:
+    - Common queries are wrapped in special convenience functions that can be used without any knowledge of the GitLab API itself -- find a list to start right away in the section ["Convenience function list"](#convenience-function-list).
+    - Still, the package can be used to access the complete GitLab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
 - The output of every call to a `gitlabr` function is a `tibble` to integrate seamless into dplyr's data manipulation mindset (often called the "tidyverse")
 - Pagination is wrapped for the user, but can be controlled via parameters `page` and `per_page` if necessary.
 - To allow programming in your favorite style, everything you can do with `gitlabr` you can do using any of a set of general idioms  -- get to know them in the section ["Different ways to do it"](#different-ways-to-do-it).
-- You can write your own convenience wrappers on top of the `gitlabr` logic following only one principle as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+- You can write your own convenience wrappers on top of the `gitlabr` logic following only one principle as described in the section ["Writing custom GitLab request functions"](#writing-custom-gitlab-request-functions).
 
 # API calls
 
-This section describes how R function calls are translated into HTTP requests to the gitlab API (`gitlabr`'s "low level interface"). For a documentation using `gitlabr` without knowledge of the gitlab API (`gitlabr`'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above, the ["Convenience function list"](#convenience-function-list) below or the individual function documentation.
+This section describes how R function calls are translated into HTTP requests to the GitLab API (`gitlabr`'s "low level interface"). For a documentation using `gitlabr` without knowledge of the GitLab API (`gitlabr`'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above, the ["Convenience function list"](#convenience-function-list) below or the individual function documentation.
 
-The core function of the low level interface is `gitlab`, with the help of which arbitrary calls to the gitlab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
+The core function of the low level interface is `gitlab`, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
 
 ```{r eval = FALSE}
 gitlab(c("projects", 12, "issues"), 
@@ -93,7 +93,7 @@ translates to
 GET https://gitlab.points-of-interest.cc/api/v4/projects/12/issues?state=active&private_token=XXX
 ```
 
-This way, any request documented in the [Gitlab API documentation](https://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
+This way, any request documented in the [GitLab API documentation](https://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
 
 The high level interface consists of a number of functions that each have additional
 arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
@@ -124,7 +124,7 @@ PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%2
 
 To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
 
-Note: currently (gitlabr >= 1.1.6) gitlab API v4 is supported. Support for Gitlab API v3 (for Gitlab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection`.
+Note: currently (gitlabr >= 1.1.6) GitLab API v4 is supported. Support for Gitlab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection`.
 
 # Different ways to do it
 
@@ -132,7 +132,7 @@ Note: currently (gitlabr >= 1.1.6) gitlab API v4 is supported. Support for Gitla
 
 ## Creating connections
 
-The idea of connections in `gitlabr` is to generate functions with the same signature and capability of the central API call function `gitlab`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)). This way these more specialized functions represent and provide the connection -- for example -- to a specific gitlab instance as a specific user. Such specialized functions can be created by the function `gitlab_connection` and then used exactly as you would use `gitlab`:
+The idea of connections in `gitlabr` is to generate functions with the same signature and capability of the central API call function `gitlab`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)). This way these more specialized functions represent and provide the connection -- for example -- to a specific GitLab instance as a specific user. Such specialized functions can be created by the function `gitlab_connection` and then used exactly as you would use `gitlab`:
 
 ```{r eval = FALSE}
 my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
@@ -149,9 +149,9 @@ my_gitlab("projects") %>%
 
 `gitlab_connection` can take arbitrary parameters, returning a function that issues API requests with these parameter values set.
 
-As a convenience wrapper to directly connect to a specific project in a gitlab instance, `project_connection` exists.
+As a convenience wrapper to directly connect to a specific project in a GitLab instance, `project_connection` exists.
 
-For combining so created gitlab connections with the convenience functions to perform common tasks, several possible styles/idioms exist:
+For combining so created GitLab connections with the convenience functions to perform common tasks, several possible styles/idioms exist:
 
 ## function-in-function style
 
@@ -226,7 +226,7 @@ Here is a list of all convenience wrapper functions that come with `gitlabr` 1.1
 - gl_repository
 - gl_unassign_issue
 
-Note: There are more locations and actions that can be accessed through the gitlab API. See the [documentation of the Gitlab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
+Note: There are more locations and actions that can be accessed through the GitLab API. See the [documentation of the Gitlab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 
 Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and might be removed without further notice.
 
@@ -247,10 +247,10 @@ More hints for more convenience:
 
 - To be consistent with another important `gitlabr` principle, make sure your function returns a `tibble` (which it does if you simply pass up the return value of `gitlab` or one of the package's own convenience functions). `gitlab` has some heuristics to format the API response to a `tibble`, if these fail for your specific request, you can pass `auto_format = FALSE` and format the response manually.
 - To translate project names to numeric ids automatically, you can use `gitlabr`'s internal functions `proj_req` translating the request location.
-- To translate user-visible project-wide issue ids to global ids used by the gitlab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
+- To translate user-visible project-wide issue ids to global ids used by the GitLab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
 
 And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://github.com/jirkalewandowski/gitlabr/](https://github.com/jirkalewandowski/gitlabr/).
 
-# Using gitlab CI with gitlabr
+# Using GitLab CI with gitlabr
 
 `gitlabr` can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package using gitlabs CI software. See the `use_gitlab_ci` and related functions for documentation.
