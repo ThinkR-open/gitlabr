@@ -3,8 +3,10 @@ title: "Quick Start Guide to gitlabr"
 output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Quick-Start-Guide-to-gitlabr}
-  %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
 ---
 
 ```{r, include = FALSE}
@@ -28,23 +30,23 @@ usethis::edit_r_environ()
 Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection("https://gitlab.com",
+my_gitlab <- gl_connection(gitlab_url = "https://gitlab.com",
                            private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
-my_gitlab(gl_list_projects)
+my_gitlab(gl_list_projects, page = 1)
 
-my_gitlab(gl_list_files, project = "gitlabr", path = "R")
+my_gitlab(gl_list_files, project = 20384533)
 
-# Define the project you want to work on
-my_project <- my_project
-# It is even better if you use the project ID (as numeric),
-# in particular, if you have a big GitLab server
-my_project <- 20416969
+# Define the project you want to work on. 
+# This can be done either as name (as character) or ideally as the project ID (as numeric). The project ID is listed right below the project name on the repo front page on GitLab.com
+my_project <- 21404697
 
 # create a new issue
-new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
+new_feature_issue <- my_gitlab(gl_new_issue,
+                               project = my_project,
+                               title = "Implement new feature")
 
 # requests via gitlabr always return tibbles, so you can use all common manipulations
 library(dplyr)
