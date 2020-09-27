@@ -216,7 +216,7 @@ More hints for more convenience:
 - To translate project names to numeric ids automatically, you can use `gitlabr`'s internal functions `proj_req` translating the request location.
 - To translate user-visible project-wide issue ids to global ids used by the GitLab API, you can use `gitlabr`'s internal function `to_issue_id` when constructing the request.
 
-And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://github.com/jirkalewandowski/gitlabr/](https://github.com/jirkalewandowski/gitlabr/).
+And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to `gitlabr` on [https://github.com/statnmap/gitlabr](https://github.com/statnmap/gitlabr).
 
 # Using GitLab CI with gitlabr
 
