@@ -18,6 +18,8 @@ knitr::opts_chunk$set(
 
 # Quick Start Example
 
+To run the code in this vignette you'll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab [documentation](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) on how to generate PATs. In the **Scopes** section you only need to tick the *api* box.
+
 R code using gitlabr to perform some easy, common GitLab actions can look like this:
 
 ```{r eval = FALSE}
