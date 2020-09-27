@@ -177,7 +177,7 @@ Alternatively, `gitlab` as well as all convenience wrappers accept a parameter `
 gl_new_issue("Implement new feature", project = my_project, gitlab_con = my_gitlab)
 ```
 
-Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom GitLab request functions"](#writing-custom-gitlab-request-functions).
 
 
 ## set style
@@ -189,48 +189,11 @@ set_gitlab_connection(my_gitlab)
 gl_new_issue("Implement new feature", project = my_project)
 ```
 
-Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom gitlab request functions"](#writing-custom-gitlab-request-functions).
+Again, `gl_new_issue` is an example function here, the principle style works for all convenience functions of `gitlabr` listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom GitLab request functions"](#writing-custom-gitlab-request-functions).
 
 Note that the set style is not purely functional, since `set_gitlab_connection` changes a saved global variable affecting the results of all future `gitlab` calls. You can reset this variable to the default value using `unset_gitlab_connection()`.
 
-# Convenience function list
-
-Here is a list of all convenience wrapper functions that come with `gitlabr` 1.1.6. Only function names are given, since they are designed to be self-explanatory. For reference on how to use each function, refer to its R documentation using the `?` operator.
-
-- gl_assign_issue
-- gl_builds
-- gl_close_issue
-- gl_create_branch
-- gl_create_merge_request
-- gl_comment_commit
-- gl_comment_issue
-- gl_delete_branch
-- gl_edit_comment
-- gl_edit_commit_comment
-- gl_edit_issue
-- gl_edit_issue_comment
-- gl_file_exists
-- gl_get_comments
-- gl_get_commit_comments
-- gl_get_commits
-- gl_get_diff
-- gl_get_file
-- gl_get_issue
-- gl_get_issue_comments
-- gl_jobs
-- gl_latest_build_artifact
-- gl_list_issues
-- gl_list_branches
-- gl_list_files
-- gl_list_projects
-- gl_new_issue
-- gl_pipelines
-- gl_push_file
-- gl_reopen_issue
-- gl_repository
-- gl_unassign_issue
-
-Note: There are more locations and actions that can be accessed through the GitLab API. See the [documentation of the Gitlab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
+Note: There are more locations and actions that can be accessed through the GitLab API. See the [documentation of the GitLab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
 
 Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and might be removed without further notice.
 

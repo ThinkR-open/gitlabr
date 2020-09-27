@@ -1,0 +1,55 @@
+destination: public
+
+url: https://statnmap.github.io/gitlabr/
+
+navbar:
+  type: default
+left:
+  - icon: fa-home fa-lg
+href: index.html
+- text: Reference
+href: reference/index.html
+- text: "Change log"
+href: news/index.html
+right:
+  - text: "Source Code"
+icon: "fab fa-github"
+href: "https://github.com/statnmap/gitlabr"
+
+reference:
+  - title: Convenience functions
+    desc: >
+      Convenient wrapper functions
+    contents:
+    - gl_assign_issue
+    - gl_builds
+    - gl_close_issue
+    - gl_create_branch
+    - gl_create_merge_request
+    - gl_comment_commit
+    - gl_comment_issue
+    - gl_delete_branch
+    - gl_edit_comment
+    - gl_edit_commit_comment
+    - gl_edit_issue
+    - gl_edit_issue_comment
+    - gl_file_exists
+    - gl_get_comments
+    - gl_get_commit_comments
+    - gl_get_commits
+    - gl_get_diff
+    - gl_get_file
+    - gl_get_issue
+    - gl_get_issue_comments
+    - gl_jobs
+    - gl_latest_build_artifact
+    - gl_list_issues
+    - gl_list_branches
+    - gl_list_files
+    - gl_list_projects
+    - gl_new_issue
+    - gl_pipelines
+    - gl_push_file
+    - gl_reopen_issue
+    - gl_repository
+    - gl_unassign_issue
