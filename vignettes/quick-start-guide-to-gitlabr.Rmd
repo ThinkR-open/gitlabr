@@ -37,13 +37,11 @@ my_gitlab <- gl_connection(gitlab_url = "https://gitlab.com",
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
-my_gitlab(gl_list_projects, page = 1)
+my_gitlab(gl_list_projects, page = 1)  # Returns all projects on GitLab, so we limit to just the first page of results.
 
-my_gitlab(gl_list_files, project = 20384533)
-
-# Define the project you want to work on. 
-# This can be done either as name (as character) or ideally as the project ID (as numeric). The project ID is listed right below the project name on the repo front page on GitLab.com
+# It's unlikely that you'll want to use gitlabr to interact with all the projects on GitLab, so a better aproach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
 my_project <- 21404697
+my_gitlab(gl_list_files, project = my_project)
 
 # create a new issue
 new_feature_issue <- my_gitlab(gl_new_issue,
@@ -79,13 +77,15 @@ my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
 
 # API calls
 
-This section describes how R function calls are translated into HTTP requests to the GitLab API (`gitlabr`'s "low level interface"). For a documentation using `gitlabr` without knowledge of the GitLab API (`gitlabr`'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above, the ["Convenience function list"](#convenience-function-list) below or the individual function documentation.
+This section describes how R function calls are translated into HTTP requests to the GitLab API (`gitlabr`'s "low level interface"). For a documentation using `gitlabr` without knowledge of the GitLab API (`gitlabr`'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above or refer to the individual function documentation in the Reference section of gitlabr's pkgdown [site](https://statnmap.github.io/gitlabr/reference/index.html).
+
+Currently (gitlabr >= 1.1.6) GitLab API v4 is supported. Support for Gitlab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection`.
 
 The core function of the low level interface is `gitlab`, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
 
 ```{r eval = FALSE}
 gitlab(c("projects", 12, "issues"), 
-       api_root = "https://gitlab.points-of-interest.cc/api/v3",
+       api_root = "https://gitlab.points-of-interest.cc/api/v4",
        private_token = "XXX", # authentication for API
        verb = httr::GET,  # defaults to GET, but POST, PUT, DELETE can be used likewise
        state = "active") # additional parameters (...) for the query
@@ -99,8 +99,7 @@ GET https://gitlab.points-of-interest.cc/api/v4/projects/12/issues?state=active&
 
 This way, any request documented in the [GitLab API documentation](https://doc.gitlab.com/ce/api) can be issued from `gitlabr`.
 
-The high level interface consists of a number of functions that each have additional
-arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
+The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab`. For example:
 
 ```{r eval = FALSE}
 gl_edit_issue(project = "test-project", 12, description = "Really cool new feature",
@@ -126,11 +125,7 @@ and hence translates to
 PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%20feature
 ```
 
-To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described in the next section ["Different ways to do it"](#different-ways-to-do-it).
-
-Note: currently (gitlabr >= 1.1.6) GitLab API v4 is supported. Support for Gitlab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection`.
-
-# Different ways to do it
+To spare you the repetitive task of specifying the API root and key in every call, you can use `gitlab_connection` as described below.
 
 `gitlabr` is implemented following the functional programming paradigm. Several of its functions return or accept functions as arguments. This results in huge flexibility in how API requests using `gitlabr` can be formulated in your R code. Three major styles are described below, after introducing the central mechanism of creating more specific API connection functions.
 
@@ -194,8 +189,6 @@ Again, `gl_new_issue` is an example function here, the principle style works for
 Note that the set style is not purely functional, since `set_gitlab_connection` changes a saved global variable affecting the results of all future `gitlab` calls. You can reset this variable to the default value using `unset_gitlab_connection()`.
 
 Note: There are more locations and actions that can be accessed through the GitLab API. See the [documentation of the GitLab API](https://doc.gitlab.com/ce/api/) for this. The next section describes how you can write your own convenience wrappers that work with all styles described in the section ["Different ways to do it"](#different-ways-to-do-it).
-
-Note also that since gitlabr version 0.7 all functions of this package follow a consistent naming scheme, starting with `gl_`. The old function names are deprecated and might be removed without further notice.
 
 # Writing custom gitlab request functions
 
