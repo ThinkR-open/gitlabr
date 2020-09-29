@@ -37,7 +37,7 @@ devtools::install_github("statnmap/gitlabr")
 
 See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
 
-## Recommended Gitlab versions
+## Recommended GitLab versions
 
 GitLab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 
