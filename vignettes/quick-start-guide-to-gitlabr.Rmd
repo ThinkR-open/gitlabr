@@ -42,7 +42,8 @@ set_gitlab_connection(my_gitlab)
 gl_list_projects(page = 1)  # Returns all projects on GitLab, so we limit to just the first page of results.
 
 # It's unlikely that you'll want to use gitlabr to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
-my_project <- 21404697
+# Here we use the [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask)
+my_project <- 20384533
 gl_list_files(project = my_project)
 
 # create a new issue
