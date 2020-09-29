@@ -39,15 +39,15 @@ See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests 
 
 ## Recommended Gitlab versions
 
-Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This {gitlabr} version uses the gitlab API v4.
+GitLab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 
 ## Quick Start Example
 
-R code using {gitlabr} to perform some common gitlab actions can look like this
+R code using {gitlabr} to perform some common GitLab actions can look like this
 
 - Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
 
-- Set a connection to Gitlab instance
+- Set a connection to GitLab instance
 ```{r}
 library(gitlabr)
 
@@ -61,17 +61,20 @@ my_gitlab <- gl_connection(
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
+
+# Set the connection for the session
+set_gitlab_connection(my_gitlab)
 ```
 
 - Find the list of projects available to you
-  + Define a limit of pages of projects to search in with `max_page`, otherwise the entire Gitlab.com will be downloaded here...
+  + Define a limit of pages of projects to search in with `max_page`, otherwise the entire GitLab.com will be downloaded here...
 ```{r}
 # a data_frame is returned, as is always by gitlabr functions
-my_gitlab(gl_list_projects, max_page = 2) 
+gl_list_projects(max_page = 2) 
 ```
 
 - Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above. 
-  + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on Gitlab.com
+  + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on GitLab.com
   
 ```{r}
 my_project <- 20384533 #repo.rtask",
@@ -79,41 +82,40 @@ my_project <- 20384533 #repo.rtask",
 
 - List files of the project using `gl_list_files`
 ```{r}
-my_gitlab(gl_list_files, project = my_project)
+gl_list_files(project = my_project)
 ```
 
 - List issues with `gl_list_issues`
 
 ```{r}
-my_gitlab(gl_list_issues, project = my_project)
+gl_list_issues(project = my_project)
 ```
 
 - Create an issue
 
 ```{r}
 # create a new issue
-new_feature_issue <- my_gitlab(gl_new_issue, project = my_project, "Implement new feature")
+new_feature_issue <- gl_new_issue(title = "Implement new feature", project = my_project)
 
 # statnmap user ID
 my_id <- 4809823
 
 # assign issue to me
-my_gitlab(gl_assign_issue, 
-          project = my_project,
-          new_feature_issue$iid,
-          assignee_id = my_id)
+gl_assign_issue(new_feature_issue$iid,
+                assignee_id = my_id,
+                project = my_project)
 
 # Verify new issue is here
-my_gitlab(gl_list_issues, my_project, state = "opened")
+gl_list_issues(state = "opened", my_project)
 
 # close issue
-my_gitlab(gl_close_issue, project = my_project, new_feature_issue$iid)$state
+gl_close_issue(new_feature_issue$iid, project = my_project)$state
 ```
 
 ## Further information
 
 - For a comprehensive overview & introduction see the `vignette("quick-start-gitlabr")`
-- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [Gitlab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
+- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
 
 _Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
 
