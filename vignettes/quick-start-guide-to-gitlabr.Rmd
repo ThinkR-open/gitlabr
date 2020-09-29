@@ -41,7 +41,7 @@ set_gitlab_connection(my_gitlab)
 
 gl_list_projects(page = 1)  # Returns all projects on GitLab, so we limit to just the first page of results.
 
-# It's unlikely that you'll want to use gitlabr to interact with all the projects on GitLab, so a better aproach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
+# It's unlikely that you'll want to use gitlabr to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
 my_project <- 21404697
 gl_list_files(project = my_project)
 
@@ -49,22 +49,19 @@ gl_list_files(project = my_project)
 new_feature_issue <- gl_new_issue(title = "Implement new feature",
                                   project = my_project)
 
-# requests via gitlabr always return tibbles, so you can use all common manipulations
-library(dplyr)
-example_user <-
-  my_gitlab("users") %>%
-    filter(username == "testuser")
+# statnmap user ID
+my_id <- 4809823
 
-# assign issue to a user
+# assign issue to me
 gl_assign_issue(assignee_id = example_user$id,
-                new_feature_issue$iid,
+                issue_id = new_feature_issue$iid,
                 project = my_project)
 
 gl_list_issues(state = "opened",
                project = my_project)
 
 # close issue
-gl_close_issue(new_feature_issue$iid, 
+gl_close_issue(issue_id = new_feature_issue$iid, 
                project = my_project)$state
 ```
 
