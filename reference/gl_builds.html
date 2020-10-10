@@ -99,7 +99,7 @@ gl_builds is the equivalent for gitlab API v3." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -140,19 +140,19 @@ only the most recent artifacts archive is available.
 <code>gl_builds</code> is the equivalent for gitlab API v3.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_pipelines</span>(<span class='kw'>project</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>gl_pipelines</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_jobs</span>(<span class='kw'>project</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_jobs</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_builds</span>(<span class='kw'>project</span>, api_version = <span class='fl'>4</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_builds</span><span class='op'>(</span><span class='va'>project</span>, api_version <span class='op'>=</span> <span class='fl'>4</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_latest_build_artifact</span>(
-  <span class='kw'>project</span>,
-  <span class='kw'>job</span>,
-  ref_name = <span class='st'>"master"</span>,
-  save_to_file = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".zip"</span>),
-  <span class='kw'>...</span>
-)</pre>
+<span class='fu'>gl_latest_build_artifact</span><span class='op'>(</span>
+  <span class='va'>project</span>,
+  <span class='va'>job</span>,
+  ref_name <span class='op'>=</span> <span class='st'>"master"</span>,
+  save_to_file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".zip"</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -190,12 +190,12 @@ default to "4" with deprecation message.</p></td>
     <p>returns the file path if <code>save_to_file</code> is TRUE, or the archive as raw otherwise.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_gitlab</span>(<span class='kw'>gl_pipelines</span>, <span class='st'>"test-project"</span>)
-<span class='fu'>my_gitlab</span>(<span class='kw'>gl_jobs</span>, <span class='st'>"test-project"</span>)
-<span class='fu'>my_gitlab</span>(<span class='kw'>gl_latest_build_artifact</span>, <span class='st'>"test-project"</span>, job = <span class='st'>"build"</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='va'>gl_pipelines</span>, <span class='st'>"test-project"</span><span class='op'>)</span>
+<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='va'>gl_jobs</span>, <span class='st'>"test-project"</span><span class='op'>)</span>
+<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='va'>gl_latest_build_artifact</span>, <span class='st'>"test-project"</span>, job <span class='op'>=</span> <span class='st'>"build"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

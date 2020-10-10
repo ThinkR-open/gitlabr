@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -132,15 +132,15 @@
     <p>Get issues of a project or user</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_list_issues</span>(
-  project = <span class='kw'>NULL</span>,
-  issue_id = <span class='kw'>NULL</span>,
-  verb = <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
-  api_version = <span class='fl'>4</span>,
-  <span class='kw'>...</span>
-)
+    <pre class="usage"><span class='fu'>gl_list_issues</span><span class='op'>(</span>
+  project <span class='op'>=</span> <span class='cn'>NULL</span>,
+  issue_id <span class='op'>=</span> <span class='cn'>NULL</span>,
+  verb <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
+  api_version <span class='op'>=</span> <span class='fl'>4</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>gl_get_issue</span>(<span class='kw'>issue_id</span>, <span class='kw'>project</span>, <span class='kw'>...</span>)</pre>
+<span class='fu'>gl_get_issue</span><span class='op'>(</span><span class='va'>issue_id</span>, <span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -177,7 +177,14 @@ state, labels, issue id, ...</p></td>
 using a project connection</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># fill in login parameters</span>
+<span class='va'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"testor"</span>, <span class='va'>...</span><span class='op'>)</span> 
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_list_issues</span><span class='op'>)</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_get_issue</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_new_issue</span>, <span class='fl'>1</span>, <span class='st'>"Implement new feature"</span>, description <span class='op'>=</span> <span class='st'>"It should be awesome."</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

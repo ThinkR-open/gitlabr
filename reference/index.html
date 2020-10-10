@@ -94,7 +94,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -136,8 +136,8 @@
     <tbody>
       <tr>
         <th colspan="2">
-          <h2 id="section-all-functions" class="hasAnchor"><a href="#section-all-functions" class="anchor"></a>All functions</h2>
-          <p class="section-desc"></p>
+          <h2 id="section-convenience-functions" class="hasAnchor"><a href="#section-convenience-functions" class="anchor"></a>Convenience functions</h2>
+          <p class="section-desc"><p>Convenient wrapper functions</p></p>
         </th>
       </tr>
       
@@ -148,10 +148,77 @@
       <tr>
         
         <td>
+          <p><code><a href="gl_edit_issue.html">gl_new_issue()</a></code> <code><a href="gl_edit_issue.html">gl_create_issue()</a></code> <code><a href="gl_edit_issue.html">gl_edit_issue()</a></code> <code><a href="gl_edit_issue.html">gl_close_issue()</a></code> <code><a href="gl_edit_issue.html">gl_reopen_issue()</a></code> <code><a href="gl_edit_issue.html">gl_assign_issue()</a></code> <code><a href="gl_edit_issue.html">gl_unassign_issue()</a></code> </p>
+        </td>
+        <td><p>Post a new issue or edit one</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_builds.html">gl_pipelines()</a></code> <code><a href="gl_builds.html">gl_jobs()</a></code> <code><a href="gl_builds.html">gl_builds()</a></code> <code><a href="gl_builds.html">gl_latest_build_artifact()</a></code> </p>
+        </td>
+        <td><p>Access the Gitlab CI builds</p></td>
+      </tr><tr>
+        
+        <td>
           <p><code><a href="branches.html">gl_list_branches()</a></code> <code><a href="branches.html">gl_create_branch()</a></code> <code><a href="branches.html">gl_delete_branch()</a></code> </p>
         </td>
         <td><p>List, create and delete branches</p></td>
       </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_create_merge_request.html">gl_create_merge_request()</a></code> </p>
+        </td>
+        <td><p>Create a merge request</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_comments.html">gl_get_comments()</a></code> <code><a href="gl_comments.html">gl_get_issue_comments()</a></code> <code><a href="gl_comments.html">gl_get_commit_comments()</a></code> <code><a href="gl_comments.html">gl_comment_commit()</a></code> <code><a href="gl_comments.html">gl_comment_issue()</a></code> <code><a href="gl_comments.html">gl_edit_comment()</a></code> <code><a href="gl_comments.html">gl_edit_issue_comment()</a></code> <code><a href="gl_comments.html">gl_edit_commit_comment()</a></code> </p>
+        </td>
+        <td><p>Get the comments/notes of a commit or issue</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_repository.html">gl_repository()</a></code> <code><a href="gl_repository.html">gl_list_files()</a></code> <code><a href="gl_repository.html">gl_file_exists()</a></code> <code><a href="gl_repository.html">gl_get_file()</a></code> </p>
+        </td>
+        <td><p>Access to repository functions and files in Gitlab API</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_get_commits.html">gl_get_commits()</a></code> <code><a href="gl_get_commits.html">gl_get_diff()</a></code> </p>
+        </td>
+        <td><p>Get commits and diff from a project repository</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_list_issues.html">gl_list_issues()</a></code> <code><a href="gl_list_issues.html">gl_get_issue()</a></code> </p>
+        </td>
+        <td><p>Get issues of a project or user</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_list_projects.html">gl_list_projects()</a></code> </p>
+        </td>
+        <td><p>List projects in Gitlab</p></td>
+      </tr><tr>
+        
+        <td>
+          <p><code><a href="gl_push_file.html">gl_push_file()</a></code> </p>
+        </td>
+        <td><p>Upload a file to a gitlab repository</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-other-functions" class="hasAnchor"><a href="#section-other-functions" class="anchor"></a>Other functions</h2>
+          <p class="section-desc"><p>Functions requiring cleaning or deprecation</p></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
         
         <td>
           <p><code><a href="gitlab.html">gitlab()</a></code> </p>
@@ -163,12 +230,6 @@
           <p><code><a href="gitlabci.html">gl_ci_job()</a></code> <code><a href="gitlabci.html">gl_default_ci_pipeline()</a></code> <code><a href="gitlabci.html">use_gitlab_ci()</a></code> </p>
         </td>
         <td><p>Define Gitlab CI jobs</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gitlabr-deprecated.html">archive()</a></code> <code><a href="gitlabr-deprecated.html">assign_issue()</a></code> <code><a href="gitlabr-deprecated.html">close_issue()</a></code> <code><a href="gitlabr-deprecated.html">comment_commit()</a></code> <code><a href="gitlabr-deprecated.html">comment_issue()</a></code> <code><a href="gitlabr-deprecated.html">create_branch()</a></code> <code><a href="gitlabr-deprecated.html">create_merge_request()</a></code> <code><a href="gitlabr-deprecated.html">delete_branch()</a></code> <code><a href="gitlabr-deprecated.html">edit_commit_comment()</a></code> <code><a href="gitlabr-deprecated.html">edit_issue()</a></code> <code><a href="gitlabr-deprecated.html">edit_issue_comment()</a></code> <code><a href="gitlabr-deprecated.html">file_exists()</a></code> <code><a href="gitlabr-deprecated.html">get_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_commit_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_commits()</a></code> <code><a href="gitlabr-deprecated.html">get_diff()</a></code> <code><a href="gitlabr-deprecated.html">get_file()</a></code> <code><a href="gitlabr-deprecated.html">get_issue()</a></code> <code><a href="gitlabr-deprecated.html">get_issue_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_issues()</a></code> <code><a href="gitlabr-deprecated.html">get_project_id()</a></code> <code><a href="gitlabr-deprecated.html">gitlab_connection()</a></code> <code><a href="gitlabr-deprecated.html">list_branches()</a></code> <code><a href="gitlabr-deprecated.html">list_files()</a></code> <code><a href="gitlabr-deprecated.html">list_projects()</a></code> <code><a href="gitlabr-deprecated.html">new_issue()</a></code> <code><a href="gitlabr-deprecated.html">project_connection()</a></code> <code><a href="gitlabr-deprecated.html">proj_req()</a></code> <code><a href="gitlabr-deprecated.html">push_file()</a></code> <code><a href="gitlabr-deprecated.html">reopen_issue()</a></code> <code><a href="gitlabr-deprecated.html">repository()</a></code> <code><a href="gitlabr-deprecated.html">to_issue_id()</a></code> <code><a href="gitlabr-deprecated.html">unassign_issue()</a></code> </p>
-        </td>
-        <td><p>Deprecated functions</p></td>
       </tr><tr>
         
         <td>
@@ -190,39 +251,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="gl_builds.html">gl_pipelines()</a></code> <code><a href="gl_builds.html">gl_jobs()</a></code> <code><a href="gl_builds.html">gl_builds()</a></code> <code><a href="gl_builds.html">gl_latest_build_artifact()</a></code> </p>
-        </td>
-        <td><p>Access the Gitlab CI builds</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_comments.html">gl_get_comments()</a></code> <code><a href="gl_comments.html">gl_get_issue_comments()</a></code> <code><a href="gl_comments.html">gl_get_commit_comments()</a></code> <code><a href="gl_comments.html">gl_comment_commit()</a></code> <code><a href="gl_comments.html">gl_comment_issue()</a></code> <code><a href="gl_comments.html">gl_edit_comment()</a></code> <code><a href="gl_comments.html">gl_edit_issue_comment()</a></code> <code><a href="gl_comments.html">gl_edit_commit_comment()</a></code> </p>
-        </td>
-        <td><p>Get the comments/notes of a commit or issue</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="gl_connection.html">gl_connection()</a></code> <code><a href="gl_connection.html">gl_project_connection()</a></code> </p>
         </td>
         <td><p>Connect to a specific gitlab instance API</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_create_merge_request.html">gl_create_merge_request()</a></code> </p>
-        </td>
-        <td><p>Create a merge request</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_edit_issue.html">gl_new_issue()</a></code> <code><a href="gl_edit_issue.html">gl_create_issue()</a></code> <code><a href="gl_edit_issue.html">gl_edit_issue()</a></code> <code><a href="gl_edit_issue.html">gl_close_issue()</a></code> <code><a href="gl_edit_issue.html">gl_reopen_issue()</a></code> <code><a href="gl_edit_issue.html">gl_assign_issue()</a></code> <code><a href="gl_edit_issue.html">gl_unassign_issue()</a></code> </p>
-        </td>
-        <td><p>Post a new issue or edit one</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_get_commits.html">gl_get_commits()</a></code> <code><a href="gl_get_commits.html">gl_get_diff()</a></code> </p>
-        </td>
-        <td><p>Get commits and diff from a project repository</p></td>
       </tr><tr>
         
         <td>
@@ -232,33 +263,9 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="gl_list_issues.html">gl_list_issues()</a></code> <code><a href="gl_list_issues.html">gl_get_issue()</a></code> </p>
-        </td>
-        <td><p>Get issues of a project or user</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_list_projects.html">gl_list_projects()</a></code> </p>
-        </td>
-        <td><p>List projects in Gitlab</p></td>
-      </tr><tr>
-        
-        <td>
           <p><code><a href="gl_proj_req.html">gl_proj_req()</a></code> </p>
         </td>
         <td><p>Create a project specific request</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_push_file.html">gl_push_file()</a></code> </p>
-        </td>
-        <td><p>Upload a file to a gitlab repository</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="gl_repository.html">gl_repository()</a></code> <code><a href="gl_repository.html">gl_list_files()</a></code> <code><a href="gl_repository.html">gl_file_exists()</a></code> <code><a href="gl_repository.html">gl_get_file()</a></code> </p>
-        </td>
-        <td><p>Access to repository functions and files in Gitlab API</p></td>
       </tr><tr>
         
         <td>
@@ -289,6 +296,25 @@
           <p><code><a href="update_gitlabr_code.html">update_gitlabr_code()</a></code> </p>
         </td>
         <td><p>Convert gitlabr legacy code to 0.7 compatible</p></td>
+      </tr>
+    </tbody><tbody>
+      <tr>
+        <th colspan="2">
+          <h2 id="section-deprecated-functions" class="hasAnchor"><a href="#section-deprecated-functions" class="anchor"></a>Deprecated functions</h2>
+          <p class="section-desc"></p>
+        </th>
+      </tr>
+      
+      
+    </tbody><tbody>
+      
+      
+      <tr>
+        
+        <td>
+          <p><code><a href="gitlabr-deprecated.html">archive()</a></code> <code><a href="gitlabr-deprecated.html">assign_issue()</a></code> <code><a href="gitlabr-deprecated.html">close_issue()</a></code> <code><a href="gitlabr-deprecated.html">comment_commit()</a></code> <code><a href="gitlabr-deprecated.html">comment_issue()</a></code> <code><a href="gitlabr-deprecated.html">create_branch()</a></code> <code><a href="gitlabr-deprecated.html">create_merge_request()</a></code> <code><a href="gitlabr-deprecated.html">delete_branch()</a></code> <code><a href="gitlabr-deprecated.html">edit_commit_comment()</a></code> <code><a href="gitlabr-deprecated.html">edit_issue()</a></code> <code><a href="gitlabr-deprecated.html">edit_issue_comment()</a></code> <code><a href="gitlabr-deprecated.html">file_exists()</a></code> <code><a href="gitlabr-deprecated.html">get_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_commit_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_commits()</a></code> <code><a href="gitlabr-deprecated.html">get_diff()</a></code> <code><a href="gitlabr-deprecated.html">get_file()</a></code> <code><a href="gitlabr-deprecated.html">get_issue()</a></code> <code><a href="gitlabr-deprecated.html">get_issue_comments()</a></code> <code><a href="gitlabr-deprecated.html">get_issues()</a></code> <code><a href="gitlabr-deprecated.html">get_project_id()</a></code> <code><a href="gitlabr-deprecated.html">gitlab_connection()</a></code> <code><a href="gitlabr-deprecated.html">list_branches()</a></code> <code><a href="gitlabr-deprecated.html">list_files()</a></code> <code><a href="gitlabr-deprecated.html">list_projects()</a></code> <code><a href="gitlabr-deprecated.html">new_issue()</a></code> <code><a href="gitlabr-deprecated.html">project_connection()</a></code> <code><a href="gitlabr-deprecated.html">proj_req()</a></code> <code><a href="gitlabr-deprecated.html">push_file()</a></code> <code><a href="gitlabr-deprecated.html">reopen_issue()</a></code> <code><a href="gitlabr-deprecated.html">repository()</a></code> <code><a href="gitlabr-deprecated.html">to_issue_id()</a></code> <code><a href="gitlabr-deprecated.html">unassign_issue()</a></code> </p>
+        </td>
+        <td><p>Deprecated functions</p></td>
       </tr>
     </tbody>
     </table>

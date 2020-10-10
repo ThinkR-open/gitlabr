@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -132,7 +132,7 @@
     <p>List projects in Gitlab</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_list_projects</span>(<span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gl_list_projects</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,10 +145,10 @@
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span>(<span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_gitlab</span>(<span class='kw'>gl_list_projects</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='va'>gl_list_projects</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

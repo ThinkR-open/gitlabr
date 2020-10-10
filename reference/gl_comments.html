@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -132,21 +132,21 @@
     <p>Get the comments/notes of a commit or issue</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_get_comments</span>(object_type = <span class='st'>"issue"</span>, <span class='kw'>id</span>, note_id = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(), <span class='kw'>project</span>, <span class='kw'>...</span>)
+    <pre class="usage"><span class='fu'>gl_get_comments</span><span class='op'>(</span>object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='va'>id</span>, note_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_get_issue_comments</span>(<span class='kw'>...</span>)
+<span class='fu'>gl_get_issue_comments</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_get_commit_comments</span>(<span class='kw'>...</span>)
+<span class='fu'>gl_get_commit_comments</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_comment_commit</span>(<span class='kw'>project</span>, <span class='kw'>id</span>, <span class='kw'>text</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_comment_commit</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_comment_issue</span>(<span class='kw'>project</span>, <span class='kw'>id</span>, <span class='kw'>text</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_comment_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_comment</span>(<span class='kw'>object_type</span>, <span class='kw'>text</span>, <span class='kw'>...</span>)
+<span class='fu'>gl_edit_comment</span><span class='op'>(</span><span class='va'>object_type</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_issue_comment</span>(<span class='kw'>...</span>)
+<span class='fu'>gl_edit_issue_comment</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_commit_comment</span>(<span class='kw'>...</span>)</pre>
+<span class='fu'>gl_edit_commit_comment</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -185,7 +185,15 @@ and <code>line_type</code> (old or new) to attach the comment to a specific in a
 See http://doc.gitlab.com/ce/api/commits.html</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"></pre>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># fill in login parameters</span>
+<span class='va'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"testor"</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_get_comments</span><span class='op'>(</span>object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span>, project <span class='op'>=</span> <span class='va'>my_project</span><span class='op'>)</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_get_comments</span>, <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_get_comments</span>, <span class='st'>"commit"</span>, <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_comment_issue</span>, <span class='fl'>1</span>, text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

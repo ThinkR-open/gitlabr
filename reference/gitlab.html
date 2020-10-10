@@ -97,7 +97,7 @@ own. See the gitlabr vignette for more information on this." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -133,23 +133,23 @@ own. See the gitlabr vignette for more information on this." />
     <div class="ref-description">
     <p>This is gitlabr's core function to talk to Gitlab's server API via HTTP(S). Usually you will not
 use this function directly too often, but either use gitlabr's convenience wrappers or write your
-own. See the <code>gitlabr</code> vignette for more information on this.</p>
+own. See the gitlabr vignette for more information on this.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gitlab</span>(
-  <span class='kw'>req</span>,
-  <span class='kw'>api_root</span>,
-  verb = <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
-  auto_format = <span class='fl'>TRUE</span>,
-  debug = <span class='fl'>FALSE</span>,
-  gitlab_con = <span class='st'>"default"</span>,
-  page = <span class='st'>"all"</span>,
-  max_page = <span class='fl'>10</span>,
-  enforce_api_root = <span class='fl'>TRUE</span>,
-  argname_verb = <span class='co'>if</span> (<span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw'>verb</span>, <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>) <span class='op'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span>(<span class='kw'>verb</span>, <span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/DELETE.html'>DELETE</a></span>)) {    
-    <span class='st'>"query"</span> } <span class='co'>else</span> {     <span class='st'>"body"</span> },
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>gitlab</span><span class='op'>(</span>
+  <span class='va'>req</span>,
+  <span class='va'>api_root</span>,
+  verb <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>,
+  auto_format <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  debug <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  gitlab_con <span class='op'>=</span> <span class='st'>"default"</span>,
+  page <span class='op'>=</span> <span class='st'>"all"</span>,
+  max_page <span class='op'>=</span> <span class='fl'>10</span>,
+  enforce_api_root <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  argname_verb <span class='op'>=</span> <span class='kw'>if</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>verb</span>, <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span><span class='op'>)</span> <span class='op'>|</span> <span class='fu'><a href='https://rdrr.io/r/base/identical.html'>identical</a></span><span class='op'>(</span><span class='va'>verb</span>, <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/DELETE.html'>DELETE</a></span><span class='op'>)</span><span class='op'>)</span> <span class='op'>{</span>    
+    <span class='st'>"query"</span> <span class='op'>}</span> <span class='kw'>else</span> <span class='op'>{</span>     <span class='st'>"body"</span> <span class='op'>}</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -219,14 +219,14 @@ may include private_token and all other parameters as documented for the Gitlab 
 be added soon.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'>gitlab</span>(req = <span class='st'>"projects"</span>,
-       api_root = <span class='st'>"https://gitlab.example.com/api/v4/"</span>,
-       private_token = <span class='st'>"123####89"</span>)
-<span class='fu'>gitlab</span>(req = <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>"projects"</span>, <span class='fl'>21</span>, <span class='st'>"issues"</span>),
-       state = <span class='st'>"closed"</span>,
-       gitlab_con = <span class='kw'>my_gitlab</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='st'>"projects"</span>,
+       api_root <span class='op'>=</span> <span class='st'>"https://gitlab.example.com/api/v4/"</span>,
+       private_token <span class='op'>=</span> <span class='st'>"123####89"</span><span class='op'>)</span>
+<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projects"</span>, <span class='fl'>21</span>, <span class='st'>"issues"</span><span class='op'>)</span>,
+       state <span class='op'>=</span> <span class='st'>"closed"</span>,
+       gitlab_con <span class='op'>=</span> <span class='va'>my_gitlab</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

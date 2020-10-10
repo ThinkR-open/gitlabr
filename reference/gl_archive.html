@@ -95,7 +95,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -132,7 +132,7 @@
     <p>Get zip archive of a specific repository</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_archive</span>(<span class='kw'>project</span>, save_to_file = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span>(fileext = <span class='st'>".zip"</span>), <span class='kw'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>gl_archive</span><span class='op'>(</span><span class='va'>project</span>, save_to_file <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".zip"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -159,10 +159,10 @@ may include parameter <code>sha</code> for specifying a commit hash</p></td>
 to the saved archived file</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='kw'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span>(project = <span class='st'>"example-project"</span>, <span class='kw'>...</span>) <span class='co'>## fill in login parameters</span>
-<span class='fu'>my_project</span>(<span class='kw'>gl_archive</span>, save_to_file = <span class='st'>"example-project.zip"</span>)
-}
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='va'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"example-project"</span>, <span class='va'>...</span><span class='op'>)</span> <span class='co'>## fill in login parameters</span>
+<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_archive</span>, save_to_file <span class='op'>=</span> <span class='st'>"example-project.zip"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

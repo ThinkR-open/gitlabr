@@ -59,7 +59,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="articles/quick-start-gitlabr.html">Quick Start Guide to gitlabr</a>
+      <a href="articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
   </ul>
 </li>
@@ -89,7 +89,7 @@
 
 <div id="gitlabr" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#gitlabr" class="anchor"></a>gitlabr</h1></div>
+<a href="#gitlabr" class="anchor"></a>{gitlabr}</h1></div>
 <!-- badges: start -->
 
 <div id="installation" class="section level2">
@@ -97,66 +97,65 @@
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the most recent stable version from CRAN using:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"gitlabr"</span>)
-</pre></div>
-<p>To install the development version using <a href="https://cran.r-project.org/package=devtools">devtools</a>), type:</p>
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></pre></div>
+<p>To install the development version using <a href="https://cran.r-project.org/package=devtools">devtools</a>, type:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="kw">devtools</span>::<span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span>(<span class="st">"statnmap/gitlabr"</span>)
-</pre></div>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></pre></div>
 <p>See the <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
 </div>
 <div id="recommended-gitlab-versions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#recommended-gitlab-versions" class="anchor"></a>Recommended Gitlab versions</h2>
-<p>Gitlab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This gitlabr version uses the gitlab API v4, older versions of Gitlab using API v3 are still supported by gitlabr 0.9, see details section “API version” of the documentation of <code>gl_connection</code> on how to use them. From gitlabr 1.1.6 on API v3 is deprecated and will no longer be tested or maintained, although it is still present in the code. Also within API v4, changes have been made to the gitlab API, most notably for gitlabr, the session endpoint was removed. The versions of gitlabr will always be tested on the corresponding gitlab version, i.e. gitlabr 1.1.6 works best with gitlab 11.6. However, not for every new gitlab version there will be a gitlabr version.</p>
+<a href="#recommended-gitlab-versions" class="anchor"></a>Recommended GitLab versions</h2>
+<p>GitLab 11.6 or higher is generally recommended when using {gitlabr} version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.</p>
 </div>
 <div id="quick-start-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#quick-start-example" class="anchor"></a>Quick Start Example</h2>
-<p>R code using {gitlabr} to perform some common gitlab actions can look like this</p>
+<p>R code using {gitlabr} to perform some common GitLab actions can look like this</p>
 <ul>
 <li><p>Store your token in .Renviron with <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> and restart your session</p></li>
-<li><p>Set a connection to Gitlab instance</p></li>
+<li><p>Set a connection to GitLab instance</p></li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://statnmap.github.io/gitlabr">gitlabr</a></span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
 
 <span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span>
 <span class="co"># You can verify it worked</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_COM_TOKEN"</span>)
-<span class="co">#&gt; [1] "YPKzyzsFZcRnbubCFMLT"</span>
+<span class="co"># Sys.getenv("GITLAB_COM_TOKEN")</span>
 
 <span class="co"># connect as a fixed user to a gitlab instance</span>
-<span class="kw">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_connection.html">gl_connection</a></span>(
-  gitlab_url = <span class="st">"https://gitlab.com"</span>,
-  private_token = <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_COM_TOKEN"</span>))
+<span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_connection.html">gl_connection</a></span><span class="op">(</span>
+  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
 <span class="co"># a function is returned</span>
 <span class="co"># its first argument is the request (name or function), optionally followed by parameters</span>
-</pre></div>
+
+<span class="co"># Set the connection for the session</span>
+<span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span></pre></div>
 <ul>
 <li>Find the list of projects available to you
 <ul>
-<li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire Gitlab.com will be downloaded here…</li>
+<li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
 </ul>
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co"># a data_frame is returned, as is always by gitlabr functions</span>
-<span class="fu">my_gitlab</span>(<span class="kw">gl_list_projects</span>, max_page = <span class="fl">2</span>) 
-<span class="co">#&gt; # A tibble: 60 x 116</span>
+<span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
+<span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 200 x 119</span>
 <span class="co">#&gt;    id    description name  name_with_names… path  path_with_names… created_at</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 2047… ""          Supe… Евгения Шашенко… supe… jeniashasha/sup… 2020-08-1…</span>
-<span class="co">#&gt;  2 2047… ""          Assi… Sahani Silva / … assi… sahanisilva1830… 2020-08-1…</span>
-<span class="co">#&gt;  3 2047… "Singer.io… tap-… vividfront / me… tap-… vividfront/melt… 2020-08-1…</span>
-<span class="co">#&gt;  4 2047… ""          firs… Evgeniy_shigart… firs… evgeniy.shigart… 2020-08-1…</span>
-<span class="co">#&gt;  5 2047… "Semana fo… Ruby… Bruno Rodrigues… ruby… BrunoMerz/ruby-… 2020-08-1…</span>
-<span class="co">#&gt;  6 2047… ""          Assi… Sahani Silva / … assi… sahanisilva1830… 2020-08-1…</span>
-<span class="co">#&gt;  7 2047… "The GTK R… Remm… Scott Bradford … Remm… achmafooma/Remm… 2020-08-1…</span>
-<span class="co">#&gt;  8 2047… "My projec… my_f… Dmitry Petelko … my_f… FMStudent/my_fi… 2020-08-1…</span>
-<span class="co">#&gt;  9 2047… ""          ILP_… kiran kumar / I… ILP_… itzkirankumar/I… 2020-08-1…</span>
-<span class="co">#&gt; 10 2047… ""          rest… dewi cahyanti /… rest… dewichynt15/res… 2020-08-1…</span>
-<span class="co">#&gt; # … with 50 more rows, and 109 more variables: ssh_url_to_repo &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 2169… "A calenda… preg… mister ragondin… preg… ragondin/pregna… 2020-10-1…</span>
+<span class="co">#&gt;  2 2169… "Vue - Com… vue-… Rogério de Oliv… vue-… RogerMitoProjec… 2020-10-1…</span>
+<span class="co">#&gt;  3 2169… "Generate … live… Jacob Shodd / l… live… jshodd/live-bui… 2020-10-1…</span>
+<span class="co">#&gt;  4 2169… "PPW story… stor… ahmad harori / … stor… ahmadharorizaki… 2020-10-1…</span>
+<span class="co">#&gt;  5 2169… ""          Home… dara lon / Home… home… MrDara/homework… 2020-10-1…</span>
+<span class="co">#&gt;  6 2169… ""          Data  Jan Škařupa / D… data  skarupa/data     2020-10-1…</span>
+<span class="co">#&gt;  7 2169… "Detection… MSI-… sameerimamillap… msi-… sameerimamillap… 2020-10-1…</span>
+<span class="co">#&gt;  8 2169…  &lt;NA&gt;       sara… sarahfiola / sa… sara… sarahfiolaa/sar… 2020-10-1…</span>
+<span class="co">#&gt;  9 2169… ""          ar m… By Gvz / ar muse ar-m… bygvz123/ar-muse 2020-10-1…</span>
+<span class="co">#&gt; 10 2169… ""          stc_… Roman Akhmaduli… stc_… Roman_Akhmaduli… 2020-10-1…</span>
+<span class="co">#&gt; # … with 190 more rows, and 112 more variables: ssh_url_to_repo &lt;chr&gt;,</span>
 <span class="co">#&gt; #   http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span>
 <span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
@@ -191,9 +190,8 @@
 <span class="co">#&gt; #   auto_devops_enabled &lt;chr&gt;, auto_devops_deploy_strategy &lt;chr&gt;,</span>
 <span class="co">#&gt; #   autoclose_referenced_issues &lt;chr&gt;, approvals_before_merge &lt;chr&gt;,</span>
 <span class="co">#&gt; #   mirror &lt;chr&gt;, external_authorization_classification_label &lt;chr&gt;,</span>
-<span class="co">#&gt; #   default_branch &lt;chr&gt;, readme_url &lt;chr&gt;, namespace.parent_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.id &lt;chr&gt;, forked_from_project.description &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   default_branch &lt;chr&gt;, readme_url &lt;chr&gt;, forked_from_project.id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forked_from_project.description &lt;chr&gt;, forked_from_project.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.name_with_namespace &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.path_with_namespace &lt;chr&gt;,</span>
@@ -210,43 +208,50 @@
 <span class="co">#&gt; #   forked_from_project.namespace.path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.kind &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.full_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.namespace.web_url &lt;chr&gt;, avatar_url &lt;chr&gt;, …</span>
-</pre></div>
+<span class="co">#&gt; #   forked_from_project.namespace.parent_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forked_from_project.namespace.avatar_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forked_from_project.namespace.web_url &lt;chr&gt;, …</span></pre></div>
 <ul>
 <li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
 <ul>
-<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask">project “repo.rtask”</a>, with <code>ID = 20384533</code> on Gitlab.com</li>
+<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li>
 </ul>
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="kw">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span>
-</pre></div>
+<span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></pre></div>
 <ul>
 <li>List files of the project using <code>gl_list_files</code>
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu">my_gitlab</span>(<span class="kw">gl_list_files</span>, project = <span class="kw">my_project</span>)
+<span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   id                                       name        type  path        mode  </span>
 <span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span>
 <span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span>
-<span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span>
-</pre></div>
+<span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></pre></div>
 <ul>
 <li>List issues with <code>gl_list_issues</code>
 </li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu">my_gitlab</span>(<span class="kw">gl_list_issues</span>, project = <span class="kw">my_project</span>)
-<span class="co">#&gt; # A tibble: 4 x 51</span>
-<span class="co">#&gt;   id    iid   project_id title state created_at updated_at closed_at</span>
-<span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
-<span class="co">#&gt; 2 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
-<span class="co">#&gt; 3 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
-<span class="co">#&gt; 4 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
+<span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
+<span class="co">#&gt; # A tibble: 12 x 51</span>
+<span class="co">#&gt;    id    iid   project_id title state created_at updated_at closed_at</span>
+<span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span>
+<span class="co">#&gt;  1 7249… 12    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  2 7249… 11    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  3 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  4 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  5 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  6 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  7 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…</span>
+<span class="co">#&gt;  8 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt;  9 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt; 10 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt; 11 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
+<span class="co">#&gt; 12 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
 <span class="co">#&gt; # … with 43 more variables: closed_by.id &lt;chr&gt;, closed_by.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   closed_by.username &lt;chr&gt;, closed_by.state &lt;chr&gt;,</span>
 <span class="co">#&gt; #   closed_by.avatar_url &lt;chr&gt;, closed_by.web_url &lt;chr&gt;, assignees.id &lt;chr&gt;,</span>
@@ -262,27 +267,25 @@
 <span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, has_tasks &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.self` &lt;chr&gt;, `_links.notes` &lt;chr&gt;, `_links.award_emoji` &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.project` &lt;chr&gt;, references.short &lt;chr&gt;, references.relative &lt;chr&gt;,</span>
-<span class="co">#&gt; #   references.full &lt;chr&gt;, description &lt;chr&gt;</span>
-</pre></div>
+<span class="co">#&gt; #   references.full &lt;chr&gt;, description &lt;chr&gt;</span></pre></div>
 <ul>
 <li>Create an issue</li>
 </ul>
 <!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit">
 <span class="co"># create a new issue</span>
-<span class="kw">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu">my_gitlab</span>(<span class="kw">gl_new_issue</span>, project = <span class="kw">my_project</span>, <span class="st">"Implement new feature"</span>)
+<span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 
 <span class="co"># statnmap user ID</span>
-<span class="kw">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span>
+<span class="va">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span>
 
 <span class="co"># assign issue to me</span>
-<span class="fu">my_gitlab</span>(<span class="kw">gl_assign_issue</span>, 
-          project = <span class="kw">my_project</span>,
-          <span class="kw">new_feature_issue</span><span class="op">$</span><span class="kw">iid</span>,
-          assignee_id = <span class="kw">my_id</span>)
+<span class="fu"><a href="reference/gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span><span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>,
+                assignee_id <span class="op">=</span> <span class="va">my_id</span>,
+                project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 1 x 44</span>
 <span class="co">#&gt;   id    iid   project_id title state created_at updated_at assignees.id</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       </span>
-<span class="co">#&gt; 1 6972… 5     20384533   Impl… open… 2020-08-1… 2020-08-1… 4809823     </span>
+<span class="co">#&gt; 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     </span>
 <span class="co">#&gt; # … with 36 more variables: assignees.name &lt;chr&gt;, assignees.username &lt;chr&gt;,</span>
 <span class="co">#&gt; #   assignees.state &lt;chr&gt;, assignees.avatar_url &lt;chr&gt;, assignees.web_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   author.id &lt;chr&gt;, author.name &lt;chr&gt;, author.username &lt;chr&gt;,</span>
@@ -299,11 +302,11 @@
 <span class="co">#&gt; #   references.full &lt;chr&gt;, subscribed &lt;chr&gt;</span>
 
 <span class="co"># Verify new issue is here</span>
-<span class="fu">my_gitlab</span>(<span class="kw">gl_list_issues</span>, <span class="kw">my_project</span>, state = <span class="st">"opened"</span>)
+<span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>state <span class="op">=</span> <span class="st">"opened"</span>, <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 3 x 44</span>
 <span class="co">#&gt;   id    iid   project_id title state created_at updated_at assignees.id</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       </span>
-<span class="co">#&gt; 1 6972… 5     20384533   Impl… open… 2020-08-1… 2020-08-1… 4809823     </span>
+<span class="co">#&gt; 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     </span>
 <span class="co">#&gt; 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;        </span>
 <span class="co">#&gt; 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;        </span>
 <span class="co">#&gt; # … with 36 more variables: assignees.name &lt;chr&gt;, assignees.username &lt;chr&gt;,</span>
@@ -322,56 +325,18 @@
 <span class="co">#&gt; #   references.full &lt;chr&gt;, description &lt;chr&gt;</span>
 
 <span class="co"># close issue</span>
-<span class="fu">my_gitlab</span>(<span class="kw">gl_close_issue</span>, project = <span class="kw">my_project</span>, <span class="kw">new_feature_issue</span><span class="op">$</span><span class="kw">iid</span>)<span class="op">$</span><span class="kw">state</span>
-<span class="co">#&gt; [1] "closed"</span>
-</pre></div>
+<span class="fu"><a href="reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span><span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span>
+<span class="co">#&gt; [1] "closed"</span></pre></div>
 </div>
 <div id="further-information" class="section level2">
 <h2 class="hasAnchor">
 <a href="#further-information" class="anchor"></a>Further information</h2>
 <ul>
-<li>For a comprehensive overview &amp; introduction see the <code><a href="articles/quick-start-gitlabr.html">vignette("quick-start-gitlabr")</a></code>
+<li>For a comprehensive overview &amp; introduction see the <code><a href="articles/quick-start-guide-to-gitlabr.html">vignette("quick-start-guide-to-gitlabr")</a></code>
 </li>
-<li>When writing custom extensions (“convenience functions”) for gitlabr or when you experience any trouble, the very extensive <a href="http://doc.gitlab.com/ce/api/">Gitlab API documentation</a> can be helpful.</li>
+<li>When writing custom extensions (“convenience functions”) for {gitlabr} or when you experience any trouble, the very extensive <a href="http://doc.gitlab.com/ce/api/">GitLab API documentation</a> can be helpful.</li>
 </ul>
 <p><em>Note that the {gitlabr} package was originally created by <a href="https://github.com/jirkalewandowski/gitlabr">Jirka Lewandowski</a>. The present repository is a fork to be able to continue development of this package.</em></p>
-</div>
-<div id="to-do---if-you-want-to-contribute" class="section level2">
-<h2 class="hasAnchor">
-<a href="#to-do---if-you-want-to-contribute" class="anchor"></a>To Do - If you want to contribute</h2>
-<p><em>See the <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</em><br><strong>Please help me pass unit tests !</strong></p>
-<p>From <a href="https://github.com/jennybc/gitlabr/blob/jenny-review/jenny-review.md">Jenny Brian review</a></p>
-<div id="example-with-gitlabcom" class="section level3">
-<h3 class="hasAnchor">
-<a href="#example-with-gitlabcom" class="anchor"></a>Example with gitlab.com</h3>
-<p>I have not been able to run basic code against gitlab.com. I <em>can</em> run essentially all code I see in tests, vignette, etc. against gitlab.points-of-interest.cc. It’s not clear if this is a real problem or a documentation problem, leading to user error. Either way, it needs to be addressed. + It would probably be best if examples, README, etc. featured gitlab.com, as most users would probably be doing that. It might also reveal now or in the future if there is some underlying problem that I am experiencing. + For example, here’s code adapted from the examples in <code><a href="reference/gl_connection.html">gl_connection()</a></code>:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit">
-<span class="kw">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_connection.html">gl_connection</a></span>(
-  <span class="st">"https://gitlab.com"</span>,
-  private_token = <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span>(<span class="st">"GITLAB_PVT_TOKEN"</span>)
-)
-<span class="fu">my_gitlab</span>(<span class="st">"projects"</span>)
-</pre></div>
-<ul>
-<li>First, the <code><a href="reference/gl_connection.html">gl_connection()</a></code> call needs to specify the name of the second argument or else it’s interpreted as the <code>login</code>. Second, the <code>my_gitlab()</code> call hangs indefinitely for me.</li>
-</ul>
-</div>
-<div id="automated-tests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#automated-tests" class="anchor"></a>Automated tests</h3>
-<p><em>See the <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</em></p>
-<p>I was able to run tests for this package without too much pain, which is pretty impressive, so big kudos for that! I have yet to write tests for an API-wrapping package that achieves this worthy goal. Some thoughts and suggestions:</p>
-<ul>
-<li>Why test against your gitlab server vs gitlab.com? It’s not completely hard-wired, given the URL in <code>environment.yml</code> but I suspect there would be some undocumented setup required if I actually changed the target gitlab server.</li>
-<li>The instructions don’t tell me how to populate <code>environment.yml</code>. Where do I get this info on gitlab? Is the token supposed to be the private token displayed in the account tab of user settings or an access token generated from the access tokens tab?</li>
-<li>Once I populate <code>environment.yml</code> with real info, I should <code>.gitignore</code> it, right? That would be good to clarify. If testing on CI, then I assume there’s an encryption strategy for this file. Or maybe secure env vars are used?</li>
-<li>Each test file should use <code>context("blah blah")</code> at the top for nicer reporting. I’ve done this is my review branch.</li>
-<li>I had to <code>skip()</code> the test about issue editing, because I don’t have necessary permission. Would be good to implement this such that tester is editing an issue they have permission on. Again, pretty impressive that it’s the <em>only</em> test I had to skip! I’ve done this is my review branch.</li>
-<li>
-<a href="https://github.com/jirkalewandowski/gitlabr/blob/3525479b1316abd2f2122f7778be2c3c4f8b3d06/tests/testthat.R#L4-L14">These lines re: API version in <code>testthat.R</code></a> are pretty unusual. I can’t infer the exact goal, but wonder if there’s a better / more conventional way to achieve it. Obviously, I understand it’s got something to do with testing against different API versions.</li>
-<li>I’ve moved common env var setup into <code>helper.R</code> and out of individual test files. Looking at the top of these files, I suspect even more setup could probably be similarly centralized? <code>helper.R</code> is always sourced by <code><a href="https://devtools.r-lib.org//reference/load_all.html">devtools::load_all()</a></code> so this makes for a nice workflow even when developing / running tests interactively, i.e. the info doesn’t <em>need</em> to live in each file.</li>
-</ul>
-</div>
 </div>
 </div>
 <div id="contributing-to-gitlabr" class="section level1">
