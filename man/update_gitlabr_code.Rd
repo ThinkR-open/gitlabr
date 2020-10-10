@@ -2,7 +2,7 @@
 % Please edit documentation in R/update_code.R
 \name{update_gitlabr_code}
 \alias{update_gitlabr_code}
-\title{Convert gitlabr legacy code to 0.7 compatible}
+\title{Convert {gitlabr} legacy code to 0.7 compatible}
 \usage{
 update_gitlabr_code(file, text = readLines(file), internal = FALSE)
 }

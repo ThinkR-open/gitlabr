@@ -1,4 +1,4 @@
-#' gitlabr R package
+#' {gitlabr} R package
 #' 
 #' Interface to gitlab API on high and low levels
 #' \tabular{ll}{

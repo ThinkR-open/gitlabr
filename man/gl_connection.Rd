@@ -54,7 +54,7 @@ you can give it a try.
 \section{API versions}{
 
 "v4" is the standard API since Gitlab version 9.0 and only this version is officially supported by
-gitlabr since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
+{gitlabr} since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
 code will still work if you try.
 }
 

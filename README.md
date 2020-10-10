@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# gitlabr
+# {gitlabr}
 
 <!-- badges: start -->
 
@@ -31,7 +31,7 @@ run tests locally and contributor information.
 
 ## Recommended GitLab versions
 
-GitLab 11.6 or higher is generally recommended when using gitlabr
+GitLab 11.6 or higher is generally recommended when using {gitlabr}
 version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 
 ## Quick Start Example
@@ -51,8 +51,7 @@ library(gitlabr)
 
 # Add: GITLAB_COM_TOKEN=YourTokenHere
 # You can verify it worked
-Sys.getenv("GITLAB_COM_TOKEN")
-#> [1] "YPKzyzsFZcRnbubCFMLT"
+# Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a gitlab instance
 my_gitlab <- gl_connection(
@@ -73,32 +72,41 @@ set_gitlab_connection(my_gitlab)
 <!-- end list -->
 
 ``` r
-# a data_frame is returned, as is always by gitlabr functions
+# a data_frame is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
-#> # A tibble: 200 x 118
+#> Warning: `...` is not empty.
+#> 
+#> We detected these problematic arguments:
+#> * `needs_dots`
+#> 
+#> These dots only exist to allow future extensions and should be empty.
+#> Did you misspecify an argument?
+#> # A tibble: 200 x 115
 #>    id    description name  name_with_names… path  path_with_names… created_at
 #>    <chr> <chr>       <chr> <chr>            <chr> <chr>            <chr>     
-#>  1 2144… ""          Java… MGEP Web Engine… java… mgep-web-engine… 2020-09-2…
-#>  2 2144… "My awesom… proj… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2020-09-2…
-#>  3 2144… "project f… proj… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2020-09-2…
-#>  4 2144… "My awesom… ssh-… gitlab-qa-sandb… ssh-… gitlab-qa-sandb… 2020-09-2…
-#>  5 2144… "My awesom… ssh-… gitlab-qa-sandb… ssh-… gitlab-qa-sandb… 2020-09-2…
-#>  6 2144… "My awesom… proj… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2020-09-2…
-#>  7 2144… "My awesom… proj… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2020-09-2…
-#>  8 2144… "My awesom… proj… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2020-09-2…
-#>  9 2144… ""          repo… Céline LY / rep… repo… lycelinepro99/r… 2020-09-2…
-#> 10 2144… "create aw… awes… gitlab-qa-sandb… awes… gitlab-qa-sandb… 2020-09-2…
-#> # … with 190 more rows, and 111 more variables: default_branch <chr>,
+#>  1 2169… "Cryptsetu… cryp… Víctor P. / cry… cryp… vpont/cryptsetup 2020-10-1…
+#>  2 2169… "Scanner A… back… Mattias Hansson… back… mattihn/backends 2020-10-1…
+#>  3 2169…  <NA>       Stef… Cássio Aragão /… Stef… cassioate/Stefa… 2020-10-1…
+#>  4 2169… "Learning"  Test… FDanya / TestLe… test… FDanya/testlear… 2020-10-1…
+#>  5 2169… ""          2020… Marina Polyakov… 2020… m_polyakowa/202… 2020-10-1…
+#>  6 2169… "Code Play… play… Emil Nakayama /… play… senakster/playg… 2020-10-1…
+#>  7 2169… ""          tplb  NER / tplb       tplb  nexpr/tplb       2020-10-1…
+#>  8 2169… ""          test  Amirhossein  Sh… test  ahshiri834/test  2020-10-1…
+#>  9 2169…  <NA>       Vers… Hersant FONG  /… Vers… Hersant/Version… 2020-10-1…
+#> 10 2169… ""          pand… DSAICourse / pa… pand… dsaicourse/pand… 2020-10-1…
+#> # … with 190 more rows, and 108 more variables: default_branch <chr>,
 #> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
 #> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
 #> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
 #> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
-#> #   namespace.parent_id <chr>, namespace.avatar_url <chr>,
-#> #   namespace.web_url <chr>, `_links.self` <chr>, `_links.issues` <chr>,
-#> #   `_links.merge_requests` <chr>, `_links.repo_branches` <chr>,
-#> #   `_links.labels` <chr>, `_links.events` <chr>, `_links.members` <chr>,
-#> #   packages_enabled <chr>, empty_repo <chr>, archived <chr>, visibility <chr>,
-#> #   resolve_outdated_diff_discussions <chr>, container_registry_enabled <chr>,
+#> #   namespace.avatar_url <chr>, namespace.web_url <chr>, `_links.self` <chr>,
+#> #   `_links.issues` <chr>, `_links.merge_requests` <chr>,
+#> #   `_links.repo_branches` <chr>, `_links.labels` <chr>, `_links.events` <chr>,
+#> #   `_links.members` <chr>, packages_enabled <chr>, empty_repo <chr>,
+#> #   archived <chr>, visibility <chr>, owner.id <chr>, owner.name <chr>,
+#> #   owner.username <chr>, owner.state <chr>, owner.avatar_url <chr>,
+#> #   owner.web_url <chr>, resolve_outdated_diff_discussions <chr>,
+#> #   container_registry_enabled <chr>,
 #> #   container_expiration_policy.cadence <chr>,
 #> #   container_expiration_policy.enabled <chr>,
 #> #   container_expiration_policy.keep_n <chr>,
@@ -112,19 +120,8 @@ gl_list_projects(max_page = 2)
 #> #   wiki_access_level <chr>, builds_access_level <chr>,
 #> #   snippets_access_level <chr>, pages_access_level <chr>,
 #> #   shared_runners_enabled <chr>, lfs_enabled <chr>, creator_id <chr>,
-#> #   import_status <chr>, open_issues_count <chr>, ci_default_git_depth <chr>,
-#> #   public_jobs <chr>, build_timeout <chr>,
-#> #   auto_cancel_pending_pipelines <chr>, ci_config_path <chr>,
-#> #   only_allow_merge_if_pipeline_succeeds <chr>, request_access_enabled <chr>,
-#> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
-#> #   remove_source_branch_after_merge <chr>,
-#> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
-#> #   auto_devops_enabled <chr>, auto_devops_deploy_strategy <chr>,
-#> #   autoclose_referenced_issues <chr>, approvals_before_merge <chr>,
-#> #   mirror <chr>, external_authorization_classification_label <chr>,
-#> #   owner.id <chr>, owner.name <chr>, owner.username <chr>, owner.state <chr>,
-#> #   owner.avatar_url <chr>, owner.web_url <chr>, forked_from_project.id <chr>,
-#> #   forked_from_project.description <chr>, forked_from_project.name <chr>,
+#> #   forked_from_project.id <chr>, forked_from_project.description <chr>,
+#> #   forked_from_project.name <chr>,
 #> #   forked_from_project.name_with_namespace <chr>,
 #> #   forked_from_project.path <chr>,
 #> #   forked_from_project.path_with_namespace <chr>,
@@ -132,7 +129,8 @@ gl_list_projects(max_page = 2)
 #> #   forked_from_project.default_branch <chr>,
 #> #   forked_from_project.ssh_url_to_repo <chr>,
 #> #   forked_from_project.http_url_to_repo <chr>,
-#> #   forked_from_project.web_url <chr>, forked_from_project.forks_count <chr>,
+#> #   forked_from_project.web_url <chr>, forked_from_project.readme_url <chr>,
+#> #   forked_from_project.forks_count <chr>,
 #> #   forked_from_project.star_count <chr>,
 #> #   forked_from_project.last_activity_at <chr>,
 #> #   forked_from_project.namespace.id <chr>,
@@ -140,9 +138,18 @@ gl_list_projects(max_page = 2)
 #> #   forked_from_project.namespace.path <chr>,
 #> #   forked_from_project.namespace.kind <chr>,
 #> #   forked_from_project.namespace.full_path <chr>,
-#> #   forked_from_project.namespace.web_url <chr>,
-#> #   forked_from_project.readme_url <chr>,
-#> #   forked_from_project.namespace.avatar_url <chr>, …
+#> #   forked_from_project.namespace.avatar_url <chr>,
+#> #   forked_from_project.namespace.web_url <chr>, import_status <chr>,
+#> #   open_issues_count <chr>, ci_default_git_depth <chr>, public_jobs <chr>,
+#> #   build_timeout <chr>, auto_cancel_pending_pipelines <chr>,
+#> #   only_allow_merge_if_pipeline_succeeds <chr>, request_access_enabled <chr>,
+#> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
+#> #   remove_source_branch_after_merge <chr>,
+#> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
+#> #   auto_devops_enabled <chr>, auto_devops_deploy_strategy <chr>,
+#> #   autoclose_referenced_issues <chr>, approvals_before_merge <chr>,
+#> #   mirror <chr>, external_authorization_classification_label <chr>,
+#> #   ci_config_path <chr>, emails_disabled <chr>, …
 ```
 
   - Explore one of your projects. You can set the name of the project or
@@ -164,6 +171,13 @@ my_project <- 20384533 #repo.rtask",
 
 ``` r
 gl_list_files(project = my_project)
+#> Warning: `...` is not empty.
+#> 
+#> We detected these problematic arguments:
+#> * `needs_dots`
+#> 
+#> These dots only exist to allow future extensions and should be empty.
+#> Did you misspecify an argument?
 #> # A tibble: 2 x 5
 #>   id                                       name        type  path        mode  
 #>   <chr>                                    <chr>       <chr> <chr>       <chr> 
@@ -177,14 +191,24 @@ gl_list_files(project = my_project)
 
 ``` r
 gl_list_issues(project = my_project)
-#> # A tibble: 5 x 51
+#> Warning: `...` is not empty.
+#> 
+#> We detected these problematic arguments:
+#> * `needs_dots`
+#> 
+#> These dots only exist to allow future extensions and should be empty.
+#> Did you misspecify an argument?
+#> # A tibble: 8 x 51
 #>   id    iid   project_id title state created_at updated_at closed_at
 #>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>    
-#> 1 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 2 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 3 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 4 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
-#> 5 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
+#> 1 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#> 2 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#> 3 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…
+#> 4 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 5 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 6 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 7 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
+#> 8 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
 #> # … with 43 more variables: closed_by.id <chr>, closed_by.name <chr>,
 #> #   closed_by.username <chr>, closed_by.state <chr>,
 #> #   closed_by.avatar_url <chr>, closed_by.web_url <chr>, assignees.id <chr>,
@@ -218,15 +242,27 @@ my_id <- 4809823
 gl_assign_issue(new_feature_issue$iid,
                 assignee_id = my_id,
                 project = my_project)
-#> # A tibble: 1 x 32
-#>   id    iid   project_id title state created_at updated_at author.id author.name
-#>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>     <chr>      
-#> 1 7186… 6     20384533   Impl… open… 2020-09-2… 2020-09-2… 382398    Lars Dalby 
-#> # … with 23 more variables: author.username <chr>, author.state <chr>,
-#> #   author.avatar_url <chr>, author.web_url <chr>, user_notes_count <chr>,
-#> #   merge_requests_count <chr>, upvotes <chr>, downvotes <chr>,
-#> #   confidential <chr>, web_url <chr>, time_stats.time_estimate <chr>,
-#> #   time_stats.total_time_spent <chr>, task_completion_status.count <chr>,
+#> Warning: `...` is not empty.
+#> 
+#> We detected these problematic arguments:
+#> * `needs_dots`
+#> 
+#> These dots only exist to allow future extensions and should be empty.
+#> Did you misspecify an argument?
+#> # A tibble: 1 x 44
+#>   id    iid   project_id title state created_at updated_at assignees.id
+#>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
+#> 1 7249… 9     20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,
+#> #   assignees.state <chr>, assignees.avatar_url <chr>, assignees.web_url <chr>,
+#> #   author.id <chr>, author.name <chr>, author.username <chr>,
+#> #   author.state <chr>, author.avatar_url <chr>, author.web_url <chr>,
+#> #   assignee.id <chr>, assignee.name <chr>, assignee.username <chr>,
+#> #   assignee.state <chr>, assignee.avatar_url <chr>, assignee.web_url <chr>,
+#> #   user_notes_count <chr>, merge_requests_count <chr>, upvotes <chr>,
+#> #   downvotes <chr>, confidential <chr>, web_url <chr>,
+#> #   time_stats.time_estimate <chr>, time_stats.total_time_spent <chr>,
+#> #   task_completion_status.count <chr>,
 #> #   task_completion_status.completed_count <chr>, has_tasks <chr>,
 #> #   `_links.self` <chr>, `_links.notes` <chr>, `_links.award_emoji` <chr>,
 #> #   `_links.project` <chr>, references.short <chr>, references.relative <chr>,
@@ -234,17 +270,29 @@ gl_assign_issue(new_feature_issue$iid,
 
 # Verify new issue is here
 gl_list_issues(state = "opened", my_project)
-#> # A tibble: 3 x 32
-#>   id    iid   project_id title state created_at updated_at author.id author.name
-#>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>     <chr>      
-#> 1 7186… 6     20384533   Impl… open… 2020-09-2… 2020-09-2… 382398    Lars Dalby 
-#> 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… 4809823   Sébastien …
-#> 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… 4809823   Sébastien …
-#> # … with 23 more variables: author.username <chr>, author.state <chr>,
-#> #   author.avatar_url <chr>, author.web_url <chr>, user_notes_count <chr>,
-#> #   merge_requests_count <chr>, upvotes <chr>, downvotes <chr>,
-#> #   confidential <chr>, web_url <chr>, time_stats.time_estimate <chr>,
-#> #   time_stats.total_time_spent <chr>, task_completion_status.count <chr>,
+#> Warning: `...` is not empty.
+#> 
+#> We detected these problematic arguments:
+#> * `needs_dots`
+#> 
+#> These dots only exist to allow future extensions and should be empty.
+#> Did you misspecify an argument?
+#> # A tibble: 3 x 44
+#>   id    iid   project_id title state created_at updated_at assignees.id
+#>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
+#> 1 7249… 9     20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>        
+#> 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>        
+#> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,
+#> #   assignees.state <chr>, assignees.avatar_url <chr>, assignees.web_url <chr>,
+#> #   author.id <chr>, author.name <chr>, author.username <chr>,
+#> #   author.state <chr>, author.avatar_url <chr>, author.web_url <chr>,
+#> #   assignee.id <chr>, assignee.name <chr>, assignee.username <chr>,
+#> #   assignee.state <chr>, assignee.avatar_url <chr>, assignee.web_url <chr>,
+#> #   user_notes_count <chr>, merge_requests_count <chr>, upvotes <chr>,
+#> #   downvotes <chr>, confidential <chr>, web_url <chr>,
+#> #   time_stats.time_estimate <chr>, time_stats.total_time_spent <chr>,
+#> #   task_completion_status.count <chr>,
 #> #   task_completion_status.completed_count <chr>, has_tasks <chr>,
 #> #   `_links.self` <chr>, `_links.notes` <chr>, `_links.award_emoji` <chr>,
 #> #   `_links.project` <chr>, references.short <chr>, references.relative <chr>,
@@ -259,9 +307,10 @@ gl_close_issue(new_feature_issue$iid, project = my_project)$state
 
   - For a comprehensive overview & introduction see the
     `vignette("quick-start-gitlabr")`
-  - When writing custom extensions (“convenience functions”) for gitlabr
-    or when you experience any trouble, the very extensive [GitLab API
-    documentation](http://doc.gitlab.com/ce/api/) can be helpful.
+  - When writing custom extensions (“convenience functions”) for
+    {gitlabr} or when you experience any trouble, the very extensive
+    [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be
+    helpful.
 
 *Note that the {gitlabr} package was originally created by [Jirka
 Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present

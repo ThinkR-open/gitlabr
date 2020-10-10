@@ -5,7 +5,7 @@
 \alias{gitlabr}
 \title{Interface to gitlab API on high and low levels}
 \description{
-gitlabr R package
+{gitlabr} R package
 }
 \details{
 Interface to gitlab API on high and low levels

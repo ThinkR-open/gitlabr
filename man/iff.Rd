@@ -4,6 +4,6 @@
 \alias{iff}
 \title{Import magrittr extensions}
 \description{
-The magrittr extensions implemented in gitlabr are
+The magrittr extensions implemented in {gitlabr} are
 now migrated to package {arpr}.
 }

@@ -1,4 +1,4 @@
-#' Convert gitlabr legacy code to 0.7 compatible
+#' Convert {gitlabr} legacy code to 0.7 compatible
 #' 
 #' CAUTION: This functions output/results should be checked manually before
 #' committing the code, since it uses regular expression heuristically

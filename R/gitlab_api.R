@@ -1,8 +1,8 @@
 #' Request Gitlab API
 #' 
-#' This is gitlabr's core function to talk to Gitlab's server API via HTTP(S). Usually you will not
-#' use this function directly too often, but either use gitlabr's convenience wrappers or write your
-#' own. See the \code{gitlabr} vignette for more information on this.
+#' This is {gitlabr}'s core function to talk to Gitlab's server API via HTTP(S). Usually you will not
+#' use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
+#' own. See the {gitlabr} vignette for more information on this.
 #' 
 #' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
 #' be added soon.
@@ -18,7 +18,7 @@
 #' @param page number of page of API response to get; if "all" (default), all pages
 #' (up to max_page parameter!) are queried successively and combined.
 #' @param max_page maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-#' to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+#' to prevent {gitlabr} getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 #' project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 #' is recommended only under controlled circumstances.
 #' @param enforce_api_root if multiple pages are requested, the API root URL is ensured

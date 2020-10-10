@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# gitlabr
+# {gitlabr}
 
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
@@ -39,7 +39,7 @@ See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to run tests 
 
 ## Recommended GitLab versions
 
-GitLab 11.6 or higher is generally recommended when using gitlabr version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
+GitLab 11.6 or higher is generally recommended when using {gitlabr} version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 
 ## Quick Start Example
 
@@ -48,12 +48,12 @@ R code using {gitlabr} to perform some common GitLab actions can look like this
 - Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
 
 - Set a connection to GitLab instance
-```{r}
+```{r, warning=FALSE}
 library(gitlabr)
 
 # Add: GITLAB_COM_TOKEN=YourTokenHere
 # You can verify it worked
-Sys.getenv("GITLAB_COM_TOKEN")
+# Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a gitlab instance
 my_gitlab <- gl_connection(
@@ -69,7 +69,7 @@ set_gitlab_connection(my_gitlab)
 - Find the list of projects available to you
   + Define a limit of pages of projects to search in with `max_page`, otherwise the entire GitLab.com will be downloaded here...
 ```{r}
-# a data_frame is returned, as is always by gitlabr functions
+# a data_frame is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
 ```
 
@@ -115,7 +115,7 @@ gl_close_issue(new_feature_issue$iid, project = my_project)$state
 ## Further information
 
 - For a comprehensive overview & introduction see the `vignette("quick-start-gitlabr")`
-- When writing custom extensions ("convenience functions") for gitlabr or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
+- When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
 
 _Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
 

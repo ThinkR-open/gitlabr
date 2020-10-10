@@ -44,7 +44,7 @@
 #' }
 NULL
 
-#' renamings from gitlabr version 0.6.4 to 0.7
+#' renamings from {gitlabr} version 0.6.4 to 0.7
 #'
 #' List of of old and new function name. Used internally by
 #' \code{\link{update_gitlabr_code}}

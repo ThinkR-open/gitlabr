@@ -38,7 +38,7 @@ gitlab(
 (up to max_page parameter!) are queried successively and combined.}
 
 \item{max_page}{maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+to prevent {gitlabr} getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 is recommended only under controlled circumstances.}
 
@@ -56,9 +56,9 @@ may include private_token and all other parameters as documented for the Gitlab 
 the response from the Gitlab API, usually as a `tibble` and including all pages
 }
 \description{
-This is gitlabr's core function to talk to Gitlab's server API via HTTP(S). Usually you will not
-use this function directly too often, but either use gitlabr's convenience wrappers or write your
-own. See the \code{gitlabr} vignette for more information on this.
+This is {gitlabr}'s core function to talk to Gitlab's server API via HTTP(S). Usually you will not
+use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
+own. See the {gitlabr} vignette for more information on this.
 }
 \details{
 Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
