@@ -5,11 +5,11 @@ test_that("CI yml generation works", {
   use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
                 path = ci_path,
                 push_to_remotes = list(
-                  "github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git",
-                  "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/jirkalewandowski/gitlabr.git"))
+                  "github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/${REPO.git}",
+                  "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/${REPO.git}"))
   
   expect_equal(yaml::yaml.load_file(ci_path),
-               yaml::yaml.load_file(".gitlab-ci.yml"))
+               yaml::yaml.load_file("gitlab-ci.yml"))
   
   on.exit(unlink(ci_path))
   

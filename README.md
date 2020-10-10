@@ -20,7 +20,7 @@ install.packages("gitlabr")
 ```
 
 To install the development version using
-[devtools](https://cran.r-project.org/package=devtools)), type:
+[devtools](https://cran.r-project.org/package=devtools), type:
 
 ``` r
 devtools::install_github("statnmap/gitlabr")
@@ -72,31 +72,23 @@ set_gitlab_connection(my_gitlab)
 <!-- end list -->
 
 ``` r
-# a data_frame is returned, as is always by {gitlabr} functions
+# a tibble is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
-#> # A tibble: 200 x 115
+#> # A tibble: 200 x 125
 #>    id    description name  name_with_names… path  path_with_names… created_at
 #>    <chr> <chr>       <chr> <chr>            <chr> <chr>            <chr>     
-#>  1 2169… "Cryptsetu… cryp… Víctor P. / cry… cryp… vpont/cryptsetup 2020-10-1…
-#>  2 2169… "Scanner A… back… Mattias Hansson… back… mattihn/backends 2020-10-1…
-#>  3 2169…  <NA>       Stef… Cássio Aragão /… Stef… cassioate/Stefa… 2020-10-1…
-#>  4 2169… "Learning"  Test… FDanya / TestLe… test… FDanya/testlear… 2020-10-1…
-#>  5 2169… ""          2020… Marina Polyakov… 2020… m_polyakowa/202… 2020-10-1…
-#>  6 2169… "Code Play… play… Emil Nakayama /… play… senakster/playg… 2020-10-1…
-#>  7 2169… ""          tplb  NER / tplb       tplb  nexpr/tplb       2020-10-1…
-#>  8 2169… ""          test  Amirhossein  Sh… test  ahshiri834/test  2020-10-1…
-#>  9 2169…  <NA>       Vers… Hersant FONG  /… Vers… Hersant/Version… 2020-10-1…
-#> 10 2169… ""          pand… DSAICourse / pa… pand… dsaicourse/pand… 2020-10-1…
-#> # … with 190 more rows, and 108 more variables: default_branch <chr>,
-#> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
-#> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
+#>  1 2169… "Jawaban q… quiz… adethis / quiz-… quiz… adethis/quiz-2-… 2020-10-1…
+#>  2 2169… "A weight … Weig… Jakub Meysner /… Weig… JakubMeysner/We… 2020-10-1…
+#>  3 2169… ""          Queu… HAN / DT SD ASD… queu… han-aim/dt-sd-a… 2020-10-1…
+#>  4 2169… ""          dash… Benjamin Viguie… dash… ben__/dashboard  2020-10-1…
+#>  5 2169… ""          Traf… Sergiu Siminiuc… traf… siminiuc/traffi… 2020-10-1…
+#>  6 2169… ""          Foru… Sunnatbek / For… foru… S.Kassymov/foru… 2020-10-1…
+#>  7 2169… ""          Inte… Cường Lê / Inte… inte… lemanhcuong2104… 2020-10-1…
+#>  8 2169… ""          LMRS… Bruno Montenegr… lmrs… voyager.peru/lm… 2020-10-1…
+#>  9 2169…  <NA>       expr… Nick Lin / expr… expr… r951236958/expr… 2020-10-1…
+#> 10 2169… ""          spri… deven kenny / s… spri… devenkenny/spri… 2020-10-1…
+#> # … with 190 more rows, and 118 more variables: ssh_url_to_repo <chr>,
+#> #   http_url_to_repo <chr>, web_url <chr>, forks_count <chr>, star_count <chr>,
 #> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
 #> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
 #> #   namespace.avatar_url <chr>, namespace.web_url <chr>, `_links.self` <chr>,
@@ -120,6 +112,17 @@ gl_list_projects(max_page = 2)
 #> #   wiki_access_level <chr>, builds_access_level <chr>,
 #> #   snippets_access_level <chr>, pages_access_level <chr>,
 #> #   shared_runners_enabled <chr>, lfs_enabled <chr>, creator_id <chr>,
+#> #   import_status <chr>, open_issues_count <chr>, ci_default_git_depth <chr>,
+#> #   public_jobs <chr>, build_timeout <chr>,
+#> #   auto_cancel_pending_pipelines <chr>, ci_config_path <chr>,
+#> #   only_allow_merge_if_pipeline_succeeds <chr>, request_access_enabled <chr>,
+#> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
+#> #   remove_source_branch_after_merge <chr>,
+#> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
+#> #   auto_devops_enabled <chr>, auto_devops_deploy_strategy <chr>,
+#> #   autoclose_referenced_issues <chr>, approvals_before_merge <chr>,
+#> #   mirror <chr>, external_authorization_classification_label <chr>,
+#> #   namespace.parent_id <chr>, default_branch <chr>, readme_url <chr>,
 #> #   forked_from_project.id <chr>, forked_from_project.description <chr>,
 #> #   forked_from_project.name <chr>,
 #> #   forked_from_project.name_with_namespace <chr>,
@@ -138,18 +141,7 @@ gl_list_projects(max_page = 2)
 #> #   forked_from_project.namespace.path <chr>,
 #> #   forked_from_project.namespace.kind <chr>,
 #> #   forked_from_project.namespace.full_path <chr>,
-#> #   forked_from_project.namespace.avatar_url <chr>,
-#> #   forked_from_project.namespace.web_url <chr>, import_status <chr>,
-#> #   open_issues_count <chr>, ci_default_git_depth <chr>, public_jobs <chr>,
-#> #   build_timeout <chr>, auto_cancel_pending_pipelines <chr>,
-#> #   only_allow_merge_if_pipeline_succeeds <chr>, request_access_enabled <chr>,
-#> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
-#> #   remove_source_branch_after_merge <chr>,
-#> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
-#> #   auto_devops_enabled <chr>, auto_devops_deploy_strategy <chr>,
-#> #   autoclose_referenced_issues <chr>, approvals_before_merge <chr>,
-#> #   mirror <chr>, external_authorization_classification_label <chr>,
-#> #   ci_config_path <chr>, emails_disabled <chr>, …
+#> #   forked_from_project.namespace.web_url <chr>, avatar_url <chr>, …
 ```
 
   - Explore one of your projects. You can set the name of the project or
@@ -171,13 +163,6 @@ my_project <- 20384533 #repo.rtask",
 
 ``` r
 gl_list_files(project = my_project)
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
 #> # A tibble: 2 x 5
 #>   id                                       name        type  path        mode  
 #>   <chr>                                    <chr>       <chr> <chr>       <chr> 
@@ -191,24 +176,19 @@ gl_list_files(project = my_project)
 
 ``` r
 gl_list_issues(project = my_project)
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
-#> # A tibble: 8 x 51
-#>   id    iid   project_id title state created_at updated_at closed_at
-#>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>    
-#> 1 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#> 2 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#> 3 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…
-#> 4 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 5 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 6 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 7 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
-#> 8 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
+#> # A tibble: 10 x 51
+#>    id    iid   project_id title state created_at updated_at closed_at
+#>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>    
+#>  1 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  2 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  3 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  4 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  5 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…
+#>  6 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#>  7 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#>  8 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#>  9 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
+#> 10 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
 #> # … with 43 more variables: closed_by.id <chr>, closed_by.name <chr>,
 #> #   closed_by.username <chr>, closed_by.state <chr>,
 #> #   closed_by.avatar_url <chr>, closed_by.web_url <chr>, assignees.id <chr>,
@@ -242,17 +222,10 @@ my_id <- 4809823
 gl_assign_issue(new_feature_issue$iid,
                 assignee_id = my_id,
                 project = my_project)
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
 #> # A tibble: 1 x 44
 #>   id    iid   project_id title state created_at updated_at assignees.id
 #>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
-#> 1 7249… 9     20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> 1 7249… 11    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
 #> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,
 #> #   assignees.state <chr>, assignees.avatar_url <chr>, assignees.web_url <chr>,
 #> #   author.id <chr>, author.name <chr>, author.username <chr>,
@@ -270,17 +243,10 @@ gl_assign_issue(new_feature_issue$iid,
 
 # Verify new issue is here
 gl_list_issues(state = "opened", my_project)
-#> Warning: `...` is not empty.
-#> 
-#> We detected these problematic arguments:
-#> * `needs_dots`
-#> 
-#> These dots only exist to allow future extensions and should be empty.
-#> Did you misspecify an argument?
 #> # A tibble: 3 x 44
 #>   id    iid   project_id title state created_at updated_at assignees.id
 #>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
-#> 1 7249… 9     20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> 1 7249… 11    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
 #> 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>        
 #> 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>        
 #> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,

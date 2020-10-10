@@ -10,8 +10,8 @@ Dockerfile
 .gitlab-ci.yml.test
 ^dev_history\.R$
 ^README\.Rmd$
-^tests/testthat/\.gitlab-ci\.yml$
-^tests/testthat/\.gitlab-ci-usethis\.yml$
 ^\.github$
 ^dev$
 ^public$
+^_pkgdown\.yml$
+/tmp/RtmpjztUTs/file14e2ac65b2d516.yml

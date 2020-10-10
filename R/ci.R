@@ -45,7 +45,7 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
 gl_ci_push_job <- function(remote) {
   list(stage = "push",
        only = list("master"),
-       script = list(paste("git push", remote, "master")))
+       script = list(paste0("git push ", remote, " master")))
 }
 
 ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = FALSE) {

@@ -1,14 +1,26 @@
 on:
   push:
-    branches: [main, master]
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
-name: pkgdown
+name: test-coverage
 
 jobs:
-  pkgdown:
+  test-coverage:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+      COMMENTED_COMMIT: ${{ secrets.COMMENTED_COMMIT }}
+      GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
+      GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
+      GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
+      GITLABR_TEST_PROJECT_ID: ${{ secrets.GITLABR_TEST_PROJECT_ID }}
+      GITLABR_TEST_PROJECT_NAME: ${{ secrets.GITLABR_TEST_PROJECT_NAME }}
+      GITLABR_TEST_TOKEN: ${{ secrets.GITLABR_TEST_TOKEN }}
+      GITLABR_TEST_URL: ${{ secrets.GITLABR_TEST_URL }}
     steps:
       - uses: actions/checkout@v2
 
@@ -32,15 +44,11 @@ jobs:
 
       - name: Install dependencies
         run: |
+          install.packages(c("remotes"))
           remotes::install_deps(dependencies = TRUE)
-          install.packages("pkgdown", type = "binary")
+          remotes::install_cran("covr")
         shell: Rscript {0}
 
-      - name: Install package
-        run: R CMD INSTALL .
-
-      - name: Deploy package
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Actions"
-          Rscript -e 'pkgdown::deploy_to_branch(new_process = FALSE)'
+      - name: Test coverage
+        run: covr::codecov()
+        shell: Rscript {0}
