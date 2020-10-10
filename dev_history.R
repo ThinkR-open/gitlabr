@@ -19,9 +19,11 @@ usethis::pr_push()
 usethis::use_build_ignore("_pkgdown.yml")
 usethis::use_git_ignore("public")
 usethis::use_build_ignore("public/")
+options(rmarkdown.html_vignette.check_title = FALSE)
 pkgdown::build_site()
 
 # Development
 attachment::att_amend_desc() #extra.suggests = "R.rsp")
 devtools::test()
 devtools::check()
+devtools::build_vignettes()

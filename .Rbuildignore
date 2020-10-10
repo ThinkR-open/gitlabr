@@ -15,3 +15,5 @@ Dockerfile
 ^public$
 ^_pkgdown\.yml$
 /tmp/RtmpjztUTs/file14e2ac65b2d516.yml
+^doc$
+^Meta$
