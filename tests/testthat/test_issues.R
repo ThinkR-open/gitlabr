@@ -68,9 +68,11 @@ test_that("editing issues works", {
   
   ## assign it
   my_gitlab(gl_assign_issue, new_issue_iid, assignee_id = test_user_id, test_project, api_version = test_api_version)
+  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.id == test_user_id)
   expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.username == test_login)
   my_gitlab(gl_unassign_issue, new_issue_iid, test_project, api_version = test_api_version)
   expect_null(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.username)
+  expect_null(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.id)
   
   ## close it
   my_gitlab(gl_close_issue, new_issue_iid, test_project, api_version = test_api_version)
