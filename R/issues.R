@@ -31,8 +31,10 @@ gl_get_issues <- function(project = NULL,
 #' default verb \code{httr::GET}
 #' @export
 #' 
-#' @examples \dontrun{
-#' my_project <- gl_project_connection(project = "testor"...) ## fill in login parameters
+#' @examples
+#' \dontrun{
+#' # fill in login parameters
+#' my_project <- gl_project_connection(project = "testor", ...) 
 #' my_project(gl_list_issues)
 #' my_project(gl_get_issue, 1)
 #' my_project(gl_new_issue, 1, "Implement new feature", description = "It should be awesome.")

@@ -51,7 +51,9 @@ See http://doc.gitlab.com/ce/api/commits.html
 }
 \examples{
 \dontrun{
-my_project <- gl_project_connection(project = "testor"...) ## fill in login parameters
+# fill in login parameters
+my_project <- gl_project_connection(project = "testor", ...)
+gl_get_comments(object_type = "issue", 1, project = my_project)
 my_project(gl_get_comments, "issue", 1)
 my_project(gl_get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
 my_project(gl_comment_issue, 1, text = "Almost done!")

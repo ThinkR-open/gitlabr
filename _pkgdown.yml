@@ -2,20 +2,6 @@ destination: public
 
 url: https://statnmap.github.io/gitlabr/
 
-navbar:
-  type: default
-left:
-  - icon: fa-home fa-lg
-href: index.html
-- text: Reference
-href: reference/index.html
-- text: "Change log"
-href: news/index.html
-right:
-  - text: "Source Code"
-icon: "fab fa-github"
-href: "https://github.com/statnmap/gitlabr"
-
 reference:
   - title: Convenience functions
     desc: >
@@ -53,3 +39,23 @@ reference:
     - gl_reopen_issue
     - gl_repository
     - gl_unassign_issue
+  - title: Other functions
+    desc: >
+      Functions requiring cleaning or deprecation 
+    contents:
+    - gitlab
+    - gl_ci_job
+    - gitlabr
+    - gitlabr_0_7_renaming
+    - gl_archive
+    - gl_connection
+    - gl_get_project_id
+    - gl_proj_req
+    - glLoginInput
+    - gl_to_issue_id
+    - iff
+    - set_gitlab_connection
+    - update_gitlabr_code 
+  - title: Deprecated functions
+    contents:
+    - gitlabr-deprecated

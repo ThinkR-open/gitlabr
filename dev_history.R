@@ -8,7 +8,18 @@ usethis::use_git_ignore("tests/environment.yml")
 usethis::use_github_action_check_standard()
 usethis::use_github_action("pkgdown")
 
+# Check pr
+# To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>). 
+# If you make changes, run pr_push() to push them back to GitHub. 
+# After you have merged the PR, run pr_finish() to delete the local branch.
+usethis::pr_fetch(24)
+
+# Test pkgdown
+usethis::use_git_ignore("public")
+usethis::use_build_ignore("public/")
+pkgdown::build_site()
+
 # Development
-attachment::att_amend_desc(extra.suggests = "R.rsp")
+attachment::att_amend_desc() #extra.suggests = "R.rsp")
 devtools::test()
 devtools::check()

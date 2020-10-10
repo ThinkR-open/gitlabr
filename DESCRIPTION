@@ -37,10 +37,10 @@ Imports:
     yaml
 Suggests:
     knitr,
-    R.rsp,
     rmarkdown,
     testthat (>= 1.0.2)
-VignetteBuilder: knitr
+VignetteBuilder: 
+    knitr
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1

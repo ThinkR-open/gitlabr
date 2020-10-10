@@ -1,5 +1,7 @@
 # gitlabr 1.1.6.9000
 
+* Update documentation: recommend using `gl_*` functions
+
 Breaking change
 
 * Changed use of `api_version = "v4"` by `api_version = 4`
