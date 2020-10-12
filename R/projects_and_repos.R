@@ -1,21 +1,22 @@
-#' List projects in Gitlab
+#' List projects on GitLab
 #' 
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
 #' 
 #' @examples \dontrun{
 #' my_gitlab <- gl_connection(...) ## fill in login parameters
-#' my_gitlab(gl_list_projects)
+#' set_gitlab_connection(my_gitlab)
+#' gl_list_projects(max_page = 1)
 #' }
 gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
-#' Access to repository functions and files in Gitlab API
+#' Access to repository functions and files in GitLab API
 #' 
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
-#' in gitlab API, as vector or part of URL)
+#' in GitLab API, as vector or part of URL)
 #' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
 #' 
@@ -168,12 +169,12 @@ to_project_id <- function(x, ...) {
     gl_get_project_id(x, ...)
 }
 
-#' Get a file from a gitlab repository
+#' Get a file from a GitLab repository
 #' 
 #' @param file_path path to file
 #' @param ref name of ref (commit branch or tag)
 #' @param to_char flag if output should be converted to char; otherwise it is of class raw
-#' @param api_version a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
+#' @param api_version a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
 #' @export
 #' @importFrom base64enc base64decode
 #' @rdname gl_repository
@@ -202,7 +203,7 @@ gl_get_file <- function(project,
   
 }
 
-#' Upload a file to a gitlab repository
+#' Upload a file to a GitLab repository
 #'
 #' If the file already exists, it is updated/overwritten by default
 #'
