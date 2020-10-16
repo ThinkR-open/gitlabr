@@ -2,7 +2,7 @@
 % Please edit documentation in R/projects_and_repos.R
 \name{gl_push_file}
 \alias{gl_push_file}
-\title{Upload a file to a gitlab repository}
+\title{Upload a file to a GitLab repository}
 \usage{
 gl_push_file(
   project,
