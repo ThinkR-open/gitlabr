@@ -25,9 +25,7 @@ gl_list_projects <- function(...) {
 #' my_project(gl_list_files)
 #' my_project(gl_get_file, "data.csv")
 #' }
-gl_repository <- function(req = c("tree"),
-                          project,
-                          ...) {
+gl_repository <- function(req = c("tree"), project, ...) {
   gitlab(gl_proj_req(project, c("repository", req), ...), ...)
 }
 
@@ -38,8 +36,15 @@ gl_repository <- function(req = c("tree"),
 #' @param verb is ignored, will always be forced to match the action the function name indicates
 #' @param ... passed on to \code{\link{gitlab}}
 #' @export
+#' 
+#' @examples \dontrun{
+#' my_gitlab <- gl_connection(...) ## fill in login parameters
+#' set_gitlab_connection(my_gitlab)
+#' gl_list_branches(project = 20384533) ## repo.rtask
+#' }
 gl_list_branches <- function(project, verb = httr::GET, ...) {
-  gitlab(gl_proj_req(project, c("repository", "branches"), ...), ...)
+  gl_proj_req(project, c("repository", "branches"), ...) %>% 
+    gitlab(...)
 }
 
 #' List, create and delete branches
