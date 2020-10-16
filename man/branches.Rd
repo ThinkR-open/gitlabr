@@ -30,3 +30,21 @@ List, create and delete branches
 
 List, create and delete branches
 }
+\examples{
+\dontrun{
+my_gitlab <- gl_connection(...) ## fill in login parameters
+set_gitlab_connection(my_gitlab)
+project_id <- ... ## Fill in your project ID
+gl_list_branches(project = project_id) 
+# Create branch "new_feature"
+gl_create_branch(project = project_id,
+                 branch = "new_feature")
+# Confirm that it the branch was created
+gl_list_branches(project = project_id)
+# Delete branch again
+gl_delete_branch(project = project_id,
+                 branch = "new_feature")
+# Check that we're back where we started
+gl_list_branches(project = project_id)
+}
+}

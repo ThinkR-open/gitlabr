@@ -5,7 +5,7 @@
 \alias{gl_list_files}
 \alias{gl_file_exists}
 \alias{gl_get_file}
-\title{Access to repository functions and files in Gitlab API}
+\title{Access to repository functions and files in GitLab API}
 \usage{
 gl_repository(req = c("tree"), project, ...)
 
@@ -24,7 +24,7 @@ gl_get_file(
 }
 \arguments{
 \item{req}{request to perform on repository (everything after '/repository/'
-in gitlab API, as vector or part of URL)}
+in GitLab API, as vector or part of URL)}
 
 \item{project}{name or id of project (not repository!)}
 
@@ -36,14 +36,14 @@ in gitlab API, as vector or part of URL)}
 
 \item{to_char}{flag if output should be converted to char; otherwise it is of class raw}
 
-\item{api_version}{a switch to force deprecated gitlab API v3 behavior. See details section "API version" of \code{\link{gl_connection}}}
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link{gl_connection}}}
 }
 \description{
-Access to repository functions and files in Gitlab API
+Access to repository functions and files in GitLab API
 
 For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
 
-Get a file from a gitlab repository
+Get a file from a GitLab repository
 }
 \examples{
 \dontrun{

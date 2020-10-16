@@ -40,7 +40,18 @@ gl_repository <- function(req = c("tree"), project, ...) {
 #' @examples \dontrun{
 #' my_gitlab <- gl_connection(...) ## fill in login parameters
 #' set_gitlab_connection(my_gitlab)
-#' gl_list_branches(project = 20384533) ## repo.rtask
+#' project_id <- ... ## Fill in your project ID
+#' gl_list_branches(project = project_id) 
+#' # Create branch "new_feature"
+#' gl_create_branch(project = project_id,
+#'                  branch = "new_feature")
+#' # Confirm that it the branch was created
+#' gl_list_branches(project = project_id)
+#' # Delete branch again
+#' gl_delete_branch(project = project_id,
+#'                  branch = "new_feature")
+#' # Check that we're back where we started
+#' gl_list_branches(project = project_id)
 #' }
 gl_list_branches <- function(project, verb = httr::GET, ...) {
   gl_proj_req(project, c("repository", "branches"), ...) %>% 
