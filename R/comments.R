@@ -71,7 +71,7 @@ gl_get_commit_comments <- function(...) {
 #' For \code{gl_comment_commit} ... might also contain \code{path}, \code{line}
 #' and \code{line_type} (old or new) to attach the comment to a specific in a file.
 #' See http://doc.gitlab.com/ce/api/commits.html
-#' @param text Text of comment/note to add or edit (translates to gitlab API note/body respectively)
+#' @param text Text of comment/note to add or edit (translates to GitLab API note/body respectively)
 #' @export
 gl_comment_commit  <- function(project,
                                id,

@@ -3,7 +3,7 @@
 \name{glLoginInput}
 \alias{glLoginInput}
 \alias{glReactiveLogin}
-\title{Shiny module to login to gitlab API}
+\title{Shiny module to login to GitLab API}
 \usage{
 glLoginInput(id, login_button = TRUE)
 
@@ -30,7 +30,7 @@ glReactiveLogin(
 
 \item{session}{from shinyServer function, usually not user provided}
 
-\item{gitlab_url}{root URL of gitlab instance to login to}
+\item{gitlab_url}{root URL of GitLab instance to login to}
 
 \item{project}{if not NULL, a code{\link{gl_project_connection}} is created to this project}
 

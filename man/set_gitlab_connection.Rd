@@ -3,14 +3,14 @@
 \name{set_gitlab_connection}
 \alias{set_gitlab_connection}
 \alias{unset_gitlab_connection}
-\title{Get/set a gitlab connection for all calls}
+\title{Get/set a GitLab connection for all calls}
 \usage{
 set_gitlab_connection(gitlab_con = NULL, ...)
 
 unset_gitlab_connection()
 }
 \arguments{
-\item{gitlab_con}{A function used for gitlab API calls, such
+\item{gitlab_con}{A function used for GitLab API calls, such
 as \code{\link{gitlab}} or as returned by \code{\link{gl_connection}}.}
 
 \item{...}{if gitlab_con is NULL, a new connection is created used the parameters

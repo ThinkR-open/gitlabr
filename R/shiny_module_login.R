@@ -1,4 +1,4 @@
-#' Shiny module to login to gitlab API
+#' Shiny module to login to GitLab API
 #' 
 #' The UI contains a login and a password field as well as an (optional)
 #' login button. The server side function returns a reactive gitlab connection, just as \code{\link{gl_connection}}
@@ -12,7 +12,7 @@
 #' @param input from shinyServer function, usually not user provided
 #' @param output from shinyServer function, usually not user provided
 #' @param session from shinyServer function, usually not user provided
-#' @param gitlab_url root URL of gitlab instance to login to
+#' @param gitlab_url root URL of GitLab instance to login to
 #' @param api_version A character with value either "3" or "4" to specify the API version that should be used
 #' @param project if not NULL, a code{\link{gl_project_connection}} is created to this project
 #' @param success_message message text to be displayed in the UI on sucessful login 

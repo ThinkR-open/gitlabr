@@ -50,13 +50,13 @@ gl_get_issue <- function(issue_id, project, ...) {
   gl_get_issues(project = project, issue_id = issue_id, ...)
 }
 
-#' Translate projectwide issue id to global gitlab API issue id
+#' Translate projectwide issue id to global GitLab API issue id
 #' 
-#' This functions is only intended to be used with gitlab API v3. With v4, the
+#' This functions is only intended to be used with GitLab API v3. With v4, the
 #' global iid is no longer functional.
 #' 
 #' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
-#' @param api_version Since this function is no longer necessary for Gitlab API v4,
+#' @param api_version Since this function is no longer necessary for GitLab API v4,
 #' this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
 #' default to 4
 #' @param project project name or id
@@ -66,7 +66,7 @@ gl_to_issue_id <- function(issue_id, project, api_version = 4, ...) {
   
   if(api_version != 3) {
     .Deprecated("gl_get_issue", package = "gitlabr",
-                msg = "Usage deprecated! gl_to_issue_id can sensibly be used only with gitlab API v3!")
+                msg = "Usage deprecated! gl_to_issue_id can sensibly be used only with GitLab API v3!")
   }
   if (is.null(issue_id)) {
     NULL

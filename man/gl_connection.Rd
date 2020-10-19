@@ -3,7 +3,7 @@
 \name{gl_connection}
 \alias{gl_connection}
 \alias{gl_project_connection}
-\title{Connect to a specific gitlab instance API}
+\title{Connect to a specific GitLab instance API}
 \usage{
 gl_connection(
   gitlab_url,
@@ -21,40 +21,40 @@ gl_project_connection(
 )
 }
 \arguments{
-\item{gitlab_url}{URL to the gitlab instance (e.g. \code{https://gitlab.myserver.com})}
+\item{gitlab_url}{URL to the GitLab instance (e.g. \code{https://gitlab.myserver.com})}
 
-\item{private_token}{private_token with which to identify. You can generate one in the webinterface under
+\item{private_token}{private_token with which to identify. You can generate one in the web interface under
 \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.}
 
 \item{api_version}{Currently "4" for the latest gitlab API version. See Details section on API versions.}
 
-\item{api_location}{location of the gitlab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"}
+\item{api_location}{location of the GitLab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"}
 
 \item{project}{id or name of project to issue requests to}
 }
 \value{
-A function to access a specific gitlab API as a specific user, see details
+A function to access a specific GitLab API as a specific user, see details
 }
 \description{
 Creates a function that can be used to issue requests to the specified
-gitlab API instance with the specified user private token and (for \code{gl_project_connection})
+GitLab API instance with the specified user private token and (for \code{gl_project_connection})
 only to a specified project.
 }
 \details{
-The returned function should serve as the primary way to access the gitlab
+The returned function should serve as the primary way to access the GitLab
 API in the following. It can take vector/character arguments in the same way
 as the function \code{\link{gitlab}} does, as well as the convenience functions
 provided by this package or written by the user. If it is passed such that
-function it calls it with the arguments provided in \code{...} and the gitlab
+function it calls it with the arguments provided in \code{...} and the GitLab
 URL, api location and private_token provided when creating it via \code{gl_connection}.
 
-Note: currently gitlab API v4 is supported. Gitlab API v3 is no longer supported, but
+Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 you can give it a try.
 }
 \section{API versions}{
 
-"v4" is the standard API since Gitlab version 9.0 and only this version is officially supported by
-{gitlabr} since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
+"v4" is the standard API since GitLab version 9.0 and only this version is officially supported by
+{gitlabr} since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, {gitlabr} 
 code will still work if you try.
 }
 
