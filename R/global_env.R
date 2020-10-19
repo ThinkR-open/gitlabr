@@ -4,12 +4,12 @@ GITLAB_CON <- "gitlab_con"
 ## set to NULL in the beginning
 assign(GITLAB_CON, NULL, gitlabr_env)
 
-#' Get/set a gitlab connection for all calls
+#' Get/set a GitLab connection for all calls
 #' 
 #' This sets the default value of \code{gitlab_con} 
 #' in a call to \code{\link{gitlab}}
 #' 
-#' @param gitlab_con A function used for gitlab API calls, such
+#' @param gitlab_con A function used for GitLab API calls, such
 #' as \code{\link{gitlab}} or as returned by \code{\link{gl_connection}}.
 #' @param ... if gitlab_con is NULL, a new connection is created used the parameters
 #' is ... using \code{\link{gl_connection}}

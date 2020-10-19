@@ -39,7 +39,7 @@ gl_edit_commit_comment(...)
 
 \item{...}{passed on to \code{\link{gitlab}} API call. See Details.}
 
-\item{text}{Text of comment/note to add or edit (translates to gitlab API note/body respectively)}
+\item{text}{Text of comment/note to add or edit (translates to GitLab API note/body respectively)}
 }
 \description{
 Get the comments/notes of a commit or issue

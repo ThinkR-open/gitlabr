@@ -1,4 +1,4 @@
-#' Define Gitlab CI jobs
+#' Define GitLab CI jobs
 #' 
 #' @param job_name Name of job template to get CI definition elements
 #' @param stage Name of stage job belongs to
@@ -80,13 +80,13 @@ gl_default_ci_pipeline <- function() {
 }
 
 #' @export
-#' @param image Docker image to use in gitlab ci. If NULL, not specified!
+#' @param image Docker image to use in GitLab ci. If NULL, not specified!
 #' @param pipeline a CI pipeline defined as a list of lists
 #' @param push_to_remotes named list of remotes the code should be pushed to. Only master
 #' is pushed and for every remote a job of stage "push" is generated. See example for how
 #' to use credentials from environment variables.
-#' @param path destination path for writing gitlab CI yml file
-#' @param overwrite whether to overwrite existing gitlab CI yml file
+#' @param path destination path for writing GitLab CI yml file
+#' @param overwrite whether to overwrite existing GitLab CI yml file
 #' @param add_to_Rbuildignore add CI yml file (from \code{path}) to .Rbuildignore?
 #' @rdname gitlabci
 #' 
@@ -125,13 +125,13 @@ use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
   
 }
 
-#' Access the Gitlab CI builds
+#' Access the GitLab CI builds
 #' 
 #' List the jobs with \code{gl_jobs}, the pipelines with \code{gl_pipelines} or
 #' download the most recent artifacts
 #' archive with \code{gl_latest_build_artifact}. For every branch and job combination
 #' only the most recent artifacts archive is available.
-#' \code{gl_builds} is the equivalent for gitlab API v3.
+#' \code{gl_builds} is the equivalent for GitLab API v3.
 #' 
 #' @param project project name or id, required
 #' @param ... passed on to \code{\link{gitlab}} API call
@@ -155,9 +155,9 @@ gl_jobs <- function(project, ...) {
 }
 
 #' @export
-#' @param api_version Since \code{gl_builds} is no longer working for Gitlab API v4,
+#' @param api_version Since \code{gl_builds} is no longer working for GitLab API v4,
 #' this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
-#' default to "4" with deprecation message.
+#' default to "4" with deprecation message.´
 #' @rdname gl_builds
 gl_builds <- function(project, api_version = 4, ...) {
   if (api_version != 3) {

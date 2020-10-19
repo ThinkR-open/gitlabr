@@ -41,7 +41,7 @@ in GitLab API, as vector or part of URL)}
 \description{
 Access to repository functions and files in GitLab API
 
-For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
+For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and GitLab API call
 
 Get a file from a GitLab repository
 }

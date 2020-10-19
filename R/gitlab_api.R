@@ -1,14 +1,14 @@
-#' Request Gitlab API
+#' Request GitLab API
 #' 
-#' This is {gitlabr}'s core function to talk to Gitlab's server API via HTTP(S). Usually you will not
+#' This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
 #' use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
 #' own. See the {gitlabr} vignette for more information on this.
 #' 
-#' Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
+#' Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
 #' be added soon.
 #' 
 #' @param req vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})
-#' @param api_root URL where the gitlab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})
+#' @param api_root URL where the GitLab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})
 #' @param verb http verb to use for request in form of one of the \code{httr} functions
 #' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
 #' @param auto_format whether to format the returned object automatically to a flat data.frame
@@ -26,13 +26,13 @@
 #' by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
 #' and ignorant about its URL from external.
 #' @param argname_verb name of the argument of the verb that fields and information are passed on to
-#' @param ... named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
-#' may include private_token and all other parameters as documented for the Gitlab API
+#' @param ... named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
+#' may include private_token and all other parameters as documented for the GitLab API
 #' @importFrom utils capture.output
 #' @importFrom tibble tibble as_tibble
 #' @export
 #' 
-#' @return the response from the Gitlab API, usually as a `tibble` and including all pages
+#' @return the response from the GitLab API, usually as a `tibble` and including all pages
 #' 
 #' @examples \dontrun{
 #' gitlab(req = "projects",

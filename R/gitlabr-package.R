@@ -1,6 +1,6 @@
 #' {gitlabr} R package
 #' 
-#' Interface to gitlab API on high and low levels
+#' Interface to GitLab API on high and low levels
 #' \tabular{ll}{
 #' Package: \tab gitlabr\cr
 #' Type: \tab Package\cr
@@ -10,7 +10,7 @@
 #'
 #' @name gitlabr
 #' @docType package
-#' @title  Interface to gitlab API on high and low levels
+#' @title  Interface to GitLab API on high and low levels
 #' @author Jirka Lewandowski \email{jirka.lewandowski@@wzb.eu}
 #' @references \url{http://blog.points-of-interest.cc/}
 #' 

@@ -3,12 +3,12 @@
 \docType{package}
 \name{gitlabr}
 \alias{gitlabr}
-\title{Interface to gitlab API on high and low levels}
+\title{Interface to GitLab API on high and low levels}
 \description{
 {gitlabr} R package
 }
 \details{
-Interface to gitlab API on high and low levels
+Interface to GitLab API on high and low levels
 \tabular{ll}{
 Package: \tab gitlabr\cr
 Type: \tab Package\cr

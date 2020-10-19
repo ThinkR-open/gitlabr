@@ -2,7 +2,7 @@
 % Please edit documentation in R/gitlab_api.R
 \name{gitlab}
 \alias{gitlab}
-\title{Request Gitlab API}
+\title{Request GitLab API}
 \usage{
 gitlab(
   req,
@@ -22,7 +22,7 @@ gitlab(
 \arguments{
 \item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
 
-\item{api_root}{URL where the gitlab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})}
+\item{api_root}{URL where the GitLab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})}
 
 \item{verb}{http verb to use for request in form of one of the \code{httr} functions
 \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}}
@@ -49,19 +49,19 @@ and ignorant about its URL from external.}
 
 \item{argname_verb}{name of the argument of the verb that fields and information are passed on to}
 
-\item{...}{named parameters to pass on to gitlab API (technically: modifies query parameters of request URL),
-may include private_token and all other parameters as documented for the Gitlab API}
+\item{...}{named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
+may include private_token and all other parameters as documented for the GitLab API}
 }
 \value{
-the response from the Gitlab API, usually as a `tibble` and including all pages
+the response from the GitLab API, usually as a `tibble` and including all pages
 }
 \description{
-This is {gitlabr}'s core function to talk to Gitlab's server API via HTTP(S). Usually you will not
+This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
 use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
 own. See the {gitlabr} vignette for more information on this.
 }
 \details{
-Note: currently gitlab API v3 is supported. Support for Gitlab API v4 (for Gitlab version >= 9.0) will
+Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
 be added soon.
 }
 \examples{

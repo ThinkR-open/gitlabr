@@ -4,7 +4,7 @@
 \alias{gl_ci_job}
 \alias{gl_default_ci_pipeline}
 \alias{use_gitlab_ci}
-\title{Define Gitlab CI jobs}
+\title{Define GitLab CI jobs}
 \usage{
 gl_ci_job(job_name, stage = job_name, allowed_dependencies = c(), ...)
 
@@ -30,20 +30,20 @@ use_gitlab_ci(
 
 \item{pipeline}{a CI pipeline defined as a list of lists}
 
-\item{image}{Docker image to use in gitlab ci. If NULL, not specified!}
+\item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
 
 \item{push_to_remotes}{named list of remotes the code should be pushed to. Only master
 is pushed and for every remote a job of stage "push" is generated. See example for how
 to use credentials from environment variables.}
 
-\item{path}{destination path for writing gitlab CI yml file}
+\item{path}{destination path for writing GitLab CI yml file}
 
-\item{overwrite}{whether to overwrite existing gitlab CI yml file}
+\item{overwrite}{whether to overwrite existing GitLab CI yml file}
 
 \item{add_to_Rbuildignore}{add CI yml file (from \code{path}) to .Rbuildignore?}
 }
 \description{
-Define Gitlab CI jobs
+Define GitLab CI jobs
 }
 \examples{
 gl_ci_job("build", allowed_dependencies = "test")

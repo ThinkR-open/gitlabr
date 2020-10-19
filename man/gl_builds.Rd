@@ -5,7 +5,7 @@
 \alias{gl_jobs}
 \alias{gl_builds}
 \alias{gl_latest_build_artifact}
-\title{Access the Gitlab CI builds}
+\title{Access the GitLab CI builds}
 \usage{
 gl_pipelines(project, ...)
 
@@ -26,9 +26,9 @@ gl_latest_build_artifact(
 
 \item{...}{passed on to \code{\link{gitlab}} API call}
 
-\item{api_version}{Since \code{gl_builds} is no longer working for Gitlab API v4,
+\item{api_version}{Since \code{gl_builds} is no longer working for GitLab API v4,
 this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
-default to "4" with deprecation message.}
+default to "4" with deprecation message.´}
 
 \item{job}{Name of the job to get build artifacts from}
 
@@ -44,7 +44,7 @@ List the jobs with \code{gl_jobs}, the pipelines with \code{gl_pipelines} or
 download the most recent artifacts
 archive with \code{gl_latest_build_artifact}. For every branch and job combination
 only the most recent artifacts archive is available.
-\code{gl_builds} is the equivalent for gitlab API v3.
+\code{gl_builds} is the equivalent for GitLab API v3.
 }
 \examples{
 \dontrun{
