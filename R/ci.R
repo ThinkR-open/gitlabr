@@ -175,7 +175,6 @@ gl_builds <- function(project, api_version = 4, ...) {
 #' @return returns the file path if \code{save_to_file} is TRUE, or the archive as raw otherwise.
 gl_latest_build_artifact <- function(project, job, ref_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
   
-  
   raw_build_archive <- gitlab(gl_proj_req(project = project,
                                           c("jobs", "artifacts", ref_name, "download"),
                                           ...),
