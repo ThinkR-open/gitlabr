@@ -90,7 +90,7 @@ jobs:
         uses: peter-evans/repository-dispatch@v1
         with:
           token: ${{ secrets.REPO_GHA_PAT }}
-          repository: statnmap/gitlabr
+          repository: ${{ github.repository }}
           event-type: R-CMD-check-ubuntu-release
           client-payload: '{"ref": "${{ github.ref }}", "sha": "${{ github.sha }}"}'
           
