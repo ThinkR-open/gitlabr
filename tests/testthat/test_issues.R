@@ -44,7 +44,7 @@ test_that("getting issues works", {
   expect_is(gl_get_issue(new_issue_iid, gitlab_con = my_project, api_version = test_api_version), "data.frame")
 
   ## old API
-  if(test_api_version == 4) {
+  if (test_api_version == 4) {
     expect_warning(my_gitlab(get_issues), regexp = "deprecated")
   }
 })
