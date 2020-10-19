@@ -95,12 +95,12 @@ gl_delete_branch <- function(project, branch, verb = httr::POST, ...) {
 #' @param title title of the merge request
 #' @param description description text for the merge request
 #' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to \code{\link{gitlab}}. Might contain more fields documented in gitlab API doc.
+#' @param ... passed on to \code{\link{gitlab}}. Might contain more fields documented in GitLab API doc.
 #' 
 #' @export
 gl_create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
-  gitlab(req = gl_proj_req(project = project, c("merge_requests"), ...),
-         source_branch = source_branch,
+  gl_proj_req(project = project, c("merge_requests"), ...) %>% 
+  gitlab(source_branch = source_branch,
          target_branch = target_branch,
          title = title,
          description = description,
@@ -113,7 +113,7 @@ gl_create_merge_request <- function(project, source_branch, target_branch = "mas
 #' @export
 gl_list_files <- purrr::partial(gl_repository, req = "tree") ## should have a recursive option
 
-#' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and gitlab API call
+#' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and GitLab API call
 #' @export
 #' @rdname gl_repository
 gl_file_exists <- function(project, file_path, ref, ...) {
@@ -289,7 +289,6 @@ gl_archive <- function(project,
   } else {
     return(raw_gl_archive)
   }
-  
 }
 
 #' Compare two refs from a project repository
