@@ -55,7 +55,7 @@ gl_get_issue <- function(issue_id, project, ...) {
 #' This functions is only intended to be used with GitLab API v3. With v4, the
 #' global iid is no longer functional.
 #' 
-#' @param issue_id projectwide issue id (as seen by e.g. gitlab website users)
+#' @param issue_id projectwide issue id (as seen by e.g. GitLab website users)
 #' @param api_version Since this function is no longer necessary for GitLab API v4,
 #' this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
 #' default to 4
@@ -90,7 +90,7 @@ gl_to_issue_id <- function(issue_id, project, api_version = 4, ...) {
 #' @param project project where the issue should be posted
 #' @param title title of the issue
 #' @param ... further parameters passed to the API call, may 
-#' contain description, asignee_id, milestone_id, labels, state_event (for edit_issue).
+#' contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).
 #' 
 #' @rdname gl_edit_issue
 #' @export
@@ -110,7 +110,7 @@ gl_create_issue <- gl_new_issue
 #' Post a new issue or edit one
 #' 
 #' @param issue_id issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)
-#' @param api_version a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+#' @param api_version a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)
 #' @export
 gl_edit_issue <- function(issue_id,
