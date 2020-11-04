@@ -113,6 +113,7 @@
 <a href="#quick-start-example" class="anchor"></a>Quick Start Example</h2>
 <p>R code using {gitlabr} to perform some common GitLab actions can look like this</p>
 <ul>
+<li><p>Create a TOKEN on your Gitlab instance with scopes: <code>api</code></p></li>
 <li><p>Store your token in .Renviron with <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> and restart your session</p></li>
 <li><p>Set a connection to GitLab instance</p></li>
 </ul>
@@ -142,23 +143,24 @@
 <!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit">
 <span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
 <span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 200 x 119</span>
+<span class="co">#&gt; # A tibble: 200 x 122</span>
 <span class="co">#&gt;    id    description name  name_with_names… path  path_with_names… created_at</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 2169… "A calenda… preg… mister ragondin… preg… ragondin/pregna… 2020-10-1…</span>
-<span class="co">#&gt;  2 2169… "Vue - Com… vue-… Rogério de Oliv… vue-… RogerMitoProjec… 2020-10-1…</span>
-<span class="co">#&gt;  3 2169… "Generate … live… Jacob Shodd / l… live… jshodd/live-bui… 2020-10-1…</span>
-<span class="co">#&gt;  4 2169… "PPW story… stor… ahmad harori / … stor… ahmadharorizaki… 2020-10-1…</span>
-<span class="co">#&gt;  5 2169… ""          Home… dara lon / Home… home… MrDara/homework… 2020-10-1…</span>
-<span class="co">#&gt;  6 2169… ""          Data  Jan Škařupa / D… data  skarupa/data     2020-10-1…</span>
-<span class="co">#&gt;  7 2169… "Detection… MSI-… sameerimamillap… msi-… sameerimamillap… 2020-10-1…</span>
-<span class="co">#&gt;  8 2169…  &lt;NA&gt;       sara… sarahfiola / sa… sara… sarahfiolaa/sar… 2020-10-1…</span>
-<span class="co">#&gt;  9 2169… ""          ar m… By Gvz / ar muse ar-m… bygvz123/ar-muse 2020-10-1…</span>
-<span class="co">#&gt; 10 2169… ""          stc_… Roman Akhmaduli… stc_… Roman_Akhmaduli… 2020-10-1…</span>
-<span class="co">#&gt; # … with 190 more rows, and 112 more variables: ssh_url_to_repo &lt;chr&gt;,</span>
-<span class="co">#&gt; #   http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 2222… ""          Stud… Nagendra Gude /… stud… Nagendrak12/stu… 2020-11-0…</span>
+<span class="co">#&gt;  2 2222… ""          php2  Amelle  / php2   php2  amelleouldselma… 2020-11-0…</span>
+<span class="co">#&gt;  3 2222… ""          Limi… Slobodan Radova… limi… slobodan-radova… 2020-11-0…</span>
+<span class="co">#&gt;  4 2222… ""          My s… menna hany / My… my-s… menna_hany/my-s… 2020-11-0…</span>
+<span class="co">#&gt;  5 2222… "Proyecto … Proy… Ivana Sosa Cord… proy… ivanasosacorder… 2020-11-0…</span>
+<span class="co">#&gt;  6 2222…  &lt;NA&gt;       sami… dgcscfvs / sami… sami… dgcscfvs/samina… 2020-11-0…</span>
+<span class="co">#&gt;  7 2222… ""          test  indhumathi v / … test  indhumathi.devo… 2020-11-0…</span>
+<span class="co">#&gt;  8 2222… "ska-rfi-s… ska-… ska-telescope /… ska-… ska-telescope/s… 2020-11-0…</span>
+<span class="co">#&gt;  9 2222… ""          mind… aubrey mindoro … mind… aubreymindoro67… 2020-11-0…</span>
+<span class="co">#&gt; 10 2222… ""          tp-a… Mathieu DE SOUS… tp-a… m.desousa/tp-an… 2020-11-0…</span>
+<span class="co">#&gt; # … with 190 more rows, and 115 more variables: default_branch &lt;chr&gt;,</span>
+<span class="co">#&gt; #   ssh_url_to_repo &lt;chr&gt;, http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forks_count &lt;chr&gt;, star_count &lt;chr&gt;, last_activity_at &lt;chr&gt;,</span>
+<span class="co">#&gt; #   namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;, namespace.path &lt;chr&gt;,</span>
+<span class="co">#&gt; #   namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   namespace.avatar_url &lt;chr&gt;, namespace.web_url &lt;chr&gt;, `_links.self` &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.issues` &lt;chr&gt;, `_links.merge_requests` &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.repo_branches` &lt;chr&gt;, `_links.labels` &lt;chr&gt;, `_links.events` &lt;chr&gt;,</span>
@@ -171,6 +173,7 @@
 <span class="co">#&gt; #   container_expiration_policy.enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.keep_n &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.older_than &lt;chr&gt;,</span>
+<span class="co">#&gt; #   container_expiration_policy.name_regex &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.next_run_at &lt;chr&gt;, issues_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   merge_requests_enabled &lt;chr&gt;, wiki_enabled &lt;chr&gt;, jobs_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   snippets_enabled &lt;chr&gt;, service_desk_enabled &lt;chr&gt;,</span>
@@ -181,16 +184,17 @@
 <span class="co">#&gt; #   snippets_access_level &lt;chr&gt;, pages_access_level &lt;chr&gt;,</span>
 <span class="co">#&gt; #   shared_runners_enabled &lt;chr&gt;, lfs_enabled &lt;chr&gt;, creator_id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   import_status &lt;chr&gt;, open_issues_count &lt;chr&gt;, ci_default_git_depth &lt;chr&gt;,</span>
-<span class="co">#&gt; #   public_jobs &lt;chr&gt;, build_timeout &lt;chr&gt;,</span>
-<span class="co">#&gt; #   auto_cancel_pending_pipelines &lt;chr&gt;, ci_config_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   only_allow_merge_if_pipeline_succeeds &lt;chr&gt;, request_access_enabled &lt;chr&gt;,</span>
+<span class="co">#&gt; #   ci_forward_deployment_enabled &lt;chr&gt;, public_jobs &lt;chr&gt;,</span>
+<span class="co">#&gt; #   build_timeout &lt;chr&gt;, auto_cancel_pending_pipelines &lt;chr&gt;,</span>
+<span class="co">#&gt; #   ci_config_path &lt;chr&gt;, only_allow_merge_if_pipeline_succeeds &lt;chr&gt;,</span>
+<span class="co">#&gt; #   request_access_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   only_allow_merge_if_all_discussions_are_resolved &lt;chr&gt;,</span>
 <span class="co">#&gt; #   remove_source_branch_after_merge &lt;chr&gt;,</span>
 <span class="co">#&gt; #   printing_merge_request_link_enabled &lt;chr&gt;, merge_method &lt;chr&gt;,</span>
 <span class="co">#&gt; #   auto_devops_enabled &lt;chr&gt;, auto_devops_deploy_strategy &lt;chr&gt;,</span>
 <span class="co">#&gt; #   autoclose_referenced_issues &lt;chr&gt;, approvals_before_merge &lt;chr&gt;,</span>
 <span class="co">#&gt; #   mirror &lt;chr&gt;, external_authorization_classification_label &lt;chr&gt;,</span>
-<span class="co">#&gt; #   default_branch &lt;chr&gt;, readme_url &lt;chr&gt;, forked_from_project.id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   readme_url &lt;chr&gt;, forked_from_project.id &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.description &lt;chr&gt;, forked_from_project.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.name_with_namespace &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.path &lt;chr&gt;,</span>
@@ -208,8 +212,6 @@
 <span class="co">#&gt; #   forked_from_project.namespace.path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.kind &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.full_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.namespace.parent_id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.namespace.avatar_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.web_url &lt;chr&gt;, …</span></pre></div>
 <ul>
 <li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
@@ -237,21 +239,22 @@
 </ul>
 <!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit">
 <span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 12 x 51</span>
+<span class="co">#&gt; # A tibble: 13 x 51</span>
 <span class="co">#&gt;    id    iid   project_id title state created_at updated_at closed_at</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span>
-<span class="co">#&gt;  1 7249… 12    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  2 7249… 11    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  3 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  4 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  5 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  6 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
-<span class="co">#&gt;  7 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…</span>
-<span class="co">#&gt;  8 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
-<span class="co">#&gt;  9 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
-<span class="co">#&gt; 10 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
-<span class="co">#&gt; 11 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
-<span class="co">#&gt; 12 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
+<span class="co">#&gt;  1 7249… 13    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  2 7249… 12    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  3 7249… 11    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  4 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  5 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  6 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  7 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…</span>
+<span class="co">#&gt;  8 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…</span>
+<span class="co">#&gt;  9 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt; 10 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt; 11 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…</span>
+<span class="co">#&gt; 12 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
+<span class="co">#&gt; 13 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;     </span>
 <span class="co">#&gt; # … with 43 more variables: closed_by.id &lt;chr&gt;, closed_by.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   closed_by.username &lt;chr&gt;, closed_by.state &lt;chr&gt;,</span>
 <span class="co">#&gt; #   closed_by.avatar_url &lt;chr&gt;, closed_by.web_url &lt;chr&gt;, assignees.id &lt;chr&gt;,</span>
@@ -285,7 +288,7 @@
 <span class="co">#&gt; # A tibble: 1 x 44</span>
 <span class="co">#&gt;   id    iid   project_id title state created_at updated_at assignees.id</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       </span>
-<span class="co">#&gt; 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     </span>
+<span class="co">#&gt; 1 7385… 14    20384533   Impl… open… 2020-11-0… 2020-11-0… 4809823     </span>
 <span class="co">#&gt; # … with 36 more variables: assignees.name &lt;chr&gt;, assignees.username &lt;chr&gt;,</span>
 <span class="co">#&gt; #   assignees.state &lt;chr&gt;, assignees.avatar_url &lt;chr&gt;, assignees.web_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   author.id &lt;chr&gt;, author.name &lt;chr&gt;, author.username &lt;chr&gt;,</span>
@@ -306,7 +309,7 @@
 <span class="co">#&gt; # A tibble: 3 x 44</span>
 <span class="co">#&gt;   id    iid   project_id title state created_at updated_at assignees.id</span>
 <span class="co">#&gt;   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;       </span>
-<span class="co">#&gt; 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     </span>
+<span class="co">#&gt; 1 7385… 14    20384533   Impl… open… 2020-11-0… 2020-11-0… 4809823     </span>
 <span class="co">#&gt; 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… &lt;NA&gt;        </span>
 <span class="co">#&gt; 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… &lt;NA&gt;        </span>
 <span class="co">#&gt; # … with 36 more variables: assignees.name &lt;chr&gt;, assignees.username &lt;chr&gt;,</span>
