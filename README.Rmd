@@ -45,6 +45,8 @@ GitLab 11.6 or higher is generally recommended when using {gitlabr} version 1.1.
 
 R code using {gitlabr} to perform some common GitLab actions can look like this
 
+- Create a TOKEN on your Gitlab instance with scopes: `api`
+
 - Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
 
 - Set a connection to GitLab instance

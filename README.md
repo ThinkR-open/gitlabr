@@ -39,6 +39,8 @@ version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 R code using {gitlabr} to perform some common GitLab actions can look
 like this
 
+  - Create a TOKEN on your Gitlab instance with scopes: `api`
+
   - Store your token in .Renviron with `usethis::edit_r_environ()` and
     restart your session
 
@@ -74,23 +76,24 @@ set_gitlab_connection(my_gitlab)
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
-#> # A tibble: 200 x 119
+#> # A tibble: 200 x 122
 #>    id    description name  name_with_names… path  path_with_names… created_at
 #>    <chr> <chr>       <chr> <chr>            <chr> <chr>            <chr>     
-#>  1 2169… "A calenda… preg… mister ragondin… preg… ragondin/pregna… 2020-10-1…
-#>  2 2169… "Vue - Com… vue-… Rogério de Oliv… vue-… RogerMitoProjec… 2020-10-1…
-#>  3 2169… "Generate … live… Jacob Shodd / l… live… jshodd/live-bui… 2020-10-1…
-#>  4 2169… "PPW story… stor… ahmad harori / … stor… ahmadharorizaki… 2020-10-1…
-#>  5 2169… ""          Home… dara lon / Home… home… MrDara/homework… 2020-10-1…
-#>  6 2169… ""          Data  Jan Škařupa / D… data  skarupa/data     2020-10-1…
-#>  7 2169… "Detection… MSI-… sameerimamillap… msi-… sameerimamillap… 2020-10-1…
-#>  8 2169…  <NA>       sara… sarahfiola / sa… sara… sarahfiolaa/sar… 2020-10-1…
-#>  9 2169… ""          ar m… By Gvz / ar muse ar-m… bygvz123/ar-muse 2020-10-1…
-#> 10 2169… ""          stc_… Roman Akhmaduli… stc_… Roman_Akhmaduli… 2020-10-1…
-#> # … with 190 more rows, and 112 more variables: ssh_url_to_repo <chr>,
-#> #   http_url_to_repo <chr>, web_url <chr>, forks_count <chr>, star_count <chr>,
-#> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
-#> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
+#>  1 2222… ""          Stud… Nagendra Gude /… stud… Nagendrak12/stu… 2020-11-0…
+#>  2 2222… ""          php2  Amelle  / php2   php2  amelleouldselma… 2020-11-0…
+#>  3 2222… ""          Limi… Slobodan Radova… limi… slobodan-radova… 2020-11-0…
+#>  4 2222… ""          My s… menna hany / My… my-s… menna_hany/my-s… 2020-11-0…
+#>  5 2222… "Proyecto … Proy… Ivana Sosa Cord… proy… ivanasosacorder… 2020-11-0…
+#>  6 2222…  <NA>       sami… dgcscfvs / sami… sami… dgcscfvs/samina… 2020-11-0…
+#>  7 2222… ""          test  indhumathi v / … test  indhumathi.devo… 2020-11-0…
+#>  8 2222… "ska-rfi-s… ska-… ska-telescope /… ska-… ska-telescope/s… 2020-11-0…
+#>  9 2222… ""          mind… aubrey mindoro … mind… aubreymindoro67… 2020-11-0…
+#> 10 2222… ""          tp-a… Mathieu DE SOUS… tp-a… m.desousa/tp-an… 2020-11-0…
+#> # … with 190 more rows, and 115 more variables: default_branch <chr>,
+#> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
+#> #   forks_count <chr>, star_count <chr>, last_activity_at <chr>,
+#> #   namespace.id <chr>, namespace.name <chr>, namespace.path <chr>,
+#> #   namespace.kind <chr>, namespace.full_path <chr>,
 #> #   namespace.avatar_url <chr>, namespace.web_url <chr>, `_links.self` <chr>,
 #> #   `_links.issues` <chr>, `_links.merge_requests` <chr>,
 #> #   `_links.repo_branches` <chr>, `_links.labels` <chr>, `_links.events` <chr>,
@@ -103,6 +106,7 @@ gl_list_projects(max_page = 2)
 #> #   container_expiration_policy.enabled <chr>,
 #> #   container_expiration_policy.keep_n <chr>,
 #> #   container_expiration_policy.older_than <chr>,
+#> #   container_expiration_policy.name_regex <chr>,
 #> #   container_expiration_policy.next_run_at <chr>, issues_enabled <chr>,
 #> #   merge_requests_enabled <chr>, wiki_enabled <chr>, jobs_enabled <chr>,
 #> #   snippets_enabled <chr>, service_desk_enabled <chr>,
@@ -113,16 +117,17 @@ gl_list_projects(max_page = 2)
 #> #   snippets_access_level <chr>, pages_access_level <chr>,
 #> #   shared_runners_enabled <chr>, lfs_enabled <chr>, creator_id <chr>,
 #> #   import_status <chr>, open_issues_count <chr>, ci_default_git_depth <chr>,
-#> #   public_jobs <chr>, build_timeout <chr>,
-#> #   auto_cancel_pending_pipelines <chr>, ci_config_path <chr>,
-#> #   only_allow_merge_if_pipeline_succeeds <chr>, request_access_enabled <chr>,
+#> #   ci_forward_deployment_enabled <chr>, public_jobs <chr>,
+#> #   build_timeout <chr>, auto_cancel_pending_pipelines <chr>,
+#> #   ci_config_path <chr>, only_allow_merge_if_pipeline_succeeds <chr>,
+#> #   request_access_enabled <chr>,
 #> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
 #> #   remove_source_branch_after_merge <chr>,
 #> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
 #> #   auto_devops_enabled <chr>, auto_devops_deploy_strategy <chr>,
 #> #   autoclose_referenced_issues <chr>, approvals_before_merge <chr>,
 #> #   mirror <chr>, external_authorization_classification_label <chr>,
-#> #   default_branch <chr>, readme_url <chr>, forked_from_project.id <chr>,
+#> #   readme_url <chr>, forked_from_project.id <chr>,
 #> #   forked_from_project.description <chr>, forked_from_project.name <chr>,
 #> #   forked_from_project.name_with_namespace <chr>,
 #> #   forked_from_project.path <chr>,
@@ -140,8 +145,6 @@ gl_list_projects(max_page = 2)
 #> #   forked_from_project.namespace.path <chr>,
 #> #   forked_from_project.namespace.kind <chr>,
 #> #   forked_from_project.namespace.full_path <chr>,
-#> #   forked_from_project.namespace.parent_id <chr>,
-#> #   forked_from_project.namespace.avatar_url <chr>,
 #> #   forked_from_project.namespace.web_url <chr>, …
 ```
 
@@ -177,21 +180,22 @@ gl_list_files(project = my_project)
 
 ``` r
 gl_list_issues(project = my_project)
-#> # A tibble: 12 x 51
+#> # A tibble: 13 x 51
 #>    id    iid   project_id title state created_at updated_at closed_at
 #>    <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>    
-#>  1 7249… 12    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  2 7249… 11    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  3 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  4 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  5 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  6 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
-#>  7 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…
-#>  8 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#>  9 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 10 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
-#> 11 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
-#> 12 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
+#>  1 7249… 13    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  2 7249… 12    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  3 7249… 11    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  4 7249… 10    20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  5 7249… 9     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  6 7249… 8     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  7 7249… 7     20384533   Impl… clos… 2020-10-1… 2020-10-1… 2020-10-…
+#>  8 7186… 6     20384533   Impl… clos… 2020-09-2… 2020-09-2… 2020-09-…
+#>  9 6972… 5     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 10 6972… 4     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 11 6972… 3     20384533   Impl… clos… 2020-08-1… 2020-08-1… 2020-08-…
+#> 12 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>     
+#> 13 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>     
 #> # … with 43 more variables: closed_by.id <chr>, closed_by.name <chr>,
 #> #   closed_by.username <chr>, closed_by.state <chr>,
 #> #   closed_by.avatar_url <chr>, closed_by.web_url <chr>, assignees.id <chr>,
@@ -228,7 +232,7 @@ gl_assign_issue(new_feature_issue$iid,
 #> # A tibble: 1 x 44
 #>   id    iid   project_id title state created_at updated_at assignees.id
 #>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
-#> 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> 1 7385… 14    20384533   Impl… open… 2020-11-0… 2020-11-0… 4809823     
 #> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,
 #> #   assignees.state <chr>, assignees.avatar_url <chr>, assignees.web_url <chr>,
 #> #   author.id <chr>, author.name <chr>, author.username <chr>,
@@ -249,7 +253,7 @@ gl_list_issues(state = "opened", my_project)
 #> # A tibble: 3 x 44
 #>   id    iid   project_id title state created_at updated_at assignees.id
 #>   <chr> <chr> <chr>      <chr> <chr> <chr>      <chr>      <chr>       
-#> 1 7249… 13    20384533   Impl… open… 2020-10-1… 2020-10-1… 4809823     
+#> 1 7385… 14    20384533   Impl… open… 2020-11-0… 2020-11-0… 4809823     
 #> 2 6952… 2     20384533   A se… open… 2020-08-0… 2020-08-0… <NA>        
 #> 3 6952… 1     20384533   An e… open… 2020-08-0… 2020-08-0… <NA>        
 #> # … with 36 more variables: assignees.name <chr>, assignees.username <chr>,
