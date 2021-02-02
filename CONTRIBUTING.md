@@ -7,62 +7,97 @@ Please also note the [Code of Conduct](CONDUCT.md).
 
 ## Setup a development environment
 
-The gitlab test suite expects certain entities (user, project, files, comments)
-to be present in the test server. Below are the guidelines to setup a Gitlab
-instance and the local file `tests/environment.yml`. Note that
-<https://gitlab.com/KevCaz/testor> was created following these guidelines. 
+The {gitlabr} test suite expects certain entities (user, project, files, comments) to be present in the test server. 
+Below are the guidelines to setup a GitLab instance and the local file `tests/environment.yml`. 
+Note that <https://gitlab.com/KevCaz/testor> was created following these guidelines. 
 
 
-1. Install & make gitlab instance reachable at a certain address. The easiest way is to use either a docker image of the gitlab version of interest or <https://gitlab.com>. 
+1. Install & make GitLab instance reachable at a certain address. The easiest ways are to use either a Docker image of the GitLab version of interest or directly use <https://gitlab.com>. 
 
-2. Create a user
+2. Create a file named `environment.yml` and save it in the `tests/` directory of your clone of {gitlabr}.
+  + See `environment.yml.example` as the template to fill as follows
+
+3. Create a user on your GitLab instance
   + Add your username in `environment.yml` as `GITLABR_TEST_LOGIN`
   + Add your user ID in `environment.yml` as `GITLABR_TEST_LOGIN_ID` (numeric)
     + Go to your profile (e.g. https://gitlab.com/profile) and look up for your User ID
   + Add your user password in `environment.yml` as `GITLABR_TEST_PASSWORD`
   
-3. Generate a private access token for the user that grants all read/write access to the  API 
+4. Generate a private access token for the user that grants all read/write access to the  API 
   + For instance on gitlab.com: https://gitlab.com/profile/personal_access_tokens
   + Tick the fist checkboxes (the `api` scope) 
-  + Add in the `environment.yml` or environment variables as "GITLABR_TEST_TOKEN"
+  + Add the token in the `environment.yml` or environment variables as "GITLABR_TEST_TOKEN"
   
-4. create a project called `testor`, owned by the user, and containing a README.md file
+5. Create a project called `testor`, owned by the user, and containing a `README.md` file
   + New Project > Initialize with a README
   + Add this name in the `environment.yml` as variable named "GITLABR_TEST_PROJECT_NAME"
   
-5. get the ID of the project and add it in `environment.yml` as variable named 'GITLABR_TEST_PROJECT_ID'
+6. Get the ID of the project and add it in `environment.yml` as variable named "GITLABR_TEST_PROJECT_ID"
   + Project Overview > Details
   + The Project ID is under the name of your project
   
-6. Add and commit a CI file (`.gitlab-ci.yml`) that includes a job named `testing` that should minimally create `public/coverage.html` as an artifact, we recommend using the following `.gitlab-ci.yml` file:
+7. Add and commit a CI file (`.gitlab-ci.yml`) that includes a job named `testing` that should minimally create `public/coverage.html` as an artifact, we recommend using the following `.gitlab-ci.yml` file:
 
 ```yaml 
+image: rocker/tidyverse
+
+stages:
+  - build
+  - test
+  - deploy
+
+building:
+  stage: build
+  script:
+    - R -e "remotes::install_deps(dependencies = TRUE)"
+    - R -e 'devtools::check()'
+
 testing:
-  script: mkdir public; echo "test 1 2 1 2" > public/coverage.html 
-  artifacts:
-    paths:
-      - public/coverage.html
+    stage: test
+    allow_failure: true
+    when: on_success
+    only:
+        - master
+    script:
+        - Rscript -e 'install.packages("DT")'
+        - Rscript -e 'covr::gitlab(quiet = FALSE)'
+    artifacts:
+        paths:
+            - public
+
+pages:
+    stage: deploy
+    dependencies:
+        - testing
+    script:
+        - ls
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+    only:
+        - master
 ```
 
-7. Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the `environment.yml` as variable named 'COMMENTED_COMMIT', to do so:
+8. Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the `environment.yml` as variable named 'COMMENTED_COMMIT', to do so:
   + Go to Repository > Commits
   + Copy the <SHA1> of the relevant commit 
   + Click on the relevant commit 
   + Write a comment 
   
-8. Create a first issue (#1) with a follow-up comment
+9. Create a first issue (#1) with a follow-up comment
   + Go to Issues > List > New issue
   + Add a title and a description for the issue then click on `Submit issue`
   + Then add a follow-up comment to this issue
 
-9. Go to Repository > Branches and create a branch named "for-tests".
+10. Go to Repository > Branches and create a branch named "for-tests".
 
 
 
   
 ### How to run the test suite
 
-When the test server is set up as described above tests can be run with the following R code that loads the recorded environment variables and runs the test code:
+When the test server is set up as described above, tests can be run with the following R code that loads the recorded environment variables and runs the test code:
 
 ```{r}
 library(devtools)
@@ -94,4 +129,4 @@ Also, another encrypted secrets named `REPO_GHA_PAT` is required, it should incl
 
 ### API version
 
-The test suite is intended for use with Gitlab API v4, compatibility with API v3 is no longer maintained. Still, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `v3`. Note that API v3 is not present in recent gitlab versions!
+The test suite is intended for use with GitLab API v4, compatibility with API v3 is no longer maintained. Still, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `3`. Note that API v3 is not present in recent GitLab versions!
