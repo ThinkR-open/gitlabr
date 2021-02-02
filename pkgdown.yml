@@ -3,7 +3,7 @@ pkgdown: 1.6.1
 pkgdown_sha: ~
 articles:
   quick-start-guide-to-gitlabr: quick-start-guide-to-gitlabr.html
-last_built: 2021-02-02T11:26Z
+last_built: 2021-02-02T17:38Z
 urls:
   reference: https://statnmap.github.io/gitlabr//reference
   article: https://statnmap.github.io/gitlabr//articles
