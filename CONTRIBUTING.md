@@ -36,47 +36,14 @@ Note that <https://gitlab.com/KevCaz/testor> was created following these guideli
   + Project Overview > Details
   + The Project ID is under the name of your project
   
-7. Add and commit a CI file (`.gitlab-ci.yml`) that includes a job named `testing` that should minimally create `public/coverage.html` as an artifact, we recommend using the following `.gitlab-ci.yml` file:
+7. Add and commit a CI file (`.gitlab-ci.yml`) that includes a job named `testing` that should minimally create `public/test.txt` as an artifact, we recommend using the following `.gitlab-ci.yml` file:
 
 ```yaml 
-image: rocker/tidyverse
-
-stages:
-  - build
-  - test
-  - deploy
-
-building:
-  stage: build
-  script:
-    - R -e "remotes::install_deps(dependencies = TRUE)"
-    - R -e 'devtools::check()'
-
 testing:
-    stage: test
-    allow_failure: true
-    when: on_success
-    only:
-        - master
-    script:
-        - Rscript -e 'install.packages("DT")'
-        - Rscript -e 'covr::gitlab(quiet = FALSE)'
-    artifacts:
-        paths:
-            - public
-
-pages:
-    stage: deploy
-    dependencies:
-        - testing
-    script:
-        - ls
-    artifacts:
-        paths:
-            - public
-        expire_in: 30 days
-    only:
-        - master
+  script: echo 'test 1 2 1 2' > 'test.txt'
+  artifacts:
+    paths:
+      - test.txt
 ```
 
 8. Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the `environment.yml` as variable named 'COMMENTED_COMMIT', to do so:
@@ -100,10 +67,10 @@ pages:
 When the test server is set up as described above, tests can be run with the following R code that loads the recorded environment variables and runs the test code:
 
 ```{r}
-library(devtools)
-library(yaml)
-do.call(Sys.setenv, yaml.load_file("tests/environment.yml")) ## load test environment variables
-test() ## run tests
+devtools::load_all()
+do.call(Sys.setenv, yaml::yaml.load_file("tests/environment.yml")) ## load test environment variables
+devtools::test() ## run all tests
+testthat::test_file("tests/testthat/test_ci.R") ## run test on one file
 ```
 
 

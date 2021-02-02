@@ -46,7 +46,7 @@ test_that("CI builds access works", {
   # Create a job that will save an artifact
   artifacts_zip <- my_gitlab(gl_latest_build_artifact, project = test_project, job = "testing")
   expect_true(file.exists(artifacts_zip))
-  expect_true("public/coverage.html" %in% unzip(artifacts_zip, list = TRUE)$Name)
+  expect_true("test.txt" %in% unzip(artifacts_zip, list = TRUE)$Name)
   
 })
   
