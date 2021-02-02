@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Access the Gitlab CI builds — gl_pipelines • gitlabr</title>
+<title>Access the GitLab CI builds — gl_pipelines • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,12 @@
 
 
 
-<meta property="og:title" content="Access the Gitlab CI builds — gl_pipelines" />
+<meta property="og:title" content="Access the GitLab CI builds — gl_pipelines" />
 <meta property="og:description" content="List the jobs with gl_jobs, the pipelines with gl_pipelines or
 download the most recent artifacts
 archive with gl_latest_build_artifact. For every branch and job combination
 only the most recent artifacts archive is available.
-gl_builds is the equivalent for gitlab API v3." />
+gl_builds is the equivalent for GitLab API v3." />
 
 
 
@@ -84,7 +84,7 @@ gl_builds is the equivalent for gitlab API v3." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -110,7 +110,7 @@ gl_builds is the equivalent for gitlab API v3." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statnmap/gitlabr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -127,7 +127,7 @@ gl_builds is the equivalent for gitlab API v3." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Access the Gitlab CI builds</h1>
+    <h1>Access the GitLab CI builds</h1>
     <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/ci.R'><code>R/ci.R</code></a></small>
     <div class="hidden name"><code>gl_builds.Rd</code></div>
     </div>
@@ -137,7 +137,7 @@ gl_builds is the equivalent for gitlab API v3." />
 download the most recent artifacts
 archive with <code>gl_latest_build_artifact</code>. For every branch and job combination
 only the most recent artifacts archive is available.
-<code>gl_builds</code> is the equivalent for gitlab API v3.</p>
+<code>gl_builds</code> is the equivalent for GitLab API v3.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gl_pipelines</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
@@ -167,9 +167,9 @@ only the most recent artifacts archive is available.
     </tr>
     <tr>
       <th>api_version</th>
-      <td><p>Since <code>gl_builds</code> is no longer working for Gitlab API v4,
+      <td><p>Since <code>gl_builds</code> is no longer working for GitLab API v4,
 this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
-default to "4" with deprecation message.</p></td>
+default to "4" with deprecation message.´</p></td>
     </tr>
     <tr>
       <th>job</th>

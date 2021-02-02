@@ -44,7 +44,7 @@
       <ul class="nav navbar-nav">
 <li>
   <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -70,7 +70,7 @@
 <ul class="nav navbar-nav navbar-right">
 <li>
   <a href="https://github.com/statnmap/gitlabr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -96,11 +96,11 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install the most recent stable version from CRAN using:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit">
-<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></code></pre></div>
 <p>To install the development version using <a href="https://cran.r-project.org/package=devtools">devtools</a>, type:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit">
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></code></pre></div>
 <p>See the <a href="CONTRIBUTING.html">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
 </div>
 <div id="recommended-gitlab-versions" class="section level2">
@@ -117,8 +117,8 @@
 <li><p>Store your token in .Renviron with <code><a href="https://usethis.r-lib.org/reference/edit.html">usethis::edit_r_environ()</a></code> and restart your session</p></li>
 <li><p>Set a connection to GitLab instance</p></li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit">
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
+<!-- end list --><div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
 
 <span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span>
 <span class="co"># You can verify it worked</span>
@@ -132,7 +132,7 @@
 <span class="co"># its first argument is the request (name or function), optionally followed by parameters</span>
 
 <span class="co"># Set the connection for the session</span>
-<span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span></pre></div>
+<span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Find the list of projects available to you
 <ul>
@@ -140,8 +140,8 @@
 </ul>
 </li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit">
-<span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
+<!-- end list --><div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
 <span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
 <span class="co">#&gt; # A tibble: 200 x 122</span>
 <span class="co">#&gt;    id    description name  name_with_names… path  path_with_names… created_at</span>
@@ -212,7 +212,7 @@
 <span class="co">#&gt; #   forked_from_project.namespace.path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.kind &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.namespace.full_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.namespace.web_url &lt;chr&gt;, …</span></pre></div>
+<span class="co">#&gt; #   forked_from_project.namespace.web_url &lt;chr&gt;, …</span></code></pre></div>
 <ul>
 <li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
 <ul>
@@ -220,25 +220,25 @@
 </ul>
 </li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit">
-<span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></pre></div>
+<!-- end list --><div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></code></pre></div>
 <ul>
 <li>List files of the project using <code>gl_list_files</code>
 </li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit">
-<span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
+<!-- end list --><div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 x 5</span>
 <span class="co">#&gt;   id                                       name        type  path        mode  </span>
 <span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span>
 <span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span>
-<span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></pre></div>
+<span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></code></pre></div>
 <ul>
 <li>List issues with <code>gl_list_issues</code>
 </li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit">
-<span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
+<!-- end list --><div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 13 x 51</span>
 <span class="co">#&gt;    id    iid   project_id title state created_at updated_at closed_at</span>
 <span class="co">#&gt;    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span>
@@ -270,12 +270,12 @@
 <span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, has_tasks &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.self` &lt;chr&gt;, `_links.notes` &lt;chr&gt;, `_links.award_emoji` &lt;chr&gt;,</span>
 <span class="co">#&gt; #   `_links.project` &lt;chr&gt;, references.short &lt;chr&gt;, references.relative &lt;chr&gt;,</span>
-<span class="co">#&gt; #   references.full &lt;chr&gt;, description &lt;chr&gt;</span></pre></div>
+<span class="co">#&gt; #   references.full &lt;chr&gt;, description &lt;chr&gt;</span></code></pre></div>
 <ul>
 <li>Create an issue</li>
 </ul>
-<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit">
-<span class="co"># create a new issue</span>
+<!-- end list --><div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># create a new issue</span>
 <span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 
 <span class="co"># statnmap user ID</span>
@@ -329,7 +329,7 @@
 
 <span class="co"># close issue</span>
 <span class="fu"><a href="reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span><span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span>
-<span class="co">#&gt; [1] "closed"</span></pre></div>
+<span class="co">#&gt; [1] "closed"</span></code></pre></div>
 </div>
 <div id="further-information" class="section level2">
 <h2 class="hasAnchor">

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Connect to a specific gitlab instance API — gl_connection • gitlabr</title>
+<title>Connect to a specific GitLab instance API — gl_connection • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,9 @@
 
 
 
-<meta property="og:title" content="Connect to a specific gitlab instance API — gl_connection" />
+<meta property="og:title" content="Connect to a specific GitLab instance API — gl_connection" />
 <meta property="og:description" content="Creates a function that can be used to issue requests to the specified
-gitlab API instance with the specified user private token and (for gl_project_connection)
+GitLab API instance with the specified user private token and (for gl_project_connection)
 only to a specified project." />
 
 
@@ -82,7 +82,7 @@ only to a specified project." />
       <ul class="nav navbar-nav">
         <li>
   <a href="../index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
+    <span class="fas fa-home fa-lg"></span>
      
   </a>
 </li>
@@ -108,7 +108,7 @@ only to a specified project." />
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/statnmap/gitlabr/">
-    <span class="fab fa fab fa-github fa-lg"></span>
+    <span class="fab fa-github fa-lg"></span>
      
   </a>
 </li>
@@ -125,14 +125,14 @@ only to a specified project." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Connect to a specific gitlab instance API</h1>
+    <h1>Connect to a specific GitLab instance API</h1>
     <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/connect.R'><code>R/connect.R</code></a></small>
     <div class="hidden name"><code>gl_connection.Rd</code></div>
     </div>
 
     <div class="ref-description">
     <p>Creates a function that can be used to issue requests to the specified
-gitlab API instance with the specified user private token and (for <code>gl_project_connection</code>)
+GitLab API instance with the specified user private token and (for <code>gl_project_connection</code>)
 only to a specified project.</p>
     </div>
 
@@ -156,11 +156,11 @@ only to a specified project.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>gitlab_url</th>
-      <td><p>URL to the gitlab instance (e.g. <code>https://gitlab.myserver.com</code>)</p></td>
+      <td><p>URL to the GitLab instance (e.g. <code>https://gitlab.myserver.com</code>)</p></td>
     </tr>
     <tr>
       <th>private_token</th>
-      <td><p>private_token with which to identify. You can generate one in the webinterface under
+      <td><p>private_token with which to identify. You can generate one in the web interface under
 <code>GITLABINSTANCEURL/profile/personal_access_tokens</code> when logged on.</p></td>
     </tr>
     <tr>
@@ -169,7 +169,7 @@ only to a specified project.</p>
     </tr>
     <tr>
       <th>api_location</th>
-      <td><p>location of the gitlab API under the <code>gitlab_url</code>, usually and by default "/api/$api_version/"</p></td>
+      <td><p>location of the GitLab API under the <code>gitlab_url</code>, usually and by default "/api/$api_version/"</p></td>
     </tr>
     <tr>
       <th>project</th>
@@ -179,22 +179,22 @@ only to a specified project.</p>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A function to access a specific gitlab API as a specific user, see details</p>
+    <p>A function to access a specific GitLab API as a specific user, see details</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>The returned function should serve as the primary way to access the gitlab
+    <p>The returned function should serve as the primary way to access the GitLab
 API in the following. It can take vector/character arguments in the same way
 as the function <code><a href='gitlab.html'>gitlab</a></code> does, as well as the convenience functions
 provided by this package or written by the user. If it is passed such that
-function it calls it with the arguments provided in <code>...</code> and the gitlab
+function it calls it with the arguments provided in <code>...</code> and the GitLab
 URL, api location and private_token provided when creating it via <code>gl_connection</code>.</p>
-<p>Note: currently gitlab API v4 is supported. Gitlab API v3 is no longer supported, but
+<p>Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 you can give it a try.</p>
     <h2 class="hasAnchor" id="api-versions"><a class="anchor" href="#api-versions"></a>API versions</h2>
 
     
 
-<p>"v4" is the standard API since Gitlab version 9.0 and only this version is officially supported by
+<p>"v4" is the standard API since GitLab version 9.0 and only this version is officially supported by
 gitlabr since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
 code will still work if you try.</p>
 
