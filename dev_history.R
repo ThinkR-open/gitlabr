@@ -3,6 +3,9 @@ usethis::use_build_ignore("dev/")
 usethis::use_build_ignore("README.Rmd")
 usethis::use_git_ignore("tests/environment.yml")
 
+# Doc
+usethis::use_vignette("projects")
+
 # Add CI
 usethis::use_github_action_check_standard()
 usethis::use_github_action("pkgdown")

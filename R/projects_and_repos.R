@@ -338,3 +338,24 @@ gl_get_diff <-  function(project,
                 req = c("commits", commit_sha, "diff"),
                 ...)
 }
+
+#' Create new project
+#' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
+#' @param name of the new project. The name of the new project. Equals path if not provided
+#' @param ... passed on to \code{\link{gitlab}} API call for "Create project"
+#' @export
+#' @examples \dontrun{
+#' my_gitlab <- gl_connection(
+#'   gitlab_url = "https://gitlab.com",
+#'   private_token = Sys.getenv("GITLAB_TOKEN"))
+#' gl_new_project(name = "toto", gitlab_con = my_gitlab)
+#' }
+gl_new_project <- function(name,
+                           path,
+                           ...) {
+  
+  gitlab(req = "projects", name = name,
+         path = path,
+         verb = httr::POST,
+         ...)
+}
