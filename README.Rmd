@@ -47,14 +47,13 @@ R code using {gitlabr} to perform some common GitLab actions can look like this
 
 - Create a TOKEN on your Gitlab instance with scopes: `api`
 
-- Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
+- Store your token in .Renviron as `GITLAB_COM_TOKEN` with `usethis::edit_r_environ()` and restart your session 
 
 - Set a connection to GitLab instance
 ```{r}
 library(gitlabr)
 
-# Add: GITLAB_COM_TOKEN=YourTokenHere
-# You can verify it worked
+# You can verify your token works
 # Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a gitlab instance
@@ -112,6 +111,12 @@ gl_list_issues(state = "opened", my_project)
 
 # close issue
 gl_close_issue(new_feature_issue$iid, project = my_project)$state
+```
+
+- Unset connection
+
+```{r}
+unset_gitlab_connection()
 ```
 
 ## Further information

@@ -10,7 +10,8 @@ vignette: >
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  eval = FALSE
 )
 ```
 
@@ -28,29 +29,26 @@ my_gitlab <- gl_connection(
 # Set the connection for the session
 set_gitlab_connection(my_gitlab)
 
-#' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
-#' @param name of the new project. The name of the new project. Equals path if not provided
+#' @param name of the new project. The name of the new project.
 #' @param ... Other parameters for project creation
+
+#' @details 
+#' You can use extra parameters as proposed in the GitLab API:
+#' 
+#' - `namespace_id`: Namespace for the new project (defaults to the current user’s namespace). 
+#' 
 #' @rdname project
 #' @export
 gl_new_project <- function(name,
-                           path,
                            ...) {
   
-  if (!missing(name)) {
     gitlab(req = "projects", name = name,
            verb = httr::POST,
            ...)
-  } else if (!missing(path)) {
-    gitlab(req = "projects", path = path,
-           verb = httr::POST,
-           ...)
-  } else {
-    stop("Either name or path should be provided")
-  }
 }
 
-my_project <- gl_new_project(name = "toto", path = "https://gitlab.com/statnmap")
+my_project <- gl_new_project(name = "toto")
+# my_project <- gl_new_project(name = "toto", namespace_id = 123)
 ```
 
 # Create an issue in this project

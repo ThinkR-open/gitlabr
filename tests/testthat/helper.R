@@ -18,29 +18,24 @@ test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "6b9d22115a93ab0
 test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor")
 test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
 
-# Test if too many users and projects
+# Set GitLab connection for all tests
 my_gitlab <- gl_connection(
-  test_url,
+  gitlab_url = test_url,
   private_token = test_private_token,
   api_version = test_api_version)
 
-users <- my_gitlab("users", max_page = 2)
-projects <- my_gitlab("projects", max_page = 1)
+# Set the connection for the session
+set_gitlab_connection(my_gitlab)
 
-# If there are too many users and you do not appear in the first ones,
+# Set project connection for all tests
+my_project <- gl_project_connection(
+  gitlab_url = test_url,
+  project = test_project,
+  private_token = test_private_token,
+  api_version = test_api_version)
+
+# There are too many users on GitLab.com and you may not appear in the first ones,
 # you will need to set your ID and project ID
-you <- users %>% 
-  filter(username == test_login)
-if (nrow(you) == 0) {
-  test_user <- test_user_id
-} else {
-  test_user <- test_login
-}
+test_user <- as.numeric(test_user_id)
+test_project <- as.numeric(test_project_id)
 
-my_project <- projects %>% 
-  filter(id == test_project_id)
-if (nrow(my_project) == 0) {
-  test_project <- as.numeric(test_project_id)
-} else {
-  test_project <- test_project_name
-}

@@ -30,7 +30,7 @@ Note that <https://gitlab.com/KevCaz/testor> was created following these guideli
   
 5. Create a project called `testor`, owned by the user, and containing a `README.md` file
   + New Project > Initialize with a README
-  + Add this name in the `environment.yml` as variable named "GITLABR_TEST_PROJECT_NAME"
+  + Add the project name in the `environment.yml` as variable named "GITLABR_TEST_PROJECT_NAME"
   
 6. Get the ID of the project and add it in `environment.yml` as variable named "GITLABR_TEST_PROJECT_ID"
   + Project Overview > Details
@@ -92,8 +92,11 @@ Also, another encrypted secrets named `REPO_GHA_PAT` is required, it should incl
 
 
 
-
-
 ### API version
 
 The test suite is intended for use with GitLab API v4, compatibility with API v3 is no longer maintained. Still, you can switch to run the tests against API v3, by setting the environment variable `GITLABR_TEST_API_VERSION` to value `3`. Note that API v3 is not present in recent GitLab versions!
+
+### API limitation
+
+Note that GitLab.com has some limitations : https://docs.gitlab.com/ee/user/gitlab_com/index.html#gitlabcom-specific-rate-limits
+Authenticated API traffic (for a given user) [From 2021-02-12]: 2,000 requests per minute 

@@ -11,12 +11,13 @@ gl_ci_job(job_name, stage = job_name, allowed_dependencies = c(), ...)
 gl_default_ci_pipeline()
 
 use_gitlab_ci(
-  pipeline = gl_default_ci_pipeline(),
-  image = "rocker/r-devel:latest",
-  push_to_remotes = c(),
+  image = "rocker/verse:latest",
+  repo_name = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+  url = "https://gitlab.com",
   path = ".gitlab-ci.yml",
   overwrite = TRUE,
-  add_to_Rbuildignore = TRUE
+  add_to_Rbuildignore = TRUE,
+  type = "check-coverage-pkgdown"
 )
 }
 \arguments{
@@ -28,19 +29,19 @@ use_gitlab_ci(
 
 \item{...}{passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name}
 
-\item{pipeline}{a CI pipeline defined as a list of lists}
-
 \item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
 
-\item{push_to_remotes}{named list of remotes the code should be pushed to. Only master
-is pushed and for every remote a job of stage "push" is generated. See example for how
-to use credentials from environment variables.}
+\item{repo_name}{repo_name}
+
+\item{url}{url}
 
 \item{path}{destination path for writing GitLab CI yml file}
 
 \item{overwrite}{whether to overwrite existing GitLab CI yml file}
 
 \item{add_to_Rbuildignore}{add CI yml file (from \code{path}) to .Rbuildignore?}
+
+\item{type}{type}
 }
 \description{
 Define GitLab CI jobs
@@ -48,7 +49,4 @@ Define GitLab CI jobs
 \examples{
 gl_ci_job("build", allowed_dependencies = "test")
 use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = tempfile(fileext = ".yml"))
-use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", , path = tempfile(fileext = ".yml"),
- push_to_remotes = list("github" =
- "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
 }

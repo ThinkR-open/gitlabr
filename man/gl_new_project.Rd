@@ -21,6 +21,6 @@ Create new project
 my_gitlab <- gl_connection(
   gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_TOKEN"))
-gl_new_project(name = "toto")
+gl_new_project(name = "toto", gitlab_con = my_gitlab)
 }
 }

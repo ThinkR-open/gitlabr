@@ -80,46 +80,67 @@ gl_default_ci_pipeline <- function() {
 }
 
 #' @export
+#'
 #' @param image Docker image to use in GitLab ci. If NULL, not specified!
-#' @param pipeline a CI pipeline defined as a list of lists
-#' @param push_to_remotes named list of remotes the code should be pushed to. Only master
-#' is pushed and for every remote a job of stage "push" is generated. See example for how
-#' to use credentials from environment variables.
 #' @param path destination path for writing GitLab CI yml file
 #' @param overwrite whether to overwrite existing GitLab CI yml file
+#' @param repo_name repo_name
+#' @param url url
+#' @param type type
 #' @param add_to_Rbuildignore add CI yml file (from \code{path}) to .Rbuildignore?
+#'
 #' @rdname gitlabci
 #' 
 #' @examples
 #' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = tempfile(fileext = ".yml"))
-#' use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", , path = tempfile(fileext = ".yml"),
-#'  push_to_remotes = list("github" =
-#'  "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
-use_gitlab_ci <- function(pipeline = gl_default_ci_pipeline(),
-                          image = "rocker/r-devel:latest",
-                          push_to_remotes = c(),
+use_gitlab_ci <- function(#pipeline = gl_default_ci_pipeline(),
+                          image = "rocker/verse:latest",
+                          repo_name = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
+                          url = 'https://gitlab.com',
+                          # push_to_remotes = c(),
                           path = ".gitlab-ci.yml",
                           overwrite = TRUE,
-                          add_to_Rbuildignore = TRUE) {
+                          add_to_Rbuildignore = TRUE,
+                          type = "check-coverage-pkgdown") {
   
-  mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE,
-         MoreArgs = list(allowed_dependencies = names(pipeline))) %>%
-    iff(!is.null(push_to_remotes),
-        c, push_to_remotes %>%
-            lapply(gl_ci_push_job) %>%
-            prefix_names("push_to_")) %>%
-    iff(!is.null(image), . %>% { c(list(image = image), .)} ) %>%
-    c(list(stages = pipeline %>%
-                      names() %>%
-                      iff(!is.null(push_to_remotes), c, "push"))) %>%
-    yaml::as.yaml() %>%
-    str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
-    iff(overwrite || !file.exists(path), writeLines, con = path)
+  # mapply(gl_ci_job, job = pipeline, stage = names(pipeline), USE.NAMES = TRUE,
+  #        MoreArgs = list(allowed_dependencies = names(pipeline))) %>%
+  #   iff(!is.null(push_to_remotes),
+  #       c, push_to_remotes %>%
+  #           lapply(gl_ci_push_job) %>%
+  #           prefix_names("push_to_")) %>%
+  #   iff(!is.null(image), . %>% { c(list(image = image), .)} ) %>%
+  #   c(list(stages = pipeline %>%
+  #                     names() %>%
+  #                     iff(!is.null(push_to_remotes), c, "push"))) %>%
+  #   yaml::as.yaml() %>%
+  #   str_replace_all("\\n(\\w)", paste0("\n\n\\1")) %>%
+  #   iff(overwrite || !file.exists(path), writeLines, con = path)
+  choices <- gsub(".yml", "", list.files(system.file("gitlab-ci", package = "gitlabr")))
+  type <- match.arg(type, choices = choices, several.ok = FALSE)
+
+  file <- system.file("gitlab-ci", paste0(type, ".yml"), package = "gitlabr")
+
+  # Modify content
+  lines <- readLines(file)
+  # Change {image}
+  lines <- gsub(pattern = "\\{image\\}", replacement = image, x = lines)
+  # Changer {repo_name}
+  lines <- gsub(pattern = "\\{repo_name\\}", replacement = repo_name, x = lines)
+  # Changer {url}
+  lines <- gsub(pattern = "\\{url\\}", replacement = url, x = lines)
   
-  if (file.exists(".Rbuildignore")) {
+  writeLines(enc2utf8(lines), path)
+  
+  if (isTRUE(add_to_Rbuildignore)) {
+    if (!file.exists(".Rbuildignore")) {writeLines("", ".Rbuildignore")}
     r_build_ignore <- readLines(".Rbuildignore")
-    if (add_to_Rbuildignore && !path %in% r_build_ignore) {
-      writeLines(c(r_build_ignore, path), ".Rbuildignore")
+    if (add_to_Rbuildignore && !basename(path) %in% r_build_ignore) {
+      writeLines(enc2utf8(c(r_build_ignore, basename(path))), ".Rbuildignore")
+    }
+    r_build_ignore <- readLines(".Rbuildignore")
+    if (add_to_Rbuildignore && "ci/lib" %in% r_build_ignore) {
+      writeLines(enc2utf8(c(r_build_ignore, "ci/lib")), ".Rbuildignore")
     }
   }
   

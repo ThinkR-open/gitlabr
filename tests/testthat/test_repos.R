@@ -8,36 +8,7 @@ my_project <- gl_project_connection(test_url,
                                     api_version = test_api_version)
 
 
-test_that("Repo access works", {
 
-  expect_is(my_gitlab(gl_repository, project = test_project), "data.frame")
-  expect_is(my_gitlab(gl_repository, project = test_project, "contributors"), "data.frame")
-  
-  expect_is(my_gitlab(gl_list_files, test_project), "data.frame")
-  expect_is(my_gitlab(gl_get_file, test_project, "README.md"), "character")
-
-  ## same with function idiom
-  expect_is(gl_repository(project = test_project, gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_repository("contributors", project = test_project, gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_list_files(test_project, gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_get_file(test_project, "README.md", gitlab_con = my_gitlab), "character")
-  
-  ## same with project connection
-  
-  expect_is(my_project(gl_repository), "data.frame")
-  expect_is(my_project(gl_repository, "contributors"), "data.frame")
-  expect_is(my_project(gl_get_file, file_path = "README.md"), "character")
-
-  ## same with project connection & function idiom
-  
-  expect_is(gl_repository(gitlab_con = my_project), "data.frame")
-  expect_is(gl_repository("contributors", gitlab_con = my_project), "data.frame")
-  expect_is(gl_get_file(file_path = "README.md", gitlab_con = my_project), "character")
-  
-  
-  ## old API
-  expect_warning(my_gitlab(repository, project = test_project), regexp = "deprecated")
-})
 
 test_that("Commits and diffs work", {
   

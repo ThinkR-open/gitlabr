@@ -1,9 +1,14 @@
-my_gitlab <- gl_connection(test_url,
+# Unset as it is set in helper.R
+unset_gitlab_connection()
+
+my_gitlab_test <- gl_connection(test_url,
                            private_token = test_private_token,
                            api_version = test_api_version)
 
+# Only test if connection works ----
+
 # Way 1
-my_gitlab_projects_output_raw <- my_gitlab("projects", max_page = 1)
+my_gitlab_projects_output_raw <- my_gitlab_test("projects", max_page = 1)
 # Because download may be different as gitlab.com gets new projects modifications every second
 # We need to filter out a smaller set of projects to compare together
 first_ids <- my_gitlab_projects_output_raw$id[1:10]
