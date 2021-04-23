@@ -135,12 +135,13 @@ use_gitlab_ci <- function(#pipeline = gl_default_ci_pipeline(),
   if (isTRUE(add_to_Rbuildignore)) {
     if (!file.exists(".Rbuildignore")) {writeLines("", ".Rbuildignore")}
     r_build_ignore <- readLines(".Rbuildignore")
-    if (add_to_Rbuildignore && !basename(path) %in% r_build_ignore) {
-      writeLines(enc2utf8(c(r_build_ignore, basename(path))), ".Rbuildignore")
+    path_rbuild <- paste0("^", gsub("[.]", "\\\\.", basename(path)), "$")
+    if (add_to_Rbuildignore && !path_rbuild %in% r_build_ignore) {
+      writeLines(enc2utf8(c(r_build_ignore, path_rbuild)), ".Rbuildignore")
     }
     r_build_ignore <- readLines(".Rbuildignore")
-    if (add_to_Rbuildignore && "ci/lib" %in% r_build_ignore) {
-      writeLines(enc2utf8(c(r_build_ignore, "ci/lib")), ".Rbuildignore")
+    if (add_to_Rbuildignore && "^ci/lib$" %in% r_build_ignore) {
+      writeLines(enc2utf8(c(r_build_ignore, "^ci/lib$")), ".Rbuildignore")
     }
   }
   
