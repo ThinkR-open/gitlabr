@@ -31,9 +31,9 @@ use_gitlab_ci(
 
 \item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
 
-\item{repo_name}{repo_name}
+\item{repo_name}{REPO_NAME environment variable for R CRAN mirror used}
 
-\item{url}{url}
+\item{url}{url of the GitLab instance}
 
 \item{path}{destination path for writing GitLab CI yml file}
 
@@ -41,10 +41,22 @@ use_gitlab_ci(
 
 \item{add_to_Rbuildignore}{add CI yml file (from \code{path}) to .Rbuildignore?}
 
-\item{type}{type}
+\item{type}{type of the CI template to use}
 }
 \description{
 Define GitLab CI jobs
+}
+\details{
+Typs available are:  
+
+- "check-coverage-pkgdown": Check package along with Code coverage with {covr}
+ and {pkgdown} site on GitLab Pages
+- "check-coverage-pkgdown-renv": Check package built in a fixed {renv} state
+ along with Code coverage with {covr} and {pkgdown} site on GitLab Pages.
+- "bookdown": Build {bookdown} HTML and PDF site on GitLab Pages
+- "bookdown-production": Build {bookdown} HTML and PDF site on GitLab Pages. 
+ Where principal page is for branch named 'production' and "dev/" sub-folder is for 
+ 'main' (or 'master') branch.
 }
 \examples{
 gl_ci_job("build", allowed_dependencies = "test")
