@@ -36,16 +36,18 @@ my_gitlab <- gl_connection(gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")) ## fill in login parameters
 set_gitlab_connection(my_gitlab)
 project_id <- ... ## Fill in your project ID
-gl_list_branches(project = project_id) 
+
+# List branches of the project
+gl_list_branches(project_id) 
 # Create branch "new_feature"
-gl_create_branch(project = project_id,
+gl_create_branch(project_id,
                  branch = "new_feature")
 # Confirm that the branch was created
-gl_list_branches(project = project_id)
+gl_list_branches(project_id)
 # Delete branch again
-gl_delete_branch(project = project_id,
+gl_delete_branch(project_id,
                  branch = "new_feature")
 # Check that we're back where we started
-gl_list_branches(project = project_id)
+gl_list_branches(project_id)
 }
 }

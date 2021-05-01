@@ -30,10 +30,10 @@
 #' my_project(gl_comment_issue, 1, text = "Almost done!")
 #' }
 
-gl_get_comments <- function(object_type = "issue",
+gl_get_comments <- function(project,
+                            object_type = "issue",
                             id,
                             note_id = c(),
-                            project,
                             ...) {
   gl_comments(project, object_type, id, note_id, ...)
 }
@@ -51,7 +51,7 @@ gl_comments <- function(project,
   }
   
   if (object_type == "issue" && api_version == 3) {
-      id <- gl_to_issue_id(id, project, api_version = 3, ...)
+      id <- gl_to_issue_id(project, id, api_version = 3, ...)
   }
   
   gitlab(req = gl_proj_req(project, req = switch(object_type,
@@ -66,14 +66,14 @@ gl_comments <- function(project,
 
 #' @rdname gl_comments
 #' @export
-gl_get_issue_comments <- function(id, ...) {
-  gl_get_comments(object_type = "issue", id = id, ...)
+gl_get_issue_comments <- function(project, id, ...) {
+  gl_get_comments(project, object_type = "issue", id, ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_get_commit_comments <- function(id, ...) {
-  gl_get_comments(object_type = "commit", id, ...)
+gl_get_commit_comments <- function(project, id, ...) {
+  gl_get_comments(project, object_type = "commit", id, ...)
 }
 
 #' @rdname gl_comments
@@ -109,15 +109,18 @@ gl_comment_issue <- function(project,
 }
 
 #' @rdname gl_comments
-gl_edit_comment <- function(object_type,
+gl_edit_comment <- function(project,
+                            object_type,
                             text,
                             ...) {
   switch(object_type,
-         "issue" = gl_comments(object_type = "issue",
+         "issue" = gl_comments(project = project,
+                               object_type = "issue",
                                body = text,
                                verb = httr::PUT,
                                ...),
-         "commit" =  gl_comments(object_type = "commit",
+         "commit" =  gl_comments(project = project,
+                                 object_type = "commit",
                                  note_id = NULL, ## prevent partial argument match
                                  note = text,
                                  verb = httr::PUT,
@@ -126,12 +129,12 @@ gl_edit_comment <- function(object_type,
 
 #' @rdname gl_comments
 #' @export
-gl_edit_issue_comment <- function(...) {
-  gl_edit_comment(object_type = "issue", ...)
+gl_edit_issue_comment <- function(project, ...) {
+  gl_edit_comment(project, object_type = "issue", ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_edit_commit_comment <- function(...) {
-  gl_edit_comment(object_type = "commit", ...)
+gl_edit_commit_comment <- function(project, ...) {
+  gl_edit_comment(project, object_type = "commit", ...)
 }  

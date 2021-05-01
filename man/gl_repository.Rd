@@ -7,9 +7,9 @@
 \alias{gl_get_file}
 \title{Access to repository files in GitLab}
 \usage{
-gl_repository(req = c("tree"), project, ...)
+gl_repository(project, req = c("tree"), ref = "master", ...)
 
-gl_list_files(project, ...)
+gl_list_files(project, ref = "master", ...)
 
 gl_file_exists(project, file_path, ref, ...)
 
@@ -23,16 +23,16 @@ gl_get_file(
 )
 }
 \arguments{
+\item{project}{name or id of project (not repository!)}
+
 \item{req}{request to perform on repository (everything after '/repository/'
 in GitLab API, as vector or part of URL)}
 
-\item{project}{name or id of project (not repository!)}
+\item{ref}{name of ref (commit branch or tag)}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 
 \item{file_path}{path to file}
-
-\item{ref}{name of ref (commit branch or tag)}
 
 \item{to_char}{flag if output should be converted to char; otherwise it is of class raw}
 

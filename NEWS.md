@@ -1,16 +1,20 @@
-# gitlabr 1.1.6.9000
+# gitlabr 1.2.0
 
 * Update documentation: recommend using `gl_*` functions
 
 Breaking change
 
+* All project-specific functions get `project` as first parameter. Changes apply to:
+  + `gl_get_comments()`,`gl_to_issue_id()`, `gl_get_issue_comments()`, `gl_get_commit_comments()`,
+  `gl_edit_comment()`, `gl_edit_issue_comment()`, `gl_edit_commit_comment()`
+  + `gl_repository()`
 * Changed use of `api_version = "v4"` by `api_version = 4`
 * Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default
 
 Minor
 
 * Correction of api that downloaded twice the first page when `page == "all"`
-* Reduce `max_page` to retrieve content to allow to work with big Gitlab servers like Gitlab.com
+* Reduce `max_page` to retrieve content to allow to work with big GitLab servers like Gitlab.com
 * Change maintainer
 * Update CONTRIBUTING for tests with Gitlab.com
 
