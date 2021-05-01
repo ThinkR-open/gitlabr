@@ -2,7 +2,8 @@
 % Please edit documentation in R/files.R
 \name{gl_push_file}
 \alias{gl_push_file}
-\title{Upload a file to a GitLab repository}
+\alias{gl_delete_file}
+\title{Upload, delete a file to a GitLab repository}
 \usage{
 gl_push_file(
   project,
@@ -13,6 +14,8 @@ gl_push_file(
   overwrite = TRUE,
   ...
 )
+
+gl_delete_file(project, file_path, commit_message, branch = "master", ...)
 }
 \arguments{
 \item{project}{Project name or id}

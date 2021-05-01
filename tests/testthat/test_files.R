@@ -1,6 +1,13 @@
 
 
 test_that("Repo access works", {
+  # Without project named
+  # list files
+  repo_files <- gl_repository(test_project)
+  expect_is(repo_files, "data.frame")
+  expect_true("README.md" %in% repo_files[["name"]])
+  
+  # With project parameter named
   # list files
   repo_files <- gl_repository(project = test_project)
   expect_is(repo_files, "data.frame")
@@ -27,28 +34,43 @@ test_that("Repo access works", {
   expect_false(gl_file_exists(project = test_project, file_path = "zzz", ref = "master"))
   
   # Push file
+  list_files <- gl_list_files(project = test_project, ref = "for-tests")
   tmpfile <- tempfile(fileext = ".csv")
   write.csv(mtcars, file = tmpfile)
   out_push <- gl_push_file(
     project = test_project, 
     file_path = "dataset.csv", 
     content = paste(readLines(tmpfile), collapse = "\n"),
-    commit_message = "Push files for test",
+    commit_message = "Push file for test",
     branch = "for-tests",
     overwrite = FALSE)
+  
   expect_is(out_push, "data.frame")
   expect_equal(nrow(out_push), 1)
   expect_equal(out_push[["file_path"]], "dataset.csv")
+  list_files <- gl_list_files(project = test_project, ref = "for-tests")
+  expect_true("dataset.csv" %in% list_files[["name"]])
+  
   # _do not overwrite
   out_push <- gl_push_file(
     project = test_project, 
     file_path = "dataset.csv", 
     content = paste(readLines(tmpfile), collapse = "\n"),
-    commit_message = "Push files for test",
+    commit_message = "Push file for test",
     branch = "for-tests",
     overwrite = FALSE)
   expect_is(out_push, "data.frame")
   expect_equal(nrow(out_push), 0)
+  
+  # Delete file
+  out_del <- gl_delete_file(
+    project = test_project, 
+    file_path = "dataset.csv", 
+    commit_message = "Delete file for test",
+    branch = "for-tests"
+  )
+  list_files <- gl_list_files(project = test_project, ref = "for-tests")
+  expect_true(!"dataset.csv" %in% list_files[["name"]])
   
   ## old API
   expect_warning(repository(project = test_project), regexp = "deprecated")

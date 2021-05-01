@@ -3,6 +3,7 @@
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
 #' in GitLab API, as vector or part of URL)
+#' @param ref name of ref (commit branch or tag)
 #' @param ... passed on to [gitlab()] API call
 #' @export
 #' 
@@ -26,15 +27,15 @@
 #' # _Test if file exists
 #' gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "master")
 #' }
-gl_repository <- function(req = c("tree"), project, ...) {
-  gitlab(gl_proj_req(project, c("repository", req), ...), ...)
+gl_repository <- function(project, req = c("tree"), ref = "master", ...) {
+  gitlab(gl_proj_req(project, c("repository", req), ...), ref = ref, ...)
 }
 
 #' @rdname gl_repository
 #' @importFrom purrr partial
 #' @export
-gl_list_files <- function(project, ...) {
-  gitlab(gl_proj_req(project, c("repository", "tree"), ...), ...)
+gl_list_files <- function(project, ref = "master", ...) {
+  gitlab(gl_proj_req(project, c("repository", "tree"), ...), ref = ref, ...)
 }
 
 #' For `gl_file_exists` dots are passed on to [gl_list_files()] and GitLab API call
@@ -88,7 +89,7 @@ gl_get_file <- function(project,
   
 }
 
-#' Upload a file to a GitLab repository
+#' Upload, delete a file to a GitLab repository
 #'
 #' If the file already exists, it is updated/overwritten by default
 #'
@@ -104,6 +105,7 @@ gl_get_file <- function(project,
 #' @param overwrite whether to overwrite files that already exist
 #' @param ... passed on to [gitlab()]
 #' @export
+#' @rdname onefile
 #' 
 #' @examples \dontrun{
 #' # Create fake dataset
@@ -138,3 +140,25 @@ gl_push_file <- function(project,
                    branch = character(0))
   }
 }
+
+#' @rdname onefile
+gl_delete_file <- function(project,
+                         file_path,
+                         commit_message,
+                         branch = "master",
+                         ...) {
+  
+  exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
+  if (exists) {
+    gitlab(req = gl_proj_req(project = project, c("repository", "files", file_path), ...),
+           branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
+           branch = branch,
+           commit_message = commit_message,
+           verb = httr::DELETE,
+           ...)
+  } else {
+    tibble::tibble(file_path = character(0),
+                   branch = character(0))
+  }
+}
+

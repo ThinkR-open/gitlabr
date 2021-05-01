@@ -1,6 +1,18 @@
 
 test_that("getting comments works", {
+  # Dont name project parameter
+  issue_1_comments <- gl_get_comments(test_project, object_type = "issue", id = 1, api_version = test_api_version)
+  expect_is(issue_1_comments, "data.frame")
+  expect_gt(nrow(issue_1_comments), 0)
   
+  issue_comments <- gl_get_issue_comments(test_project, id = 1, api_version = test_api_version)
+  expect_is(issue_comments, "data.frame")
+  expect_gt(nrow(issue_comments), 0)
+  
+  commented_commit <- gl_get_commit_comments(test_project, id = test_commented_commit)
+  expect_is(commented_commit, "data.frame")
+  
+  # Name project parameter
   issue_1_comments <- gl_get_comments(project = test_project, object_type = "issue", id = 1, api_version = test_api_version)
   
   expect_is(issue_1_comments, "data.frame")

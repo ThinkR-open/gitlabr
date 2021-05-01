@@ -11,23 +11,25 @@
 \alias{gl_edit_commit_comment}
 \title{Get the comments/notes of a commit or issue}
 \usage{
-gl_get_comments(object_type = "issue", id, note_id = c(), project, ...)
+gl_get_comments(project, object_type = "issue", id, note_id = c(), ...)
 
-gl_get_issue_comments(id, ...)
+gl_get_issue_comments(project, id, ...)
 
-gl_get_commit_comments(id, ...)
+gl_get_commit_comments(project, id, ...)
 
 gl_comment_commit(project, id, text, ...)
 
 gl_comment_issue(project, id, text, ...)
 
-gl_edit_comment(object_type, text, ...)
+gl_edit_comment(project, object_type, text, ...)
 
-gl_edit_issue_comment(...)
+gl_edit_issue_comment(project, ...)
 
-gl_edit_commit_comment(...)
+gl_edit_commit_comment(project, ...)
 }
 \arguments{
+\item{project}{project name or id}
+
 \item{object_type}{one of "issue" or "commit". Snippets and merge_requests are not implemented yet.}
 
 \item{id}{id of object:
@@ -41,8 +43,6 @@ gl_edit_commit_comment(...)
 }}
 
 \item{note_id}{id of note}
-
-\item{project}{project name or id}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call. See Details.}
 

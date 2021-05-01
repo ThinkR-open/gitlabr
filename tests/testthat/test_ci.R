@@ -23,6 +23,11 @@ test_that("CI yml generation works", {
 
 test_that("CI builds access works", {
 
+  # Without named project param
+  all_jobs <- gl_jobs(test_project)
+  expect_is(all_jobs, "data.frame")
+  
+  # With named project param
   all_jobs <- gl_jobs(project = test_project)
   expect_is(all_jobs, "data.frame")
   all_pipelines <- gl_pipelines(project = test_project)

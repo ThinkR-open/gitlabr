@@ -74,6 +74,8 @@ set_gitlab_connection(my_gitlab)
 gl_list_projects(max_page = 2) 
 ```
 
+### Work with a specific project
+
 - Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above. 
   + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on GitLab.com
   
