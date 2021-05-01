@@ -25,10 +25,10 @@ gl_get_issues <- function(project = NULL,
 #' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)
 #' @param api_version a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
-#' @param ... further parameters passed on to \code{\link{gitlab}}, may be
+#' @param ... further parameters passed on to [gitlab()], may be
 #' state, labels, issue id, ...
-#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
-#' default verb \code{httr::GET}
+#' @param verb ignored; all calls with this function will have [gitlab()]'s
+#' default verb `httr::GET`
 #' @export
 #' 
 #' @examples
@@ -42,7 +42,7 @@ gl_get_issues <- function(project = NULL,
 gl_list_issues <- gl_get_issues
 
 #' @details 
-#' \code{gl_get_issue} provides a wrapper with swapped arguments for convenience, esp. when
+#' `gl_get_issue` provides a wrapper with swapped arguments for convenience, esp. when
 #' using a project connection
 #' @export
 #' @rdname gl_list_issues
@@ -60,7 +60,7 @@ gl_get_issue <- function(issue_id, project, ...) {
 #' this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
 #' default to 4
 #' @param project project name or id
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param ... passed on to [gitlab()]
 #' @export
 gl_to_issue_id <- function(issue_id, project, api_version = 4, ...) {
   

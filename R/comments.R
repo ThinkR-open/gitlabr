@@ -2,11 +2,22 @@
 #' 
 #' @param project project name or id
 #' @param object_type one of "issue" or "commit". Snippets and merge_requests are not implemented yet.
-#' @param id id of object: sha for commits, not issues notes/comments:
-#' (project-wide) id for api version 4, (global) iid for api version 3
+#' @param id id of object:   
+#' - commits: sha  
+#' - issues notes/comments:  
+#'   + (project-wide) id for api version 4,   
+#'   + (global) iid for api version 3  
 #' @param note_id id of note
-#' @param ... passed on to \code{\link{gitlab}} API call. See Details.
+#' @param ... passed on to [gitlab()] API call. See Details.
 #' @rdname gl_comments
+#' 
+#' @details
+#' - `gl_comment_commit`: might also contain `path`, `line`
+#' and `line_type` (old or new) to attach the comment to a specific in a file.
+#' See http://doc.gitlab.com/ce/api/commits.html
+#' - `gl_get_issue_comments`: might also contain `comment_id` to get a specific
+#' comment of an issue.
+#' 
 #' @export
 #' 
 #' @examples
@@ -55,22 +66,18 @@ gl_comments <- function(project,
 
 #' @rdname gl_comments
 #' @export
-gl_get_issue_comments <- function(...) {
-  gl_get_comments(object_type = "issue", ...)
+gl_get_issue_comments <- function(id, ...) {
+  gl_get_comments(object_type = "issue", id = id, ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_get_commit_comments <- function(...) {
-  gl_get_comments(object_type = "commit", ...)
+gl_get_commit_comments <- function(id, ...) {
+  gl_get_comments(object_type = "commit", id, ...)
 }
 
 #' @rdname gl_comments
 #' 
-#' @details
-#' For \code{gl_comment_commit} ... might also contain \code{path}, \code{line}
-#' and \code{line_type} (old or new) to attach the comment to a specific in a file.
-#' See http://doc.gitlab.com/ce/api/commits.html
 #' @param text Text of comment/note to add or edit (translates to GitLab API note/body respectively)
 #' @export
 gl_comment_commit  <- function(project,

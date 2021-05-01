@@ -1,38 +1,39 @@
-my_gitlab <- gl_project_connection(test_url,
-                                   project = test_project,
-                                   private_token = test_private_token,
-                                   api_version = test_api_version)
 
 test_that("getting comments works", {
   
-  expect_is(my_gitlab(gl_get_comments, "issue", 1, api_version = test_api_version), "data.frame")
-  expect_gt(nrow(my_gitlab(gl_get_comments, "issue", 1, api_version = test_api_version)), 0)
-  expect_is(my_gitlab(gl_get_comments, "commit", test_commented_commit), "data.frame")
-  expect_gt(nrow(my_gitlab(gl_get_comments, "commit", test_commented_commit)), 0)
-  expect_warning(my_gitlab(gl_get_comments, "commit", test_commented_commit, 123))
+  issue_1_comments <- gl_get_comments(project = test_project, object_type = "issue", id = 1, api_version = test_api_version)
   
-  expect_is(my_gitlab(gl_get_issue_comments, 1, api_version = test_api_version), "data.frame")
-  comment_id <- my_gitlab(gl_get_issue_comments, 1, api_version = test_api_version)$id[1]
-  expect_is(my_gitlab(gl_get_issue_comments, 1, comment_id, api_version = test_api_version), "data.frame")
-  expect_gt(nrow(my_gitlab(gl_get_issue_comments, 1, comment_id, api_version = test_api_version)), 0)
-  expect_is(my_gitlab(gl_get_commit_comments, test_commented_commit), "data.frame")
-  expect_warning(my_gitlab(gl_get_commit_comments, test_commented_commit, note_id = 123))
+  expect_is(issue_1_comments, "data.frame")
+  expect_gt(nrow(issue_1_comments), 0)
   
-  ## same with function idiom
-  expect_is(gl_get_comments("issue", 1, gitlab_con = my_gitlab, api_version = test_api_version), "data.frame")
-  expect_is(gl_get_comments("issue", 1, comment_id, gitlab_con = my_gitlab, api_version = test_api_version), "data.frame")
-  expect_is(gl_get_comments("commit", test_commented_commit, gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_get_issue_comments(1, gitlab_con = my_gitlab, api_version = test_api_version), "data.frame")
-  expect_is(gl_get_issue_comments(1, comment_id, gitlab_con = my_gitlab, api_version = test_api_version), "data.frame")
-  expect_is(gl_get_commit_comments(test_commented_commit, gitlab_con = my_gitlab), "data.frame")
+  commented_commit <- gl_get_comments(project = test_project, object_type = "commit", id = test_commented_commit)
   
+  expect_is(commented_commit, "data.frame")
+  expect_gt(nrow(commented_commit), 0)
+  expect_warning(gl_get_comments(project = test_project, object_type = "commit", id = test_commented_commit, note_id = 123))
+  
+  issue_comments <- gl_get_issue_comments(project = test_project, id = 1, api_version = test_api_version)
+  expect_is(issue_comments, "data.frame")
+  comment_id <- issue_comments$id[1]
+  
+  one_issue_comment <- gl_get_issue_comments(project = test_project, id = 1, comment_id = comment_id, api_version = test_api_version)
+  expect_is(one_issue_comment, "data.frame")
+  expect_gt(nrow(one_issue_comment), 0)
+  
+  commented_commit <- gl_get_commit_comments(project = test_project, id = test_commented_commit)
+  
+  expect_is(commented_commit, "data.frame")
+  expect_warning(gl_get_commit_comments(project = test_project, id = test_commented_commit, note_id = 123))
+
   if (test_api_version == 3) {
     ## old API
-    expect_warning(my_gitlab(get_comments, "issue", 1, api_version = test_api_version), regexp = "deprecated")
+    expect_warning(get_comments(project = test_project, "issue", 1, api_version = test_api_version), regexp = "deprecated")
   }
   
 })
 
-## Posting is not tested to prevent spamming the gitlab test instance
+# test_that("Comment posting works", {
+#   gl_comment_commit()
+# })
 
 

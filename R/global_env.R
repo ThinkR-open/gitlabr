@@ -6,13 +6,13 @@ assign(GITLAB_CON, NULL, gitlabr_env)
 
 #' Get/set a GitLab connection for all calls
 #' 
-#' This sets the default value of \code{gitlab_con} 
-#' in a call to \code{\link{gitlab}}
+#' This sets the default value of `gitlab_con` 
+#' in a call to [gitlab()]
 #' 
 #' @param gitlab_con A function used for GitLab API calls, such
-#' as \code{\link{gitlab}} or as returned by \code{\link{gl_connection}}.
+#' as [gitlab()] or as returned by [gl_connection()].
 #' @param ... if gitlab_con is NULL, a new connection is created used the parameters
-#' is ... using \code{\link{gl_connection}}
+#' is ... using [gl_connection()]
 #' 
 #' @export
 #' 

@@ -12,6 +12,7 @@ if (file.exists("environment.yml")) {
 # There must be a token
 # Testers should own a project on gitlab.com named "testor"
 # This part allows to test multiple versions of the API. Currently, only v4 is tested.
+if (TRUE) {
 if (Sys.getenv("GITLABR_TEST_TOKEN") != "") {
   if (Sys.getenv("GITLABR_TEST_TOKEN") != "") {
     # Skip all tests if no token
@@ -31,5 +32,6 @@ if (Sys.getenv("GITLABR_TEST_TOKEN") != "") {
     }
   }
 } else {
-  # dont test
+  # dont test on CRAN or without token available
+}
 }

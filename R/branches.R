@@ -3,7 +3,7 @@
 #' @rdname branches
 #' @param project name or id of project (not repository!)
 #' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param ... passed on to [gitlab()]
 #' @export
 #' 
 #' @examples \dontrun{

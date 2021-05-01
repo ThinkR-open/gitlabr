@@ -1,6 +1,6 @@
 #' List projects on GitLab
 #' 
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param ... passed on to [gitlab()]
 #' @export
 #' 
 #' @examples \dontrun{
@@ -20,7 +20,7 @@ gl_list_projects <- function(...) {
 #' @param title title of the merge request
 #' @param description description text for the merge request
 #' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to \code{\link{gitlab}}. Might contain more fields documented in GitLab API doc.
+#' @param ... passed on to [gitlab()]. Might contain more fields documented in GitLab API doc.
 #' 
 #' @export
 gl_create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
@@ -41,7 +41,7 @@ gl_create_merge_request <- function(project, source_branch, target_branch = "mas
 #' 
 #' @param project project name or id
 #' @param req character vector of request location
-#' @param ... passed on to \code{\link{gl_get_project_id}}
+#' @param ... passed on to [gl_get_project_id()]
 #' @export
 gl_proj_req <- function(project, req, ...) {
   if (missing(project) || is.null(project)) {
@@ -54,9 +54,9 @@ gl_proj_req <- function(project, req, ...) {
 #' Get a project id by name
 #' 
 #' @param project_name project name
-#' @param ... passed on to \code{\link{gitlab}}
-#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
-#' default verb \code{httr::GET}
+#' @param ... passed on to [gitlab()]
+#' @param verb ignored; all calls with this function will have [gitlab()]'s
+#' default verb `httr::GET`
 #' @param auto_format ignored
 #' @importFrom dplyr mutate filter
 #' @export
@@ -97,8 +97,8 @@ to_project_id <- function(x, ...) {
 #' @param project Project name or id
 #' @param save_to_file path where to save archive; if this is NULL, the archive
 #' itself is returned as a raw vector
-#' @param ... further parameters passed on to \code{\link{gitlab}} API call,
-#' may include parameter \code{sha} for specifying a commit hash
+#' @param ... further parameters passed on to [gitlab()] API call,
+#' may include parameter `sha` for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 
 #' @export
@@ -128,7 +128,7 @@ gl_archive <- function(project,
 #' @param project project name or id
 #' @param from commit hash or ref/branch/tag name to compare from
 #' @param to ommit hash or ref/branch/tag name to compare to
-#' @param ... further parameters passed on to \code{\link{gitlab}}
+#' @param ... further parameters passed on to [gitlab()]
 gl_compare_refs <- function(project,
                             from,
                             to,
@@ -143,9 +143,9 @@ gl_compare_refs <- function(project,
 #' 
 #' @param project project name or id
 #' @param commit_sha if not null, get only the commit with the specific hash; for
-#' \code{gl_get_diff} this must be specified
-#' @param ... passed on to \code{\link{gitlab}} API call, may contain
-#' \code{ref_name} for specifying a branch or tag to list commits of
+#' `gl_get_diff` this must be specified
+#' @param ... passed on to [gitlab()] API call, may contain
+#' `ref_name` for specifying a branch or tag to list commits of
 #' @export
 gl_get_commits <- function(project,
                            commit_sha = c(),
@@ -170,7 +170,7 @@ gl_get_diff <-  function(project,
 #' Create new project
 #' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
 #' @param name of the new project. The name of the new project. Equals path if not provided
-#' @param ... passed on to \code{\link{gitlab}} API call for "Create project"
+#' @param ... passed on to [gitlab()] API call for "Create project"
 #' @export
 #' @examples \dontrun{
 #' my_gitlab <- gl_connection(

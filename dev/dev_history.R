@@ -5,6 +5,8 @@ usethis::use_git_ignore("tests/environment.yml")
 
 # Doc
 usethis::use_vignette("projects")
+usethis::use_roxygen_md()
+roxygen2md::roxygen2md()
 
 # Add CI
 usethis::use_github_action_check_standard()
@@ -27,6 +29,7 @@ pkgdown::build_site()
 
 # Development
 attachment::att_amend_desc() #extra.suggests = "R.rsp")
+devtools::load_all()
 devtools::test()
-devtools::check()
+devtools::check() # /!\ Tests are currently skip /!\
 devtools::build_vignettes()
