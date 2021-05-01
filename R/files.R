@@ -3,7 +3,7 @@
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
 #' in GitLab API, as vector or part of URL)
-#' @param ... passed on to \code{\link{gitlab}} API call
+#' @param ... passed on to [gitlab()] API call
 #' @export
 #' 
 #' @examples \dontrun{
@@ -37,7 +37,7 @@ gl_list_files <- function(project, ...) {
   gitlab(gl_proj_req(project, c("repository", "tree"), ...), ...)
 }
 
-#' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and GitLab API call
+#' For `gl_file_exists` dots are passed on to [gl_list_files()] and GitLab API call
 #' @export
 #' @rdname gl_repository
 gl_file_exists <- function(project, file_path, ref, ...) {
@@ -59,7 +59,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 #' @param file_path path to file
 #' @param ref name of ref (commit branch or tag)
 #' @param to_char flag if output should be converted to char; otherwise it is of class raw
-#' @param api_version a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
+#' @param api_version a switch to force deprecated GitLab API v3 behavior. See details section "API version" of [gl_connection()] 
 #' @export
 #' @importFrom base64enc base64decode
 #' @rdname gl_repository
@@ -102,7 +102,7 @@ gl_get_file <- function(project,
 #' @param branch name of branch where to append newly generated commit with new/updated file
 #' @param commit_message Message to use for commit with new/updated file
 #' @param overwrite whether to overwrite files that already exist
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param ... passed on to [gitlab()]
 #' @export
 #' 
 #' @examples \dontrun{

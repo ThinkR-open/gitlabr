@@ -7,14 +7,14 @@
 #' Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
 #' be added soon.
 #' 
-#' @param req vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})
-#' @param api_root URL where the GitLab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})
-#' @param verb http verb to use for request in form of one of the \code{httr} functions
-#' \code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}
+#' @param req vector of characters that represents the call (e.g. `c("projects", project_id, "events")`)
+#' @param api_root URL where the GitLab API to request resides (e.g. `https://gitlab.myserver.com/api/v3/`)
+#' @param verb http verb to use for request in form of one of the `httr` functions
+#' [httr::GET()], [httr::PUT()], [httr::POST()], [httr::DELETE()]
 #' @param auto_format whether to format the returned object automatically to a flat data.frame
 #' @param debug if TRUE API URL and query will be printed, defaults to FALSE
 #' @param gitlab_con function to use for issuing API requests (e.g. as returned by 
-#' \code{\link{gitlab_connection}}
+#' [gitlab_connection()]
 #' @param page number of page of API response to get; if "all" (default), all pages
 #' (up to max_page parameter!) are queried successively and combined.
 #' @param max_page maximum number of pages to retrieve. Defaults to 10. This is an upper limit

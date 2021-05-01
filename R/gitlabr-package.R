@@ -12,7 +12,7 @@
 #' @docType package
 #' @title  Interface to GitLab API on high and low levels
 #' @author Jirka Lewandowski \email{jirka.lewandowski@@wzb.eu}
-#' @references \url{http://blog.points-of-interest.cc/}
+#' @references <http://blog.points-of-interest.cc/>
 #' 
 #' 
 #' @importFrom purrr %>%

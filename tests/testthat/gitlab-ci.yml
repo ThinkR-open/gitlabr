@@ -8,7 +8,7 @@ variables:
 cache:
   key: global-cache
   paths:
-      - $R_LIBS
+      - ${R_LIBS}
 
 stages:
   - build
@@ -21,6 +21,8 @@ building:
   stage: build
   script:
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
+    - echo "Library path for packages :" $R_LIBS
+    - mkdir -p $R_LIBS
     - Rscript -e 'install.packages("remotes")'
     - Rscript -e 'install.packages("rcmdcheck")'
     - Rscript -e 'remotes::install_local(upgrade = "never")'
@@ -40,6 +42,7 @@ coverage:
         - master
         - production
     script:
+        - Rscript -e 'remotes::install_local(upgrade = "never")'
         - Rscript -e 'remotes::install_cran(c("covr", "DT"), upgrade = "never")'
         - Rscript -e 'covr::gitlab(quiet = FALSE)'
     artifacts:

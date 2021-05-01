@@ -1,6 +1,6 @@
 #' Deprecated functions
 #'
-#' Many functions were renamed with version 0.7 to the \code{gl_} naming scheme.
+#' Many functions were renamed with version 0.7 to the `gl_` naming scheme.
 #' Note that the old function names are deprecated and might be removed without
 #' further notive.
 #' 
@@ -8,46 +8,46 @@
 #' @name gitlabr-deprecated
 #' @section Details:
 #' \tabular{rl}{
-#'    \code{archive} \tab is now called \code{gl_archive} \cr
-#'    \code{assign_issue} \tab is now called \code{gl_assign_issue} \cr
-#'    \code{close_issue} \tab is now called \code{gl_close_issue} \cr
-#'    \code{comment_commit} \tab is now called \code{gl_comment_commit} \cr
-#'    \code{comment_issue} \tab is now called \code{gl_comment_issue} \cr
-#'    \code{create_branch} \tab is now called \code{gl_create_branch} \cr
-#'    \code{create_merge_request} \tab is now called \code{gl_create_merge_request} \cr
-#'    \code{delete_branch} \tab is now called \code{gl_delete_branch} \cr
-#'    \code{edit_commit_comment} \tab is now called \code{gl_edit_commit_comment} \cr
-#'    \code{edit_issue} \tab is now called \code{gl_edit_issue} \cr
-#'    \code{edit_issue_comment} \tab is now called \code{gl_edit_issue_comment} \cr
-#'    \code{file_exists} \tab is now called \code{gl_file_exists} \cr
-#'    \code{get_comments} \tab is now called \code{gl_get_comments} \cr
-#'    \code{get_commit_comments} \tab is now called \code{gl_get_commit_comments} \cr
-#'    \code{get_commits} \tab is now called \code{gl_get_commits} \cr
-#'    \code{get_diff} \tab is now called \code{gl_get_diff} \cr
-#'    \code{get_file} \tab is now called \code{gl_get_file} \cr
-#'    \code{get_issue} \tab is now called \code{gl_get_issue} \cr
-#'    \code{get_issue_comments} \tab is now called \code{gl_get_issue_comments} \cr
-#'    \code{get_issues} \tab is now called \code{gl_list_issues} \cr
-#'    \code{get_project_id} \tab is now called \code{gl_get_project_id} \cr
-#'    \code{gitlab_connection} \tab is now called \code{gl_connection} \cr
-#'    \code{list_branches} \tab is now called \code{gl_list_branches} \cr
-#'    \code{list_files} \tab is now called \code{gl_list_files} \cr
-#'    \code{list_projects} \tab is now called \code{gl_list_projects} \cr
-#'    \code{new_issue} \tab is now called \code{gl_new_issue} \cr
-#'    \code{project_connection} \tab is now called \code{gl_project_connection} \cr
-#'    \code{proj_req} \tab is now called \code{gl_proj_req} \cr
-#'    \code{push_file} \tab is now called \code{gl_push_file} \cr
-#'    \code{reopen_issue} \tab is now called \code{gl_reopen_issue} \cr
-#'    \code{repository} \tab is now called \code{gl_repository} \cr
-#'    \code{to_issue_id} \tab is now called \code{gl_to_issue_id} \cr
-#'    \code{unassign_issue} \tab is now called \code{gl_unassign_issue} \cr
+#'    `archive` \tab is now called `gl_archive` \cr
+#'    `assign_issue` \tab is now called `gl_assign_issue` \cr
+#'    `close_issue` \tab is now called `gl_close_issue` \cr
+#'    `comment_commit` \tab is now called `gl_comment_commit` \cr
+#'    `comment_issue` \tab is now called `gl_comment_issue` \cr
+#'    `create_branch` \tab is now called `gl_create_branch` \cr
+#'    `create_merge_request` \tab is now called `gl_create_merge_request` \cr
+#'    `delete_branch` \tab is now called `gl_delete_branch` \cr
+#'    `edit_commit_comment` \tab is now called `gl_edit_commit_comment` \cr
+#'    `edit_issue` \tab is now called `gl_edit_issue` \cr
+#'    `edit_issue_comment` \tab is now called `gl_edit_issue_comment` \cr
+#'    `file_exists` \tab is now called `gl_file_exists` \cr
+#'    `get_comments` \tab is now called `gl_get_comments` \cr
+#'    `get_commit_comments` \tab is now called `gl_get_commit_comments` \cr
+#'    `get_commits` \tab is now called `gl_get_commits` \cr
+#'    `get_diff` \tab is now called `gl_get_diff` \cr
+#'    `get_file` \tab is now called `gl_get_file` \cr
+#'    `get_issue` \tab is now called `gl_get_issue` \cr
+#'    `get_issue_comments` \tab is now called `gl_get_issue_comments` \cr
+#'    `get_issues` \tab is now called `gl_list_issues` \cr
+#'    `get_project_id` \tab is now called `gl_get_project_id` \cr
+#'    `gitlab_connection` \tab is now called `gl_connection` \cr
+#'    `list_branches` \tab is now called `gl_list_branches` \cr
+#'    `list_files` \tab is now called `gl_list_files` \cr
+#'    `list_projects` \tab is now called `gl_list_projects` \cr
+#'    `new_issue` \tab is now called `gl_new_issue` \cr
+#'    `project_connection` \tab is now called `gl_project_connection` \cr
+#'    `proj_req` \tab is now called `gl_proj_req` \cr
+#'    `push_file` \tab is now called `gl_push_file` \cr
+#'    `reopen_issue` \tab is now called `gl_reopen_issue` \cr
+#'    `repository` \tab is now called `gl_repository` \cr
+#'    `to_issue_id` \tab is now called `gl_to_issue_id` \cr
+#'    `unassign_issue` \tab is now called `gl_unassign_issue` \cr
 #' }
 NULL
 
 #' renamings from {gitlabr} version 0.6.4 to 0.7
 #'
 #' List of of old and new function name. Used internally by
-#' \code{\link{update_gitlabr_code}}
+#' [update_gitlabr_code()]
 #' 
 #'
 #' @docType data
