@@ -15,7 +15,7 @@ gl_get_diff(project, commit_sha, ...)
 \item{commit_sha}{if not null, get only the commit with the specific hash; for
 \code{gl_get_diff} this must be specified}
 
-\item{...}{passed on to \code{\link{gitlab}} API call, may contain
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call, may contain
 \code{ref_name} for specifying a branch or tag to list commits of}
 }
 \description{

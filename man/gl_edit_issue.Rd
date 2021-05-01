@@ -29,12 +29,12 @@ gl_unassign_issue(issue_id, project, ...)
 
 \item{project}{project where the issue should be posted}
 
-\item{...}{further parameters passed to the API call, may 
+\item{...}{further parameters passed to the API call, may
 contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).}
 
-\item{issue_id}{issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)}
+\item{issue_id}{issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is \code{TRUE} although this is not recommended!)}
 
-\item{api_version}{a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If \code{3}
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)}
 
 \item{assignee_id}{numeric id of users as returned in '/users/' API request}

@@ -22,17 +22,17 @@ gitlab(
 \arguments{
 \item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
 
-\item{api_root}{URL where the GitLab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})}
+\item{api_root}{URL where the GitLab API to request resides (e.g. \verb{https://gitlab.myserver.com/api/v3/})}
 
 \item{verb}{http verb to use for request in form of one of the \code{httr} functions
-\code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}}
+\code{\link[httr:GET]{httr::GET()}}, \code{\link[httr:PUT]{httr::PUT()}}, \code{\link[httr:POST]{httr::POST()}}, \code{\link[httr:DELETE]{httr::DELETE()}}}
 
 \item{auto_format}{whether to format the returned object automatically to a flat data.frame}
 
 \item{debug}{if TRUE API URL and query will be printed, defaults to FALSE}
 
-\item{gitlab_con}{function to use for issuing API requests (e.g. as returned by 
-\code{\link{gitlab_connection}}}
+\item{gitlab_con}{function to use for issuing API requests (e.g. as returned by
+\code{\link[=gitlab_connection]{gitlab_connection()}}}
 
 \item{page}{number of page of API response to get; if "all" (default), all pages
 (up to max_page parameter!) are queried successively and combined.}
@@ -53,7 +53,7 @@ and ignorant about its URL from external.}
 may include private_token and all other parameters as documented for the GitLab API}
 }
 \value{
-the response from the GitLab API, usually as a `tibble` and including all pages
+the response from the GitLab API, usually as a \code{tibble} and including all pages
 }
 \description{
 This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not

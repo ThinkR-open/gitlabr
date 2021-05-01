@@ -24,7 +24,7 @@ gl_latest_build_artifact(
 \arguments{
 \item{project}{project name or id, required}
 
-\item{...}{passed on to \code{\link{gitlab}} API call}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 
 \item{api_version}{Since \code{gl_builds} is no longer working for GitLab API v4,
 this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
@@ -48,9 +48,16 @@ only the most recent artifacts archive is available.
 }
 \examples{
 \dontrun{
-my_gitlab <- gl_connection(...) ## fill in login parameters
-my_gitlab(gl_pipelines, "test-project")
-my_gitlab(gl_jobs, "test-project")
-my_gitlab(gl_latest_build_artifact, "test-project", job = "build")
+# connect as a fixed user to a gitlab instance
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+# Set the connection for the session
+set_gitlab_connection(my_gitlab)
+
+# Get pipelines and jobs information
+gl_pipelines(project = "test-project")
+gl_jobs(project = "test-project")
+gl_latest_build_artifact(project = "test-project", job = "build")
 }
 }

@@ -28,7 +28,7 @@ in GitLab API, as vector or part of URL)}
 
 \item{project}{name or id of project (not repository!)}
 
-\item{...}{passed on to \code{\link{gitlab}} API call}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 
 \item{file_path}{path to file}
 
@@ -36,12 +36,12 @@ in GitLab API, as vector or part of URL)}
 
 \item{to_char}{flag if output should be converted to char; otherwise it is of class raw}
 
-\item{api_version}{a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link{gl_connection}}}
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link[=gl_connection]{gl_connection()}}}
 }
 \description{
 Access to repository files in GitLab
 
-For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and GitLab API call
+For \code{gl_file_exists} dots are passed on to \code{\link[=gl_list_files]{gl_list_files()}} and GitLab API call
 
 Get a file from a GitLab repository
 }

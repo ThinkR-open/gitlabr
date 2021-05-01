@@ -7,7 +7,7 @@
 gl_list_projects(...)
 }
 \arguments{
-\item{...}{passed on to \code{\link{gitlab}}}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \description{
 List projects on GitLab

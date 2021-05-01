@@ -12,7 +12,7 @@ gl_archive(project, save_to_file = tempfile(fileext = ".zip"), ...)
 \item{save_to_file}{path where to save archive; if this is NULL, the archive
 itself is returned as a raw vector}
 
-\item{...}{further parameters passed on to \code{\link{gitlab}} API call,
+\item{...}{further parameters passed on to \code{\link[=gitlab]{gitlab()}} API call,
 may include parameter \code{sha} for specifying a commit hash}
 }
 \value{

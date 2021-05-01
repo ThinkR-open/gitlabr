@@ -17,7 +17,7 @@ gl_push_file(
 \arguments{
 \item{project}{Project name or id}
 
-\item{file_path}{path where to store file in gl_repository. 
+\item{file_path}{path where to store file in gl_repository.
 If in subdirectory, the parent directory should exist.}
 
 \item{content}{Character of length 1. File content (text)}
@@ -28,7 +28,7 @@ If in subdirectory, the parent directory should exist.}
 
 \item{overwrite}{whether to overwrite files that already exist}
 
-\item{...}{passed on to \code{\link{gitlab}}}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \value{
 returns a tibble with changed branch and path (0 rows if

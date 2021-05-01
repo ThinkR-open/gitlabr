@@ -9,12 +9,12 @@ gl_get_project_id(project_name, verb = httr::GET, auto_format = TRUE, ...)
 \arguments{
 \item{project_name}{project name}
 
-\item{verb}{ignored; all calls with this function will have \code{\link{gitlab}}'s
+\item{verb}{ignored; all calls with this function will have \code{\link[=gitlab]{gitlab()}}'s
 default verb \code{httr::GET}}
 
 \item{auto_format}{ignored}
 
-\item{...}{passed on to \code{\link{gitlab}}}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \description{
 Get a project id by name

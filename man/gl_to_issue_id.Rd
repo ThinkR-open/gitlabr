@@ -15,7 +15,7 @@ gl_to_issue_id(issue_id, project, api_version = 4, ...)
 this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
 default to 4}
 
-\item{...}{passed on to \code{\link{gitlab}}}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \description{
 This functions is only intended to be used with GitLab API v3. With v4, the

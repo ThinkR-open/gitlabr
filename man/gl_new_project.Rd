@@ -11,7 +11,7 @@ gl_new_project(name, path, ...)
 
 \item{path}{to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).}
 
-\item{...}{passed on to \code{\link{gitlab}} API call for "Create project"}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "Create project"}
 }
 \description{
 Create new project

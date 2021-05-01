@@ -27,7 +27,7 @@ gl_create_merge_request(
 
 \item{verb}{is ignored, will always be forced to match the action the function name indicates}
 
-\item{...}{passed on to \code{\link{gitlab}}. Might contain more fields documented in GitLab API doc.}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}. Might contain more fields documented in GitLab API doc.}
 }
 \description{
 Create a merge request

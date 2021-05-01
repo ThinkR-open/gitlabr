@@ -17,7 +17,7 @@ gl_delete_branch(project, branch, verb = httr::POST, ...)
 
 \item{verb}{is ignored, will always be forced to match the action the function name indicates}
 
-\item{...}{passed on to \code{\link{gitlab}}}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 
 \item{branch}{name of branch to create/delete}
 
