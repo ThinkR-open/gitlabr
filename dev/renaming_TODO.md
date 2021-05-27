@@ -10,5 +10,6 @@
   - [x] 'project' first
 - [x] comments // test_comments.R
   - [x] 'project' first
+- [ ] // test_connection.R
   
 - [ ] NEWS: project first everywhere meaningful

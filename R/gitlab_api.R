@@ -118,6 +118,9 @@ gitlab <- function(req,
     if (!missing(page)) {
       dot_args <- c(dot_args, page = page)
     }
+    if (!missing(max_page)) {
+      dot_args <- c(dot_args, max_page = max_page)
+    }
     do.call(gitlab_con, c(dot_args, gitlab_con = "self", ...)) %>%
       iff(debug, print)
   }
