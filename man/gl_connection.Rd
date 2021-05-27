@@ -60,9 +60,26 @@ code will still work if you try.
 
 \examples{
 \dontrun{
-my_gitlab <- gl_connection("http://gitlab.example.com", "123####89")
-my_gitlab("projects")
-my_gitlab(gl_get_file, "test-project", "README.md", ref = "dev")
+# Connect as a fixed user to a gitlab instance
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com", 
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+# Set the connection for the session
+set_gitlab_connection(my_gitlab)
+# Get list of projects
+gl_list_projects(max_page = 1)
+# Unset the connection for the session
+unset_gitlab_connection()
+
+# Set connection for a specific project
+my_project <- gl_project_connection(
+  gitlab_url = "https://gitlab.com",
+  project = 1234,
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+# List files of a project
+my_project_list_files <- my_project(gl_list_files, max_page = 1)
 }
 
 }

@@ -13,6 +13,7 @@ Breaking change
 
 Minor
 
+* fix `max_page` with `gl_()` functions
 * Correction of api that downloaded twice the first page when `page == "all"`
 * Reduce `max_page` to retrieve content to allow to work with big GitLab servers like Gitlab.com
 * Change maintainer

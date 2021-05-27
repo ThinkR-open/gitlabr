@@ -31,11 +31,10 @@ usethis::edit_r_environ()
 # You can verify it worked
 Sys.getenv("GITLAB_COM_TOKEN")
 
-# connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection(gitlab_url = "https://gitlab.com",
+# connect as a fixed user to a GitLab instance
+set_gitlab_connection(gitlab_url = "https://gitlab.com",
                            private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
+
 # a function is returned
 # its first argument is the request (name or function), optionally followed by parameters
 
@@ -86,7 +85,7 @@ The core function of the low level interface is `gitlab`, with the help of which
 
 ```{r eval = FALSE}
 gitlab(c("projects", 12, "issues"), 
-       api_root = "https://gitlab.points-of-interest.cc/api/v4",
+       api_root = "https://gitlab.com/api/v4",
        private_token = "XXX", # authentication for API
        verb = httr::GET,  # defaults to GET, but POST, PUT, DELETE can be used likewise
        state = "active") # additional parameters (...) for the query
@@ -95,7 +94,7 @@ gitlab(c("projects", 12, "issues"),
 translates to
 
 ```
-GET https://gitlab.points-of-interest.cc/api/v4/projects/12/issues?state=active&private_token=XXX
+GET https://gitlab.com/api/v4/projects/12/issues?state=active&private_token=XXX
 ```
 
 This way, any request documented in the [GitLab API documentation](https://doc.gitlab.com/ce/api) can be issued from {gitlabr}.
@@ -140,8 +139,8 @@ This way these more specialized functions represent and provide the connection -
 Such specialized functions can be created by the function `gitlab_connection()` and then used exactly as you would use `gitlab()`:
 
 ```{r eval = FALSE}
-my_gitlab <- gl_connection("https://test-gitlab.points-of-interest.cc",
-                           private_token = readLines("secrets/gitlab_token.txt"))
+my_gitlab <- gl_connection("https://gitlab.com",
+                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 my_gitlab("projects")
 ```
 

@@ -4,8 +4,10 @@
 #' @export
 #' 
 #' @examples \dontrun{
-#' my_gitlab <- gl_connection(...) ## fill in login parameters
-#' set_gitlab_connection(my_gitlab)
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
 #' gl_list_projects(max_page = 1)
 #' }
 gl_list_projects <- function(...) {
@@ -173,10 +175,11 @@ gl_get_diff <-  function(project,
 #' @param ... passed on to [gitlab()] API call for "Create project"
 #' @export
 #' @examples \dontrun{
-#' my_gitlab <- gl_connection(
-#'   gitlab_url = "https://gitlab.com",
-#'   private_token = Sys.getenv("GITLAB_TOKEN"))
-#' gl_new_project(name = "toto", gitlab_con = my_gitlab)
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_new_project(name = "toto")
 #' }
 gl_new_project <- function(name,
                            path,

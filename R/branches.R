@@ -7,9 +7,8 @@
 #' @export
 #' 
 #' @examples \dontrun{
-#' my_gitlab <- gl_connection(gitlab_url = "https://gitlab.com",
-#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")) ## fill in login parameters
-#' set_gitlab_connection(my_gitlab)
+#' set_gitlab_connection(gitlab_url = "https://gitlab.com",
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 #' project_id <- ... ## Fill in your project ID
 #' 
 #' # List branches of the project

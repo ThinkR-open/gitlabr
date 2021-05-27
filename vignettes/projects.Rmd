@@ -22,12 +22,9 @@ library(gitlabr)
 # New project
 ```{r, eval=FALSE}
 # GitLab con
-my_gitlab <- gl_connection(
+set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 
 #' @param name of the new project. The name of the new project.
 #' @param ... Other parameters for project creation

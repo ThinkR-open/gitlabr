@@ -63,14 +63,40 @@ own. See the {gitlabr} vignette for more information on this.
 \details{
 Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
 be added soon.
+
+\code{gitlab()} function allows to use any request of the GitLab API \link{https://docs.gitlab.com/ce/api/}.
+
+For instance, the API documentation shows how to create a new project in
+\link{https://docs.gitlab.com/ee/api/projects.html#create-project}:
+\itemize{
+\item The verb is \code{POST}
+\item The request is \code{projects}
+\item Required attributes are \code{name} or \code{path} (if \code{name} not set)
+\item \code{default_branch} is an attribute that can be set if wanted
+}
+
+The corresponding use of \code{gitlab()} is:\preformatted{gitlab(
+  req = "projects",
+  verb = httr::POST,
+  name = "toto",
+  default_branch = "main"
+)
+}
 }
 \examples{
 \dontrun{
-gitlab(req = "projects",
-       api_root = "https://gitlab.example.com/api/v4/",
-       private_token = "123####89")
-gitlab(req = c("projects", 21, "issues"),
-       state = "closed",
-       gitlab_con = my_gitlab)
+# Connect as a fixed user to a gitlab instance
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com", 
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+# Set the connection for the session
+set_gitlab_connection(my_gitlab)
+
+# Use a simple request
+gitlab(req = "projects")
+# Use a combined request with extra parameters
+gitlab(req = c("projects", 1234, "issues"),
+       state = "closed")
 }
 }

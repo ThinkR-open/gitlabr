@@ -191,12 +191,10 @@ use_gitlab_ci <- function(#pipeline = gl_default_ci_pipeline(),
 #' @rdname gl_builds
 #' 
 #' @examples \dontrun{
-#' # connect as a fixed user to a gitlab instance
-#' my_gitlab <- gl_connection(
+#' # connect as a fixed user to a GitLab instance
+#' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com",
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-#' # Set the connection for the session
-#' set_gitlab_connection(my_gitlab)
 #' 
 #' # Get pipelines and jobs information
 #' gl_pipelines(project = "test-project")
