@@ -17,7 +17,7 @@ assign(GITLAB_CON, NULL, gitlabr_env)
 #' @export
 #' 
 #' @examples \dontrun{
-#' set_gitlab_connection("http://gitlab.example.com", private_token = "123####89")
+#' set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 #' }
 set_gitlab_connection <- function(gitlab_con = NULL, ...) {
   stopifnot(is.null(gitlab_con) || is.function(gitlab_con))

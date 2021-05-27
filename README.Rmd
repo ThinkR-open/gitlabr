@@ -56,15 +56,10 @@ library(gitlabr)
 # You can verify your token works
 # Sys.getenv("GITLAB_COM_TOKEN")
 
-# connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection(
+# connect as a fixed user to a GitLab instance for the session
+set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-# a function is returned
-# its first argument is the request (name or function), optionally followed by parameters
-
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 ```
 
 - Find the list of projects available to you
@@ -115,7 +110,29 @@ gl_list_issues(state = "opened", my_project)
 gl_close_issue(new_feature_issue$iid, project = my_project)$state
 ```
 
-- Unset connection
+### Use additionnal requests
+
+If the API request is not already available in {gitlabr}, function `gitlab()` allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
+
+For instance, the API documentation shows how to create a new project in [https://docs.gitlab.com/ee/api/projects.html#create-project]:
+
+- The verb is `POST`
+- The request is `projects`
+- Required attributes are `name` or `path` (if `name` not set)
+- `default_branch` is an attribute that can be set if wanted
+
+The corresponding use of `gitlab()` is:
+
+```{r, eval=FALSE}
+gitlab(
+  req = "projects",
+    verb = httr::POST,
+    name = "toto",
+    default_branch = "main"
+  )
+```
+
+### Unset connection
 
 ```{r}
 unset_gitlab_connection()

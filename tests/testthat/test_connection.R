@@ -186,4 +186,7 @@ test_that("set_gl_connection with dots works", {
 unset_gitlab_connection()
 
 # Set back the connection for the session as in helper.R
-set_gitlab_connection(my_gitlab)
+set_gitlab_connection(
+  gitlab_url = test_url,
+  private_token = test_private_token,
+  api_version = test_api_version)

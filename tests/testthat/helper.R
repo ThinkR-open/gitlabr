@@ -19,13 +19,11 @@ test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor")
 test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
 
 # Set GitLab connection for all tests
-my_gitlab <- gl_connection(
+# Set the connection for the session
+set_gitlab_connection(
   gitlab_url = test_url,
   private_token = test_private_token,
   api_version = test_api_version)
-
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 
 # Set project connection for all tests
 my_project <- gl_project_connection(
