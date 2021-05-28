@@ -48,16 +48,14 @@ only the most recent artifacts archive is available.
 }
 \examples{
 \dontrun{
-# connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection(
+# connect as a fixed user to a GitLab instance
+set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 
 # Get pipelines and jobs information
-gl_pipelines(project = "test-project")
-gl_jobs(project = "test-project")
-gl_latest_build_artifact(project = "test-project", job = "build")
+gl_pipelines(project = "<<your-project-id>>")
+gl_jobs(project = "<<your-project-id>>")
+gl_latest_build_artifact(project = "<<your-project-id>>", job = "build")
 }
 }

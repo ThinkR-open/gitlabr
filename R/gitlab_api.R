@@ -171,12 +171,12 @@ get_rel <- function(links) {
     stringr::str_split(",\\s+") %>%
     getElement(1) -> strs
   tibble::tibble(link = strs %>%
-                       lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
-                       unlist(),
-                     rel = strs %>%
-                       lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
-                       unlist(),
-                     stringsAsFactors = FALSE)
+                   lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
+                   unlist(),
+                 rel = strs %>%
+                   lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
+                   unlist(),
+                 stringsAsFactors = FALSE)
 }
 
 get_next_link <- function(links) {
@@ -192,27 +192,47 @@ get_next_link <- function(links) {
 
 is.nested.list <- function(l) {
   is.list(l) && any(unlist(lapply(l, is.list)))
+  is.list(l[26]) && any(unlist(lapply(l[26], is.list)))
 }
 
 is_named <- function(v) {
   !is.null(names(v))
 }
 
+
 is_single_row <- function(l) {
   if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
     return(TRUE)
   } else {
-    the_lengths <- lapply(l, length) %>% unlist()
-    u_length <- unique(the_lengths)
-    if (length(u_length) == 1) {
-      return(u_length == 1)
+    # if (is.null(names(l)))
+    # not named, then probably multiple rows
+    # at least one name is the same shows multiple lines
+    all_names <- lapply(l, names)
+    if(any(
+      lapply(all_names, function(x) any(x %in% all_names[[1]])) %>% unlist()
+    )) {
+      return(FALSE)
     } else {
-      multi_cols <- which(the_lengths > 1) %>% unlist()
-      return(all(lapply(l[multi_cols], is_named) %>% unlist() &
-                   !(lapply(l[multi_cols], is.nested.list) %>% unlist())))
+      return(TRUE)
     }
   }
 }
+
+# is_single_row <- function(l) {
+#   if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
+#     return(TRUE)
+#   } else {
+#     the_lengths <- lapply(l, length) %>% unlist()
+#     u_length <- unique(the_lengths)
+#     if (length(u_length) == 1) {
+#       return(u_length == 1)
+#     } else {
+#       multi_cols <- which(the_lengths > 1) %>% unlist()
+#       return(all(lapply(l[multi_cols], is_named) %>% unlist() &
+#                    !(lapply(l[multi_cols], is.nested.list) %>% unlist())))
+#     }
+#   }
+# }
 
 format_row <- function(row, ...) {
   row %>%

@@ -61,9 +61,6 @@ use this function directly too often, but either use {gitlabr}'s convenience wra
 own. See the {gitlabr} vignette for more information on this.
 }
 \details{
-Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
-be added soon.
-
 \code{gitlab()} function allows to use any request of the GitLab API \link{https://docs.gitlab.com/ce/api/}.
 
 For instance, the API documentation shows how to create a new project in
@@ -82,16 +79,17 @@ The corresponding use of \code{gitlab()} is:\preformatted{gitlab(
   default_branch = "main"
 )
 }
+
+Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
+you can give it a try.
 }
 \examples{
 \dontrun{
-# Connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection(
+# Connect as a fixed user to a GitLab instance
+set_gitlab_connection(
   gitlab_url = "https://gitlab.com", 
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 
 # Use a simple request
 gitlab(req = "projects")

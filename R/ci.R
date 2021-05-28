@@ -197,9 +197,9 @@ use_gitlab_ci <- function(#pipeline = gl_default_ci_pipeline(),
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 #' 
 #' # Get pipelines and jobs information
-#' gl_pipelines(project = "test-project")
-#' gl_jobs(project = "test-project")
-#' gl_latest_build_artifact(project = "test-project", job = "build")
+#' gl_pipelines(project = "<<your-project-id>>")
+#' gl_jobs(project = "<<your-project-id>>")
+#' gl_latest_build_artifact(project = "<<your-project-id>>", job = "build")
 #' }
 gl_pipelines <- function(project, ...) {
   gitlab(gl_proj_req(project = project, "pipelines", ...), ...)

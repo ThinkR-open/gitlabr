@@ -17,3 +17,8 @@ gl_proj_req(project, req, ...)
 Prefixes the request location with "project/:id" and automatically
 translates project names into ids
 }
+\examples{
+\dontrun{
+gl_proj_req("test_project"<<your-project-id>>, req = "merge_requests")
+}
+}

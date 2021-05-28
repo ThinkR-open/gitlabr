@@ -4,18 +4,23 @@
 \alias{gl_get_project_id}
 \title{Get a project id by name}
 \usage{
-gl_get_project_id(project_name, verb = httr::GET, auto_format = TRUE, ...)
+gl_get_project_id(project_name, ...)
 }
 \arguments{
 \item{project_name}{project name}
-
-\item{verb}{ignored; all calls with this function will have \code{\link[=gitlab]{gitlab()}}'s
-default verb \code{httr::GET}}
-
-\item{auto_format}{ignored}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \description{
 Get a project id by name
+}
+\details{
+Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
+If the \code{project_name} is an old project lost in a big repository (position > 200),
+\code{gl_get_project_id()} may not find the project id.
+}
+\examples{
+\dontrun{
+gl_get_project_id("<<your-project-name>>")
+}
 }

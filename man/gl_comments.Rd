@@ -63,10 +63,10 @@ comment of an issue.
 \examples{
 \dontrun{
 # fill in login parameters
-my_project <- gl_project_connection(project = "testor", ...)
-gl_get_comments(object_type = "issue", 1, project = my_project)
-my_project(gl_get_comments, "issue", 1)
-my_project(gl_get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
-my_project(gl_comment_issue, 1, text = "Almost done!")
+set_gitlab_connection(gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+gl_get_comments(project = "<<your-project-id>>", object_type = "issue", 1)
+gl_get_comments(project = "<<your-project-id>>", "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
+gl_comment_issue(project = "<<your-project-id>>", 1, text = "Almost done!")
 }
 }

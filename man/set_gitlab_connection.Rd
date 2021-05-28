@@ -22,6 +22,6 @@ in a call to \code{\link[=gitlab]{gitlab()}}
 }
 \examples{
 \dontrun{
-set_gitlab_connection("http://gitlab.example.com", private_token = "123####89")
+set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 }
 }

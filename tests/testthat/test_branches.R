@@ -14,11 +14,13 @@ test_that("branch access works", {
   
   ## creating branch
   new_branch <- gl_create_branch(project = test_project, branch = "testbranch", ref = "for-tests")
+  Sys.sleep(30) # Wait for branch to be really added 10 seconds is not long enough...
   list_branch_new <- gl_list_branches(project = test_project)
   expect_true("testbranch" %in% list_branch_new[["name"]])
   
   ## delete branch
   deleted_branch <- gl_delete_branch(project = test_project, branch = "testbranch")
+  Sys.sleep(30) # Wait for branch to be really removed
   list_branch_del <- gl_list_branches(project = test_project)
   expect_false("testbranch" %in% list_branch_del[["name"]])
   

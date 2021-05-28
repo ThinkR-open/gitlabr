@@ -10,24 +10,24 @@
 \alias{gl_unassign_issue}
 \title{Post a new issue or edit one}
 \usage{
-gl_new_issue(title, project, ...)
+gl_new_issue(project, title, ...)
 
-gl_create_issue(title, project, ...)
+gl_create_issue(project, title, ...)
 
-gl_edit_issue(issue_id, project, api_version = 4, ...)
+gl_edit_issue(project, issue_id, api_version = 4, ...)
 
-gl_close_issue(issue_id, project, ...)
+gl_close_issue(project, issue_id, ...)
 
-gl_reopen_issue(issue_id, project, ...)
+gl_reopen_issue(project, issue_id, ...)
 
-gl_assign_issue(issue_id, assignee_id = NULL, project, ...)
+gl_assign_issue(project, issue_id, assignee_id = NULL, ...)
 
-gl_unassign_issue(issue_id, project, ...)
+gl_unassign_issue(project, issue_id, ...)
 }
 \arguments{
-\item{title}{title of the issue}
-
 \item{project}{project where the issue should be posted}
+
+\item{title}{title of the issue}
 
 \item{...}{further parameters passed to the API call, may
 contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).}

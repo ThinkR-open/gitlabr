@@ -1,4 +1,4 @@
-#' List projects on GitLab
+#' List projects
 #' 
 #' @param ... passed on to [gitlab()]
 #' @export
@@ -14,25 +14,20 @@ gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
-#' Create a merge request
+#' List user projects
 #' 
-#' @param project name or id of project (not repository!)
-#' @param source_branch name of branch to be merged
-#' @param target_branch name of branch into which to merge
-#' @param title title of the merge request
-#' @param description description text for the merge request
-#' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to [gitlab()]. Might contain more fields documented in GitLab API doc.
-#' 
+#' @param ... passed on to [gitlab()]
 #' @export
-gl_create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
-  gl_proj_req(project = project, c("merge_requests"), ...) %>% 
-  gitlab(source_branch = source_branch,
-         target_branch = target_branch,
-         title = title,
-         description = description,
-         verb = httr::POST,
-         ...)
+#' 
+#' @examples \dontrun{
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
+#' }
+gl_list_user_projects <- function(user_id, ...) {
+  gitlab(c("users", user_id, "projects"), ...)
 }
 
 
@@ -45,6 +40,10 @@ gl_create_merge_request <- function(project, source_branch, target_branch = "mas
 #' @param req character vector of request location
 #' @param ... passed on to [gl_get_project_id()]
 #' @export
+#' @examples 
+#' \dontrun{
+#' gl_proj_req("test_project"<<your-project-id>>, req = "merge_requests")
+#' }
 gl_proj_req <- function(project, req, ...) {
   if (missing(project) || is.null(project)) {
     return(req)
@@ -57,12 +56,19 @@ gl_proj_req <- function(project, req, ...) {
 #' 
 #' @param project_name project name
 #' @param ... passed on to [gitlab()]
-#' @param verb ignored; all calls with this function will have [gitlab()]'s
-#' default verb `httr::GET`
-#' @param auto_format ignored
 #' @importFrom dplyr mutate filter
+#' 
+#' @details 
+#' Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
+#' If the `project_name` is an old project lost in a big repository (position > 200), 
+#' `gl_get_project_id()` may not find the project id.
+#' 
 #' @export
-gl_get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE, ...) {
+#' @examples
+#' \dontrun{
+#' gl_get_project_id("<<your-project-name>>")
+#' }
+gl_get_project_id <- function(project_name, ...) {
   
   matching <- gitlab(req = "projects", ...) %>%
     mutate(matches_name = name == project_name,
@@ -94,31 +100,24 @@ to_project_id <- function(x, ...) {
 
 
 
-#' Get zip archive of a specific repository
+#' Archive a repository
 #' 
 #' @param project Project name or id
-#' @param save_to_file path where to save archive; if this is NULL, the archive
-#' itself is returned as a raw vector
 #' @param ... further parameters passed on to [gitlab()] API call,
 #' may include parameter `sha` for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 
 #' @export
 #' @examples \dontrun{
-#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
-#' my_project(gl_archive, save_to_file = "example-project.zip")
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_archive(project = "<<your-project-id>>", save_to_file = "example-project.zip")
 #' }
 gl_archive <- function(project,
-                       save_to_file = tempfile(fileext = ".zip"),
                        ...) {
-  
-  raw_gl_archive <- gl_repository(project = project, req = "archive", ...)
-  if (!is.null(save_to_file)) {
-    writeBin(raw_gl_archive, save_to_file)
-    return(save_to_file)
-  } else {
-    return(raw_gl_archive)
-  }
+  gl_repository(project = project, req = "archive", ...)
 }
 
 #' Compare two refs from a project repository
@@ -129,8 +128,10 @@ gl_archive <- function(project,
 #' 
 #' @param project project name or id
 #' @param from commit hash or ref/branch/tag name to compare from
-#' @param to ommit hash or ref/branch/tag name to compare to
+#' @param to commit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to [gitlab()]
+#' 
+#' @details https://docs.gitlab.com/ee/api/repositories.html#compare-branches-tags-or-commits
 gl_compare_refs <- function(project,
                             from,
                             to,
@@ -138,6 +139,7 @@ gl_compare_refs <- function(project,
   gl_repository(req = "compare",
                 project = project,
                 from = from,
+                to = to,
                 ...)
 }
 
@@ -145,10 +147,15 @@ gl_compare_refs <- function(project,
 #' 
 #' @param project project name or id
 #' @param commit_sha if not null, get only the commit with the specific hash; for
-#' `gl_get_diff` this must be specified
+#' `gl_get_diff()` this must be specified
 #' @param ... passed on to [gitlab()] API call, may contain
 #' `ref_name` for specifying a branch or tag to list commits of
 #' @export
+#' @examples 
+#' \dontrun{
+#' my_commits <- gl_get_commits("<<your-project-id>>")
+#' gl_get_commits("<<your-project-id>>", my_commits$id[1])
+#' }
 gl_get_commits <- function(project,
                            commit_sha = c(),
                            ...) {

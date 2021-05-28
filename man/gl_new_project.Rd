@@ -18,9 +18,10 @@ Create new project
 }
 \examples{
 \dontrun{
-my_gitlab <- gl_connection(
-  gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_TOKEN"))
-gl_new_project(name = "toto", gitlab_con = my_gitlab)
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com", 
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+gl_new_project(name = "toto")
 }
 }

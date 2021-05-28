@@ -5,6 +5,7 @@ usethis::use_git_ignore("tests/environment.yml")
 
 # Doc
 usethis::use_vignette("projects")
+usethis::use_vignette("gitlabr-v2")
 usethis::use_roxygen_md()
 roxygen2md::roxygen2md()
 

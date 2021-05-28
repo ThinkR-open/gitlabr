@@ -9,11 +9,9 @@
 #' 
 #' @examples \dontrun{
 #' # Set GitLab connection for examples
-#' my_gitlab <- gl_connection(
+#' set_gitlab_connection(
 #'  gitlab_url = "https://gitlab.com",
 #'  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-#' # Set the connection for the session
-#' set_gitlab_connection(my_gitlab)
 #' 
 #' # Access repository
 #' # _All files

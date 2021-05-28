@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  eval = Sys.getenv("GITLAB_COM_TOKEN", unset = FALSE) # do not eval if token is not available
 )
 ```
 
@@ -21,6 +22,7 @@ knitr::opts_chunk$set(
 [![R build status](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
 <!-- badges: end -->
 
+**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/gitlabr-v2.html**
 
 ## Installation
 
@@ -93,44 +95,46 @@ gl_list_issues(project = my_project)
 
 ```{r}
 # create a new issue
-new_feature_issue <- gl_new_issue(title = "Implement new feature", project = my_project)
+new_feature_issue <- gl_new_issue(project = my_project, title = "Implement new feature")
 
 # statnmap user ID
 my_id <- 4809823
 
 # assign issue to me
-gl_assign_issue(new_feature_issue$iid,
-                assignee_id = my_id,
-                project = my_project)
+gl_assign_issue(project = my_project,
+                issue_id = new_feature_issue$iid,
+                assignee_id = my_id)
 
 # Verify new issue is here
-gl_list_issues(state = "opened", my_project)
+gl_list_issues(project = my_project, state = "opened")
 
 # close issue
-gl_close_issue(new_feature_issue$iid, project = my_project)$state
+gl_close_issue(project = my_project, issue_id = new_feature_issue$iid)$state
 ```
 
 ### Use additionnal requests
 
-If the API request is not already available in {gitlabr}, function `gitlab()` allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
+If an API request is not already available in {gitlabr}, function `gitlab()` allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
 
 For instance, the API documentation shows how to create a new project in [https://docs.gitlab.com/ee/api/projects.html#create-project]:
 
 - The verb is `POST`
 - The request is `projects`
 - Required attributes are `name` or `path` (if `name` not set)
-- `default_branch` is an attribute that can be set if wanted
+- `default_branch` is an attribute that can be set if wanted, but not required
 
 The corresponding use of `gitlab()` is:
 
 ```{r, eval=FALSE}
 gitlab(
   req = "projects",
-    verb = httr::POST,
-    name = "toto",
-    default_branch = "main"
-  )
+  verb = httr::POST,
+  name = "toto",
+  default_branch = "main"
+)
 ```
+
+Implement whatever suits your needs !
 
 ### Unset connection
 
