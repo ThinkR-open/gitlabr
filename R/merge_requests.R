@@ -15,12 +15,14 @@
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
 #' # Create MR and get its information
-#' mr_infos <- gl_create_merge_request(project = <<your-project-id>>, source_branch = "my-extra-branch",
+#' mr_infos <- gl_create_merge_request(project = <<your-project-id>>, 
+#'   source_branch = "my-extra-branch",
 #'   title = "Merge extra to master", description = "These modifications are wonderful")
 #' # List all opened MR
 #' gl_list_merge_requests(project = <<your-project-id>>, status = "opened")
 #' # Edit MR created
-#' gl_edit_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid, assignee_id = "<<user-id>>")
+#' gl_edit_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid, 
+#'   assignee_id = "<<user-id>>")
 #' # Close MR
 #' gl_close_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid)
 #' # Delete MR as it never existed

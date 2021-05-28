@@ -7,6 +7,8 @@
 gl_list_user_projects(user_id, ...)
 }
 \arguments{
+\item{user_id}{id of the user to list project from}
+
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
 \description{

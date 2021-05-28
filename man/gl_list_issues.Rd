@@ -51,7 +51,8 @@ gl_list_issues("<<your-project-id>>", state = "opened")
 # Get one issue
 gl_get_issue("<<your-project-id>>", issue_id = 1)
 # Create new issue
-gl_new_issue("<<your-project-id>>", title = "Implement new feature", description = "It should be awesome.")
+gl_new_issue("<<your-project-id>>", title = "Implement new feature", 
+  description = "It should be awesome.")
 # Assign user to issue 1
 gl_assign_issue("<<your-project-id>>", issue_id = 1, assignee_id = "<<user-id>>")
 }

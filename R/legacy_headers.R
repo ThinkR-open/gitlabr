@@ -46,8 +46,7 @@ NULL
 
 #' renamings from {gitlabr} version 0.6.4 to 0.7
 #'
-#' List of of old and new function name. Used internally by
-#' [update_gitlabr_code()]
+#' List of of old and new function name. 
 #' 
 #'
 #' @docType data

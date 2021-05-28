@@ -45,7 +45,8 @@ gl_get_issues <- function(project = NULL,
 #' # Get one issue
 #' gl_get_issue("<<your-project-id>>", issue_id = 1)
 #' # Create new issue
-#' gl_new_issue("<<your-project-id>>", title = "Implement new feature", description = "It should be awesome.")
+#' gl_new_issue("<<your-project-id>>", title = "Implement new feature", 
+#'   description = "It should be awesome.")
 #' # Assign user to issue 1
 #' gl_assign_issue("<<your-project-id>>", issue_id = 1, assignee_id = "<<user-id>>")
 #' }
@@ -139,6 +140,7 @@ gl_create_issue <- gl_new_issue
 #' @param api_version a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)
 #' @export
+#' @rdname gl_new_issue
 gl_edit_issue <- function(project, 
                           issue_id,
                           api_version = 4,

@@ -3,6 +3,7 @@
 \name{gl_new_issue}
 \alias{gl_new_issue}
 \alias{gl_create_issue}
+\alias{gl_edit_issue}
 \alias{gl_close_issue}
 \alias{gl_reopen_issue}
 \alias{gl_assign_issue}
@@ -13,6 +14,8 @@
 gl_new_issue(project, title, ...)
 
 gl_create_issue(project, title, ...)
+
+gl_edit_issue(project, issue_id, api_version = 4, ...)
 
 gl_close_issue(project, issue_id, ...)
 
@@ -31,6 +34,11 @@ gl_delete_issue(project, issue_id, ...)
 
 \item{...}{further parameters passed to the API call, may
 contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).}
+
+\item{issue_id}{issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is \code{TRUE} although this is not recommended!)}
+
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If \code{3}
+filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)}
 
 \item{assignee_id}{numeric id of users as returned in '/users/' API request}
 }

@@ -8,6 +8,5 @@
 A data frame with 33 rows and 2 variables
 }
 \description{
-List of of old and new function name. Used internally by
-\code{\link[=update_gitlabr_code]{update_gitlabr_code()}}
+List of of old and new function name.
 }

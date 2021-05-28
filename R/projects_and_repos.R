@@ -16,6 +16,7 @@ gl_list_projects <- function(...) {
 
 #' List user projects
 #' 
+#' @param user_id id of the user to list project from
 #' @param ... passed on to [gitlab()]
 #' @export
 #' 

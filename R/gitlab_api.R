@@ -33,10 +33,10 @@
 #' @return the response from the GitLab API, usually as a `tibble` and including all pages
 #' 
 #' @details 
-#' `gitlab()` function allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
+#' `gitlab()` function allows to use any request of the GitLab API <https://docs.gitlab.com/ce/api/>.
 #'
 #'  For instance, the API documentation shows how to create a new project in 
-#'  [https://docs.gitlab.com/ee/api/projects.html#create-project]: 
+#'  <https://docs.gitlab.com/ee/api/projects.html#create-project>: 
 #'  
 #'  - The verb is `POST`
 #'  - The request is `projects`
