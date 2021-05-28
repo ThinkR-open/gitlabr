@@ -122,11 +122,11 @@ test_that("set_gl_connection works", {
   
   # Mandatory col names are all the same
   expect_length(names_1[!names_1 %in% names_2], 0)
-  expect_length(names_1[!names_1 %in% names_3], 0)
+  expect_length(names_1[!names_1 %in% names_4], 0)
   expect_length(names_1[!names_1 %in% names_0], 0)
   expect_length(names_2[!names_2 %in% names_1], 0)
-  expect_length(names_2[!names_2 %in% names_3], 0)
-  expect_length(names_3[!names_3 %in% names_0], 0)
+  expect_length(names_2[!names_2 %in% names_4], 0)
+  expect_length(names_4[!names_4 %in% names_0], 0)
 })
 # unset connection
 unset_gitlab_connection()
@@ -176,11 +176,11 @@ test_that("set_gl_connection with dots works", {
   
   # Mandatory col names are all the same
   expect_length(names_1[!names_1 %in% names_2], 0)
-  expect_length(names_1[!names_1 %in% names_3], 0)
+  expect_length(names_1[!names_1 %in% names_4], 0)
   expect_length(names_1[!names_1 %in% names_0], 0)
   expect_length(names_2[!names_2 %in% names_1], 0)
-  expect_length(names_2[!names_2 %in% names_3], 0)
-  expect_length(names_3[!names_3 %in% names_0], 0)
+  expect_length(names_2[!names_2 %in% names_4], 0)
+  expect_length(names_4[!names_4 %in% names_0], 0)
   
 })
 unset_gitlab_connection()
