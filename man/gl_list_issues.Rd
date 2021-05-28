@@ -45,7 +45,9 @@ set_gitlab_connection(
   private_token = test_private_token
 )
 # list issues
-gl_list_issues("<<your-project-id>>")
+gl_list_issues("<<your-project-id>>", max_page = 1)
+# list opened issues
+gl_list_issues("<<your-project-id>>", state = "opened")
 # Get one issue
 gl_get_issue("<<your-project-id>>", issue_id = 1)
 # Create new issue

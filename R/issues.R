@@ -39,7 +39,9 @@ gl_get_issues <- function(project = NULL,
 #'   private_token = test_private_token
 #' )
 #' # list issues
-#' gl_list_issues("<<your-project-id>>")
+#' gl_list_issues("<<your-project-id>>", max_page = 1)
+#' # list opened issues
+#' gl_list_issues("<<your-project-id>>", state = "opened")
 #' # Get one issue
 #' gl_get_issue("<<your-project-id>>", issue_id = 1)
 #' # Create new issue
@@ -99,8 +101,26 @@ gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
 #' @param ... further parameters passed to the API call, may 
 #' contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).
 #' 
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 #' @export
+#' @examples 
+#' \dontrun{
+#' # create an issue
+#' new_issue_infos <- gl_create_issue(project = "<<your-project-id>>", "A simple issue")
+#' new_issue_iid <- new_issue_infos$iid[1]
+#' ## close issue
+#' gl_close_issue("<<your-project-id>>", new_issue_iid)
+#' ## reopen issue
+#' gl_reopen_issue("<<your-project-id>>", new_issue_iid)
+#' ## edit its description
+#' gl_edit_issue("<<your-project-id>>", new_issue_iid, description = "This is a test")
+#' ## assign it
+#' gl_assign_issue("<<your-project-id>>", new_issue_iid, assignee_id = "<<user-id>>")
+#' ## unassign it
+#' gl_unassign_issue("<<your-project-id>>", new_issue_iid)
+#' ## Delete issue as if it never existed
+#' gl_delete_issue("<<your-project-id>>", new_issue_iid)
+#' }
 gl_new_issue <- function(project, 
                          title,
                          ...) {
@@ -111,11 +131,10 @@ gl_new_issue <- function(project,
 }
 
 #' @export
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 gl_create_issue <- gl_new_issue
 
-#' Post a new issue or edit one
-#' 
+
 #' @param issue_id issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is `TRUE` although this is not recommended!)
 #' @param api_version a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)
@@ -135,7 +154,7 @@ gl_edit_issue <- function(project,
          ...)
 }
 
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 #' @export
 gl_close_issue <- function(project, 
                            issue_id,
@@ -143,7 +162,7 @@ gl_close_issue <- function(project,
   gl_edit_issue(project, issue_id, state_event = "close", ...)
 }
 
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 #' @export
 gl_reopen_issue <- function(project, 
                             issue_id,
@@ -151,7 +170,7 @@ gl_reopen_issue <- function(project,
   gl_edit_issue(project, issue_id, state_event = "reopen", ...)
 }
 
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 #' @param assignee_id numeric id of users as returned in '/users/' API request
 #' @export
 gl_assign_issue <- function(project, 
@@ -161,10 +180,20 @@ gl_assign_issue <- function(project,
   gl_edit_issue(project, issue_id, assignee_id = assignee_id, ...)
 }
 
-#' @rdname gl_edit_issue
+#' @rdname gl_new_issue
 #' @export
 gl_unassign_issue <- function(project,
                               issue_id,
                               ...) {
   gl_assign_issue(project, issue_id, assignee_id = 0, ...)
+}
+
+#' @rdname gl_new_issue
+#' @export
+gl_delete_issue <- function(project, 
+                            issue_id,
+                         ...) {
+  gitlab(req = gl_proj_req(project, c("issues", issue_id), ...),
+         verb = httr::DELETE,
+         ...)
 }

@@ -9,7 +9,7 @@
 #' 
 #' @export
 #' @examples 
-#' @examples \dontrun{
+#' \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com", 
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")

@@ -1,7 +1,7 @@
 # Create and list issues ----
 # create an issue
 new_issue_infos <- gl_create_issue(project = test_project, "A simple issue")
-# list issues (should be 2)
+# list issues
 all_issues <- gl_list_issues(test_project, max_page = 1)
 # list opened issues (should be 2)
 opened_issues <- gl_list_issues(test_project, state = "opened")
@@ -55,5 +55,11 @@ test_that("editing issues works", {
   gl_unassign_issue(test_project, new_issue_iid, api_version = test_api_version)
   expect_null(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.username)
   expect_null(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.id)
-  
+
+  ## Delete issue
+  gl_delete_issue(test_project, new_issue_iid)
+  all_issues <- gl_list_issues(test_project, max_page = 1)
+  expect_false(any(all_issues$iid == new_issue_iid))
+  # clean state
+  expect_equal(nrow(all_issues), 1)
 })

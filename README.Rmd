@@ -24,6 +24,8 @@ knitr::opts_chunk$set(
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/gitlabr-v2.html**
 
+_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
+
 ## Installation
 
 You can install the most recent stable version from CRAN using:
@@ -146,9 +148,6 @@ unset_gitlab_connection()
 
 - For a comprehensive overview & introduction see the `vignette("quick-start-guide-to-gitlabr")`
 - When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
-
-_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
-
 
 # Contributing to {gitlabr}
 
