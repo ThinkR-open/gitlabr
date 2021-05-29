@@ -4,17 +4,18 @@ test_that("branch access works", {
   ## List branches
   list_branch <- gl_list_branches(test_project)
   expect_is(list_branch, "data.frame")
-  expect_true(all(list_branch[["name"]] %in% c("master", "for-tests"))) # master and for-tests
+  expect_true(all(list_branch[["name"]] %in% c(get_main(), "for-tests"))) # main and for-tests
   
   # With project parameter named
   ## List branches
   list_branch <- gl_list_branches(project = test_project)
   expect_is(list_branch, "data.frame")
-  expect_true(all(list_branch[["name"]] %in% c("master", "for-tests"))) # master and for-tests
+  expect_true(all(list_branch[["name"]] %in% c(get_main(), "for-tests"))) # main and for-tests
   
   ## creating branch
   new_branch <- gl_create_branch(project = test_project, branch = "testbranch", ref = "for-tests")
   Sys.sleep(30) # Wait for branch to be really added 10 seconds is not long enough...
+  expect_equal(nrow(new_branch), 1)
   list_branch_new <- gl_list_branches(project = test_project)
   expect_true("testbranch" %in% list_branch_new[["name"]])
   

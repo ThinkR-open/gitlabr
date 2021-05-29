@@ -11,7 +11,7 @@
 gl_create_merge_request(
   project,
   source_branch,
-  target_branch = "master",
+  target_branch = get_main(),
   title,
   description,
   ...
@@ -52,7 +52,7 @@ set_gitlab_connection(
 # Create MR and get its information
 mr_infos <- gl_create_merge_request(project = <<your-project-id>>, 
   source_branch = "my-extra-branch",
-  title = "Merge extra to master", description = "These modifications are wonderful")
+  title = "Merge extra to main", description = "These modifications are wonderful")
 # List all opened MR
 gl_list_merge_requests(project = <<your-project-id>>, status = "opened")
 # Edit MR created

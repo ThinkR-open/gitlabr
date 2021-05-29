@@ -1,3 +1,14 @@
+# Main branch ----
+test_that("gitlabr_options_set works", {
+  expect_equal(get_main(), getOption("gitlabr.main", default = "main"))
+  old.option <- get_main()
+  gitlabr_options_set("gitlabr.main", NULL)
+  expect_equal(get_main(), 'main')
+  gitlabr_options_set("gitlabr.main", "toto")
+  expect_equal(get_main(), 'toto')
+  gitlabr_options_set("gitlabr.main", old.option)
+})
+
 # Unset as it is set in helper.R
 unset_gitlab_connection()
 

@@ -35,25 +35,25 @@ gl_list_branches <- function(project, verb = httr::GET, ...) {
 #' @param ref ref name of origin for newly created branch
 #' @rdname branches
 #' @export
-gl_create_branch <- function(project, branch, ref = "master", verb = httr::POST, ...) {
+gl_create_branch <- function(project, branch, ref = get_main(), ...) {
   gl_proj_req(project, c("repository", "branches"), ...) %>% 
     gitlab(verb = httr::POST,
            branch_name = branch, ## This is legacy for API v3 use and will be ignored by API v4
            branch = branch,
            ref = ref,
-           auto_format = FALSE,
-           ...) %>%
-    tibble::as_tibble()
+           auto_format = TRUE,
+           ...) #%>%
+    # tibble::as_tibble()
 }
 
 #' List, create and delete branches
 #' 
 #' @rdname branches
 #' @export
-gl_delete_branch <- function(project, branch, verb = httr::POST, ...) {
+gl_delete_branch <- function(project, branch, ...) {
   gl_proj_req(project, c("repository", "branches", branch), ...) %>% 
     gitlab(verb = httr::DELETE,
-           auto_format = FALSE,
-           ...) %>%
-    tibble::as_tibble()
+           auto_format = TRUE,
+           ...) #%>%
+    # tibble::as_tibble()
 }

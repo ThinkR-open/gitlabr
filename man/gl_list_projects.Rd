@@ -2,15 +2,25 @@
 % Please edit documentation in R/projects_and_repos.R
 \name{gl_list_projects}
 \alias{gl_list_projects}
-\title{List projects}
+\alias{gl_list_user_projects}
+\alias{gl_get_project}
+\title{List projects information}
 \usage{
 gl_list_projects(...)
+
+gl_list_user_projects(user_id, ...)
+
+gl_get_project(project, ...)
 }
 \arguments{
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
+
+\item{user_id}{id of the user to list project from}
+
+\item{project}{project name or id}
 }
 \description{
-List projects
+List projects information
 }
 \examples{
 \dontrun{
@@ -18,6 +28,9 @@ set_gitlab_connection(
   gitlab_url = "https://gitlab.com", 
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
+# List all projects
 gl_list_projects(max_page = 1)
+# List users projects
+gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
 }
 }

@@ -2,9 +2,15 @@
 % Please edit documentation in R/projects_and_repos.R
 \name{gl_new_project}
 \alias{gl_new_project}
-\title{Create new project}
+\alias{gl_edit_project}
+\alias{gl_delete_project}
+\title{Manage projects}
 \usage{
 gl_new_project(name, path, ...)
+
+gl_edit_project(project, ...)
+
+gl_delete_project(project)
 }
 \arguments{
 \item{name}{of the new project. The name of the new project. Equals path if not provided}
@@ -12,9 +18,17 @@ gl_new_project(name, path, ...)
 \item{path}{to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "Create project"}
+
+\item{project}{The ID or URL-encoded path of the project.}
 }
 \description{
-Create new project
+Manage projects
+}
+\details{
+You can use extra parameters as proposed in the GitLab API:
+\itemize{
+\item \code{namespace_id}: Namespace for the new project (defaults to the current user’s namespace).
+}
 }
 \examples{
 \dontrun{
@@ -22,6 +36,11 @@ set_gitlab_connection(
   gitlab_url = "https://gitlab.com", 
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
+# Create new project
 gl_new_project(name = "toto")
+# Edit existing project
+gl_edit_project(project = "<<your-project-id>>", default_branch = "main")
+# Delete project
+gl_delete_project(project = "<<your-project-id>>")
 }
 }

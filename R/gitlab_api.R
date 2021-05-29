@@ -201,6 +201,7 @@ is_named <- function(v) {
 
 
 is_single_row <- function(l) {
+
   if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
     return(TRUE)
   } else {

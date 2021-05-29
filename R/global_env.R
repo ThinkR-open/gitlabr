@@ -36,3 +36,22 @@ get_gitlab_connection <- function() {
 unset_gitlab_connection <- function() {
   set_gitlab_connection(NULL)
 }
+
+#' Set gitlabr options
+#' @param key option name
+#' @param value option value
+#' @export
+#' @return Used for side effect. Populate user [options()]
+#' @details 
+#' Options accounted for by gitlabr:
+#' 
+#' - `gitlabr.main`: Name of the main branch of your repository. Default to "main" in functions.
+gitlabr_options_set <- function(key, value) {
+  data <- list(value)
+  names(data) <- key
+  do.call(base::options, data)
+}
+
+get_main <- function() {
+  getOption("gitlabr.main", default = "main")
+}

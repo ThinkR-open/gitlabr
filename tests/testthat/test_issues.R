@@ -57,6 +57,7 @@ test_that("editing issues works", {
   expect_null(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.id)
 
   ## Delete issue
+  # gl_delete_issue(test_project, 123)
   gl_delete_issue(test_project, new_issue_iid)
   all_issues <- gl_list_issues(test_project, max_page = 1)
   expect_false(any(all_issues$iid == new_issue_iid))

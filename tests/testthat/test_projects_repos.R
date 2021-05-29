@@ -9,6 +9,14 @@ test_that("gl_list_projects work", {
   expect_true(all(c("id", "name", "path") %in% names(all_projects)))
 })
 
+# gl_get_project ----
+test_that("gl_get_project work", {
+  project_info <- gl_get_project(test_project)
+  expect_equal(nrow(project_info), 1)
+  expect_true(all(c("id", "name", "path") %in% names(project_info)))
+})
+
+
 # gl_proj_req ----
 proj_req <- gl_proj_req(test_project, req = "merge_requests")
 test_that("gl_proj_req works", {
@@ -41,10 +49,10 @@ test_that("gl_proj_req works", {
 # })
 
 # gl_get_commits ----
+my_commits <- gl_get_commits(test_project, ref_name = get_main())
 
 test_that("Commits work", {
   
-  my_commits <- gl_get_commits(test_project)
   my_commit <- gl_get_commits(test_project, my_commits$id[1])
   
   expect_is(my_commits, "data.frame")
@@ -56,7 +64,8 @@ test_that("Commits work", {
 
 
 # gl_get_diff ----
-the_diff <- gl_get_diff(test_project, "41582a3a61a943e2668de24555afa6814f7d3aaf")
+# The commit with CI is the last one in main branch
+the_diff <- gl_get_diff(test_project, my_commits$short_id[1])
   
 test_that("gl_get_diff work", {
 
@@ -68,3 +77,27 @@ test_that("gl_get_diff work", {
 
 # gl_new_project ----
 # Dont test not avoid GitLab rejection
+
+# gl_edit_project ----
+test_that("gl_edit_project work", {
+  proj_edit <- gl_edit_project(project = test_project, default_branch = "for-tests")
+  expect_equal(nrow(proj_edit), 1)
+  # gl_list_branches is not reliable for default information
+  # all_branches <- gl_list_branches(test_project)
+  project_info <- gl_get_project(test_project)
+  # expect_equal(all_branches$default[all_branches$name == "for-tests"], "TRUE")
+  expect_equal(project_info$default_branch, "for-tests")
+  # Strangely, main keeps beeing default in a way
+  # expect_equal(all_branches$default[all_branches$name == "main"], "FALSE")
+  # Back to main
+  gl_edit_project(project = test_project, default_branch = "main")
+  # all_branches <- gl_list_branches(test_project)
+  project_info <- gl_get_project(test_project)
+  # expect_equal(all_branches$default[all_branches$name == "for-tests"], "FALSE")
+  # expect_equal(all_branches$default[all_branches$name == "main"], "TRUE")
+  expect_equal(project_info$default_branch, "main")
+})
+
+# gl_delete_project ----
+# Dont test delete project because this example project is needed...
+

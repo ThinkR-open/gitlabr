@@ -10,12 +10,12 @@ gl_push_file(
   file_path,
   content,
   commit_message,
-  branch = "master",
+  branch = get_main(),
   overwrite = TRUE,
   ...
 )
 
-gl_delete_file(project, file_path, commit_message, branch = "master", ...)
+gl_delete_file(project, file_path, commit_message, branch = get_main(), ...)
 }
 \arguments{
 \item{project}{Project name or id}
@@ -48,7 +48,7 @@ write.csv(mtcars, file = tmpfile)
 # Push content to repository with a commit
 gl_push_file(
   project = <<your-project-id>>,
-  file.path = "test_data.csv",
+  file_path = "test_data.csv",
   content = paste(readLines(tmpfile), collapse = "\n"),
   commit_message = "New test data")
 }

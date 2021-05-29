@@ -1,9 +1,8 @@
 # gitlabr 2.0.0
 
-* Update documentation: recommend using `gl_*` functions
+Breaking changes
 
-Breaking change
-
+* Default branch is named `main` whenever required
 * All project-specific functions get `project` as first parameter. Changes apply to:
   + `gl_get_comments()`,`gl_to_issue_id()`, `gl_get_issue_comments()`, `gl_get_commit_comments()`,
   `gl_edit_comment()`, `gl_edit_issue_comment()`, `gl_edit_commit_comment()`
@@ -12,6 +11,12 @@ Breaking change
   `gl_reopen_issue()`, `gl_assign_issue()`, `gl_unassign_issue()`
 * Changed use of `api_version = "v4"` by `api_version = 4`
 * Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default
+
+Major
+
+* Add new functions to manage projects: `gl_get_project()`, `gl_new_project()`, `gl_edit_project()`,
+ `gl_delete_project()`
+* Update documentation: recommend using `gl_*` functions
 
 Minor
 

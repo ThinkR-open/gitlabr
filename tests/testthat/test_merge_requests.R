@@ -1,7 +1,7 @@
 # gl_create_merge_request ----
 
 the_mr <- gl_create_merge_request(test_project, 
-                                  source_branch = "for-tests", target_branch = "master",
+                                  source_branch = "for-tests", target_branch = get_main(),
                                   title = "Test MR",
                                   description = "Test description")
 

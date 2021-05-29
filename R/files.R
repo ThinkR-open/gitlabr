@@ -23,16 +23,16 @@
 #' # _Get content of one file
 #' gl_get_file(project = <<your-project-id>>, file_path = "README.md")
 #' # _Test if file exists
-#' gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "master")
+#' gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "main")
 #' }
-gl_repository <- function(project, req = c("tree"), ref = "master", ...) {
+gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
   gitlab(gl_proj_req(project, c("repository", req), ...), ref = ref, ...)
 }
 
 #' @rdname gl_repository
 #' @importFrom purrr partial
 #' @export
-gl_list_files <- function(project, ref = "master", ...) {
+gl_list_files <- function(project, ref = get_main(), ...) {
   gitlab(gl_proj_req(project, c("repository", "tree"), ...), ref = ref, ...)
 }
 
@@ -64,7 +64,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 #' @rdname gl_repository
 gl_get_file <- function(project,
                         file_path,
-                        ref = "master",
+                        ref = get_main(),
                         to_char = TRUE,
                         api_version = 4,
                         ...) {
@@ -112,7 +112,7 @@ gl_get_file <- function(project,
 #' # Push content to repository with a commit
 #' gl_push_file(
 #'   project = <<your-project-id>>,
-#'   file.path = "test_data.csv",
+#'   file_path = "test_data.csv",
 #'   content = paste(readLines(tmpfile), collapse = "\n"),
 #'   commit_message = "New test data")
 #' }
@@ -120,7 +120,7 @@ gl_push_file <- function(project,
                          file_path,
                          content,
                          commit_message,
-                         branch = "master",
+                         branch = get_main(),
                          overwrite = TRUE,
                          ...) {
   
@@ -143,7 +143,7 @@ gl_push_file <- function(project,
 gl_delete_file <- function(project,
                          file_path,
                          commit_message,
-                         branch = "master",
+                         branch = get_main(),
                          ...) {
   
   exists <- gl_file_exists(project = project, file_path, ref = branch, ...)

@@ -16,7 +16,7 @@ gl_builds(project, api_version = 4, ...)
 gl_latest_build_artifact(
   project,
   job,
-  ref_name = "master",
+  ref_name = get_main(),
   save_to_file = tempfile(fileext = ".zip"),
   ...
 )

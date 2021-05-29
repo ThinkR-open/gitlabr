@@ -1,6 +1,11 @@
 
 
 test_that("Repo access works", {
+  # Dont not fail with character id 
+  expect_error(gl_repository("totostatnmap"))
+  out_with_chr <- gl_repository(as.character(test_project))
+  expect_is(out_with_chr, "data.frame")
+  
   # Without project named
   # list files
   repo_files <- gl_repository(test_project)
@@ -30,8 +35,8 @@ test_that("Repo access works", {
   expect_is(readme_content, "character")
 
   # File exists
-  expect_true(gl_file_exists(project = test_project, file_path = "README.md", ref = "master"))
-  expect_false(gl_file_exists(project = test_project, file_path = "zzz", ref = "master"))
+  expect_true(gl_file_exists(project = test_project, file_path = "README.md", ref = get_main()))
+  expect_false(gl_file_exists(project = test_project, file_path = "zzz", ref = get_main()))
   
   # Push file
   list_files <- gl_list_files(project = test_project, ref = "for-tests")

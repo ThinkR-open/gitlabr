@@ -55,8 +55,8 @@ gl_ci_job <- function(job_name, stage = job_name, allowed_dependencies = c(), ..
 
 gl_ci_push_job <- function(remote) {
   list(stage = "push",
-       only = list("master"),
-       script = list(paste0("git push ", remote, " master")))
+       only = list(get_main()),
+       script = list(paste0("git push ", remote, " ", get_main())))
 }
 
 ci_r_script <- function(expr, packages = c("devtools"), vanilla = TRUE, slave = FALSE) {
@@ -230,7 +230,7 @@ gl_builds <- function(project, api_version = 4, ...) {
 #' @param ref_name name of ref (i.e. branch, commit, tag)
 #' @param save_to_file either a path where to store .zip file or NULL if raw should be returned
 #' @return returns the file path if `save_to_file` is TRUE, or the archive as raw otherwise.
-gl_latest_build_artifact <- function(project, job, ref_name = "master", save_to_file = tempfile(fileext = ".zip"), ...) {
+gl_latest_build_artifact <- function(project, job, ref_name = get_main(), save_to_file = tempfile(fileext = ".zip"), ...) {
   
   raw_build_archive <- gitlab(gl_proj_req(project = project,
                                           c("jobs", "artifacts", ref_name, "download"),

@@ -1,4 +1,4 @@
-#' List projects
+#' List projects information
 #' 
 #' @param ... passed on to [gitlab()]
 #' @export
@@ -8,29 +8,29 @@
 #'   gitlab_url = "https://gitlab.com", 
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
+#' # List all projects
 #' gl_list_projects(max_page = 1)
+#' # List users projects
+#' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
 #' }
 gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
-#' List user projects
-#' 
+
 #' @param user_id id of the user to list project from
-#' @param ... passed on to [gitlab()]
 #' @export
-#' 
-#' @examples \dontrun{
-#' set_gitlab_connection(
-#'   gitlab_url = "https://gitlab.com", 
-#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
-#' )
-#' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
-#' }
+#' @rdname gl_list_projects
 gl_list_user_projects <- function(user_id, ...) {
   gitlab(c("users", user_id, "projects"), ...)
 }
 
+#' @param project project name or id
+#' @export
+#' @rdname gl_list_projects
+gl_get_project <- function(project, ...) {
+  gitlab(c("projects", to_project_id(project)), ...)
+}
 
 #' Create a project specific request
 #' 
@@ -92,10 +92,11 @@ gl_get_project_id <- function(project_name, ...) {
 }
 
 to_project_id <- function(x, ...) {
-  if (is.numeric(x)) {
-    x
-  } else
+  if (!is.na(as.numeric(x)) | is.numeric(x)) {
+    as.numeric(x)
+  } else {
     gl_get_project_id(x, ...)
+  }
 }
 
 
@@ -177,24 +178,65 @@ gl_get_diff <-  function(project,
                 ...)
 }
 
-#' Create new project
+#' Manage projects
 #' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
 #' @param name of the new project. The name of the new project. Equals path if not provided
 #' @param ... passed on to [gitlab()] API call for "Create project"
 #' @export
+#' @return A tibble with the project information. `gl_delete_project()` returns an empty tibble.
+#' @details 
+#' You can use extra parameters as proposed in the GitLab API:
+#' 
+#' - `namespace_id`: Namespace for the new project (defaults to the current user’s namespace). 
+#' 
 #' @examples \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com", 
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
+#' # Create new project
 #' gl_new_project(name = "toto")
+#' # Edit existing project
+#' gl_edit_project(project = "<<your-project-id>>", default_branch = "main")
+#' # Delete project
+#' gl_delete_project(project = "<<your-project-id>>")
 #' }
 gl_new_project <- function(name,
                            path,
                            ...) {
   
-  gitlab(req = "projects", name = name,
-         path = path,
-         verb = httr::POST,
-         ...)
+  if (!missing(path)) {
+    path <- gsub("[[:punct:]]", "-", tolower(path))
+    gitlab(req = "projects", 
+           path = path,
+           verb = httr::POST,
+           ...)
+  } else {
+    gitlab(req = "projects", 
+           name = name,
+           verb = httr::POST,
+           ...)
+  }
+  
+  
+}
+
+#' @param project The ID or URL-encoded path of the project.
+#' @rdname gl_new_project
+#' @export
+gl_edit_project <- function(project,
+                           ...) {
+  
+    gitlab(req = c("projects", to_project_id(project)), 
+           verb = httr::PUT,
+           ...)
+  
+}
+
+#' @rdname gl_new_project
+#' @export
+gl_delete_project <- function(project) {
+  
+  gitlab(req = c("projects", to_project_id(project)),
+         verb = httr::DELETE)
 }

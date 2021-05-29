@@ -7,16 +7,16 @@
 \alias{gl_get_file}
 \title{Access to repository files in GitLab}
 \usage{
-gl_repository(project, req = c("tree"), ref = "master", ...)
+gl_repository(project, req = c("tree"), ref = get_main(), ...)
 
-gl_list_files(project, ref = "master", ...)
+gl_list_files(project, ref = get_main(), ...)
 
 gl_file_exists(project, file_path, ref, ...)
 
 gl_get_file(
   project,
   file_path,
-  ref = "master",
+  ref = get_main(),
   to_char = TRUE,
   api_version = 4,
   ...
@@ -62,6 +62,6 @@ gl_list_files(project = <<your-project-id>>)
 # _Get content of one file
 gl_get_file(project = <<your-project-id>>, file_path = "README.md")
 # _Test if file exists
-gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "master")
+gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "main")
 }
 }
