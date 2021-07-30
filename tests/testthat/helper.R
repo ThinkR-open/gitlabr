@@ -21,6 +21,8 @@ test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "28485393")
 # Main branch is called master in some cases
 if (grepl("master", test_project_name)) {
   gitlabr_options_set("gitlabr.main", "master")
+} else {
+  gitlabr_options_set("gitlabr.main", "main")
 }
 
 # Set GitLab connection for all tests

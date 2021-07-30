@@ -25,6 +25,8 @@ for (test_project_name in projects_names) {
   # Define main branch (currently gitlab is only for "main" by default in unit tests)
   if (grepl("master", test_project_name)) {
     gitlabr_options_set("gitlabr.main", "master")
+  } else {
+    gitlabr_options_set("gitlabr.main", "main")
   }
   main_branch <- get_main()
 
