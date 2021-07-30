@@ -1,0 +1,116 @@
+---
+title: "Quick Start Guide to {gitlabr}"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Quick-Start-Guide-to-gitlabr}
+  %\VignetteEncoding{UTF-8}
+  %\VignetteEngine{knitr::rmarkdown}
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+# Quick Start Example
+
+To run the code in this vignette you'll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab [documentation](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) on how to generate PATs. In the **Scopes** section you only need to tick the *api* box.
+  + For instance on gitlab.com: https://gitlab.com/profile/personal_access_tokens
+  + Tick the fist checkboxes (the `api` scope) 
+  + Add the token in your ".Renviron" as `GITLAB_COM_TOKEN`
+
+R code using {gitlabr} to perform some easy, common GitLab actions can look like this:
+
+```{r eval = FALSE}
+library(gitlabr)
+
+# Store your token in .Renviron and restart your session
+usethis::edit_r_environ()
+# Add: GITLAB_COM_TOKEN=YourTokenHere
+# You can verify it worked
+Sys.getenv("GITLAB_COM_TOKEN")
+
+# connect as a fixed user to a GitLab instance
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+
+gl_list_projects(page = 1)  # Returns all projects on GitLab, so we limit to just the first page of results.
+
+# It's unlikely that you'll want to use {gitlabr} to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
+# Here we use the [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask)
+my_project <- 20384533
+gl_list_files(project = my_project)
+
+# create a new issue
+new_feature_issue <- gl_create_issue(title = "Implement new feature",
+                                  project = my_project)
+
+# statnmap user ID
+my_id <- 4809823
+
+# assign issue to me
+gl_assign_issue(assignee_id = example_user$id,
+                issue_id = new_feature_issue$iid,
+                project = my_project)
+
+# List opened issues
+gl_list_issues(state = "opened",
+               project = my_project)
+
+# close the issue
+gl_close_issue(issue_id = new_feature_issue$iid, 
+               project = my_project)$state
+```
+
+# Central features of {gitlabr}
+
+- {gitlabr} provides a high and a low level interface to the GitLab API at the same time:
+    - Common queries are wrapped in special convenience functions that can be used without any knowledge of the GitLab API itself (convenience functions are listed in a dedicated section on {gitlabr}'s pkgdown [site](https://statnmap.github.io/gitlabr/reference/index.html)).
+    - Still, the package can be used to access the complete GitLab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
+- The output of every call to a {gitlabr} function is a `tibble` to integrate seamless into dplyr's data manipulation mindset (often called the "tidyverse")
+- Pagination is wrapped for the user, but can be controlled via parameters `page` and `per_page` if necessary.
+- To allow programming in your favorite style, everything you can do with {gitlabr} you can do using any of a set of general idioms -- get to know them in the section ["Different ways to do it"](#different-ways-to-do-it).
+- You can write your own convenience wrappers on top of the {gitlabr} logic following only one principle as described in the section ["Writing custom GitLab request functions"](#writing-custom-gitlab-request-functions).
+
+
+# Set connection and explore the GitLab instance
+
+This is the recommended way of using {gitlabr}. 
+In order to avoid the repeated specification of `gitlab_con()` in the parameter style, you can also set a global variable managed by {gitlabr} to use a specific connection function for every call:
+
+```{r eval = FALSE}
+set_gitlab_connection(my_gitlab)
+gl_create_issue(project = my_project, "Implement new feature")
+```
+
+`gl_create_issue()` is an example function here, the principle works for all convenience functions of {gitlabr} starting with `gl_*()`
+
+Note that the set style is not purely functional, since `set_gitlab_connection()` changes a saved global variable affecting the results of all future `gitlab()` calls.
+You can reset this variable to the default value using `unset_gitlab_connection()`.
+
+
+## parameter style
+
+All convenience wrappers accept a parameter `gitlab_con()` specifying the function to use for the actual API call.
+Hence, you can pass a GitLab connection (as returned by `gl_connection()`) with the R function call:
+
+```{r eval = FALSE}
+my_gitlab <- gl_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+
+gl_create_issue("Implement new feature", project = my_project, gitlab_con = my_gitlab)
+```
+
+Again, `gl_create_issue()` is an example function here, the principle style works for all convenience functions of {gitlabr} listed in the ["Convenience function list"](#convenience-function-list) below or user-defined functions as described in the section ["Writing custom GitLab request functions"](#writing-custom-gitlab-request-functions).
+
+
+# Using GitLab CI with {gitlabr}
+
+{gitlabr} can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package using GitLab's CI software. See the `use_gitlab_ci()` and related functions for documentation.

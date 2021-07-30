@@ -23,3 +23,9 @@ Options accounted for by gitlabr:
 \item \code{gitlabr.main}: Name of the main branch of your repository. Default to "main" in functions.
 }
 }
+\examples{
+# Principal branch is called "master"
+gitlabr_options_set("gitlabr.main", "master")
+# Go back to default option (principal branch will be "main")
+gitlabr_options_set("gitlabr.main", NULL)
+}

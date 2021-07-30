@@ -83,6 +83,13 @@ gl_list_projects(max_page = 2)
 my_project <- 20384533 #repo.rtask",
 ```
 
+- If the principal branch is not named `main`, you need to specify it with `gitlabr_options_set()`
+
+```{r}
+gitlabr_options_set("gitlabr.main", "master")
+```
+
+
 - List files of the project using `gl_list_files`
 ```{r}
 gl_list_files(project = my_project)
@@ -96,9 +103,9 @@ gl_list_issues(project = my_project)
 
 - Create an issue
 
-```{r}
+```{r, eval=FALSE}
 # create a new issue
-new_feature_issue <- gl_new_issue(project = my_project, title = "Implement new feature")
+new_feature_issue <- gl_create_issue(project = my_project, title = "Implement new feature")
 
 # statnmap user ID
 my_id <- 4809823
@@ -114,6 +121,8 @@ gl_list_issues(project = my_project, state = "opened")
 # close issue
 gl_close_issue(project = my_project, issue_id = new_feature_issue$iid)$state
 ```
+
+_Note that recent version of GitLab may have anti-spam on opening issues, leading to ERROR with `gl_create_issue()` if you abuse the API. You will need to open the issue manually in this case._
 
 ### Use additionnal requests
 
@@ -145,9 +154,20 @@ Implement whatever suits your needs !
 unset_gitlab_connection()
 ```
 
+## Using GitLab CI with {gitlabr}
+
+{gitlabr} can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package, a bookdown, ... using GitLab's CI software. Use `gitlabr::use_gitlab_ci()` with a specific `type` in your project and your CI should be ready to start in the next commit.
+
+There are pre-defined templates:  
+
+```{r echo=FALSE, results='asis'}
+cat(paste("-", list.files("inst/gitlab-ci/"), collapse = "\n\n"))
+```
+
+
 ## Further information
 
-- For a comprehensive overview & introduction see the `vignette("quick-start-guide-to-gitlabr")`
+- For an introduction see the `vignette("quick-start-guide-to-gitlabr")`
 - When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
 
 # Contributing to {gitlabr}

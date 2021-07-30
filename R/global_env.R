@@ -46,6 +46,11 @@ unset_gitlab_connection <- function() {
 #' Options accounted for by gitlabr:
 #' 
 #' - `gitlabr.main`: Name of the main branch of your repository. Default to "main" in functions.
+#' @examples 
+#' # Principal branch is called "master"
+#' gitlabr_options_set("gitlabr.main", "master")
+#' # Go back to default option (principal branch will be "main")
+#' gitlabr_options_set("gitlabr.main", NULL)
 gitlabr_options_set <- function(key, value) {
   data <- list(value)
   names(data) <- key
