@@ -2,7 +2,8 @@
 
 Breaking changes
 
-* Default branch is named `main` whenever required
+* Default branch is named `main` whenever required.
+  + This can be changed with `gitlabr_options_set("gitlabr.main", "master")`
 * All project-specific functions get `project` as first parameter. Changes apply to:
   + `gl_get_comments()`,`gl_to_issue_id()`, `gl_get_issue_comments()`, `gl_get_commit_comments()`,
   `gl_edit_comment()`, `gl_edit_issue_comment()`, `gl_edit_commit_comment()`

@@ -13,6 +13,9 @@ gl_proj_req(project, req, ...)
 
 \item{...}{passed on to \code{\link[=gl_get_project_id]{gl_get_project_id()}}}
 }
+\value{
+A vector of character to be used as request for functions involving projects
+}
 \description{
 Prefixes the request location with "project/:id" and automatically
 translates project names into ids

@@ -2,11 +2,14 @@
 % Please edit documentation in R/branches.R
 \name{gl_list_branches}
 \alias{gl_list_branches}
+\alias{gl_get_branch}
 \alias{gl_create_branch}
 \alias{gl_delete_branch}
 \title{List, create and delete branches}
 \usage{
-gl_list_branches(project, verb = httr::GET, ...)
+gl_list_branches(project, ...)
+
+gl_get_branch(project, branch, ...)
 
 gl_create_branch(project, branch, ref = get_main(), ...)
 
@@ -15,17 +18,13 @@ gl_delete_branch(project, branch, ...)
 \arguments{
 \item{project}{name or id of project (not repository!)}
 
-\item{verb}{is ignored, will always be forced to match the action the function name indicates}
-
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 
-\item{branch}{name of branch to create/delete}
+\item{branch}{name of branch to create / delete / get information}
 
 \item{ref}{ref name of origin for newly created branch}
 }
 \description{
-List, create and delete branches
-
 List, create and delete branches
 
 List, create and delete branches
@@ -37,16 +36,18 @@ set_gitlab_connection(gitlab_url = "https://gitlab.com",
 project_id <- ... ## Fill in your project ID
 
 # List branches of the project
-gl_list_branches(project_id) 
+gl_list_branches(project_ = "<<your-project-id>>") 
 # Create branch "new_feature"
-gl_create_branch(project_id,
+gl_create_branch(project = "<<your-project-id>>",
                  branch = "new_feature")
 # Confirm that the branch was created
-gl_list_branches(project_id)
+gl_get_branch("<<your-project-id>>", branch = "new_feature")
+# List all branches - this may take some time before your branch really appears there
+gl_list_branches(project = "<<your-project-id>>")
 # Delete branch again
-gl_delete_branch(project_id,
+gl_delete_branch(project = "<<your-project-id>>",
                  branch = "new_feature")
 # Check that we're back where we started
-gl_list_branches(project_id)
+gl_list_branches(project = "<<your-project-id>>")
 }
 }

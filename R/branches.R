@@ -2,7 +2,6 @@
 #' 
 #' @rdname branches
 #' @param project name or id of project (not repository!)
-#' @param verb is ignored, will always be forced to match the action the function name indicates
 #' @param ... passed on to [gitlab()]
 #' @export
 #' 
@@ -12,26 +11,33 @@
 #' project_id <- ... ## Fill in your project ID
 #' 
 #' # List branches of the project
-#' gl_list_branches(project_id) 
+#' gl_list_branches(project_ = "<<your-project-id>>") 
 #' # Create branch "new_feature"
-#' gl_create_branch(project_id,
+#' gl_create_branch(project = "<<your-project-id>>",
 #'                  branch = "new_feature")
 #' # Confirm that the branch was created
-#' gl_list_branches(project_id)
+#' gl_get_branch("<<your-project-id>>", branch = "new_feature")
+#' # List all branches - this may take some time before your branch really appears there
+#' gl_list_branches(project = "<<your-project-id>>")
 #' # Delete branch again
-#' gl_delete_branch(project_id,
+#' gl_delete_branch(project = "<<your-project-id>>",
 #'                  branch = "new_feature")
 #' # Check that we're back where we started
-#' gl_list_branches(project_id)
+#' gl_list_branches(project = "<<your-project-id>>")
 #' }
-gl_list_branches <- function(project, verb = httr::GET, ...) {
+gl_list_branches <- function(project, ...) {
   gl_proj_req(project, c("repository", "branches"), ...) %>% 
     gitlab(...)
 }
 
-#' List, create and delete branches
-#' 
-#' @param branch name of branch to create/delete
+#' @rdname branches
+#' @export
+gl_get_branch <- function(project, branch, ...) {
+  gl_proj_req(project, c("repository", "branches", branch), ...) %>% 
+    gitlab(...)
+}
+
+#' @param branch name of branch to create / delete / get information
 #' @param ref ref name of origin for newly created branch
 #' @rdname branches
 #' @export

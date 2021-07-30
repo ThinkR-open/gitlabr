@@ -1,6 +1,6 @@
 on:
-  repository_dispatch:
-    types: [test-coverage]
+  push:
+    branches: [main, master]
 
 name: test-coverage
 

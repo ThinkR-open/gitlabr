@@ -53,7 +53,7 @@ my_commits <- gl_get_commits(test_project, ref_name = get_main())
 
 test_that("Commits work", {
   
-  my_commit <- gl_get_commits(test_project, my_commits$id[1])
+  my_commit <- gl_get_commits(test_project, commit_sha = my_commits$id[1])
   
   expect_is(my_commits, "data.frame")
   expect_is(my_commit, "data.frame")
@@ -88,14 +88,14 @@ test_that("gl_edit_project work", {
   # expect_equal(all_branches$default[all_branches$name == "for-tests"], "TRUE")
   expect_equal(project_info$default_branch, "for-tests")
   # Strangely, main keeps beeing default in a way
-  # expect_equal(all_branches$default[all_branches$name == "main"], "FALSE")
+  # expect_equal(all_branches$default[all_branches$name == get_main()], "FALSE")
   # Back to main
-  gl_edit_project(project = test_project, default_branch = "main")
+  gl_edit_project(project = test_project, default_branch = get_main())
   # all_branches <- gl_list_branches(test_project)
   project_info <- gl_get_project(test_project)
   # expect_equal(all_branches$default[all_branches$name == "for-tests"], "FALSE")
-  # expect_equal(all_branches$default[all_branches$name == "main"], "TRUE")
-  expect_equal(project_info$default_branch, "main")
+  # expect_equal(all_branches$default[all_branches$name == get_main()], "TRUE")
+  expect_equal(project_info$default_branch, get_main())
 })
 
 # gl_delete_project ----

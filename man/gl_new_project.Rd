@@ -21,6 +21,9 @@ gl_delete_project(project)
 
 \item{project}{The ID or URL-encoded path of the project.}
 }
+\value{
+A tibble with the project information. \code{gl_delete_project()} returns an empty tibble.
+}
 \description{
 Manage projects
 }

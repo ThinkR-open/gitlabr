@@ -2,6 +2,9 @@
 #' 
 #' @param ... passed on to [gitlab()]
 #' @export
+#' @return tibble of each project with corresponding information
+#' @details 
+#' `gl_list_projects()` is an alias for `gl_get_projects()`
 #' 
 #' @examples \dontrun{
 #' set_gitlab_connection(
@@ -9,7 +12,7 @@
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
 #' # List all projects
-#' gl_list_projects(max_page = 1)
+#' gl_get_projects(max_page = 1)
 #' # List users projects
 #' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
 #' }
@@ -17,6 +20,9 @@ gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
+#' @export
+#' @rdname gl_list_projects
+gl_get_projects <- gl_list_projects
 
 #' @param user_id id of the user to list project from
 #' @export
@@ -41,6 +47,7 @@ gl_get_project <- function(project, ...) {
 #' @param req character vector of request location
 #' @param ... passed on to [gl_get_project_id()]
 #' @export
+#' @return A vector of character to be used as request for functions involving projects
 #' @examples 
 #' \dontrun{
 #' gl_proj_req("test_project"<<your-project-id>>, req = "merge_requests")

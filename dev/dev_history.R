@@ -34,3 +34,9 @@ devtools::load_all()
 devtools::test()
 devtools::check() # /!\ Tests are currently skip /!\
 devtools::build_vignettes()
+
+# Find `@return` blocks
+
+library(roxygen2)
+remotes::install_github("ThinkR-open/checkhelper")
+checkhelper::find_missing_values()

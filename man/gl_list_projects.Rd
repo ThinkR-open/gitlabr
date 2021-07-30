@@ -2,11 +2,14 @@
 % Please edit documentation in R/projects_and_repos.R
 \name{gl_list_projects}
 \alias{gl_list_projects}
+\alias{gl_get_projects}
 \alias{gl_list_user_projects}
 \alias{gl_get_project}
 \title{List projects information}
 \usage{
 gl_list_projects(...)
+
+gl_get_projects(...)
 
 gl_list_user_projects(user_id, ...)
 
@@ -19,8 +22,14 @@ gl_get_project(project, ...)
 
 \item{project}{project name or id}
 }
+\value{
+tibble of each project with corresponding information
+}
 \description{
 List projects information
+}
+\details{
+\code{gl_list_projects()} is an alias for \code{gl_get_projects()}
 }
 \examples{
 \dontrun{
@@ -29,7 +38,7 @@ set_gitlab_connection(
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 # List all projects
-gl_list_projects(max_page = 1)
+gl_get_projects(max_page = 1)
 # List users projects
 gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
 }

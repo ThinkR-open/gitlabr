@@ -28,7 +28,9 @@ Note that <https://gitlab.com/KevCaz/testor> was created following these guideli
   + Tick the fist checkboxes (the `api` scope) 
   + Add the token in the `environment.yml` or environment variables as "GITLABR_TEST_TOKEN"
   
-> From now on, you can use "dev/create_testor_on_gitlab.R" script to automate required repository content
+  
+**=> From now on, you can use "dev/create_testor_on_gitlab.R" script to automate required repository content for steps 5 - 11.**
+  
   
 5. Create a project called `testor`, owned by the user, and containing a `README.md` file
   + New Project > Initialize with a README
@@ -105,9 +107,15 @@ This means the following environmental variables will not work with your fork:
 - GITLABR_TEST_PROJECT_NAME
 - COMMENTED_COMMIT
 
+This value are directly set in the core of the action. If you really want to run GitHub Actions on your own fork before opening a PR, you can run "dev/create_testor_on_gitlab.R" to create the different CI repositories and modify the matrix of configuration in the corresponding CI configuration file.  
+However, you will need to put back original values to open a PR.  
+
+<!--
 You may need to temporarily modify the Actions OS matrix to fit your needs. 
 I recommend to keep only one OS tested to avoid unit tests to be run in parallel on the same repository.
 To do so, you can comment all but one OS in ".github/workflows/R-CMD-check.yaml", and change the values of the variable according to your configuration.
+-->
+
 
 ### API version
 

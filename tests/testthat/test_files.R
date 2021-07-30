@@ -2,7 +2,7 @@
 
 test_that("Repo access works", {
   # Dont not fail with character id 
-  expect_error(gl_repository("totostatnmap"))
+  expect_error(expect_warning(gl_repository("totostatnmap")))
   out_with_chr <- gl_repository(as.character(test_project))
   expect_is(out_with_chr, "data.frame")
   

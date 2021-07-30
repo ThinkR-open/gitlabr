@@ -14,9 +14,14 @@ test_url <- Sys.getenv("GITLABR_TEST_URL", unset = "https://gitlab.com")
 test_login <- Sys.getenv("GITLABR_TEST_LOGIN", unset = "statnmap")
 test_user_id <- Sys.getenv("GITLABR_TEST_LOGIN_ID")
 test_password <- Sys.getenv("GITLABR_TEST_PASSWORD")
-test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "6b9d22115a93ab009d64f857dca346c0e105d64a")
-test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor")
-test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "20416969")
+test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "12c5cd8b7e95d7b6cde856c305d32bb229fc6426")
+test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor.main")
+test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "28485393")
+
+# Main branch is called master in some cases
+if (grepl("master", test_project_name)) {
+  gitlabr_options_set("gitlabr.main", "master")
+}
 
 # Set GitLab connection for all tests
 # Set the connection for the session

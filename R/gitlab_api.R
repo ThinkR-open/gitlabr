@@ -28,6 +28,8 @@
 #' 
 #' @importFrom utils capture.output
 #' @importFrom tibble tibble as_tibble
+#' @importFrom magrittr %T>%
+#' @importFrom dplyr bind_rows
 #' @export
 #' 
 #' @return the response from the GitLab API, usually as a `tibble` and including all pages
@@ -179,6 +181,7 @@ get_rel <- function(links) {
                  stringsAsFactors = FALSE)
 }
 
+#' @importFrom dplyr filter
 get_next_link <- function(links) {
   if(is.null(links)) {
     return(NULL)
@@ -242,6 +245,7 @@ format_row <- function(row, ...) {
     tibble::as_tibble(.name_repair = "minimal")
 }
 
+#' @importFrom dplyr bind_rows
 json_to_flat_df <- function(l) {
   
   l %>%

@@ -25,5 +25,5 @@ test_that('mr correclty closed and deleted', {
   # delete
   gl_delete_merge_request(project = test_project, merge_request_iid = the_mr$iid)
   all_remaining_mr <- gl_list_merge_requests(test_project)
-  expect_false(any(the_mr$iid == all_remaining_mr$iid))
+  expect_equal(nrow(all_remaining_mr), 0)
 })

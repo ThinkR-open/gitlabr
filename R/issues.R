@@ -71,6 +71,9 @@ gl_get_issue <- function(project, issue_id, ...) {
 #' this must be set to 3 in order to avoid deprecation warning and HTTP error. 
 #' @param project project name or id
 #' @param ... passed on to [gitlab()]
+#' 
+#' @importFrom dplyr filter select
+#' 
 #' @export
 gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
   

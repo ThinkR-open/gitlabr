@@ -14,16 +14,21 @@ test_that("branch access works", {
   
   ## creating branch
   new_branch <- gl_create_branch(project = test_project, branch = "testbranch", ref = "for-tests")
-  Sys.sleep(30) # Wait for branch to be really added 10 seconds is not long enough...
   expect_equal(nrow(new_branch), 1)
-  list_branch_new <- gl_list_branches(project = test_project)
-  expect_true("testbranch" %in% list_branch_new[["name"]])
+  get_branch_new <- gl_get_branch(project = test_project, branch = "testbranch")
+  expect_equal(nrow(new_branch), 1)
+  # Wait for branch to be really added 10 seconds is not long enough...
+  # Sys.sleep(30) # Wait for branch to be really added 10 seconds is not long enough...
+  # list_branch_new <- gl_list_branches(project = test_project)
+  # expect_true("testbranch" %in% list_branch_new[["name"]])
   
   ## delete branch
   deleted_branch <- gl_delete_branch(project = test_project, branch = "testbranch")
-  Sys.sleep(30) # Wait for branch to be really removed
-  list_branch_del <- gl_list_branches(project = test_project)
-  expect_false("testbranch" %in% list_branch_del[["name"]])
+  expect_equal(nrow(deleted_branch), 0)
+  expect_error(gl_get_branch(project = test_project, branch = "testbranch"))
+  # Sys.sleep(30) # Wait for branch to be really removed
+  # list_branch_del <- gl_list_branches(project = test_project)
+  # expect_false("testbranch" %in% list_branch_del[["name"]])
   
   ## old API
   expect_warning(list_branches(project = test_project), regexp = "deprecated")

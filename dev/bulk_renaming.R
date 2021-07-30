@@ -2,6 +2,7 @@ library(dplyr)
 library(functional)
 library(purrr)
 library(gitlabr)
+library(magrittr)
 
 ## bulk renaming
 
