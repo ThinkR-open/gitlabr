@@ -9,7 +9,6 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      COMMENTED_COMMIT: ${{ secrets.COMMENTED_COMMIT }}
       GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
       GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
       GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}

@@ -23,10 +23,10 @@ jobs:
       matrix:
         config:
           - {os: windows-latest, r: 'release', projectname: 'testor.windows', projectid: '28486358', comcommit: '70483113b32861ce530e1abda134aac01eb477d0'}
-          - {os: macOS-latest, r: 'release', projectname: 'testor.macos', projectid: '28486346', comcommit: '5c89090396cfe86be83929d965539d84c36f404d'}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.release', projectid: '28486371', comcommit: '5685f84b1de6c286a110b111f91c4f0f417dc7e9'}
-          - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.release.master', projectid: '28486387', comcommit: '1a8953eb95d447c41b105328700e039f61377c31'}
-          - {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.devel', projectid: '28486382', comcommit: 'aec38cab2330ce35e4f2bc682475bccc6d94c488'}
+          # - {os: macOS-latest, r: 'release', projectname: 'testor.macos', projectid: '28486346', comcommit: '5c89090396cfe86be83929d965539d84c36f404d'}
+          # - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.release', projectid: '28486371', comcommit: '5685f84b1de6c286a110b111f91c4f0f417dc7e9'}
+          # - {os: ubuntu-20.04, r: 'release', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.release.master', projectid: '28486387', comcommit: '1a8953eb95d447c41b105328700e039f61377c31'}
+          # - {os: ubuntu-20.04, r: 'devel', rspm: "https://packagemanager.rstudio.com/cran/__linux__/focal/latest", projectname: 'testor.devel', projectid: '28486382', comcommit: 'aec38cab2330ce35e4f2bc682475bccc6d94c488'}
 
     env:
       R_REMOTES_NO_ERRORS_FROM_WARNINGS: true
@@ -37,7 +37,7 @@ jobs:
       GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
       GITLABR_TEST_TOKEN: ${{ secrets.GITLABR_TEST_TOKEN }}
       GITLABR_TEST_URL: ${{ secrets.GITLABR_TEST_URL }}
-      GITLABR_TEST_PROJECT_ID: $${{ matrix.config.projectid }}
+      GITLABR_TEST_PROJECT_ID: ${{ matrix.config.projectid }}
       GITLABR_TEST_PROJECT_NAME: ${{ matrix.config.projectname }}
       COMMENTED_COMMIT: ${{ matrix.config.comcommit }}
 
