@@ -39,11 +39,21 @@ reference:
     - gl_reopen_issue
     - gl_repository
     - gl_unassign_issue
+  - title: Set global options
+    desc: >
+      Define connection to an instance of GitLab
+    contents:
+    - set_gitlab_connection
+    - gitlab
+  - title: Continuous Integration
+    desc: >
+      Create .gitlab-ci.yml file for projects continuous integration
+    contents:
+    - use_gitlab_ci
   - title: Other functions
     desc: >
       Functions requiring cleaning or deprecation 
     contents:
-    - gitlab
     - gl_ci_job
     - gitlabr
     - gitlabr_0_7_renaming
@@ -54,7 +64,6 @@ reference:
     - glLoginInput
     - gl_to_issue_id
     - iff
-    - set_gitlab_connection
     - update_gitlabr_code 
   - title: Deprecated functions
     contents:

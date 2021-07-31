@@ -64,7 +64,7 @@ own. See the {gitlabr} vignette for more information on this.
 \code{gitlab()} function allows to use any request of the GitLab API \url{https://docs.gitlab.com/ce/api/}.
 
 For instance, the API documentation shows how to create a new project in
-\url{https://docs.gitlab.com/ee/api/projects.html#create-project}:
+\url{https://docs.gitlab.com/ce/api/projects.html#create-project}:
 \itemize{
 \item The verb is \code{POST}
 \item The request is \code{projects}

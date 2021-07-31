@@ -141,7 +141,7 @@ gl_archive <- function(project,
 #' @param to commit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to [gitlab()]
 #' 
-#' @details https://docs.gitlab.com/ee/api/repositories.html#compare-branches-tags-or-commits
+#' @details https://docs.gitlab.com/ce/api/repositories.html#compare-branches-tags-or-commits
 gl_compare_refs <- function(project,
                             from,
                             to,

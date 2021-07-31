@@ -3,6 +3,7 @@ usethis::use_build_ignore("dev/")
 usethis::use_build_ignore("README.Rmd")
 usethis::use_git_ignore("tests/environment.yml")
 usethis::use_git_ignore("README_cache/")
+usethis::use_build_ignore("README_cache/")
 
 # Doc
 usethis::use_vignette("projects")
@@ -94,6 +95,7 @@ devtools::check_rhub()
 rhub::check_on_windows(check_args = "--force-multiarch")
 rhub::check_on_solaris()
 rhub::check(platform = "debian-clang-devel")
+rhub::check_for_cran()
 
 # Run locally in Docker
 # docker pull rhub/debian-clang-devel

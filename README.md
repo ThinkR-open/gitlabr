@@ -226,7 +226,7 @@ If an API request is not already available in {gitlabr}, function
 \[<https://docs.gitlab.com/ce/api/>\].
 
 For instance, the API documentation shows how to create a new project in
-\[<https://docs.gitlab.com/ee/api/projects.html#create-project>\]:
+\[<https://docs.gitlab.com/ce/api/projects.html#create-project>\]:
 
 -   The verb is `POST`
 -   The request is `projects`
