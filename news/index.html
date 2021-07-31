@@ -8,6 +8,13 @@
 
 <title>Changelog • gitlabr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -40,6 +47,7 @@
 
 
 <meta property="og:title" content="Changelog" />
+<meta property="og:image" content="https://statnmap.github.io/gitlabr/logo.png" />
 
 
 
@@ -194,7 +202,7 @@
 <li>
 <code>gl_create_issue</code> is introduced as new alias for <code>gl_new_issue</code>
 </li>
-<li>tests are migrated and adapated to test server <a href="https://test-gitlab.points-of-interest.cc" class="uri">https://test-gitlab.points-of-interest.cc</a> and to gitlab version 11.6. More specifically a private access tokens is used and login via username and password is no longer possible.</li>
+<li>tests are migrated and adapted to test server <a href="https://test-gitlab.points-of-interest.cc" class="uri">https://test-gitlab.points-of-interest.cc</a> and to gitlab version 11.6. More specifically a private access tokens is used and login via username and password is no longer possible.</li>
 </ul>
 </div>
     <div id="gitlabr-09-2017-04-24" class="section level1">
@@ -202,7 +210,7 @@
 <a href="#gitlabr-09-2017-04-24" class="anchor"></a>gitlabr 0.9 (2017-04-24)<small> 2017-04-25 </small>
 </h1>
 <ul>
-<li>Support for Gitlab API v4 (default from Gitlab version 9.0 onwards) was added. Gitlab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section “API version” of the documentation of <code>gl_connection</code>.
+<li>Support for Gitlab API v4 (default from Gitlab version 9.0 onward) was added. Gitlab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section “API version” of the documentation of <code>gl_connection</code>.
 <ul>
 <li>Several convenience functions now have a <code>force_api_v3</code> parameter to force old API version logic.</li>
 <li>Issues are now identified by project-wide id and not global iid, according to API v4 logic.</li>
@@ -212,7 +220,7 @@
 <li>
 <code>push_to_remotes</code> parameter was added to <code>use_gitlab_ci</code> such that gitlab CI can be used conveniently for pushing to remote repositories.</li>
 <li>Examples were added to almost all function reference pages.</li>
-<li>In case of Server Error (HTTP Status 5xx), gitlabr now performs up to 3 retries, waiting 25 secondes in between. This is mostly to catch errors due to slow server responses, when the packages test suite is run.</li>
+<li>In case of Server Error (HTTP Status 5xx), gitlabr now performs up to 3 retries, waiting 25 seconds in between. This is mostly to catch errors due to slow server responses, when the packages test suite is run.</li>
 </ul>
 </div>
     <div id="gitlabr-08" class="section level1">

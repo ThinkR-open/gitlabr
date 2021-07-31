@@ -8,6 +8,13 @@
 
 <title>Connect to a specific GitLab instance API — gl_connection • gitlabr</title>
 
+<!-- favicons -->
+<link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
 
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
@@ -43,6 +50,7 @@
 <meta property="og:description" content="Creates a function that can be used to issue requests to the specified
 GitLab API instance with the specified user private token and (for gl_project_connection)
 only to a specified project." />
+<meta property="og:image" content="https://statnmap.github.io/gitlabr/logo.png" />
 
 
 
@@ -173,11 +181,11 @@ only to a specified project.</p>
     <tr>
       <th>private_token</th>
       <td><p>private_token with which to identify. You can generate one in the web interface under
-<code>GITLABINSTANCEURL/profile/personal_access_tokens</code> when logged on.</p></td>
+<code>GITLABINSTANCEURL/-/profile/personal_access_tokens.html</code> when logged on.</p></td>
     </tr>
     <tr>
       <th>api_version</th>
-      <td><p>Currently "4" for the latest gitlab API version. See Details section on API versions.</p></td>
+      <td><p>Currently "4" for the latest GitLab API version. See Details section on API versions.</p></td>
     </tr>
     <tr>
       <th>api_location</th>
