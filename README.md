@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# {gitlabr}
+# {gitlabr} <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 
@@ -14,7 +14,7 @@ coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)]
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to
 the corresponding vignette:
-<https://statnmap.github.io/gitlabr/articles/gitlabr-v2.html>**
+<https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html>**
 
 *Note that the {gitlabr} package was originally created by [Jirka
 Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present
@@ -49,7 +49,7 @@ version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
 R code using {gitlabr} to perform some common GitLab actions can look
 like this
 
--   Create a TOKEN on your Gitlab instance with scopes: `api`
+-   Create a TOKEN on your GitLab instance with scopes: `api`
 
 -   Store your token in .Renviron as `GITLAB_COM_TOKEN` with
     `usethis::edit_r_environ()` and restart your session
@@ -76,29 +76,32 @@ set_gitlab_connection(
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
-#> # A tibble: 40 x 98
+#> # A tibble: 40 x 126
 #>    id     description  name   name_with_names… path  path_with_names… created_at
 #>    <chr>  <chr>        <chr>  <chr>            <chr> <chr>            <chr>     
-#>  1 28515… ""           lab5   Earth_Flutter /… lab5  earth_flutter/l… 2021-07-3…
-#>  2 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#>  3 28515…  <NA>        Ralph… Ralph Fischer /… ralp… ralph-fischer1/… 2021-07-3…
-#>  4 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#>  5 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#>  6 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#>  7 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#>  8 28515… ""           r      Eduardo de la C… r     eduardocruzpala… 2021-07-3…
-#>  9 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
-#> 10 28515… ""           Touca… Gergely Nagy / … touc… rkaaya/toucan-o… 2021-07-3…
-#> # … with 30 more rows, and 91 more variables: default_branch <chr>,
+#>  1 28518… "自动化练习" test   Amazing8 / test  test  Amazing8/test    2021-07-3…
+#>  2 28518… ""           proje… helma saboor / … proj… helma-programme… 2021-07-3…
+#>  3 28518… ""           OxSwi… Piyathida Jikja… oxsw… Bestkilled/oxsw… 2021-07-3…
+#>  4 28518… ""           test_2 thanhbinhhd197 … test… thanhbinhhd197/… 2021-07-3…
+#>  5 28518… ""           Creat… android_flutter… crea… android_flutter… 2021-07-3…
+#>  6 28518… ""           week5… flutter / week5… week… flutter149/week… 2021-07-3…
+#>  7 28518… ""           java-… Simona Coptil /… java… coptils/java-fu… 2021-07-3…
+#>  8 28518… ""           Minec… Tim Weyand / Mi… mine… tim.weyand/mine… 2021-07-3…
+#>  9 28518… "node serve… giova… Palmer Oliveira… giov… expalmer/giovana 2021-07-3…
+#> 10 28518… ""           Weath… raia paturet / … weat… raia-paturet/we… 2021-07-3…
+#> # … with 30 more rows, and 119 more variables: default_branch <chr>,
 #> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
-#> #   forks_count <chr>, star_count <chr>, last_activity_at <chr>,
-#> #   namespace.id <chr>, namespace.name <chr>, namespace.path <chr>,
-#> #   namespace.kind <chr>, namespace.full_path <chr>, namespace.web_url <chr>,
+#> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
+#> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
+#> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
+#> #   namespace.avatar_url <chr>, namespace.web_url <chr>,
 #> #   container_registry_image_prefix <chr>, _links.self <chr>,
 #> #   _links.issues <chr>, _links.merge_requests <chr>,
 #> #   _links.repo_branches <chr>, _links.labels <chr>, _links.events <chr>,
 #> #   _links.members <chr>, packages_enabled <chr>, empty_repo <chr>,
-#> #   archived <chr>, visibility <chr>, resolve_outdated_diff_discussions <chr>,
+#> #   archived <chr>, visibility <chr>, owner.id <chr>, owner.name <chr>,
+#> #   owner.username <chr>, owner.state <chr>, owner.avatar_url <chr>,
+#> #   owner.web_url <chr>, resolve_outdated_diff_discussions <chr>,
 #> #   container_expiration_policy.cadence <chr>,
 #> #   container_expiration_policy.enabled <chr>,
 #> #   container_expiration_policy.keep_n <chr>,
@@ -130,9 +133,13 @@ gl_list_projects(max_page = 2)
 #> #   external_authorization_classification_label <chr>,
 #> #   requirements_enabled <chr>, security_and_compliance_enabled <chr>,
 #> #   merge_pipelines_enabled <chr>, merge_trains_enabled <chr>,
-#> #   namespace.parent_id <chr>, readme_url <chr>, namespace.avatar_url <chr>,
-#> #   owner.id <chr>, owner.name <chr>, owner.username <chr>, owner.state <chr>,
-#> #   owner.avatar_url <chr>, owner.web_url <chr>
+#> #   namespace.parent_id <chr>, avatar_url <chr>, forked_from_project.id <chr>,
+#> #   forked_from_project.description <chr>, forked_from_project.name <chr>,
+#> #   forked_from_project.name_with_namespace <chr>,
+#> #   forked_from_project.path <chr>,
+#> #   forked_from_project.path_with_namespace <chr>,
+#> #   forked_from_project.created_at <chr>,
+#> #   forked_from_project.default_branch <chr>, …
 ```
 
 ### Work with a specific project
@@ -212,7 +219,7 @@ gl_close_issue(project = my_project, issue_id = new_feature_issue$iid)$state
 issues, leading to ERROR with `gl_create_issue()` if you abuse the API.
 You will need to open the issue manually in this case.*
 
-### Use additionnal requests
+### Use additional requests
 
 If an API request is not already available in {gitlabr}, function
 `gitlab()` allows to use any request of the GitLab API
@@ -269,7 +276,7 @@ There are pre-defined templates:
     `vignette("quick-start-guide-to-gitlabr")`
 -   When writing custom extensions (“convenience functions”) for
     {gitlabr} or when you experience any trouble, the very extensive
-    [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be
+    [GitLab API documentation](https://docs.gitlab.com/ce/api/) can be
     helpful.
 
 # Contributing to {gitlabr}

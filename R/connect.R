@@ -36,8 +36,8 @@
 #' 
 #' @param gitlab_url URL to the GitLab instance (e.g. `https://gitlab.myserver.com`)
 #' @param private_token private_token with which to identify. You can generate one in the web interface under
-#' `GITLABINSTANCEURL/profile/personal_access_tokens` when logged on.
-#' @param api_version Currently "4" for the latest gitlab API version. See Details section on API versions.
+#' `GITLABINSTANCEURL/-/profile/personal_access_tokens.html` when logged on.
+#' @param api_version Currently "4" for the latest GitLab API version. See Details section on API versions.
 #' @param api_location location of the GitLab API under the `gitlab_url`, usually and by default "/api/${api_version}/"
 #' @param project id or name of project to issue requests to
 #' 

@@ -18,6 +18,9 @@ gl_get_diff(project, commit_sha, ...)
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call, may contain
 \code{ref_name} for specifying a branch or tag to list commits of}
 }
+\value{
+Tibble of commits or diff of the branch with informative variables.
+}
 \description{
 Get commits and diff from a project repository
 }

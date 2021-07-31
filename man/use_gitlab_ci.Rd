@@ -36,7 +36,7 @@ Used for side effects. Creates a .gitlab-ci.yml file in your directory.
 Add .gitlab-ci.yml file in your current project from template
 }
 \details{
-Typs available are:
+Types available are:
 \itemize{
 \item "check-coverage-pkgdown": Check package along with Code coverage with {covr}
 and {pkgdown} site on GitLab Pages

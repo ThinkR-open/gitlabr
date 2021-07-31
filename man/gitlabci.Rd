@@ -6,6 +6,9 @@
 \usage{
 gl_ci_job()
 }
+\value{
+Creates the content of a .gitlab-ci.yml file as character.
+}
 \description{
 Exploration of job content is deprecated as of 'gitlabr' 1.1.7.
 Content of .gitlab-ci.yml file is now created using templates with

@@ -11,6 +11,9 @@ gl_get_project_id(project_name, ...)
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
+\value{
+Integer. ID of the project if found.
+}
 \description{
 Get a project id by name
 }

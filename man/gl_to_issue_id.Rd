@@ -16,7 +16,15 @@ this must be set to 3 in order to avoid deprecation warning and HTTP error.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 }
+\value{
+Global GitLab API issue id
+}
 \description{
 This functions is only intended to be used with GitLab API v3. With v4, the
 global iid is no longer functional.
+}
+\examples{
+\dontrun{
+gl_to_issue_id(project = "<my-project>", issue_id = 1, api_version = 3)
+}
 }

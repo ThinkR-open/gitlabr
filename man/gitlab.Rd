@@ -44,7 +44,7 @@ is recommended only under controlled circumstances.}
 
 \item{enforce_api_root}{if multiple pages are requested, the API root URL is ensured
 to be the same as in the original call for all calls using the "next page" URL returned
-by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
+by GitLab This makes sense for security and in cases where GitLab is behind a reverse proxy
 and ignorant about its URL from external.}
 
 \item{argname_verb}{name of the argument of the verb that fields and information are passed on to}

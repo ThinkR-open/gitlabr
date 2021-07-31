@@ -38,6 +38,9 @@ in GitLab API, as vector or part of URL)}
 
 \item{api_version}{a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link[=gl_connection]{gl_connection()}}}
 }
+\value{
+Tibble of files available in the branch with descriptive variables.
+}
 \description{
 Access to repository files in GitLab
 

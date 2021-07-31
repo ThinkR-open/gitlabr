@@ -20,7 +20,7 @@
 #' is recommended only under controlled circumstances.
 #' @param enforce_api_root if multiple pages are requested, the API root URL is ensured
 #' to be the same as in the original call for all calls using the "next page" URL returned
-#' by gitlab. This makes sense for security and in cases where gitlab is behind a reverse proxy
+#' by GitLab This makes sense for security and in cases where GitLab is behind a reverse proxy
 #' and ignorant about its URL from external.
 #' @param argname_verb name of the argument of the verb that fields and information are passed on to
 #' @param ... named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
@@ -168,6 +168,7 @@ http_error_or_content <- function(response,
 }
 
 #' @importFrom stringr str_replace_all str_split
+#' @noRd
 get_rel <- function(links) {
   links %>%
     stringr::str_split(",\\s+") %>%
@@ -182,6 +183,7 @@ get_rel <- function(links) {
 }
 
 #' @importFrom dplyr filter
+#' @noRd
 get_next_link <- function(links) {
   if(is.null(links)) {
     return(NULL)
@@ -246,6 +248,7 @@ format_row <- function(row, ...) {
 }
 
 #' @importFrom dplyr bind_rows
+#' @noRd
 json_to_flat_df <- function(l) {
   
   l %>%

@@ -8,6 +8,8 @@
 #' @param ... passed on to [gitlab()]. Might contain more fields documented in GitLab API doc.
 #' 
 #' @export
+#' @return Tibble of created or remaining merge requests of the project 
+#' with informative variables.
 #' @examples 
 #' \dontrun{
 #' set_gitlab_connection(

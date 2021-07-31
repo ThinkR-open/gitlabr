@@ -20,13 +20,13 @@ library(gitlabr)
 ```
 
 There are more locations and actions that can be accessed through the GitLab API.
-See the [documentation of the GitLab API](https://doc.gitlab.com/ce/api/) for this.
+See the [documentation of the GitLab API](https://docs.gitlab.com/ce/api/) for this.
 
 # API calls
 
 This section describes how R function calls are translated into HTTP requests to the GitLab API ({gitlabr}'s "low level interface"). For a documentation using {gitlabr} without knowledge of the GitLab API ({gitlabr}'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above or refer to the individual function documentation in the Reference section of {gitlabr}'s pkgdown [site](https://statnmap.github.io/gitlabr/reference/index.html).
 
-Currently ({gitlabr} >= 1.1.6) GitLab API v4 is supported. Support for Gitlab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection()`.
+Currently ({gitlabr} >= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection()`.
 
 The core function of the low level interface is `gitlab()`, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
 
@@ -44,7 +44,7 @@ translates to
 GET https://gitlab.com/api/v4/projects/12/issues?state=active&private_token=XXX
 ```
 
-This way, any request documented in the [GitLab API documentation](https://doc.gitlab.com/ce/api) can be issued from {gitlabr}.
+This way, any request documented in the [GitLab API documentation](https://docs.gitlab.com/ce/api) can be issued from {gitlabr}.
 
 The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab()`. For example:
 
@@ -88,7 +88,7 @@ That is, a simple function to block users directly from R is as simple as:
 ```{r}
 gl_block_user <- function(uid, ...) {
   gitlab(c("users", uid, "block"),  ## for API side documentation see:
-         verb = httr::PUT, ## https://doc.gitlab.com/ce/api/users.html#block-user
+         verb = httr::PUT, ## https://docs.gitlab.com/ce/api/users.html#block-user
          ...) ## don't forget the dots to make {gitlabr} features fully available
 }
 ```

@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 # Quick Start Example
 
 To run the code in this vignette you'll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab [documentation](https://docs.gitlab.com/ee/user/profile/personal_access_tokens.html) on how to generate PATs. In the **Scopes** section you only need to tick the *api* box.
-  + For instance on gitlab.com: https://gitlab.com/profile/personal_access_tokens
+  + For instance on gitlab.com: https://gitlab.com/-/profile/personal_access_tokens
   + Tick the fist checkboxes (the `api` scope) 
   + Add the token in your ".Renviron" as `GITLAB_COM_TOKEN`
 
@@ -36,7 +36,7 @@ Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a GitLab instance
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com",
+  gitlab_url = "https://about.gitlab.com/",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 
@@ -102,7 +102,7 @@ Hence, you can pass a GitLab connection (as returned by `gl_connection()`) with 
 
 ```{r eval = FALSE}
 my_gitlab <- gl_connection(
-  gitlab_url = "https://gitlab.com",
+  gitlab_url = "https://about.gitlab.com/",
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 
 gl_create_issue("Implement new feature", project = my_project, gitlab_con = my_gitlab)

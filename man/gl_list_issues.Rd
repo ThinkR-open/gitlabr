@@ -24,11 +24,14 @@ If using the ID, set it as numeric, otherwise this is used as project name.}
 \item{verb}{ignored; all calls with this function will have \code{\link[=gitlab]{gitlab()}}'s
 default verb \code{httr::GET}}
 
-\item{api_version}{a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If \code{3}
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If \code{3}
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)}
 
 \item{...}{further parameters passed on to \code{\link[=gitlab]{gitlab()}}, may be
 state, labels, issue id, ...}
+}
+\value{
+Tibble of issues of the project with descriptive variables.
 }
 \description{
 Get issues of a project or user

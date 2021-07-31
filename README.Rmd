@@ -6,6 +6,7 @@ output: github_document
 
 ```{r, include = FALSE}
 knitr::opts_chunk$set(
+  cache = TRUE,
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
@@ -14,7 +15,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# {gitlabr}
+# {gitlabr} <img src="man/figures/logo.png" align="right" alt="" width="120" />
 
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
@@ -23,7 +24,7 @@ knitr::opts_chunk$set(
 [![Codecov test coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://codecov.io/gh/statnmap/gitlabr?branch=master)
 <!-- badges: end -->
 
-**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/gitlabr-v2.html**
+**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html**
 
 _Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
 
@@ -50,7 +51,7 @@ GitLab 11.6 or higher is generally recommended when using {gitlabr} version 1.1.
 
 R code using {gitlabr} to perform some common GitLab actions can look like this
 
-- Create a TOKEN on your Gitlab instance with scopes: `api`
+- Create a TOKEN on your GitLab instance with scopes: `api`
 
 - Store your token in .Renviron as `GITLAB_COM_TOKEN` with `usethis::edit_r_environ()` and restart your session 
 
@@ -124,7 +125,7 @@ gl_close_issue(project = my_project, issue_id = new_feature_issue$iid)$state
 
 _Note that recent version of GitLab may have anti-spam on opening issues, leading to ERROR with `gl_create_issue()` if you abuse the API. You will need to open the issue manually in this case._
 
-### Use additionnal requests
+### Use additional requests
 
 If an API request is not already available in {gitlabr}, function `gitlab()` allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
 
@@ -168,7 +169,7 @@ cat(paste("-", list.files("inst/gitlab-ci/"), collapse = "\n\n"))
 ## Further information
 
 - For an introduction see the `vignette("quick-start-guide-to-gitlabr")`
-- When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
+- When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](https://docs.gitlab.com/ce/api/) can be helpful.
 
 # Contributing to {gitlabr}
 

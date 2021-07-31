@@ -24,6 +24,9 @@ gl_delete_branch(project, branch, ...)
 
 \item{ref}{ref name of origin for newly created branch}
 }
+\value{
+Tibble of branches available in the project with descriptive variables
+}
 \description{
 List, create and delete branches
 

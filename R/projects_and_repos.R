@@ -72,6 +72,7 @@ gl_proj_req <- function(project, req, ...) {
 #' `gl_get_project_id()` may not find the project id.
 #' 
 #' @export
+#' @return Integer. ID of the project if found.
 #' @examples
 #' \dontrun{
 #' gl_get_project_id("<<your-project-name>>")
@@ -160,6 +161,7 @@ gl_compare_refs <- function(project,
 #' @param ... passed on to [gitlab()] API call, may contain
 #' `ref_name` for specifying a branch or tag to list commits of
 #' @export
+#' @return Tibble of commits or diff of the branch with informative variables.
 #' @examples 
 #' \dontrun{
 #' my_commits <- gl_get_commits("<<your-project-id>>")

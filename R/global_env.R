@@ -15,7 +15,7 @@ assign(GITLAB_CON, NULL, gitlabr_env)
 #' is ... using [gl_connection()]
 #' 
 #' @export
-#' 
+#' @return Used for side effects. Set or unset global connection settings.
 #' @examples \dontrun{
 #' set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 #' }
@@ -27,6 +27,8 @@ set_gitlab_connection <- function(gitlab_con = NULL, ...) {
   assign(GITLAB_CON, gitlab_con, gitlabr_env)
 }
 
+#' @rdname set_gitlab_connection
+#' @export
 get_gitlab_connection <- function() {
   get(GITLAB_CON, envir = gitlabr_env)
 }

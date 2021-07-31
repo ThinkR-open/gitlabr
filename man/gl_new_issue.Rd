@@ -42,6 +42,9 @@ filtering happens by global iid, if false, it happens by projectwide ID. For API
 
 \item{assignee_id}{numeric id of users as returned in '/users/' API request}
 }
+\value{
+Tibble with the created or remaining issues and descriptive variables.
+}
 \description{
 Post a new issue or edit one
 }

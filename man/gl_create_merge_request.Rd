@@ -40,6 +40,10 @@ gl_list_merge_requests(project, ...)
 
 \item{merge_request_iid}{iid of the merge request}
 }
+\value{
+Tibble of created or remaining merge requests of the project
+with informative variables.
+}
 \description{
 Manage merge requests
 }

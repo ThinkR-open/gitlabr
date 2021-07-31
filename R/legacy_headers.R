@@ -2,10 +2,11 @@
 #'
 #' Many functions were renamed with version 0.7 to the `gl_` naming scheme.
 #' Note that the old function names are deprecated and might be removed without
-#' further notive.
+#' further notice.
 #' 
 #' @param ... Parameters to the new function
 #' @name gitlabr-deprecated
+#' @return Warning for deprecated functions and output depending on the superseeding function.
 #' @section Details:
 #' \tabular{rl}{
 #'    `archive` \tab is now called `gl_archive` \cr
@@ -44,7 +45,7 @@
 #' }
 NULL
 
-#' renamings from {gitlabr} version 0.6.4 to 0.7
+#' renaming from {gitlabr} version 0.6.4 to 0.7
 #'
 #' List of of old and new function name. 
 #' 

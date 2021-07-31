@@ -6,7 +6,7 @@
 #' @param ref name of ref (commit branch or tag)
 #' @param ... passed on to [gitlab()] API call
 #' @export
-#' 
+#' @return Tibble of files available in the branch with descriptive variables.
 #' @examples \dontrun{
 #' # Set GitLab connection for examples
 #' set_gitlab_connection(

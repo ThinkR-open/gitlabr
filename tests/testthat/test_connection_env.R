@@ -44,7 +44,7 @@ names_3 <- names(gitlab_projects_api_raw)[!grepl("[.]", names(gitlab_projects_ap
 names_4 <- names(gl_list_projects_output_raw)[!grepl("[.]", names(gl_list_projects_output_raw))]
 
 
-test_that("Gitlab connection creation works", {
+test_that("GitLab connection creation works", {
 
   expect_is(my_gitlab_test, "function")
   

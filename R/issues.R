@@ -23,14 +23,14 @@ gl_get_issues <- function(project = NULL,
 #' @param project project name or id, may be null for all issues created by user.
 #' If using the ID, set it as numeric, otherwise this is used as project name.
 #' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)
-#' @param api_version a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+#' @param api_version a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
 #' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
 #' @param ... further parameters passed on to [gitlab()], may be
 #' state, labels, issue id, ...
 #' @param verb ignored; all calls with this function will have [gitlab()]'s
 #' default verb `httr::GET`
 #' @export
-#' 
+#' @return Tibble of issues of the project with descriptive variables.
 #' @examples
 #' \dontrun{
 #' # Set the connection for the session
@@ -75,6 +75,11 @@ gl_get_issue <- function(project, issue_id, ...) {
 #' @importFrom dplyr filter select
 #' 
 #' @export
+#' @return Global GitLab API issue id
+#' @examples 
+#' \dontrun{
+#' gl_to_issue_id(project = "<my-project>", issue_id = 1, api_version = 3)
+#' }
 gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
   
   if(api_version != 3) {
@@ -107,6 +112,7 @@ gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
 #' 
 #' @rdname gl_new_issue
 #' @export
+#' @return Tibble with the created or remaining issues and descriptive variables.
 #' @examples 
 #' \dontrun{
 #' # create an issue

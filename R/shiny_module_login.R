@@ -1,7 +1,7 @@
 #' Shiny module to login to GitLab API
 #' 
 #' The UI contains a login and a password field as well as an (optional)
-#' login button. The server side function returns a reactive gitlab connection, just as [gl_connection()]
+#' login button. The server side function returns a reactive GitLab connection, just as [gl_connection()]
 #' and [gl_project_connection()].
 #' 
 #' `glLoginInput` is supposed to be used inside a `shinyUI`, while
@@ -15,12 +15,13 @@
 #' @param gitlab_url root URL of GitLab instance to login to
 #' @param api_version A character with value either "3" or "4" to specify the API version that should be used
 #' @param project if not NULL, a code{[gl_project_connection]} is created to this project
-#' @param success_message message text to be displayed in the UI on sucessful login 
+#' @param success_message message text to be displayed in the UI on successful login 
 #' @param failure_message message text to be displayed in the UI on login failure in addition to HTTP status
-#' @param on_error function to be returned instead of gitlab connection in case of login failure
+#' @param on_error function to be returned instead of GitLab connection in case of login failure
 #' 
 #' @rdname gl_shiny_login
-#' @export
+#' @export 
+#' @return An input or output element for use in shiny UI.
 glLoginInput <- function(id, login_button = TRUE) {
   
   if (!requireNamespace("shiny", quietly = TRUE)) {
@@ -31,7 +32,7 @@ glLoginInput <- function(id, login_button = TRUE) {
   
   shiny::tagList(shiny::passwordInput(ns("private_token"), "Private Access Token"),
                  shiny::textOutput(ns("login_status")),
-                 shiny::p("How to get a private access token? You have to create one manually in your Gitlab Web-Interface under Profile Settings - Access Tokens.")) %>%
+                 shiny::p("How to get a private access token? You have to create one manually in your GitLab Web-Interface under Profile Settings - Access Tokens.")) %>%
     iff(login_button, shiny::tagAppendChild, shiny::actionButton(ns("login_button"), label = "Login"))
   
 }
@@ -42,8 +43,8 @@ glReactiveLogin <- function(input, output, session,
                             gitlab_url,
                             project = NULL,
                             api_version = 4,
-                            success_message = "Gitlab login successful!",
-                            failure_message = "Gitlab login failed!",
+                            success_message = "GitLab login successful!",
+                            failure_message = "GitLab login failed!",
                             on_error = function(...) {
                               stop(failure_message)
                             }) {

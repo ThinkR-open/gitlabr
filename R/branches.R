@@ -4,7 +4,7 @@
 #' @param project name or id of project (not repository!)
 #' @param ... passed on to [gitlab()]
 #' @export
-#' 
+#' @return Tibble of branches available in the project with descriptive variables
 #' @examples \dontrun{
 #' set_gitlab_connection(gitlab_url = "https://gitlab.com",
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN"))

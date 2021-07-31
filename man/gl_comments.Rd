@@ -48,6 +48,9 @@ gl_edit_commit_comment(project, ...)
 
 \item{text}{Text of comment/note to add or edit (translates to GitLab API note/body respectively)}
 }
+\value{
+Tibble of comments with descriptive variables.
+}
 \description{
 Get the comments/notes of a commit or issue
 }
@@ -55,7 +58,7 @@ Get the comments/notes of a commit or issue
 \itemize{
 \item \code{gl_comment_commit}: might also contain \code{path}, \code{line}
 and \code{line_type} (old or new) to attach the comment to a specific in a file.
-See http://doc.gitlab.com/ce/api/commits.html
+See http://docs.gitlab.com/ce/api/commits.html
 \item \code{gl_get_issue_comments}: might also contain \code{comment_id} to get a specific
 comment of an issue.
 }

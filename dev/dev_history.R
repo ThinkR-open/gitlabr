@@ -2,6 +2,7 @@ usethis::use_build_ignore("dev_history.R")
 usethis::use_build_ignore("dev/")
 usethis::use_build_ignore("README.Rmd")
 usethis::use_git_ignore("tests/environment.yml")
+usethis::use_git_ignore("README_cache/")
 
 # Doc
 usethis::use_vignette("projects")
@@ -75,7 +76,8 @@ rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
 
 # Check content
 # remotes::install_github("ThinkR-open/checkhelper")
-checkhelper::find_missing_tags()
+tags <- checkhelper::find_missing_tags()
+View(tags)
 
 # Check spelling
 # usethis::use_spell_check()

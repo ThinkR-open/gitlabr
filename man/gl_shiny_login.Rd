@@ -14,8 +14,8 @@ glReactiveLogin(
   gitlab_url,
   project = NULL,
   api_version = 4,
-  success_message = "Gitlab login successful!",
-  failure_message = "Gitlab login failed!",
+  success_message = "GitLab login successful!",
+  failure_message = "GitLab login failed!",
   on_error = function(...) {     stop(failure_message) }
 )
 }
@@ -36,15 +36,18 @@ glReactiveLogin(
 
 \item{api_version}{A character with value either "3" or "4" to specify the API version that should be used}
 
-\item{success_message}{message text to be displayed in the UI on sucessful login}
+\item{success_message}{message text to be displayed in the UI on successful login}
 
 \item{failure_message}{message text to be displayed in the UI on login failure in addition to HTTP status}
 
-\item{on_error}{function to be returned instead of gitlab connection in case of login failure}
+\item{on_error}{function to be returned instead of GitLab connection in case of login failure}
+}
+\value{
+An input or output element for use in shiny UI.
 }
 \description{
 The UI contains a login and a password field as well as an (optional)
-login button. The server side function returns a reactive gitlab connection, just as \code{\link[=gl_connection]{gl_connection()}}
+login button. The server side function returns a reactive GitLab connection, just as \code{\link[=gl_connection]{gl_connection()}}
 and \code{\link[=gl_project_connection]{gl_project_connection()}}.
 }
 \details{

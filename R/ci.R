@@ -7,6 +7,7 @@
 #' @export
 #' @rdname gitlabci
 #' @seealso [use_gitlab_ci()]
+#' @return Creates the content of a .gitlab-ci.yml file as character.
 #' 
 #' @examples 
 #' \dontrun{
@@ -28,7 +29,7 @@ gl_ci_job <- function() {
 #' @param add_to_Rbuildignore add CI yml file (from `path`) to .Rbuildignore?
 #'
 #' @details 
-#' Typs available are:  
+#' Types available are:  
 #' 
 #' - "check-coverage-pkgdown": Check package along with Code coverage with {covr}
 #'  and {pkgdown} site on GitLab Pages

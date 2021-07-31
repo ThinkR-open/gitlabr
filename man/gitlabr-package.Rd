@@ -6,6 +6,8 @@
 \alias{gitlabr-package}
 \title{gitlabr: Access to the Gitlab API}
 \description{
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+
 Provides R functions to access the API of the project and
     repository management web application gitlab. For many common tasks
     (repository file access, issue assignment and status, commenting)

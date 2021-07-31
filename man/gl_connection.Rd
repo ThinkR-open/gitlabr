@@ -24,9 +24,9 @@ gl_project_connection(
 \item{gitlab_url}{URL to the GitLab instance (e.g. \verb{https://gitlab.myserver.com})}
 
 \item{private_token}{private_token with which to identify. You can generate one in the web interface under
-\code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.}
+\verb{GITLABINSTANCEURL/-/profile/personal_access_tokens.html} when logged on.}
 
-\item{api_version}{Currently "4" for the latest gitlab API version. See Details section on API versions.}
+\item{api_version}{Currently "4" for the latest GitLab API version. See Details section on API versions.}
 
 \item{api_location}{location of the GitLab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"}
 

@@ -106,10 +106,13 @@ unassign_issue(...)
 \arguments{
 \item{...}{Parameters to the new function}
 }
+\value{
+Warning for deprecated functions and output depending on the superseeding function.
+}
 \description{
 Many functions were renamed with version 0.7 to the \code{gl_} naming scheme.
 Note that the old function names are deprecated and might be removed without
-further notive.
+further notice.
 }
 \section{Details}{
 
