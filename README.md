@@ -36,8 +36,10 @@ To install the development version using
 devtools::install_github("statnmap/gitlabr")
 ```
 
-See the [CONTRIBUTING.md](CONTRIBUTING.md) for instructions on how to
-run tests locally and contributor information.
+See the
+[CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)
+for instructions on how to run tests locally and contributor
+information.
 
 ## Recommended GitLab versions
 
@@ -283,7 +285,8 @@ There are pre-defined templates:
 
 You’re welcome to contribute to {gitlabr} by editing the source code,
 adding more convenience functions, filing issues, etc.
-[CONTRIBUTING.md](CONTRIBUTING.md) compiles some information helpful in
-that process.
+[CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)
+compiles some information helpful in that process.
 
-Please also note the [Code of Conduct](CONDUCT.md).
+Please also note the [Code of
+Conduct](https://github.com/statnmap/gitlabr/blob/main/CONDUCT.md).
