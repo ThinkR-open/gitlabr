@@ -18,6 +18,10 @@ test_commented_commit <- Sys.getenv("COMMENTED_COMMIT", unset = "12c5cd8b7e95d7b
 test_project_name <- Sys.getenv("GITLABR_TEST_PROJECT_NAME", unset = "testor.main")
 test_project_id <- Sys.getenv("GITLABR_TEST_PROJECT_ID", unset = "28485393")
 
+# Print to test what GitHub Actions see
+print(test_url)
+print(test_project_name)
+
 # Main branch is called master in some cases
 if (grepl("master", test_project_name)) {
   gitlabr_options_set("gitlabr.main", "master")

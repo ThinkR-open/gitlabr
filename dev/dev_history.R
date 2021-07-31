@@ -13,6 +13,7 @@ roxygen2md::roxygen2md()
 usethis::use_github_action_check_standard()
 usethis::use_github_action("pkgdown")
 usethis::use_github_action("test-coverage")
+usethis::use_coverage()
 
 # Check pr
 # To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>). 

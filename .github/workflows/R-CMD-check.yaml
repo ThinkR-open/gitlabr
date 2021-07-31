@@ -37,7 +37,7 @@ jobs:
       GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
       GITLABR_TEST_TOKEN: ${{ secrets.GITLABR_TEST_TOKEN }}
       GITLABR_TEST_URL: ${{ secrets.GITLABR_TEST_URL }}
-      GITLABR_TEST_PROJECT_ID: $${{ matrix.config.projectid }}
+      GITLABR_TEST_PROJECT_ID: ${{ matrix.config.projectid }}
       GITLABR_TEST_PROJECT_NAME: ${{ matrix.config.projectname }}
       COMMENTED_COMMIT: ${{ matrix.config.comcommit }}
 
