@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -94,7 +94,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -148,7 +160,7 @@
       <tr>
         
         <td>
-          <p><code><a href="gl_edit_issue.html">gl_new_issue()</a></code> <code><a href="gl_edit_issue.html">gl_create_issue()</a></code> <code><a href="gl_edit_issue.html">gl_edit_issue()</a></code> <code><a href="gl_edit_issue.html">gl_close_issue()</a></code> <code><a href="gl_edit_issue.html">gl_reopen_issue()</a></code> <code><a href="gl_edit_issue.html">gl_assign_issue()</a></code> <code><a href="gl_edit_issue.html">gl_unassign_issue()</a></code> </p>
+          <p><code><a href="gl_new_issue.html">gl_new_issue()</a></code> <code><a href="gl_new_issue.html">gl_create_issue()</a></code> <code><a href="gl_new_issue.html">gl_edit_issue()</a></code> <code><a href="gl_new_issue.html">gl_close_issue()</a></code> <code><a href="gl_new_issue.html">gl_reopen_issue()</a></code> <code><a href="gl_new_issue.html">gl_assign_issue()</a></code> <code><a href="gl_new_issue.html">gl_unassign_issue()</a></code> <code><a href="gl_new_issue.html">gl_delete_issue()</a></code> </p>
         </td>
         <td><p>Post a new issue or edit one</p></td>
       </tr><tr>
@@ -160,15 +172,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="branches.html">gl_list_branches()</a></code> <code><a href="branches.html">gl_create_branch()</a></code> <code><a href="branches.html">gl_delete_branch()</a></code> </p>
+          <p><code><a href="branches.html">gl_list_branches()</a></code> <code><a href="branches.html">gl_get_branch()</a></code> <code><a href="branches.html">gl_create_branch()</a></code> <code><a href="branches.html">gl_delete_branch()</a></code> </p>
         </td>
         <td><p>List, create and delete branches</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="gl_create_merge_request.html">gl_create_merge_request()</a></code> </p>
+          <p><code><a href="gl_create_merge_request.html">gl_create_merge_request()</a></code> <code><a href="gl_create_merge_request.html">gl_edit_merge_request()</a></code> <code><a href="gl_create_merge_request.html">gl_close_merge_request()</a></code> <code><a href="gl_create_merge_request.html">gl_delete_merge_request()</a></code> <code><a href="gl_create_merge_request.html">gl_list_merge_requests()</a></code> </p>
         </td>
-        <td><p>Create a merge request</p></td>
+        <td><p>Manage merge requests</p></td>
       </tr><tr>
         
         <td>
@@ -180,7 +192,7 @@
         <td>
           <p><code><a href="gl_repository.html">gl_repository()</a></code> <code><a href="gl_repository.html">gl_list_files()</a></code> <code><a href="gl_repository.html">gl_file_exists()</a></code> <code><a href="gl_repository.html">gl_get_file()</a></code> </p>
         </td>
-        <td><p>Access to repository functions and files in GitLab API</p></td>
+        <td><p>Access to repository files in GitLab</p></td>
       </tr><tr>
         
         <td>
@@ -196,15 +208,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="gl_list_projects.html">gl_list_projects()</a></code> </p>
+          <p><code><a href="gl_list_projects.html">gl_list_projects()</a></code> <code><a href="gl_list_projects.html">gl_get_projects()</a></code> <code><a href="gl_list_projects.html">gl_list_user_projects()</a></code> <code><a href="gl_list_projects.html">gl_get_project()</a></code> </p>
         </td>
-        <td><p>List projects on GitLab</p></td>
+        <td><p>List projects information</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="gl_push_file.html">gl_push_file()</a></code> </p>
+          <p><code><a href="onefile.html">gl_push_file()</a></code> <code><a href="onefile.html">gl_delete_file()</a></code> </p>
         </td>
-        <td><p>Upload a file to a GitLab repository</p></td>
+        <td><p>Upload, delete a file to a GitLab repository</p></td>
       </tr>
     </tbody><tbody>
       <tr>
@@ -227,15 +239,15 @@
       </tr><tr>
         
         <td>
-          <p><code><a href="gitlabci.html">gl_ci_job()</a></code> <code><a href="gitlabci.html">gl_default_ci_pipeline()</a></code> <code><a href="gitlabci.html">use_gitlab_ci()</a></code> </p>
+          <p><code><a href="gitlabci.html">gl_ci_job()</a></code> <code><a href="gitlabci.html">gl_default_ci_pipeline()</a></code> </p>
         </td>
-        <td><p>Define GitLab CI jobs</p></td>
+        <td><p>Define GitLab CI jobs content</p></td>
       </tr><tr>
         
         <td>
-          <p><code><a href="gitlabr.html">gitlabr</a></code> </p>
+          <p><code><a href="gitlabr-package.html">gitlabr-package</a></code> </p>
         </td>
-        <td><p>Interface to GitLab API on high and low levels</p></td>
+        <td><p>gitlabr: Access to the Gitlab API</p></td>
       </tr><tr>
         
         <td>
@@ -247,7 +259,7 @@
         <td>
           <p><code><a href="gl_archive.html">gl_archive()</a></code> </p>
         </td>
-        <td><p>Get zip archive of a specific repository</p></td>
+        <td><p>Archive a repository</p></td>
       </tr><tr>
         
         <td>
@@ -290,12 +302,6 @@
           <p><code><a href="set_gitlab_connection.html">set_gitlab_connection()</a></code> <code><a href="set_gitlab_connection.html">unset_gitlab_connection()</a></code> </p>
         </td>
         <td><p>Get/set a GitLab connection for all calls</p></td>
-      </tr><tr>
-        
-        <td>
-          <p><code><a href="update_gitlabr_code.html">update_gitlabr_code()</a></code> </p>
-        </td>
-        <td><p>Convert gitlabr legacy code to 0.7 compatible</p></td>
       </tr>
     </tbody><tbody>
       <tr>

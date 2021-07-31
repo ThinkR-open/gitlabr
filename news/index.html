@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -94,7 +94,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -126,26 +138,52 @@
       <small>Source: <a href='https://github.com/statnmap/gitlabr/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
-    <div id="gitlabr-1169000" class="section level1">
-<h1 class="page-header" data-toc-text="1.1.6.9000">
-<a href="#gitlabr-1169000" class="anchor"></a>gitlabr 1.1.6.9000<small> Unreleased </small>
+    <div id="gitlabr-200" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.0">
+<a href="#gitlabr-200" class="anchor"></a>gitlabr 2.0.0<small> Unreleased </small>
 </h1>
+<p>Breaking changes</p>
 <ul>
-<li>Update documentation: recommend using <code>gl_*</code> functions</li>
+<li>Default branch is named <code>main</code> whenever required.
+<ul>
+<li>This can be changed with <code><a href="../reference/gitlabr_options_set.html">gitlabr_options_set("gitlabr.main", "master")</a></code>
+</li>
 </ul>
-<p>Breaking change</p>
+</li>
+<li>All project-specific functions get <code>project</code> as first parameter. Changes apply to:
 <ul>
+<li>
+<code><a href="../reference/gl_get_comments.html">gl_get_comments()</a></code>,<code><a href="../reference/gl_to_issue_id.html">gl_to_issue_id()</a></code>, <code><a href="../reference/gl_get_comments.html">gl_get_issue_comments()</a></code>, <code><a href="../reference/gl_get_comments.html">gl_get_commit_comments()</a></code>, <code><a href="../reference/gl_get_comments.html">gl_edit_comment()</a></code>, <code><a href="../reference/gl_get_comments.html">gl_edit_issue_comment()</a></code>, <code><a href="../reference/gl_get_comments.html">gl_edit_commit_comment()</a></code>
+</li>
+<li><code><a href="../reference/gl_repository.html">gl_repository()</a></code></li>
+<li>
+<code><a href="../reference/gl_list_issues.html">gl_get_issue()</a></code>, <code><a href="../reference/gl_to_issue_id.html">gl_to_issue_id()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_new_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_edit_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_close_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_reopen_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_assign_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_unassign_issue()</a></code>
+</li>
+</ul>
+</li>
 <li>Changed use of <code>api_version = "v4"</code> by <code>api_version = 4</code>
 </li>
 <li>Changed use of <code>force_api_v3 = TRUE</code> by <code>api_version = 4</code> for deprecation by default</li>
 </ul>
+<p>Major</p>
+<ul>
+<li>Add new functions to manage projects: <code><a href="../reference/gl_list_projects.html">gl_get_project()</a></code>, <code><a href="../reference/gl_new_project.html">gl_new_project()</a></code>, <code><a href="../reference/gl_new_project.html">gl_edit_project()</a></code>, <code><a href="../reference/gl_new_project.html">gl_delete_project()</a></code>
+</li>
+<li>Update documentation: recommend using <code>gl_*</code> functions</li>
+</ul>
 <p>Minor</p>
 <ul>
+<li>
+<code><a href="../reference/gl_archive.html">gl_archive()</a></code> is used to archive a project (not to download an archive)</li>
+<li>fix use of <code>max_page</code> with <code>gl_()</code> functions calling <code><a href="../reference/gitlab.html">gitlab()</a></code>
+</li>
 <li>Correction of api that downloaded twice the first page when <code>page == "all"</code>
 </li>
-<li>Reduce <code>max_page</code> to retrieve content to allow to work with big Gitlab servers like Gitlab.com</li>
+<li>Reduce <code>max_page</code> in examples and tests to retrieve content to allow to work with big GitLab servers like Gitlab.com</li>
 <li>Change maintainer</li>
 <li>Update CONTRIBUTING for tests with Gitlab.com</li>
+<li>
+<code>update_gitlabr_code()</code> removed</li>
 </ul>
 </div>
     <div id="gitlabr-116" class="section level1">

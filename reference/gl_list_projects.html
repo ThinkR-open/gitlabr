@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>List projects on GitLab — gl_list_projects • gitlabr</title>
+<title>List projects information — gl_list_projects • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="List projects on GitLab — gl_list_projects" />
-<meta property="og:description" content="List projects on GitLab" />
+<meta property="og:title" content="List projects information — gl_list_projects" />
+<meta property="og:description" content="List projects information" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -95,7 +95,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -123,32 +135,57 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>List projects on GitLab</h1>
+    <h1>List projects information</h1>
     <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/projects_and_repos.R'><code>R/projects_and_repos.R</code></a></small>
     <div class="hidden name"><code>gl_list_projects.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>List projects on GitLab</p>
+    <p>List projects information</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_list_projects</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gl_list_projects</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>gl_get_projects</span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>gl_list_user_projects</span><span class='op'>(</span><span class='va'>user_id</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>gl_get_project</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab</a></code></p></td>
+      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code></p></td>
+    </tr>
+    <tr>
+      <th>user_id</th>
+      <td><p>id of the user to list project from</p></td>
+    </tr>
+    <tr>
+      <th>project</th>
+      <td><p>project name or id</p></td>
     </tr>
     </table>
 
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
+
+    <p>tibble of each project with corresponding information</p>
+    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+
+    <p><code>gl_list_projects()</code> is an alias for <code>gl_get_projects()</code></p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_connection</a></span><span class='op'>(</span><span class='va'>...</span><span class='op'>)</span> <span class='co'>## fill in login parameters</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span><span class='va'>my_gitlab</span><span class='op'>)</span>
-<span class='fu'>gl_list_projects</span><span class='op'>(</span>max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>
+  gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>, 
+  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='co'># List all projects</span>
+<span class='fu'>gl_get_projects</span><span class='op'>(</span>max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># List users projects</span>
+<span class='fu'>gl_list_user_projects</span><span class='op'>(</span>user_id <span class='op'>=</span> <span class='st'>"&lt;&lt;user-id&gt;&gt;"</span>, max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Define GitLab CI jobs — gl_ci_job • gitlabr</title>
+<title>Define GitLab CI jobs content — gl_ci_job • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,10 @@
 
 
 
-<meta property="og:title" content="Define GitLab CI jobs — gl_ci_job" />
-<meta property="og:description" content="Define GitLab CI jobs" />
+<meta property="og:title" content="Define GitLab CI jobs content — gl_ci_job" />
+<meta property="og:description" content="Exploration of job content is deprecated as of 'gitlabr' 1.1.7.
+Content of .gitlab-ci.yml file is now created using templates with
+use_gitlab_ci(type = &quot;check-coverage-pkgdown&quot;). See use_gitlab_ci()." />
 
 
 
@@ -72,7 +74,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -95,7 +97,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -123,27 +137,20 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Define GitLab CI jobs</h1>
+    <h1>Define GitLab CI jobs content</h1>
     <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/ci.R'><code>R/ci.R</code></a></small>
     <div class="hidden name"><code>gitlabci.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Define GitLab CI jobs</p>
+    <p>Exploration of job content is deprecated as of 'gitlabr' 1.1.7.
+Content of .gitlab-ci.yml file is now created using templates with
+use_gitlab_ci(type = "check-coverage-pkgdown"). See <code><a href='use_gitlab_ci.html'>use_gitlab_ci()</a></code>.</p>
     </div>
 
     <pre class="usage"><span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='va'>job_name</span>, stage <span class='op'>=</span> <span class='va'>job_name</span>, allowed_dependencies <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_default_ci_pipeline</span><span class='op'>(</span><span class='op'>)</span>
-
-<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>
-  pipeline <span class='op'>=</span> <span class='fu'>gl_default_ci_pipeline</span><span class='op'>(</span><span class='op'>)</span>,
-  image <span class='op'>=</span> <span class='st'>"rocker/r-devel:latest"</span>,
-  push_to_remotes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>,
-  path <span class='op'>=</span> <span class='st'>".gitlab-ci.yml"</span>,
-  overwrite <span class='op'>=</span> <span class='cn'>TRUE</span>,
-  add_to_Rbuildignore <span class='op'>=</span> <span class='cn'>TRUE</span>
-<span class='op'>)</span></pre>
+<span class='fu'>gl_default_ci_pipeline</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -164,55 +171,17 @@
       <th>...</th>
       <td><p>passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name</p></td>
     </tr>
-    <tr>
-      <th>pipeline</th>
-      <td><p>a CI pipeline defined as a list of lists</p></td>
-    </tr>
-    <tr>
-      <th>image</th>
-      <td><p>Docker image to use in GitLab ci. If NULL, not specified!</p></td>
-    </tr>
-    <tr>
-      <th>push_to_remotes</th>
-      <td><p>named list of remotes the code should be pushed to. Only master
-is pushed and for every remote a job of stage "push" is generated. See example for how
-to use credentials from environment variables.</p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>destination path for writing GitLab CI yml file</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>whether to overwrite existing GitLab CI yml file</p></td>
-    </tr>
-    <tr>
-      <th>add_to_Rbuildignore</th>
-      <td><p>add CI yml file (from <code>path</code>) to .Rbuildignore?</p></td>
-    </tr>
     </table>
 
+    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
+
+    <div class='dont-index'><p><code><a href='use_gitlab_ci.html'>use_gitlab_ci()</a></code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='st'>"build"</span>, allowed_dependencies <span class='op'>=</span> <span class='st'>"test"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; $stage
-#&gt; [1] "build"
-#&gt; 
-#&gt; $script
-#&gt; $script[[1]]
-#&gt; [1] "R --vanilla -e 'library(devtools); devtools::build(path = \"./\")'"
-#&gt; 
-#&gt; 
-#&gt; $artifacts
-#&gt; $artifacts$paths
-#&gt; $artifacts$paths[[1]]
-#&gt; [1] "*.tar.gz"
-#&gt; 
-#&gt; 
-#&gt; </div><div class='input'><span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"pointsofinterest/gitlabr:latest"</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".yml"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"pointsofinterest/gitlabr:latest"</span>, , path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".yml"</span><span class='op'>)</span>,
- push_to_remotes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='st'>"github"</span> <span class='op'>=</span>
- <span class='st'>"https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"</span><span class='op'>)</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Deprecated</span>
+<span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='st'>"build"</span>, allowed_dependencies <span class='op'>=</span> <span class='st'>"test"</span><span class='op'>)</span>
+<span class='op'>}</span>
 </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

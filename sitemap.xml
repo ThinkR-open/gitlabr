@@ -16,10 +16,13 @@
     <loc>https://statnmap.github.io/gitlabr//reference/gitlabr-deprecated.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//reference/gitlabr.html</loc>
+    <loc>https://statnmap.github.io/gitlabr//reference/gitlabr-package.html</loc>
   </url>
   <url>
     <loc>https://statnmap.github.io/gitlabr//reference/gitlabr_0_7_renaming.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//reference/gitlabr_options_set.html</loc>
   </url>
   <url>
     <loc>https://statnmap.github.io/gitlabr//reference/gl_archive.html</loc>
@@ -37,9 +40,6 @@
     <loc>https://statnmap.github.io/gitlabr//reference/gl_create_merge_request.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//reference/gl_edit_issue.html</loc>
-  </url>
-  <url>
     <loc>https://statnmap.github.io/gitlabr//reference/gl_get_commits.html</loc>
   </url>
   <url>
@@ -52,10 +52,13 @@
     <loc>https://statnmap.github.io/gitlabr//reference/gl_list_projects.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//reference/gl_proj_req.html</loc>
+    <loc>https://statnmap.github.io/gitlabr//reference/gl_new_issue.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//reference/gl_push_file.html</loc>
+    <loc>https://statnmap.github.io/gitlabr//reference/gl_new_project.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//reference/gl_proj_req.html</loc>
   </url>
   <url>
     <loc>https://statnmap.github.io/gitlabr//reference/gl_repository.html</loc>
@@ -70,12 +73,30 @@
     <loc>https://statnmap.github.io/gitlabr//reference/iff.html</loc>
   </url>
   <url>
+    <loc>https://statnmap.github.io/gitlabr//reference/onefile.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//reference/pipe.html</loc>
+  </url>
+  <url>
     <loc>https://statnmap.github.io/gitlabr//reference/set_gitlab_connection.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//reference/update_gitlabr_code.html</loc>
+    <loc>https://statnmap.github.io/gitlabr//reference/use_gitlab_ci.html</loc>
   </url>
   <url>
-    <loc>https://statnmap.github.io/gitlabr//articles/quick-start-guide-to-gitlabr.html</loc>
+    <loc>https://statnmap.github.io/gitlabr//articles/a-quick-start-guide-to-gitlabr.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//articles/b-projects.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//articles/c-alternative-connection-to-projects.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//articles/d-go-further-understand-and-build.html</loc>
+  </url>
+  <url>
+    <loc>https://statnmap.github.io/gitlabr//articles/z-gitlabr-v2.html</loc>
   </url>
 </urlset>

@@ -71,7 +71,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -94,7 +94,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -163,12 +175,15 @@
 <li>Tick the fist checkboxes (the <code>api</code> scope)</li>
 <li>Add the token in the <code>environment.yml</code> or environment variables as “GITLABR_TEST_TOKEN”</li>
 </ul>
+<p><strong>=&gt; From now on, you can use “dev/create_testor_on_gitlab.R” script to automate required repository content for steps 5 - 11.</strong></p>
 <ol>
 <li>Create a project called <code>testor</code>, owned by the user, and containing a <code>README.md</code> file</li>
 </ol>
 <ul>
 <li>New Project &gt; Initialize with a README</li>
-<li>Add this name in the <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_NAME”</li>
+<li>be sure that the main branch is called <code>main</code>
+</li>
+<li>Add the project name in the <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_NAME”</li>
 </ul>
 <ol>
 <li>Get the ID of the project and add it in <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_ID”</li>
@@ -178,13 +193,20 @@
 <li>The Project ID is under the name of your project</li>
 </ul>
 <ol>
-<li>Add and commit a CI file (<code>.gitlab-ci.yml</code>) that includes a job named <code>testing</code> that should minimally create <code>public/test.txt</code> as an artifact, we recommend using the following <code>.gitlab-ci.yml</code> file:</li>
+<li>Add/modify and commit the <code>README.md</code>:</li>
 </ol>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">testing</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> echo 'test 1 2 1 2' &gt; 'test.txt'</span></span>
-<span id="cb1-3"><a href="#cb1-3"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
-<span id="cb1-4"><a href="#cb1-4"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> test.txt</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu"># testor</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>Repository to test R package <span class="ot">[{gitlabr}](https://github.com/statnmap/gitlabr)</span></span></code></pre></div>
+<ol>
+<li><p>Go to Repository &gt; Branches and create a branch named “for-tests”.</p></li>
+<li><p>Add and commit a CI file (<code>.gitlab-ci.yml</code>) in the main/master branch that includes a job named <code>testing</code> that should minimally create <code>public/test.txt</code> as an artifact, we recommend using the following <code>.gitlab-ci.yml</code> file:</p></li>
+</ol>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">testing</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="at">  </span><span class="fu">script</span><span class="kw">:</span><span class="at"> echo 'test 1 2 1 2' &gt; 'test.txt'</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> test.txt</span></span></code></pre></div>
 <ol>
 <li>Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the <code>environment.yml</code> as variable named ‘COMMENTED_COMMIT’, to do so:</li>
 </ol>
@@ -194,6 +216,8 @@
 </li>
 <li>Click on the relevant commit</li>
 <li>Write a comment</li>
+<li>Add its <sha1> in ‘COMMENTED_COMMIT’ in <code>environment.yml</code></sha1>
+</li>
 </ul>
 <ol>
 <li>Create a first issue (#1) with a follow-up comment</li>
@@ -204,9 +228,6 @@
 </li>
 <li>Then add a follow-up comment to this issue</li>
 </ul>
-<ol>
-<li>Go to Repository &gt; Branches and create a branch named “for-tests”.</li>
-</ol>
 <div id="how-to-run-the-test-suite" class="section level3">
 <h3 class="hasAnchor">
 <a href="#how-to-run-the-test-suite" class="anchor"></a>How to run the test suite</h3>
@@ -221,21 +242,36 @@ testthat::test_file("tests/testthat/test_ci.R") ## run test on one file</a></cod
 <a href="#how-to-check-the-package-with-github-actions-on-your-own-fork" class="anchor"></a>How to check the package with GitHub Actions on your own fork</h3>
 <p>For GitHub users, it is possible to directly use <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/workflow-syntax-for-github-actions">GitHub Actions</a> to test whether the package can be build smoothly before creating a PR. To do so, they should add the following environmental variables (the ones listed in <code>environment.yml</code>) as <a href="https://docs.github.com/en/free-pro-team@latest/actions/reference/encrypted-secrets">encrypted secrets</a>,</p>
 <ul>
-<li>COMMENTED_COMMIT</li>
 <li>GITLABR_TEST_LOGIN</li>
 <li>GITLABR_TEST_LOGIN_ID</li>
 <li>GITLABR_TEST_PASSWORD</li>
-<li>GITLABR_TEST_PROJECT_ID</li>
-<li>GITLABR_TEST_PROJECT_NAME</li>
 <li>GITLABR_TEST_TOKEN</li>
 <li>GITLABR_TEST_URL</li>
 </ul>
 <p>Also, another encrypted secrets named <code>REPO_GHA_PAT</code> is required, it should include a <a href="https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token">personal access token</a> that has access to your GitHub repositories.</p>
+<p>Note that the current GitHub Actions use different projects to test OS separately, in parallel. This means the following environmental variables will not work with your fork:</p>
+<ul>
+<li>GITLABR_TEST_PROJECT_ID</li>
+<li>GITLABR_TEST_PROJECT_NAME</li>
+<li>COMMENTED_COMMIT</li>
+</ul>
+<p>This value are directly set in the core of the action. If you really want to run GitHub Actions on your own fork before opening a PR, you can run “dev/create_testor_on_gitlab.R” to create the different CI repositories and modify the matrix of configuration in the corresponding CI configuration file.<br>
+However, you will need to put back original values to open a PR.</p>
+<!--
+You may need to temporarily modify the Actions OS matrix to fit your needs. 
+I recommend to keep only one OS tested to avoid unit tests to be run in parallel on the same repository.
+To do so, you can comment all but one OS in ".github/workflows/R-CMD-check.yaml", and change the values of the variable according to your configuration.
+-->
 </div>
 <div id="api-version" class="section level3">
 <h3 class="hasAnchor">
 <a href="#api-version" class="anchor"></a>API version</h3>
 <p>The test suite is intended for use with GitLab API v4, compatibility with API v3 is no longer maintained. Still, you can switch to run the tests against API v3, by setting the environment variable <code>GITLABR_TEST_API_VERSION</code> to value <code>3</code>. Note that API v3 is not present in recent GitLab versions!</p>
+</div>
+<div id="api-limitation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#api-limitation" class="anchor"></a>API limitation</h3>
+<p>Note that GitLab.com has some limitations : <a href="https://docs.gitlab.com/ee/user/gitlab_com/index.html#gitlabcom-specific-rate-limits" class="uri">https://docs.gitlab.com/ee/user/gitlab_com/index.html#gitlabcom-specific-rate-limits</a> Authenticated API traffic (for a given user) [From 2021-02-12]: 2,000 requests per minute</p>
 </div>
 </div>
 </div>

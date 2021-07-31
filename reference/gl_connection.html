@@ -74,7 +74,7 @@ only to a specified project." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -97,7 +97,19 @@ only to a specified project." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -184,7 +196,7 @@ only to a specified project.</p>
 
     <p>The returned function should serve as the primary way to access the GitLab
 API in the following. It can take vector/character arguments in the same way
-as the function <code><a href='gitlab.html'>gitlab</a></code> does, as well as the convenience functions
+as the function <code><a href='gitlab.html'>gitlab()</a></code> does, as well as the convenience functions
 provided by this package or written by the user. If it is passed such that
 function it calls it with the arguments provided in <code>...</code> and the GitLab
 URL, api location and private_token provided when creating it via <code>gl_connection</code>.</p>
@@ -195,14 +207,26 @@ you can give it a try.</p>
     
 
 <p>"v4" is the standard API since GitLab version 9.0 and only this version is officially supported by
-gitlabr since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr 
+gitlabr since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, gitlabr
 code will still work if you try.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='va'>my_gitlab</span> <span class='op'>&lt;-</span> <span class='fu'>gl_connection</span><span class='op'>(</span><span class='st'>"http://gitlab.example.com"</span>, <span class='st'>"123####89"</span><span class='op'>)</span>
-<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='st'>"projects"</span><span class='op'>)</span>
-<span class='fu'>my_gitlab</span><span class='op'>(</span><span class='va'>gl_get_file</span>, <span class='st'>"test-project"</span>, <span class='st'>"README.md"</span>, ref <span class='op'>=</span> <span class='st'>"dev"</span><span class='op'>)</span>
+<span class='co'># Set the connection for the session</span>
+<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span><span class='st'>"https://gitlab.com"</span>, private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'># Get list of projects</span>
+<span class='fu'><a href='gl_list_projects.html'>gl_list_projects</a></span><span class='op'>(</span>max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># Unset the connection for the session</span>
+<span class='fu'><a href='set_gitlab_connection.html'>unset_gitlab_connection</a></span><span class='op'>(</span><span class='op'>)</span>
+
+<span class='co'># Set connection for a specific project</span>
+<span class='va'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'>gl_project_connection</span><span class='op'>(</span>
+  gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
+  project <span class='op'>=</span> <span class='fl'>1234</span>,
+  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span>
+<span class='op'>)</span>
+<span class='co'># List files of a project</span>
+<span class='va'>my_project_list_files</span> <span class='op'>&lt;-</span> <span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_list_files</span>, max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
 <span class='op'>}</span>
 
 </div></pre>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the comments/notes of a commit or issue — gl_get_comments • gitlabr</title>
+<title>Post a new issue or edit one — gl_new_issue • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get the comments/notes of a commit or issue — gl_get_comments" />
-<meta property="og:description" content="Get the comments/notes of a commit or issue" />
+<meta property="og:title" content="Post a new issue or edit one — gl_new_issue" />
+<meta property="og:description" content="Post a new issue or edit one" />
 
 
 
@@ -135,88 +135,80 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the comments/notes of a commit or issue</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/comments.R'><code>R/comments.R</code></a></small>
-    <div class="hidden name"><code>gl_comments.Rd</code></div>
+    <h1>Post a new issue or edit one</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/issues.R'><code>R/issues.R</code></a></small>
+    <div class="hidden name"><code>gl_new_issue.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the comments/notes of a commit or issue</p>
+    <p>Post a new issue or edit one</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_get_comments</span><span class='op'>(</span><span class='va'>project</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='va'>id</span>, note_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>gl_new_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>title</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_get_issue_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_create_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>title</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_get_commit_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_edit_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, api_version <span class='op'>=</span> <span class='fl'>4</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_comment_commit</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_close_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_reopen_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>object_type</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_assign_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, assignee_id <span class='op'>=</span> <span class='cn'>NULL</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_issue_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
+<span class='fu'>gl_unassign_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>gl_edit_commit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>gl_delete_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>project</th>
-      <td><p>project name or id</p></td>
+      <td><p>project where the issue should be posted</p></td>
     </tr>
     <tr>
-      <th>object_type</th>
-      <td><p>one of "issue" or "commit". Snippets and merge_requests are not implemented yet.</p></td>
-    </tr>
-    <tr>
-      <th>id</th>
-      <td><p>id of object:</p><ul>
-<li><p>commits: sha</p></li>
-<li><p>issues notes/comments:</p><ul>
-<li><p>(project-wide) id for api version 4,</p></li>
-<li><p>(global) iid for api version 3</p></li>
-</ul></li>
-</ul></td>
-    </tr>
-    <tr>
-      <th>note_id</th>
-      <td><p>id of note</p></td>
+      <th>title</th>
+      <td><p>title of the issue</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code> API call. See Details.</p></td>
+      <td><p>further parameters passed to the API call, may
+contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).</p></td>
     </tr>
     <tr>
-      <th>text</th>
-      <td><p>Text of comment/note to add or edit (translates to GitLab API note/body respectively)</p></td>
+      <th>issue_id</th>
+      <td><p>issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is <code>TRUE</code> although this is not recommended!)</p></td>
+    </tr>
+    <tr>
+      <th>api_version</th>
+      <td><p>a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If <code>3</code>
+filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be 4 (default)</p></td>
+    </tr>
+    <tr>
+      <th>assignee_id</th>
+      <td><p>numeric id of users as returned in '/users/' API request</p></td>
     </tr>
     </table>
-
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
-
-    
-<ul>
-<li><p><code>gl_comment_commit</code>: might also contain <code>path</code>, <code>line</code>
-and <code>line_type</code> (old or new) to attach the comment to a specific in a file.
-See http://doc.gitlab.com/ce/api/commits.html</p></li>
-<li><p><code>gl_get_issue_comments</code>: might also contain <code>comment_id</code> to get a specific
-comment of an issue.</p></li>
-</ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># fill in login parameters</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
-  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"commit"</span>, 
-  id <span class='op'>=</span> <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span>
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='fl'>1</span>, 
-  text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span>
+<span class='co'># create an issue</span>
+<span class='va'>new_issue_infos</span> <span class='op'>&lt;-</span> <span class='fu'>gl_create_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"A simple issue"</span><span class='op'>)</span>
+<span class='va'>new_issue_iid</span> <span class='op'>&lt;-</span> <span class='va'>new_issue_infos</span><span class='op'>$</span><span class='va'>iid</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='co'>## close issue</span>
+<span class='fu'>gl_close_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span><span class='op'>)</span>
+<span class='co'>## reopen issue</span>
+<span class='fu'>gl_reopen_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span><span class='op'>)</span>
+<span class='co'>## edit its description</span>
+<span class='fu'>gl_edit_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span>, description <span class='op'>=</span> <span class='st'>"This is a test"</span><span class='op'>)</span>
+<span class='co'>## assign it</span>
+<span class='fu'>gl_assign_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span>, assignee_id <span class='op'>=</span> <span class='st'>"&lt;&lt;user-id&gt;&gt;"</span><span class='op'>)</span>
+<span class='co'>## unassign it</span>
+<span class='fu'>gl_unassign_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span><span class='op'>)</span>
+<span class='co'>## Delete issue as if it never existed</span>
+<span class='fu'>gl_delete_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='va'>new_issue_iid</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

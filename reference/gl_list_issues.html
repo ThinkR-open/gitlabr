@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -95,7 +95,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -140,7 +152,7 @@
   <span class='va'>...</span>
 <span class='op'>)</span>
 
-<span class='fu'>gl_get_issue</span><span class='op'>(</span><span class='va'>issue_id</span>, <span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>gl_get_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -152,21 +164,21 @@ If using the ID, set it as numeric, otherwise this is used as project name.</p><
     </tr>
     <tr>
       <th>issue_id</th>
-      <td><p>optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)</p></td>
+      <td><p>optional issue id (projectwide; for API v3 only you can use global iid when api_version is <code>3</code>)</p></td>
     </tr>
     <tr>
       <th>verb</th>
-      <td><p>ignored; all calls with this function will have <code><a href='gitlab.html'>gitlab</a></code>'s
+      <td><p>ignored; all calls with this function will have <code><a href='gitlab.html'>gitlab()</a></code>'s
 default verb <code><a href='https://httr.r-lib.org/reference/GET.html'>httr::GET</a></code></p></td>
     </tr>
     <tr>
       <th>api_version</th>
-      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If `3`
+      <td><p>a switch to force deprecated gitlab API v3 behavior that allows filtering by global iid. If <code>3</code>
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>further parameters passed on to <code><a href='gitlab.html'>gitlab</a></code>, may be
+      <td><p>further parameters passed on to <code><a href='gitlab.html'>gitlab()</a></code>, may be
 state, labels, issue id, ...</p></td>
     </tr>
     </table>
@@ -178,11 +190,22 @@ using a project connection</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># fill in login parameters</span>
-<span class='va'>my_project</span> <span class='op'>&lt;-</span> <span class='fu'><a href='gl_connection.html'>gl_project_connection</a></span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"testor"</span>, <span class='va'>...</span><span class='op'>)</span> 
-<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_list_issues</span><span class='op'>)</span>
-<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_get_issue</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>my_project</span><span class='op'>(</span><span class='va'>gl_new_issue</span>, <span class='fl'>1</span>, <span class='st'>"Implement new feature"</span>, description <span class='op'>=</span> <span class='st'>"It should be awesome."</span><span class='op'>)</span>
+<span class='co'># Set the connection for the session</span>
+<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>
+  gitlab_url <span class='op'>=</span> <span class='va'>test_url</span>,
+  private_token <span class='op'>=</span> <span class='va'>test_private_token</span>
+<span class='op'>)</span>
+<span class='co'># list issues</span>
+<span class='fu'>gl_list_issues</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, max_page <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># list opened issues</span>
+<span class='fu'>gl_list_issues</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, state <span class='op'>=</span> <span class='st'>"opened"</span><span class='op'>)</span>
+<span class='co'># Get one issue</span>
+<span class='fu'>gl_get_issue</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='co'># Create new issue</span>
+<span class='fu'><a href='gl_new_issue.html'>gl_new_issue</a></span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, title <span class='op'>=</span> <span class='st'>"Implement new feature"</span>, 
+  description <span class='op'>=</span> <span class='st'>"It should be awesome."</span><span class='op'>)</span>
+<span class='co'># Assign user to issue 1</span>
+<span class='fu'><a href='gl_new_issue.html'>gl_assign_issue</a></span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class='op'>=</span> <span class='fl'>1</span>, assignee_id <span class='op'>=</span> <span class='st'>"&lt;&lt;user-id&gt;&gt;"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

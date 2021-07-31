@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the comments/notes of a commit or issue — gl_get_comments • gitlabr</title>
+<title>Add .gitlab-ci.yml file in your current project from template — use_gitlab_ci • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get the comments/notes of a commit or issue — gl_get_comments" />
-<meta property="og:description" content="Get the comments/notes of a commit or issue" />
+<meta property="og:title" content="Add .gitlab-ci.yml file in your current project from template — use_gitlab_ci" />
+<meta property="og:description" content="Add .gitlab-ci.yml file in your current project from template" />
 
 
 
@@ -135,88 +135,78 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the comments/notes of a commit or issue</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/comments.R'><code>R/comments.R</code></a></small>
-    <div class="hidden name"><code>gl_comments.Rd</code></div>
+    <h1>Add .gitlab-ci.yml file in your current project from template</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/ci.R'><code>R/ci.R</code></a></small>
+    <div class="hidden name"><code>use_gitlab_ci.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the comments/notes of a commit or issue</p>
+    <p>Add .gitlab-ci.yml file in your current project from template</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_get_comments</span><span class='op'>(</span><span class='va'>project</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='va'>id</span>, note_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_get_issue_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_get_commit_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_comment_commit</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>object_type</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_issue_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_commit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>use_gitlab_ci</span><span class='op'>(</span>
+  image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>,
+  repo_name <span class='op'>=</span> <span class='st'>"https://packagemanager.rstudio.com/all/__linux__/focal/latest"</span>,
+  url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
+  path <span class='op'>=</span> <span class='st'>".gitlab-ci.yml"</span>,
+  overwrite <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  add_to_Rbuildignore <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  type <span class='op'>=</span> <span class='st'>"check-coverage-pkgdown"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>project</th>
-      <td><p>project name or id</p></td>
+      <th>image</th>
+      <td><p>Docker image to use in GitLab ci. If NULL, not specified!</p></td>
     </tr>
     <tr>
-      <th>object_type</th>
-      <td><p>one of "issue" or "commit". Snippets and merge_requests are not implemented yet.</p></td>
+      <th>repo_name</th>
+      <td><p>REPO_NAME environment variable for R CRAN mirror used</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>id of object:</p><ul>
-<li><p>commits: sha</p></li>
-<li><p>issues notes/comments:</p><ul>
-<li><p>(project-wide) id for api version 4,</p></li>
-<li><p>(global) iid for api version 3</p></li>
-</ul></li>
-</ul></td>
+      <th>url</th>
+      <td><p>url of the GitLab instance</p></td>
     </tr>
     <tr>
-      <th>note_id</th>
-      <td><p>id of note</p></td>
+      <th>path</th>
+      <td><p>destination path for writing GitLab CI yml file</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code> API call. See Details.</p></td>
+      <th>overwrite</th>
+      <td><p>whether to overwrite existing GitLab CI yml file</p></td>
     </tr>
     <tr>
-      <th>text</th>
-      <td><p>Text of comment/note to add or edit (translates to GitLab API note/body respectively)</p></td>
+      <th>add_to_Rbuildignore</th>
+      <td><p>add CI yml file (from <code>path</code>) to .Rbuildignore?</p></td>
+    </tr>
+    <tr>
+      <th>type</th>
+      <td><p>type of the CI template to use</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    
-<ul>
-<li><p><code>gl_comment_commit</code>: might also contain <code>path</code>, <code>line</code>
-and <code>line_type</code> (old or new) to attach the comment to a specific in a file.
-See http://doc.gitlab.com/ce/api/commits.html</p></li>
-<li><p><code>gl_get_issue_comments</code>: might also contain <code>comment_id</code> to get a specific
-comment of an issue.</p></li>
+    <p>Typs available are:</p><ul>
+<li><p>"check-coverage-pkgdown": Check package along with Code coverage with covr
+and pkgdown site on GitLab Pages</p></li>
+<li><p>"check-coverage-pkgdown-renv": Check package built in a fixed renv state
+along with Code coverage with covr and pkgdown site on GitLab Pages.</p></li>
+<li><p>"bookdown": Build bookdown HTML and PDF site on GitLab Pages</p></li>
+<li><p>"bookdown-production": Build bookdown HTML and PDF site on GitLab Pages.
+Where principal page is for branch named 'production' and "dev/" sub-folder is for
+'main' (or 'master') branch.</p></li>
 </ul>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># fill in login parameters</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
-  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"commit"</span>, 
-  id <span class='op'>=</span> <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span>
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='fl'>1</span>, 
-  text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='co'># Create in another directory</span>
+<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".yml"</span><span class='op'>)</span><span class='op'>)</span>
+<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='co'># Create in your current project with template for packages checking</span>
+<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, type <span class='op'>=</span> <span class='st'>"check-coverage-pkgdown"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

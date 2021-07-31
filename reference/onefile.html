@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Get the comments/notes of a commit or issue — gl_get_comments • gitlabr</title>
+<title>Upload, delete a file to a GitLab repository — gl_push_file • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Get the comments/notes of a commit or issue — gl_get_comments" />
-<meta property="og:description" content="Get the comments/notes of a commit or issue" />
+<meta property="og:title" content="Upload, delete a file to a GitLab repository — gl_push_file" />
+<meta property="og:description" content="If the file already exists, it is updated/overwritten by default" />
 
 
 
@@ -135,90 +135,68 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Get the comments/notes of a commit or issue</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/comments.R'><code>R/comments.R</code></a></small>
-    <div class="hidden name"><code>gl_comments.Rd</code></div>
+    <h1>Upload, delete a file to a GitLab repository</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/files.R'><code>R/files.R</code></a></small>
+    <div class="hidden name"><code>onefile.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Get the comments/notes of a commit or issue</p>
+    <p>If the file already exists, it is updated/overwritten by default</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_get_comments</span><span class='op'>(</span><span class='va'>project</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='va'>id</span>, note_id <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>gl_push_file</span><span class='op'>(</span>
+  <span class='va'>project</span>,
+  <span class='va'>file_path</span>,
+  <span class='va'>content</span>,
+  <span class='va'>commit_message</span>,
+  branch <span class='op'>=</span> <span class='fu'>get_main</span><span class='op'>(</span><span class='op'>)</span>,
+  overwrite <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>gl_get_issue_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_get_commit_comments</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_comment_commit</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>id</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>object_type</span>, <span class='va'>text</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_issue_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span>
-
-<span class='fu'>gl_edit_commit_comment</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+<span class='fu'>gl_delete_file</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>file_path</span>, <span class='va'>commit_message</span>, branch <span class='op'>=</span> <span class='fu'>get_main</span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>project</th>
-      <td><p>project name or id</p></td>
+      <td><p>Project name or id</p></td>
     </tr>
     <tr>
-      <th>object_type</th>
-      <td><p>one of "issue" or "commit". Snippets and merge_requests are not implemented yet.</p></td>
+      <th>file_path</th>
+      <td><p>path where to store file in gl_repository.
+If in subdirectory, the parent directory should exist.</p></td>
     </tr>
     <tr>
-      <th>id</th>
-      <td><p>id of object:</p><ul>
-<li><p>commits: sha</p></li>
-<li><p>issues notes/comments:</p><ul>
-<li><p>(project-wide) id for api version 4,</p></li>
-<li><p>(global) iid for api version 3</p></li>
-</ul></li>
-</ul></td>
+      <th>content</th>
+      <td><p>Character of length 1. File content (text)</p></td>
     </tr>
     <tr>
-      <th>note_id</th>
-      <td><p>id of note</p></td>
+      <th>commit_message</th>
+      <td><p>Message to use for commit with new/updated file</p></td>
+    </tr>
+    <tr>
+      <th>branch</th>
+      <td><p>name of branch where to append newly generated commit with new/updated file</p></td>
+    </tr>
+    <tr>
+      <th>overwrite</th>
+      <td><p>whether to overwrite files that already exist</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code> API call. See Details.</p></td>
-    </tr>
-    <tr>
-      <th>text</th>
-      <td><p>Text of comment/note to add or edit (translates to GitLab API note/body respectively)</p></td>
+      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code></p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
+    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    
-<ul>
-<li><p><code>gl_comment_commit</code>: might also contain <code>path</code>, <code>line</code>
-and <code>line_type</code> (old or new) to attach the comment to a specific in a file.
-See http://doc.gitlab.com/ce/api/commits.html</p></li>
-<li><p><code>gl_get_issue_comments</code>: might also contain <code>comment_id</code> to get a specific
-comment of an issue.</p></li>
-</ul>
-
+    <p>returns a tibble with changed branch and path (0 rows if
+nothing was changed, since overwrite is FALSE)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># fill in login parameters</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
-  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"commit"</span>, 
-  id <span class='op'>=</span> <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span>
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='fl'>1</span>, 
-  text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

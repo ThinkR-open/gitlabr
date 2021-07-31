@@ -73,7 +73,7 @@ global iid is no longer functional." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -96,7 +96,19 @@ global iid is no longer functional." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -134,28 +146,27 @@ global iid is no longer functional." />
 global iid is no longer functional.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_to_issue_id</span><span class='op'>(</span><span class='va'>issue_id</span>, <span class='va'>project</span>, api_version <span class='op'>=</span> <span class='fl'>4</span>, <span class='va'>...</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>gl_to_issue_id</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>issue_id</span>, api_version <span class='op'>=</span> <span class='fl'>3</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>issue_id</th>
-      <td><p>projectwide issue id (as seen by e.g. GitLab website users)</p></td>
-    </tr>
-    <tr>
       <th>project</th>
       <td><p>project name or id</p></td>
     </tr>
     <tr>
+      <th>issue_id</th>
+      <td><p>projectwide issue id (as seen by e.g. GitLab website users)</p></td>
+    </tr>
+    <tr>
       <th>api_version</th>
       <td><p>Since this function is no longer necessary for GitLab API v4,
-this must be set to 3 in order to avoid deprecation warning and HTTP error. It currently
-default to 4</p></td>
+this must be set to 3 in order to avoid deprecation warning and HTTP error.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab</a></code></p></td>
+      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code></p></td>
     </tr>
     </table>
 

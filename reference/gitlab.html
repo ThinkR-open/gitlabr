@@ -74,7 +74,7 @@ own. See the gitlabr vignette for more information on this." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -97,7 +97,19 @@ own. See the gitlabr vignette for more information on this." />
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -165,7 +177,7 @@ own. See the gitlabr vignette for more information on this.</p>
     <tr>
       <th>verb</th>
       <td><p>http verb to use for request in form of one of the <code>httr</code> functions
-<code><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></code>, <code><a href='https://httr.r-lib.org/reference/PUT.html'>PUT</a></code>, <code><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></code>, <code><a href='https://httr.r-lib.org/reference/DELETE.html'>DELETE</a></code></p></td>
+<code><a href='https://httr.r-lib.org/reference/GET.html'>httr::GET()</a></code>, <code><a href='https://httr.r-lib.org/reference/PUT.html'>httr::PUT()</a></code>, <code><a href='https://httr.r-lib.org/reference/POST.html'>httr::POST()</a></code>, <code><a href='https://httr.r-lib.org/reference/DELETE.html'>httr::DELETE()</a></code></p></td>
     </tr>
     <tr>
       <th>auto_format</th>
@@ -177,8 +189,8 @@ own. See the gitlabr vignette for more information on this.</p>
     </tr>
     <tr>
       <th>gitlab_con</th>
-      <td><p>function to use for issuing API requests (e.g. as returned by 
-<code><a href='gitlabr-deprecated.html'>gitlab_connection</a></code></p></td>
+      <td><p>function to use for issuing API requests (e.g. as returned by
+<code><a href='gitlabr-deprecated.html'>gitlab_connection()</a></code></p></td>
     </tr>
     <tr>
       <th>page</th>
@@ -212,20 +224,42 @@ may include private_token and all other parameters as documented for the GitLab 
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>the response from the GitLab API, usually as a `tibble` and including all pages</p>
+    <p>the response from the GitLab API, usually as a <code>tibble</code> and including all pages</p>
     <h2 class="hasAnchor" id="details"><a class="anchor" href="#details"></a>Details</h2>
 
-    <p>Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version &gt;= 9.0) will
-be added soon.</p>
+    <p><code>gitlab()</code> function allows to use any request of the GitLab API <a href='https://docs.gitlab.com/ce/api/'>https://docs.gitlab.com/ce/api/</a>.</p>
+<p>For instance, the API documentation shows how to create a new project in
+<a href='https://docs.gitlab.com/ee/api/projects.html#create-project'>https://docs.gitlab.com/ee/api/projects.html#create-project</a>:</p><ul>
+<li><p>The verb is <code>POST</code></p></li>
+<li><p>The request is <code>projects</code></p></li>
+<li><p>Required attributes are <code>name</code> or <code>path</code> (if <code>name</code> not set)</p></li>
+<li><p><code>default_branch</code> is an attribute that can be set if wanted</p></li>
+</ul>
+
+<p>The corresponding use of <code>gitlab()</code> is:</p><pre><span class='fu'>gitlab</span><span class='op'>(</span>
+  req <span class='op'>=</span> <span class='st'>"projects"</span>,
+  verb <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></span>,
+  name <span class='op'>=</span> <span class='st'>"toto"</span>,
+  default_branch <span class='op'>=</span> <span class='st'>"main"</span>
+<span class='op'>)</span>
+</pre>
+
+<p>Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
+you can give it a try.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='st'>"projects"</span>,
-       api_root <span class='op'>=</span> <span class='st'>"https://gitlab.example.com/api/v4/"</span>,
-       private_token <span class='op'>=</span> <span class='st'>"123####89"</span><span class='op'>)</span>
-<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projects"</span>, <span class='fl'>21</span>, <span class='st'>"issues"</span><span class='op'>)</span>,
-       state <span class='op'>=</span> <span class='st'>"closed"</span>,
-       gitlab_con <span class='op'>=</span> <span class='va'>my_gitlab</span><span class='op'>)</span>
+<span class='co'># Connect as a fixed user to a GitLab instance</span>
+<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>
+  gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>, 
+  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span>
+<span class='op'>)</span>
+
+<span class='co'># Use a simple request</span>
+<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='st'>"projects"</span><span class='op'>)</span>
+<span class='co'># Use a combined request with extra parameters</span>
+<span class='fu'>gitlab</span><span class='op'>(</span>req <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"projects"</span>, <span class='fl'>1234</span>, <span class='st'>"issues"</span><span class='op'>)</span>,
+       state <span class='op'>=</span> <span class='st'>"closed"</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>

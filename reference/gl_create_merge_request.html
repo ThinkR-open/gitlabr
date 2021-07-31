@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Create a merge request — gl_create_merge_request • gitlabr</title>
+<title>Manage merge requests — gl_create_merge_request • gitlabr</title>
 
 
 <!-- jquery -->
@@ -39,8 +39,8 @@
 
 
 
-<meta property="og:title" content="Create a merge request — gl_create_merge_request" />
-<meta property="og:description" content="Create a merge request" />
+<meta property="og:title" content="Manage merge requests — gl_create_merge_request" />
+<meta property="og:description" content="Manage merge requests" />
 
 
 
@@ -72,7 +72,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.1.6.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
       </span>
     </div>
 
@@ -95,7 +95,19 @@
   </a>
   <ul class="dropdown-menu" role="menu">
     <li>
-      <a href="../articles/quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+    </li>
+    <li>
+      <a href="../articles/b-projects.html">Manage a project</a>
+    </li>
+    <li>
+      <a href="../articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
+    </li>
+    <li>
+      <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
     </li>
   </ul>
 </li>
@@ -123,24 +135,31 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Create a merge request</h1>
-    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/projects_and_repos.R'><code>R/projects_and_repos.R</code></a></small>
+    <h1>Manage merge requests</h1>
+    <small class="dont-index">Source: <a href='https://github.com/statnmap/gitlabr/blob/master/R/merge_requests.R'><code>R/merge_requests.R</code></a></small>
     <div class="hidden name"><code>gl_create_merge_request.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Create a merge request</p>
+    <p>Manage merge requests</p>
     </div>
 
     <pre class="usage"><span class='fu'>gl_create_merge_request</span><span class='op'>(</span>
   <span class='va'>project</span>,
   <span class='va'>source_branch</span>,
-  target_branch <span class='op'>=</span> <span class='st'>"master"</span>,
+  target_branch <span class='op'>=</span> <span class='fu'>get_main</span><span class='op'>(</span><span class='op'>)</span>,
   <span class='va'>title</span>,
   <span class='va'>description</span>,
-  verb <span class='op'>=</span> <span class='fu'>httr</span><span class='fu'>::</span><span class='va'><a href='https://httr.r-lib.org/reference/POST.html'>POST</a></span>,
   <span class='va'>...</span>
-<span class='op'>)</span></pre>
+<span class='op'>)</span>
+
+<span class='fu'>gl_edit_merge_request</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>merge_request_iid</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>gl_close_merge_request</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>merge_request_iid</span><span class='op'>)</span>
+
+<span class='fu'>gl_delete_merge_request</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>merge_request_iid</span>, <span class='va'>...</span><span class='op'>)</span>
+
+<span class='fu'>gl_list_merge_requests</span><span class='op'>(</span><span class='va'>project</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -166,16 +185,18 @@
       <td><p>description text for the merge request</p></td>
     </tr>
     <tr>
-      <th>verb</th>
-      <td><p>is ignored, will always be forced to match the action the function name indicates</p></td>
+      <th>...</th>
+      <td><p>passed on to <code><a href='gitlab.html'>gitlab()</a></code>. Might contain more fields documented in GitLab API doc.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>passed on to <code><a href='gitlab.html'>gitlab</a></code>. Might contain more fields documented in GitLab API doc.</p></td>
+      <th>merge_request_iid</th>
+      <td><p>iid of the merge request</p></td>
     </tr>
     </table>
 
 
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
