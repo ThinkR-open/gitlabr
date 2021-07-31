@@ -1,0 +1,56 @@
+---
+title: "Alternative connections to projects"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{c-Alternative connections to projects}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+# Creating connections
+
+The idea of connections in {gitlabr} is to generate functions with the same signature and capability of the central API call function `gitlab()`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)).
+This way these more specialized functions represent and provide the connection -- for example -- to a specific GitLab instance as a specific user.
+Such specialized functions can be created by the function `gitlab_connection()` and then used exactly as you would use `gitlab()`:
+
+```{r eval = FALSE}
+my_gitlab <- gl_connection("https://gitlab.com",
+                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+my_gitlab("projects")
+```
+
+```{r echo = FALSE, eval = FALSE, message=FALSE}
+library(dplyr)
+my_gitlab("projects") %>%
+  filter(public == "TRUE") %>%
+  select(name, everything())
+```
+
+`gitlab_connection()` can take arbitrary parameters, returning a function that issues API requests with these parameter values set.
+
+As a convenience wrapper to directly connect to a specific project in a GitLab instance, `gl_project_connection()` exists.
+
+## function-in-function style
+
+Instead of the query as character vector `gitlab()` and thus also all connections accept equivalently a *function* as first argument, that is then called with the additional parameters and using the connection for all API calls:
+
+```{r eval = FALSE}
+my_gitlab(gl_create_issue, "Implement new feature", project = my_project)
+```
+
+`gl_create_issue()` is an example function here, the principle style works for all convenience functions of {gitlabr} starting with `gl_*()`.
+
+Some of the convenience perform additional transformation or renaming of parameters.
+Hence, the parameters given to the exemplary `my_gitlab(...)` call after the function should be valid according the documentation of the respective function and may differ from names used in the GitLab API itself, although this is the case only in very few cases.

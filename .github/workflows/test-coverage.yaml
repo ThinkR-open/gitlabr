@@ -1,6 +1,6 @@
 on:
-  repository_dispatch:
-    types: [test-coverage]
+  push:
+    branches: [main, master]
 
 name: test-coverage
 
@@ -13,10 +13,11 @@ jobs:
       GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
       GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
       GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
-      GITLABR_TEST_PROJECT_ID: ${{ secrets.GITLABR_TEST_PROJECT_ID }}
-      GITLABR_TEST_PROJECT_NAME: ${{ secrets.GITLABR_TEST_PROJECT_NAME }}
       GITLABR_TEST_TOKEN: ${{ secrets.GITLABR_TEST_TOKEN }}
       GITLABR_TEST_URL: ${{ secrets.GITLABR_TEST_URL }}
+      GITLABR_TEST_PROJECT_ID: "28486390"
+      GITLABR_TEST_PROJECT_NAME: "testor.coverage"
+      COMMENTED_COMMIT: '5666b975e168866ed77ae61d4cd5402a74f3d6c6'
     steps:
       - uses: actions/checkout@v2
 

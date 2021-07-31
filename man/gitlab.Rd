@@ -22,17 +22,17 @@ gitlab(
 \arguments{
 \item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
 
-\item{api_root}{URL where the GitLab API to request resides (e.g. \code{https://gitlab.myserver.com/api/v3/})}
+\item{api_root}{URL where the GitLab API to request resides (e.g. \verb{https://gitlab.myserver.com/api/v3/})}
 
 \item{verb}{http verb to use for request in form of one of the \code{httr} functions
-\code{\link[httr]{GET}}, \code{\link[httr]{PUT}}, \code{\link[httr]{POST}}, \code{\link[httr]{DELETE}}}
+\code{\link[httr:GET]{httr::GET()}}, \code{\link[httr:PUT]{httr::PUT()}}, \code{\link[httr:POST]{httr::POST()}}, \code{\link[httr:DELETE]{httr::DELETE()}}}
 
 \item{auto_format}{whether to format the returned object automatically to a flat data.frame}
 
 \item{debug}{if TRUE API URL and query will be printed, defaults to FALSE}
 
-\item{gitlab_con}{function to use for issuing API requests (e.g. as returned by 
-\code{\link{gitlab_connection}}}
+\item{gitlab_con}{function to use for issuing API requests (e.g. as returned by
+\code{\link[=gitlab_connection]{gitlab_connection()}}}
 
 \item{page}{number of page of API response to get; if "all" (default), all pages
 (up to max_page parameter!) are queried successively and combined.}
@@ -53,7 +53,7 @@ and ignorant about its URL from external.}
 may include private_token and all other parameters as documented for the GitLab API}
 }
 \value{
-the response from the GitLab API, usually as a `tibble` and including all pages
+the response from the GitLab API, usually as a \code{tibble} and including all pages
 }
 \description{
 This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
@@ -61,16 +61,40 @@ use this function directly too often, but either use {gitlabr}'s convenience wra
 own. See the {gitlabr} vignette for more information on this.
 }
 \details{
-Note: currently GitLab API v3 is supported. Support for GitLab API v4 (for GitLab version >= 9.0) will
-be added soon.
+\code{gitlab()} function allows to use any request of the GitLab API \url{https://docs.gitlab.com/ce/api/}.
+
+For instance, the API documentation shows how to create a new project in
+\url{https://docs.gitlab.com/ee/api/projects.html#create-project}:
+\itemize{
+\item The verb is \code{POST}
+\item The request is \code{projects}
+\item Required attributes are \code{name} or \code{path} (if \code{name} not set)
+\item \code{default_branch} is an attribute that can be set if wanted
+}
+
+The corresponding use of \code{gitlab()} is:\preformatted{gitlab(
+  req = "projects",
+  verb = httr::POST,
+  name = "toto",
+  default_branch = "main"
+)
+}
+
+Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
+you can give it a try.
 }
 \examples{
 \dontrun{
-gitlab(req = "projects",
-       api_root = "https://gitlab.example.com/api/v4/",
-       private_token = "123####89")
-gitlab(req = c("projects", 21, "issues"),
-       state = "closed",
-       gitlab_con = my_gitlab)
+# Connect as a fixed user to a GitLab instance
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com", 
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+
+# Use a simple request
+gitlab(req = "projects")
+# Use a combined request with extra parameters
+gitlab(req = c("projects", 1234, "issues"),
+       state = "closed")
 }
 }

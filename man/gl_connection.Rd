@@ -21,7 +21,7 @@ gl_project_connection(
 )
 }
 \arguments{
-\item{gitlab_url}{URL to the GitLab instance (e.g. \code{https://gitlab.myserver.com})}
+\item{gitlab_url}{URL to the GitLab instance (e.g. \verb{https://gitlab.myserver.com})}
 
 \item{private_token}{private_token with which to identify. You can generate one in the web interface under
 \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.}
@@ -43,7 +43,7 @@ only to a specified project.
 \details{
 The returned function should serve as the primary way to access the GitLab
 API in the following. It can take vector/character arguments in the same way
-as the function \code{\link{gitlab}} does, as well as the convenience functions
+as the function \code{\link[=gitlab]{gitlab()}} does, as well as the convenience functions
 provided by this package or written by the user. If it is passed such that
 function it calls it with the arguments provided in \code{...} and the GitLab
 URL, api location and private_token provided when creating it via \code{gl_connection}.
@@ -54,15 +54,27 @@ you can give it a try.
 \section{API versions}{
 
 "v4" is the standard API since GitLab version 9.0 and only this version is officially supported by
-{gitlabr} since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, {gitlabr} 
+{gitlabr} since version 1.1.6. "v3" as a parameter value is not removed, since for many instances, {gitlabr}
 code will still work if you try.
 }
 
 \examples{
 \dontrun{
-my_gitlab <- gl_connection("http://gitlab.example.com", "123####89")
-my_gitlab("projects")
-my_gitlab(gl_get_file, "test-project", "README.md", ref = "dev")
+# Set the connection for the session
+set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+# Get list of projects
+gl_list_projects(max_page = 1)
+# Unset the connection for the session
+unset_gitlab_connection()
+
+# Set connection for a specific project
+my_project <- gl_project_connection(
+  gitlab_url = "https://gitlab.com",
+  project = 1234,
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+# List files of a project
+my_project_list_files <- my_project(gl_list_files, max_page = 1)
 }
 
 }

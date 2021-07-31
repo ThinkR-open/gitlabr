@@ -11,33 +11,40 @@
 \alias{gl_edit_commit_comment}
 \title{Get the comments/notes of a commit or issue}
 \usage{
-gl_get_comments(object_type = "issue", id, note_id = c(), project, ...)
+gl_get_comments(project, object_type = "issue", id, note_id = c(), ...)
 
-gl_get_issue_comments(...)
+gl_get_issue_comments(project, id, ...)
 
-gl_get_commit_comments(...)
+gl_get_commit_comments(project, id, ...)
 
 gl_comment_commit(project, id, text, ...)
 
 gl_comment_issue(project, id, text, ...)
 
-gl_edit_comment(object_type, text, ...)
+gl_edit_comment(project, object_type, text, ...)
 
-gl_edit_issue_comment(...)
+gl_edit_issue_comment(project, ...)
 
-gl_edit_commit_comment(...)
+gl_edit_commit_comment(project, ...)
 }
 \arguments{
+\item{project}{project name or id}
+
 \item{object_type}{one of "issue" or "commit". Snippets and merge_requests are not implemented yet.}
 
-\item{id}{id of object: sha for commits, not issues notes/comments:
-(project-wide) id for api version 4, (global) iid for api version 3}
+\item{id}{id of object:
+\itemize{
+\item commits: sha
+\item issues notes/comments:
+\itemize{
+\item (project-wide) id for api version 4,
+\item (global) iid for api version 3
+}
+}}
 
 \item{note_id}{id of note}
 
-\item{project}{project name or id}
-
-\item{...}{passed on to \code{\link{gitlab}} API call. See Details.}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call. See Details.}
 
 \item{text}{Text of comment/note to add or edit (translates to GitLab API note/body respectively)}
 }
@@ -45,17 +52,23 @@ gl_edit_commit_comment(...)
 Get the comments/notes of a commit or issue
 }
 \details{
-For \code{gl_comment_commit} ... might also contain \code{path}, \code{line}
+\itemize{
+\item \code{gl_comment_commit}: might also contain \code{path}, \code{line}
 and \code{line_type} (old or new) to attach the comment to a specific in a file.
 See http://doc.gitlab.com/ce/api/commits.html
+\item \code{gl_get_issue_comments}: might also contain \code{comment_id} to get a specific
+comment of an issue.
+}
 }
 \examples{
 \dontrun{
 # fill in login parameters
-my_project <- gl_project_connection(project = "testor", ...)
-gl_get_comments(object_type = "issue", 1, project = my_project)
-my_project(gl_get_comments, "issue", 1)
-my_project(gl_get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
-my_project(gl_comment_issue, 1, text = "Almost done!")
+set_gitlab_connection(gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+gl_get_comments(project = "<<your-project-id>>", object_type = "issue", 1)
+gl_get_comments(project = "<<your-project-id>>", "commit", 
+  id = "8ce5ef240123cd78c1537991e5de8d8323666b15")
+gl_comment_issue(project = "<<your-project-id>>", 1, 
+  text = "Almost done!")
 }
 }

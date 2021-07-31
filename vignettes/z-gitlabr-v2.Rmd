@@ -1,0 +1,30 @@
+---
+title: "Breaking changes in {gitlabr} V2"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{gitlabr-v2}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+* Default branch is named `main` whenever required.
+  + This can be changed with `gitlabr_options_set("gitlabr.main", "master")`
+* All project-specific functions get `project` as first parameter. Changes apply to:
+  + `gl_get_comments()`,`gl_to_issue_id()`, `gl_get_issue_comments()`, `gl_get_commit_comments()`,
+  `gl_edit_comment()`, `gl_edit_issue_comment()`, `gl_edit_commit_comment()`
+  + `gl_repository()`
+  + `gl_get_issue()`, `gl_to_issue_id()`, `gl_new_issue()`, `gl_create_issue()`, `gl_edit_issue()`, `gl_close_issue()`,
+  `gl_reopen_issue()`, `gl_assign_issue()`, `gl_unassign_issue()`
+* Changed use of `api_version = "v4"` by `api_version = 4`
+* Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default

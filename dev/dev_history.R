@@ -3,6 +3,12 @@ usethis::use_build_ignore("dev/")
 usethis::use_build_ignore("README.Rmd")
 usethis::use_git_ignore("tests/environment.yml")
 
+# Doc
+usethis::use_vignette("projects")
+usethis::use_vignette("gitlabr-v2")
+usethis::use_roxygen_md()
+roxygen2md::roxygen2md()
+
 # Add CI
 usethis::use_github_action_check_standard()
 usethis::use_github_action("pkgdown")
@@ -23,7 +29,14 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 pkgdown::build_site()
 
 # Development
-attachment::att_amend_desc() #extra.suggests = "R.rsp")
+attachment::att_amend_desc() #extra.suggests = "glue")
+devtools::load_all()
 devtools::test()
-devtools::check()
+devtools::check() # /!\ Tests are currently skip /!\
 devtools::build_vignettes()
+
+# Find `@return` blocks
+
+library(roxygen2)
+remotes::install_github("ThinkR-open/checkhelper")
+checkhelper::find_missing_values()

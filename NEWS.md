@@ -1,19 +1,33 @@
-# gitlabr 1.1.6.9000
+# gitlabr 2.0.0
 
-* Update documentation: recommend using `gl_*` functions
+Breaking changes
 
-Breaking change
-
+* Default branch is named `main` whenever required.
+  + This can be changed with `gitlabr_options_set("gitlabr.main", "master")`
+* All project-specific functions get `project` as first parameter. Changes apply to:
+  + `gl_get_comments()`,`gl_to_issue_id()`, `gl_get_issue_comments()`, `gl_get_commit_comments()`,
+  `gl_edit_comment()`, `gl_edit_issue_comment()`, `gl_edit_commit_comment()`
+  + `gl_repository()`
+  + `gl_get_issue()`, `gl_to_issue_id()`, `gl_new_issue()`, `gl_create_issue()`, `gl_edit_issue()`, `gl_close_issue()`,
+  `gl_reopen_issue()`, `gl_assign_issue()`, `gl_unassign_issue()`
 * Changed use of `api_version = "v4"` by `api_version = 4`
 * Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default
 
+Major
+
+* Add new functions to manage projects: `gl_get_project()`, `gl_new_project()`, `gl_edit_project()`,
+ `gl_delete_project()`
+* Update documentation: recommend using `gl_*` functions
+
 Minor
 
+* `gl_archive()` is used to archive a project (not to download an archive)
+* fix use of `max_page` with `gl_()` functions calling `gitlab()`
 * Correction of api that downloaded twice the first page when `page == "all"`
-* Reduce `max_page` to retrieve content to allow to work with big Gitlab servers like Gitlab.com
+* Reduce `max_page` in examples and tests to retrieve content to allow to work with big GitLab servers like Gitlab.com
 * Change maintainer
 * Update CONTRIBUTING for tests with Gitlab.com
-
+* `update_gitlabr_code()` removed
 
 
 # gitlabr 1.1.6

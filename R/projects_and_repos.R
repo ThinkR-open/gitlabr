@@ -1,133 +1,41 @@
-#' List projects on GitLab
+#' List projects information
 #' 
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param ... passed on to [gitlab()]
 #' @export
+#' @return tibble of each project with corresponding information
+#' @details 
+#' `gl_list_projects()` is an alias for `gl_get_projects()`
 #' 
 #' @examples \dontrun{
-#' my_gitlab <- gl_connection(...) ## fill in login parameters
-#' set_gitlab_connection(my_gitlab)
-#' gl_list_projects(max_page = 1)
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' # List all projects
+#' gl_get_projects(max_page = 1)
+#' # List users projects
+#' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
 #' }
 gl_list_projects <- function(...) {
   gitlab("projects", ...)
 }
 
-#' Access to repository functions and files in GitLab API
-#' 
-#' @param project name or id of project (not repository!)
-#' @param req request to perform on repository (everything after '/repository/'
-#' in GitLab API, as vector or part of URL)
-#' @param ... passed on to \code{\link{gitlab}} API call
 #' @export
-#' 
-#' @examples \dontrun{
-#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
-#' my_project(gl_list_files)
-#' my_project(gl_get_file, "data.csv")
-#' }
-gl_repository <- function(req = c("tree"), project, ...) {
-  gitlab(gl_proj_req(project, c("repository", req), ...), ...)
+#' @rdname gl_list_projects
+gl_get_projects <- gl_list_projects
+
+#' @param user_id id of the user to list project from
+#' @export
+#' @rdname gl_list_projects
+gl_list_user_projects <- function(user_id, ...) {
+  gitlab(c("users", user_id, "projects"), ...)
 }
 
-#' List, create and delete branches
-#' 
-#' @rdname branches
-#' @param project name or id of project (not repository!)
-#' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to \code{\link{gitlab}}
+#' @param project project name or id
 #' @export
-#' 
-#' @examples \dontrun{
-#' my_gitlab <- gl_connection(...) ## fill in login parameters
-#' set_gitlab_connection(my_gitlab)
-#' project_id <- ... ## Fill in your project ID
-#' gl_list_branches(project = project_id) 
-#' # Create branch "new_feature"
-#' gl_create_branch(project = project_id,
-#'                  branch = "new_feature")
-#' # Confirm that it the branch was created
-#' gl_list_branches(project = project_id)
-#' # Delete branch again
-#' gl_delete_branch(project = project_id,
-#'                  branch = "new_feature")
-#' # Check that we're back where we started
-#' gl_list_branches(project = project_id)
-#' }
-gl_list_branches <- function(project, verb = httr::GET, ...) {
-  gl_proj_req(project, c("repository", "branches"), ...) %>% 
-    gitlab(...)
-}
-
-#' List, create and delete branches
-#' 
-#' @param branch name of branch to create/delete
-#' @param ref ref name of origin for newly created branch
-#' @rdname branches
-#' @export
-gl_create_branch <- function(project, branch, ref = "master", verb = httr::POST, ...) {
-  gl_proj_req(project, c("repository", "branches"), ...) %>% 
-    gitlab(verb = httr::POST,
-         branch_name = branch, ## This is legacy for API v3 use and will be ignored by API v4
-         branch = branch,
-         ref = ref,
-         auto_format = FALSE,
-         ...) %>%
-    tibble::as_tibble()
-}
-
-#' List, create and delete branches
-#' 
-#' @rdname branches
-#' @export
-gl_delete_branch <- function(project, branch, verb = httr::POST, ...) {
-  gl_proj_req(project, c("repository", "branches", branch), ...) %>% 
-    gitlab(verb = httr::DELETE,
-           auto_format = FALSE,
-           ...) %>%
-    tibble::as_tibble()
-}
-
-#' Create a merge request
-#' 
-#' @param project name or id of project (not repository!)
-#' @param source_branch name of branch to be merged
-#' @param target_branch name of branch into which to merge
-#' @param title title of the merge request
-#' @param description description text for the merge request
-#' @param verb is ignored, will always be forced to match the action the function name indicates
-#' @param ... passed on to \code{\link{gitlab}}. Might contain more fields documented in GitLab API doc.
-#' 
-#' @export
-gl_create_merge_request <- function(project, source_branch, target_branch = "master", title, description, verb = httr::POST, ...) {
-  gl_proj_req(project = project, c("merge_requests"), ...) %>% 
-  gitlab(source_branch = source_branch,
-         target_branch = target_branch,
-         title = title,
-         description = description,
-         verb = httr::POST,
-         ...)
-}
-
-#' @rdname gl_repository
-#' @importFrom purrr partial
-#' @export
-gl_list_files <- purrr::partial(gl_repository, req = "tree") ## should have a recursive option
-
-#' For \code{gl_file_exists} dots are passed on to \code{\link{gl_list_files}} and GitLab API call
-#' @export
-#' @rdname gl_repository
-gl_file_exists <- function(project, file_path, ref, ...) {
-  
-  project_missing <- missing(project)
-  
-  list(ref = ref,
-       ref_name = ref, ## This is legacy for API v3 use and will be ignored by API v4
-       ...) %>%
-    iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
-    iffn(project_missing, c, project = project) %>%
-    pipe_into("args", do.call, what = gl_list_files) %>%
-    dplyr::filter(name == basename(file_path)) %>%
-    { nrow(.) > 0 }
+#' @rdname gl_list_projects
+gl_get_project <- function(project, ...) {
+  gitlab(c("projects", to_project_id(project)), ...)
 }
 
 #' Create a project specific request
@@ -137,8 +45,13 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 #' 
 #' @param project project name or id
 #' @param req character vector of request location
-#' @param ... passed on to \code{\link{gl_get_project_id}}
+#' @param ... passed on to [gl_get_project_id()]
 #' @export
+#' @return A vector of character to be used as request for functions involving projects
+#' @examples 
+#' \dontrun{
+#' gl_proj_req("test_project"<<your-project-id>>, req = "merge_requests")
+#' }
 gl_proj_req <- function(project, req, ...) {
   if (missing(project) || is.null(project)) {
     return(req)
@@ -150,13 +63,20 @@ gl_proj_req <- function(project, req, ...) {
 #' Get a project id by name
 #' 
 #' @param project_name project name
-#' @param ... passed on to \code{\link{gitlab}}
-#' @param verb ignored; all calls with this function will have \code{\link{gitlab}}'s
-#' default verb \code{httr::GET}
-#' @param auto_format ignored
+#' @param ... passed on to [gitlab()]
 #' @importFrom dplyr mutate filter
+#' 
+#' @details 
+#' Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
+#' If the `project_name` is an old project lost in a big repository (position > 200), 
+#' `gl_get_project_id()` may not find the project id.
+#' 
 #' @export
-gl_get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE, ...) {
+#' @examples
+#' \dontrun{
+#' gl_get_project_id("<<your-project-name>>")
+#' }
+gl_get_project_id <- function(project_name, ...) {
   
   matching <- gitlab(req = "projects", ...) %>%
     mutate(matches_name = name == project_name,
@@ -179,116 +99,34 @@ gl_get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE
 }
 
 to_project_id <- function(x, ...) {
-  if (is.numeric(x)) {
-    x
-  } else
+  if (!is.na(as.numeric(x)) | is.numeric(x)) {
+    as.numeric(x)
+  } else {
     gl_get_project_id(x, ...)
-}
-
-#' Get a file from a GitLab repository
-#' 
-#' @param file_path path to file
-#' @param ref name of ref (commit branch or tag)
-#' @param to_char flag if output should be converted to char; otherwise it is of class raw
-#' @param api_version a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link{gl_connection}} 
-#' @export
-#' @importFrom base64enc base64decode
-#' @rdname gl_repository
-gl_get_file <- function(project,
-                        file_path,
-                        ref = "master",
-                        to_char = TRUE,
-                        api_version = 4,
-                        ...) {
-  (if (api_version == 3) {
-    gl_repository(project = project,
-                  req = "files",
-                  file_path = file_path,
-                  ref = ref,
-                  verb = httr::GET,
-                  ...)
-  } else {
-    gl_repository(project = project,
-                  req = c("files", file_path),
-                  ref = ref,
-                  verb = httr::GET,
-                  ...)
-  })$content %>% 
-    base64decode() %>%
-    iff(to_char, rawToChar)
-  
-}
-
-#' Upload a file to a GitLab repository
-#'
-#' If the file already exists, it is updated/overwritten by default
-#'
-#' @return returns a tibble with changed branch and path (0 rows if
-#' nothing was changed, since overwrite is FALSE)
-#'
-#' @param project Project name or id
-#' @param file_path path where to store file in gl_repository
-#' @param content file content (text)
-#' @param branch name of branch where to append newly generated commit with new/updated file
-#' @param commit_message Message to use for commit with new/updated file
-#' @param overwrite whether to overwrite files that already exist
-#' @param ... passed on to \code{\link{gitlab}}
-#' @export
-#' 
-#' @examples \dontrun{
-#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
-#' my_project(gl_push_file, "data/test_data.csv",
-#'            content = readLines("test-data.csv"),
-#'            commit_message = "New test data")
-#' }
-gl_push_file <- function(project,
-                         file_path,
-                         content,
-                         commit_message,
-                         branch = "master",
-                         overwrite = TRUE,
-                         ...) {
-  
-  exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
-  if (!exists || overwrite) {
-    gitlab(req = gl_proj_req(project = project, c("repository", "files", file_path), ...),
-           branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
-           branch = branch,
-           content = content,
-           commit_message = commit_message,
-           verb = if (exists) { httr::PUT } else { httr::POST },
-           ...)
-  } else {
-    tibble::tibble(file_path = character(0),
-                       branch = character(0))
   }
 }
 
-#' Get zip archive of a specific repository
+
+
+
+#' Archive a repository
 #' 
 #' @param project Project name or id
-#' @param save_to_file path where to save archive; if this is NULL, the archive
-#' itself is returned as a raw vector
-#' @param ... further parameters passed on to \code{\link{gitlab}} API call,
-#' may include parameter \code{sha} for specifying a commit hash
+#' @param ... further parameters passed on to [gitlab()] API call,
+#' may include parameter `sha` for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
 #' to the saved archived file 
 #' @export
 #' @examples \dontrun{
-#' my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
-#' my_project(gl_archive, save_to_file = "example-project.zip")
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_archive(project = "<<your-project-id>>", save_to_file = "example-project.zip")
 #' }
 gl_archive <- function(project,
-                       save_to_file = tempfile(fileext = ".zip"),
                        ...) {
-  
-  raw_gl_archive <- gl_repository(project = project, req = "archive", ...)
-  if (!is.null(save_to_file)) {
-    writeBin(raw_gl_archive, save_to_file)
-    return(save_to_file)
-  } else {
-    return(raw_gl_archive)
-  }
+  gl_repository(project = project, req = "archive", ...)
 }
 
 #' Compare two refs from a project repository
@@ -299,8 +137,10 @@ gl_archive <- function(project,
 #' 
 #' @param project project name or id
 #' @param from commit hash or ref/branch/tag name to compare from
-#' @param to ommit hash or ref/branch/tag name to compare to
-#' @param ... further parameters passed on to \code{\link{gitlab}}
+#' @param to commit hash or ref/branch/tag name to compare to
+#' @param ... further parameters passed on to [gitlab()]
+#' 
+#' @details https://docs.gitlab.com/ee/api/repositories.html#compare-branches-tags-or-commits
 gl_compare_refs <- function(project,
                             from,
                             to,
@@ -308,6 +148,7 @@ gl_compare_refs <- function(project,
   gl_repository(req = "compare",
                 project = project,
                 from = from,
+                to = to,
                 ...)
 }
 
@@ -315,10 +156,15 @@ gl_compare_refs <- function(project,
 #' 
 #' @param project project name or id
 #' @param commit_sha if not null, get only the commit with the specific hash; for
-#' \code{gl_get_diff} this must be specified
-#' @param ... passed on to \code{\link{gitlab}} API call, may contain
-#' \code{ref_name} for specifying a branch or tag to list commits of
+#' `gl_get_diff()` this must be specified
+#' @param ... passed on to [gitlab()] API call, may contain
+#' `ref_name` for specifying a branch or tag to list commits of
 #' @export
+#' @examples 
+#' \dontrun{
+#' my_commits <- gl_get_commits("<<your-project-id>>")
+#' gl_get_commits("<<your-project-id>>", my_commits$id[1])
+#' }
 gl_get_commits <- function(project,
                            commit_sha = c(),
                            ...) {
@@ -337,4 +183,67 @@ gl_get_diff <-  function(project,
   gl_repository(project = project,
                 req = c("commits", commit_sha, "diff"),
                 ...)
+}
+
+#' Manage projects
+#' @param path to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).
+#' @param name of the new project. The name of the new project. Equals path if not provided
+#' @param ... passed on to [gitlab()] API call for "Create project"
+#' @export
+#' @return A tibble with the project information. `gl_delete_project()` returns an empty tibble.
+#' @details 
+#' You can use extra parameters as proposed in the GitLab API:
+#' 
+#' - `namespace_id`: Namespace for the new project (defaults to the current user’s namespace). 
+#' 
+#' @examples \dontrun{
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' # Create new project
+#' gl_new_project(name = "toto")
+#' # Edit existing project
+#' gl_edit_project(project = "<<your-project-id>>", default_branch = "main")
+#' # Delete project
+#' gl_delete_project(project = "<<your-project-id>>")
+#' }
+gl_new_project <- function(name,
+                           path,
+                           ...) {
+  
+  if (!missing(path)) {
+    path <- gsub("[[:punct:]]", "-", tolower(path))
+    gitlab(req = "projects", 
+           path = path,
+           verb = httr::POST,
+           ...)
+  } else {
+    gitlab(req = "projects", 
+           name = name,
+           verb = httr::POST,
+           ...)
+  }
+  
+  
+}
+
+#' @param project The ID or URL-encoded path of the project.
+#' @rdname gl_new_project
+#' @export
+gl_edit_project <- function(project,
+                           ...) {
+  
+    gitlab(req = c("projects", to_project_id(project)), 
+           verb = httr::PUT,
+           ...)
+  
+}
+
+#' @rdname gl_new_project
+#' @export
+gl_delete_project <- function(project) {
+  
+  gitlab(req = c("projects", to_project_id(project)),
+         verb = httr::DELETE)
 }

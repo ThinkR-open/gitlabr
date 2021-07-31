@@ -9,7 +9,8 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "100%",
+  eval = Sys.getenv("GITLAB_COM_TOKEN", unset = FALSE) # do not eval if token is not available
 )
 ```
 
@@ -19,8 +20,12 @@ knitr::opts_chunk$set(
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![R build status](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
+[![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
 <!-- badges: end -->
 
+**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/gitlabr-v2.html**
+
+_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
 
 ## Installation
 
@@ -47,25 +52,19 @@ R code using {gitlabr} to perform some common GitLab actions can look like this
 
 - Create a TOKEN on your Gitlab instance with scopes: `api`
 
-- Store your token in .Renviron with `usethis::edit_r_environ()` and restart your session 
+- Store your token in .Renviron as `GITLAB_COM_TOKEN` with `usethis::edit_r_environ()` and restart your session 
 
 - Set a connection to GitLab instance
 ```{r}
 library(gitlabr)
 
-# Add: GITLAB_COM_TOKEN=YourTokenHere
-# You can verify it worked
+# You can verify your token works
 # Sys.getenv("GITLAB_COM_TOKEN")
 
-# connect as a fixed user to a gitlab instance
-my_gitlab <- gl_connection(
+# connect as a fixed user to a GitLab instance for the session
+set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-# a function is returned
-# its first argument is the request (name or function), optionally followed by parameters
-
-# Set the connection for the session
-set_gitlab_connection(my_gitlab)
 ```
 
 - Find the list of projects available to you
@@ -75,12 +74,21 @@ set_gitlab_connection(my_gitlab)
 gl_list_projects(max_page = 2) 
 ```
 
+### Work with a specific project
+
 - Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above. 
   + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on GitLab.com
   
 ```{r}
 my_project <- 20384533 #repo.rtask",
 ```
+
+- If the principal branch is not named `main`, you need to specify it with `gitlabr_options_set()`
+
+```{r}
+gitlabr_options_set("gitlabr.main", "master")
+```
+
 
 - List files of the project using `gl_list_files`
 ```{r}
@@ -95,32 +103,72 @@ gl_list_issues(project = my_project)
 
 - Create an issue
 
-```{r}
+```{r, eval=FALSE}
 # create a new issue
-new_feature_issue <- gl_new_issue(title = "Implement new feature", project = my_project)
+new_feature_issue <- gl_create_issue(project = my_project, title = "Implement new feature")
 
 # statnmap user ID
 my_id <- 4809823
 
 # assign issue to me
-gl_assign_issue(new_feature_issue$iid,
-                assignee_id = my_id,
-                project = my_project)
+gl_assign_issue(project = my_project,
+                issue_id = new_feature_issue$iid,
+                assignee_id = my_id)
 
 # Verify new issue is here
-gl_list_issues(state = "opened", my_project)
+gl_list_issues(project = my_project, state = "opened")
 
 # close issue
-gl_close_issue(new_feature_issue$iid, project = my_project)$state
+gl_close_issue(project = my_project, issue_id = new_feature_issue$iid)$state
 ```
+
+_Note that recent version of GitLab may have anti-spam on opening issues, leading to ERROR with `gl_create_issue()` if you abuse the API. You will need to open the issue manually in this case._
+
+### Use additionnal requests
+
+If an API request is not already available in {gitlabr}, function `gitlab()` allows to use any request of the GitLab API [https://docs.gitlab.com/ce/api/].
+
+For instance, the API documentation shows how to create a new project in [https://docs.gitlab.com/ee/api/projects.html#create-project]:
+
+- The verb is `POST`
+- The request is `projects`
+- Required attributes are `name` or `path` (if `name` not set)
+- `default_branch` is an attribute that can be set if wanted, but not required
+
+The corresponding use of `gitlab()` is:
+
+```{r, eval=FALSE}
+gitlab(
+  req = "projects",
+  verb = httr::POST,
+  name = "toto",
+  default_branch = "main"
+)
+```
+
+Implement whatever suits your needs !
+
+### Unset connection
+
+```{r}
+unset_gitlab_connection()
+```
+
+## Using GitLab CI with {gitlabr}
+
+{gitlabr} can also be used to create a `.gitlab-ci.yml` file to test, build and check an R package, a bookdown, ... using GitLab's CI software. Use `gitlabr::use_gitlab_ci()` with a specific `type` in your project and your CI should be ready to start in the next commit.
+
+There are pre-defined templates:  
+
+```{r echo=FALSE, results='asis'}
+cat(paste("-", list.files("inst/gitlab-ci/"), collapse = "\n\n"))
+```
+
 
 ## Further information
 
-- For a comprehensive overview & introduction see the `vignette("quick-start-guide-to-gitlabr")`
+- For an introduction see the `vignette("quick-start-guide-to-gitlabr")`
 - When writing custom extensions ("convenience functions") for {gitlabr} or when you experience any trouble, the very extensive [GitLab API documentation](http://doc.gitlab.com/ce/api/) can be helpful.
-
-_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
-
 
 # Contributing to {gitlabr}
 

@@ -1,32 +1,44 @@
 #' Connect to a specific GitLab instance API
 #' 
 #' Creates a function that can be used to issue requests to the specified
-#' GitLab API instance with the specified user private token and (for \code{gl_project_connection})
+#' GitLab API instance with the specified user private token and (for `gl_project_connection`)
 #' only to a specified project.
 #' 
 #' @details
 #' The returned function should serve as the primary way to access the GitLab
 #' API in the following. It can take vector/character arguments in the same way
-#' as the function \code{\link{gitlab}} does, as well as the convenience functions
+#' as the function [gitlab()] does, as well as the convenience functions
 #' provided by this package or written by the user. If it is passed such that
-#' function it calls it with the arguments provided in \code{...} and the GitLab
-#' URL, api location and private_token provided when creating it via \code{gl_connection}.
+#' function it calls it with the arguments provided in `...` and the GitLab
+#' URL, api location and private_token provided when creating it via `gl_connection`.
 #' 
 #' Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 #' you can give it a try.
 #' 
 #' @examples
 #' \dontrun{
-#' my_gitlab <- gl_connection("http://gitlab.example.com", "123####89")
-#' my_gitlab("projects")
-#' my_gitlab(gl_get_file, "test-project", "README.md", ref = "dev")
+#' # Set the connection for the session
+#' set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+#' # Get list of projects
+#' gl_list_projects(max_page = 1)
+#' # Unset the connection for the session
+#' unset_gitlab_connection()
+#' 
+#' # Set connection for a specific project
+#' my_project <- gl_project_connection(
+#'   gitlab_url = "https://gitlab.com",
+#'   project = 1234,
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' # List files of a project
+#' my_project_list_files <- my_project(gl_list_files, max_page = 1)
 #' }
 #' 
-#' @param gitlab_url URL to the GitLab instance (e.g. \code{https://gitlab.myserver.com})
+#' @param gitlab_url URL to the GitLab instance (e.g. `https://gitlab.myserver.com`)
 #' @param private_token private_token with which to identify. You can generate one in the web interface under
-#' \code{GITLABINSTANCEURL/profile/personal_access_tokens} when logged on.
+#' `GITLABINSTANCEURL/profile/personal_access_tokens` when logged on.
 #' @param api_version Currently "4" for the latest gitlab API version. See Details section on API versions.
-#' @param api_location location of the GitLab API under the \code{gitlab_url}, usually and by default "/api/${api_version}/"
+#' @param api_location location of the GitLab API under the `gitlab_url`, usually and by default "/api/${api_version}/"
 #' @param project id or name of project to issue requests to
 #' 
 #' @return A function to access a specific GitLab API as a specific user, see details

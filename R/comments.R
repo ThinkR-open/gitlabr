@@ -2,27 +2,40 @@
 #' 
 #' @param project project name or id
 #' @param object_type one of "issue" or "commit". Snippets and merge_requests are not implemented yet.
-#' @param id id of object: sha for commits, not issues notes/comments:
-#' (project-wide) id for api version 4, (global) iid for api version 3
+#' @param id id of object:   
+#' - commits: sha  
+#' - issues notes/comments:  
+#'   + (project-wide) id for api version 4,   
+#'   + (global) iid for api version 3  
 #' @param note_id id of note
-#' @param ... passed on to \code{\link{gitlab}} API call. See Details.
+#' @param ... passed on to [gitlab()] API call. See Details.
 #' @rdname gl_comments
+#' 
+#' @details
+#' - `gl_comment_commit`: might also contain `path`, `line`
+#' and `line_type` (old or new) to attach the comment to a specific in a file.
+#' See http://doc.gitlab.com/ce/api/commits.html
+#' - `gl_get_issue_comments`: might also contain `comment_id` to get a specific
+#' comment of an issue.
+#' 
 #' @export
 #' 
 #' @examples
 #' \dontrun{
 #' # fill in login parameters
-#' my_project <- gl_project_connection(project = "testor", ...)
-#' gl_get_comments(object_type = "issue", 1, project = my_project)
-#' my_project(gl_get_comments, "issue", 1)
-#' my_project(gl_get_comments, "commit", "8ce5ef240123cd78c1537991e5de8d8323666b15")
-#' my_project(gl_comment_issue, 1, text = "Almost done!")
+#' set_gitlab_connection(gitlab_url = "https://gitlab.com",
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+#' gl_get_comments(project = "<<your-project-id>>", object_type = "issue", 1)
+#' gl_get_comments(project = "<<your-project-id>>", "commit", 
+#'   id = "8ce5ef240123cd78c1537991e5de8d8323666b15")
+#' gl_comment_issue(project = "<<your-project-id>>", 1, 
+#'   text = "Almost done!")
 #' }
 
-gl_get_comments <- function(object_type = "issue",
+gl_get_comments <- function(project,
+                            object_type = "issue",
                             id,
                             note_id = c(),
-                            project,
                             ...) {
   gl_comments(project, object_type, id, note_id, ...)
 }
@@ -40,7 +53,7 @@ gl_comments <- function(project,
   }
   
   if (object_type == "issue" && api_version == 3) {
-      id <- gl_to_issue_id(id, project, api_version = 3, ...)
+      id <- gl_to_issue_id(project, id, api_version = 3, ...)
   }
   
   gitlab(req = gl_proj_req(project, req = switch(object_type,
@@ -55,22 +68,18 @@ gl_comments <- function(project,
 
 #' @rdname gl_comments
 #' @export
-gl_get_issue_comments <- function(...) {
-  gl_get_comments(object_type = "issue", ...)
+gl_get_issue_comments <- function(project, id, ...) {
+  gl_get_comments(project, object_type = "issue", id, ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_get_commit_comments <- function(...) {
-  gl_get_comments(object_type = "commit", ...)
+gl_get_commit_comments <- function(project, id, ...) {
+  gl_get_comments(project, object_type = "commit", id, ...)
 }
 
 #' @rdname gl_comments
 #' 
-#' @details
-#' For \code{gl_comment_commit} ... might also contain \code{path}, \code{line}
-#' and \code{line_type} (old or new) to attach the comment to a specific in a file.
-#' See http://doc.gitlab.com/ce/api/commits.html
 #' @param text Text of comment/note to add or edit (translates to GitLab API note/body respectively)
 #' @export
 gl_comment_commit  <- function(project,
@@ -102,15 +111,18 @@ gl_comment_issue <- function(project,
 }
 
 #' @rdname gl_comments
-gl_edit_comment <- function(object_type,
+gl_edit_comment <- function(project,
+                            object_type,
                             text,
                             ...) {
   switch(object_type,
-         "issue" = gl_comments(object_type = "issue",
+         "issue" = gl_comments(project = project,
+                               object_type = "issue",
                                body = text,
                                verb = httr::PUT,
                                ...),
-         "commit" =  gl_comments(object_type = "commit",
+         "commit" =  gl_comments(project = project,
+                                 object_type = "commit",
                                  note_id = NULL, ## prevent partial argument match
                                  note = text,
                                  verb = httr::PUT,
@@ -119,12 +131,12 @@ gl_edit_comment <- function(object_type,
 
 #' @rdname gl_comments
 #' @export
-gl_edit_issue_comment <- function(...) {
-  gl_edit_comment(object_type = "issue", ...)
+gl_edit_issue_comment <- function(project, ...) {
+  gl_edit_comment(project, object_type = "issue", ...)
 }
 
 #' @rdname gl_comments
 #' @export
-gl_edit_commit_comment <- function(...) {
-  gl_edit_comment(object_type = "commit", ...)
+gl_edit_commit_comment <- function(project, ...) {
+  gl_edit_comment(project, object_type = "commit", ...)
 }  

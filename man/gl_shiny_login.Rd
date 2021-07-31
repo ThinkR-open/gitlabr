@@ -44,10 +44,10 @@ glReactiveLogin(
 }
 \description{
 The UI contains a login and a password field as well as an (optional)
-login button. The server side function returns a reactive gitlab connection, just as \code{\link{gl_connection}}
-and \code{\link{gl_project_connection}}.
+login button. The server side function returns a reactive gitlab connection, just as \code{\link[=gl_connection]{gl_connection()}}
+and \code{\link[=gl_project_connection]{gl_project_connection()}}.
 }
 \details{
 \code{glLoginInput} is supposed to be used inside a \code{shinyUI}, while
-\code{glReactiveLogin} is supposed to be passed on to \code{\link[shiny]{callModule}}
+\code{glReactiveLogin} is supposed to be passed on to \code{\link[shiny:callModule]{shiny::callModule()}}
 }

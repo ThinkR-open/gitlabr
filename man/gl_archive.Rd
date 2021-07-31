@@ -2,17 +2,14 @@
 % Please edit documentation in R/projects_and_repos.R
 \name{gl_archive}
 \alias{gl_archive}
-\title{Get zip archive of a specific repository}
+\title{Archive a repository}
 \usage{
-gl_archive(project, save_to_file = tempfile(fileext = ".zip"), ...)
+gl_archive(project, ...)
 }
 \arguments{
 \item{project}{Project name or id}
 
-\item{save_to_file}{path where to save archive; if this is NULL, the archive
-itself is returned as a raw vector}
-
-\item{...}{further parameters passed on to \code{\link{gitlab}} API call,
+\item{...}{further parameters passed on to \code{\link[=gitlab]{gitlab()}} API call,
 may include parameter \code{sha} for specifying a commit hash}
 }
 \value{
@@ -20,11 +17,14 @@ if save_to_file is NULL, a raw vector of the archive, else the path
 to the saved archived file
 }
 \description{
-Get zip archive of a specific repository
+Archive a repository
 }
 \examples{
 \dontrun{
-my_project <- gl_project_connection(project = "example-project", ...) ## fill in login parameters
-my_project(gl_archive, save_to_file = "example-project.zip")
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com", 
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+gl_archive(project = "<<your-project-id>>", save_to_file = "example-project.zip")
 }
 }

@@ -1,12 +1,10 @@
-my_gitlab <- gl_connection(test_url,
-                           private_token = test_private_token,
-                           api_version = test_api_version)
-my_project <- gl_project_connection(test_url,
-                                    project = test_project,
-                                    private_token = test_private_token,
-                                    api_version = test_api_version)
+# Create and list issues ----
 # create an issue
-new_issue_infos <- my_gitlab(gl_create_issue, "A simple issue", project = test_project)
+new_issue_infos <- gl_create_issue(project = test_project, "A simple issue")
+# list issues
+all_issues <- gl_list_issues(test_project, max_page = 1)
+# list opened issues (should be 2)
+opened_issues <- gl_list_issues(test_project, state = "opened")
 
 new_issue_iid <- new_issue_infos$iid[1]
 if (test_api_version == 3) {
@@ -14,80 +12,55 @@ if (test_api_version == 3) {
 }
 test_that("getting issues works", {
   
-  expect_is(my_gitlab(gl_list_issues), "data.frame")
-  expect_is(my_gitlab(gl_list_issues, test_project), "data.frame")
-  expect_gt(nrow(my_gitlab(gl_list_issues, test_project)), 0L)
+  expect_is(new_issue_infos, "data.frame")
+  expect_gt(nrow(new_issue_infos), 0L)
   
+  expect_is(all_issues, "data.frame")
+  expect_gt(nrow(all_issues), 0L)
+  # 20 lines max for max_page=1
+  expect_lte(nrow(all_issues), 20)
   
-  expect_is(my_gitlab(gl_list_issues, test_project, state = "opened"), "data.frame")
+  expect_is(opened_issues, "data.frame")
+  expect_equal(nrow(opened_issues), 2)
   
-  expect_is(my_gitlab(gl_list_issues, test_project, 2, api_version = test_api_version), "data.frame")
-  expect_is(my_gitlab(gl_get_issue, new_issue_iid, test_project, api_version = test_api_version), "data.frame")
-  expect_equivalent(
-    my_gitlab(gl_get_issue, new_issue_iid, test_project, api_version = test_api_version),
-    my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version),
-    "data.frame")
-
-  ## using project connection
-  expect_is(my_project(gl_list_issues), "data.frame")
-  expect_equivalent(my_project(gl_list_issues), my_gitlab(gl_list_issues, test_project))
-  expect_is(my_project(gl_list_issues, state = "opened"), "data.frame")
-  expect_is(my_project(gl_list_issues, new_issue_iid, api_version = test_api_version), "data.frame")
-  expect_is(my_project(gl_get_issue, new_issue_iid, api_version = test_api_version), "data.frame")
-
-  ## function idiom
-  expect_is(gl_list_issues(gitlab_con = my_gitlab), "data.frame")
-  expect_is(gl_list_issues(gitlab_con = my_project), "data.frame")
-  expect_is(gl_list_issues(state = "opened", gitlab_con = my_project), "data.frame")
-  
-  expect_is(gl_list_issues(issue_id = new_issue_iid, gitlab_con = my_project, api_version = test_api_version), "data.frame")
-  expect_is(gl_get_issue(new_issue_iid, gitlab_con = my_project, api_version = test_api_version), "data.frame")
-
   ## old API
   if (test_api_version == 4) {
-    expect_warning(my_gitlab(get_issues), regexp = "deprecated")
+    expect_warning(get_issues(test_project), regexp = "deprecated")
   }
 })
 
+# Edit issues ----
+
 test_that("editing issues works", {
   ## close issue
-  my_gitlab(gl_close_issue, new_issue_iid, test_project, api_version = test_api_version)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$state == "closed")
+  gl_close_issue(test_project, new_issue_iid, api_version = test_api_version)
+  expect_true(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$state == "closed")
   
   ## reopen issue
-  my_gitlab(gl_reopen_issue, new_issue_iid, test_project, api_version = test_api_version)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$state == "opened")
+  gl_reopen_issue(test_project, new_issue_iid, api_version = test_api_version)
+  expect_true(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$state == "opened")
   
   ## edit its description
-  my_gitlab(gl_edit_issue, new_issue_iid, test_project, description = "This is a test", api_version = test_api_version)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$description == "This is a test")
-  my_gitlab(gl_edit_issue, new_issue_iid, test_project, description = "This is not a test", api_version = test_api_version)
-  expect_false(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$description == "This is a test")
+  gl_edit_issue(test_project, new_issue_iid, description = "This is a test", api_version = test_api_version)
+  expect_true(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$description == "This is a test")
+  gl_edit_issue(test_project, new_issue_iid, description = "This is not a test", api_version = test_api_version)
+  expect_false(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$description == "This is a test")
   
   test_user <- new_issue_infos$author.name[1]
   
   ## assign it
-  my_gitlab(gl_assign_issue, new_issue_iid, assignee_id = test_user_id, test_project, api_version = test_api_version)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.id == test_user_id)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.username == test_login)
-  my_gitlab(gl_unassign_issue, new_issue_iid, test_project, api_version = test_api_version)
-  expect_null(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.username)
-  expect_null(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$assignee.id)
-  
-  ## close it
-  my_gitlab(gl_close_issue, new_issue_iid, test_project, api_version = test_api_version)
-  expect_true(my_gitlab(gl_list_issues, test_project, new_issue_iid, api_version = test_api_version)$state == "closed")
-  
-  ## using gl_project_connection
-  my_project(gl_reopen_issue, new_issue_iid, api_version = test_api_version)
-  expect_true(my_project(gl_list_issues, new_issue_iid, api_version = test_api_version)$state == "opened")
-  my_project(gl_close_issue, new_issue_iid, api_version = test_api_version)
-  expect_true(my_project(gl_list_issues, new_issue_iid, api_version = test_api_version)$state == "closed")
-  
-  ## using function idiom
-  gl_reopen_issue(issue_id = new_issue_iid, gitlab_con = my_project, api_version = test_api_version)
-  expect_true(gl_list_issues(issue_id = new_issue_iid, gitlab_con = my_project, api_version = test_api_version)$state == "opened")
-  gl_close_issue(issue_id = new_issue_iid, gitlab_con = my_project, api_version = test_api_version)
-  expect_true(gl_list_issues(issue_id = new_issue_iid, gitlab_con = my_project, api_version = test_api_version)$state == "closed")
-  
+  gl_assign_issue(test_project, new_issue_iid, assignee_id = test_user_id, api_version = test_api_version)
+  expect_true(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.id == test_user_id)
+  expect_true(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.username == test_login)
+  gl_unassign_issue(test_project, new_issue_iid, api_version = test_api_version)
+  expect_null(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.username)
+  expect_null(gl_list_issues(test_project, new_issue_iid, api_version = test_api_version)$assignee.id)
+
+  ## Delete issue
+  # gl_delete_issue(test_project, 123)
+  gl_delete_issue(test_project, new_issue_iid)
+  all_issues <- gl_list_issues(test_project, max_page = 1)
+  expect_false(any(all_issues$iid == new_issue_iid))
+  # clean state
+  expect_equal(nrow(all_issues), 1)
 })

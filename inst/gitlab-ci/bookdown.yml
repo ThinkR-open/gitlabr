@@ -1,0 +1,58 @@
+image: {image}
+
+variables:
+  GIT_DEPTH: 10
+  REPO_NAME: "{repo_name}"
+  R_LIBS: "ci/lib"
+
+cache:
+  key: global-cache
+  paths:
+      - ${R_LIBS}
+
+stages:
+  - install-deps
+  - book-create
+  - deploy
+
+installation:
+    stage: install-deps
+    script:
+        - echo "Library path for packages :" $R_LIBS
+        - mkdir -p $R_LIBS
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - Rscript -e 'imports <- unique(c("bookdown", "knitr", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        
+book-production:
+    stage: book-create
+    only:
+        - main
+        - master
+    script:
+        - echo "Library path for packages :" $R_LIBS
+        - mkdir -p $R_LIBS
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'tinytex::install_tinytex()'
+        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
+        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+pages:
+    stage: deploy
+    script:
+        - echo "book deployment"
+    artifacts:
+        paths:
+            - public
+    only:
+        - master
+        - main
+        - production
+

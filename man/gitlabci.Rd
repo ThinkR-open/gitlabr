@@ -3,21 +3,11 @@
 \name{gl_ci_job}
 \alias{gl_ci_job}
 \alias{gl_default_ci_pipeline}
-\alias{use_gitlab_ci}
-\title{Define GitLab CI jobs}
+\title{Define GitLab CI jobs content}
 \usage{
 gl_ci_job(job_name, stage = job_name, allowed_dependencies = c(), ...)
 
 gl_default_ci_pipeline()
-
-use_gitlab_ci(
-  pipeline = gl_default_ci_pipeline(),
-  image = "rocker/r-devel:latest",
-  push_to_remotes = c(),
-  path = ".gitlab-ci.yml",
-  overwrite = TRUE,
-  add_to_Rbuildignore = TRUE
-)
 }
 \arguments{
 \item{job_name}{Name of job template to get CI definition elements}
@@ -27,28 +17,18 @@ use_gitlab_ci(
 \item{allowed_dependencies}{List of job names that are allowed to be listed as dependencies of jobs. Usually this is all existing other jobs.}
 
 \item{...}{passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name}
-
-\item{pipeline}{a CI pipeline defined as a list of lists}
-
-\item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
-
-\item{push_to_remotes}{named list of remotes the code should be pushed to. Only master
-is pushed and for every remote a job of stage "push" is generated. See example for how
-to use credentials from environment variables.}
-
-\item{path}{destination path for writing GitLab CI yml file}
-
-\item{overwrite}{whether to overwrite existing GitLab CI yml file}
-
-\item{add_to_Rbuildignore}{add CI yml file (from \code{path}) to .Rbuildignore?}
 }
 \description{
-Define GitLab CI jobs
+Exploration of job content is deprecated as of 'gitlabr' 1.1.7.
+Content of .gitlab-ci.yml file is now created using templates with
+use_gitlab_ci(type = "check-coverage-pkgdown"). See \code{\link[=use_gitlab_ci]{use_gitlab_ci()}}.
 }
 \examples{
+\dontrun{
+# Deprecated
 gl_ci_job("build", allowed_dependencies = "test")
-use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", path = tempfile(fileext = ".yml"))
-use_gitlab_ci(image = "pointsofinterest/gitlabr:latest", , path = tempfile(fileext = ".yml"),
- push_to_remotes = list("github" =
- "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/jirkalewandowski/gitlabr.git"))
+}
+}
+\seealso{
+\code{\link[=use_gitlab_ci]{use_gitlab_ci()}}
 }

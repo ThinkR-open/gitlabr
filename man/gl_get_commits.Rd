@@ -13,11 +13,17 @@ gl_get_diff(project, commit_sha, ...)
 \item{project}{project name or id}
 
 \item{commit_sha}{if not null, get only the commit with the specific hash; for
-\code{gl_get_diff} this must be specified}
+\code{gl_get_diff()} this must be specified}
 
-\item{...}{passed on to \code{\link{gitlab}} API call, may contain
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call, may contain
 \code{ref_name} for specifying a branch or tag to list commits of}
 }
 \description{
 Get commits and diff from a project repository
+}
+\examples{
+\dontrun{
+my_commits <- gl_get_commits("<<your-project-id>>")
+gl_get_commits("<<your-project-id>>", my_commits$id[1])
+}
 }

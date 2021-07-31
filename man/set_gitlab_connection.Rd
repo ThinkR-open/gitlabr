@@ -11,17 +11,17 @@ unset_gitlab_connection()
 }
 \arguments{
 \item{gitlab_con}{A function used for GitLab API calls, such
-as \code{\link{gitlab}} or as returned by \code{\link{gl_connection}}.}
+as \code{\link[=gitlab]{gitlab()}} or as returned by \code{\link[=gl_connection]{gl_connection()}}.}
 
 \item{...}{if gitlab_con is NULL, a new connection is created used the parameters
-is ... using \code{\link{gl_connection}}}
+is ... using \code{\link[=gl_connection]{gl_connection()}}}
 }
 \description{
-This sets the default value of \code{gitlab_con} 
-in a call to \code{\link{gitlab}}
+This sets the default value of \code{gitlab_con}
+in a call to \code{\link[=gitlab]{gitlab()}}
 }
 \examples{
 \dontrun{
-set_gitlab_connection("http://gitlab.example.com", private_token = "123####89")
+set_gitlab_connection("https://gitlab.com", private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 }
 }

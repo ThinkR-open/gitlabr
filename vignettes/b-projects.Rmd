@@ -1,0 +1,97 @@
+---
+title: "Manage a project"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{manage-project}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+# Set up GitLab connection
+
+```{r}
+# GitLab con
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+```
+
+# List existing projects
+
+- Limit the list to the 10 first projects available to the user on GitLab.com
+
+```{r}
+gl_list_projects(max_page = 1, per_page = 10)
+```
+
+
+# Create a new project
+```{r, eval=FALSE}
+my_project <- gl_new_project(name = "toto")
+# my_project <- gl_new_project(name = "toto", namespace_id = 123)
+```
+
+# Create an issue in this project
+
+```{r}
+the_issue <- gl_create_issue(title = "Title of Issue", project = 25221772)
+```
+
+
+# List project issue state events
+
+Gets a list of all state events for a single issue. 
+
+```{r, eval=FALSE}
+project_id <- my_project[["id"]]
+
+#' @param project_id Project if
+#' @param resource_id id of the resource chosen
+#' @param resource Character among "issues", "merge_requests", "epics"
+#' @param event Character among "iteration", "label", "milestone", "state", "weight"
+gl_resource_events <- function(project_id,
+                           resource_id,
+                           resource = c("issues", "merge_requests", "epics"),
+                           event = c("label", "iteration", "milestone", "state", "weight"),
+                           ...) {
+  
+  resource <- match.arg(resource)
+  event <- match.arg(event)
+  
+  if (resource == "merge_requests" & event %in% c("iteration", "weight")) {
+    stop('merge_requests can not be associated with "iteration", "weight"')
+  }
+  if (resource == "epics" & event %in% c("iteration", "milestone", "state", "weight")) {
+    stop('epics can not be associated with "iteration", "milestone", "state", "weight"')
+  }
+  
+    gitlab(req = paste0("projects/", project_id, "/", resource,"/", resource_id, "/resource_", event,"_events"),
+           verb = httr::GET, ...)
+
+}
+
+events <- gl_resource_events(project_id = project_id, 
+                             resource = "issues", 
+                             resource_id = 5, 
+                             event = "label")
+```
+
+## Delete project
+
+```{r}
+gl_delete_project(project_id)
+```
+

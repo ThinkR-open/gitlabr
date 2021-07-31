@@ -1,0 +1,144 @@
+image: {image}
+
+variables:
+  GIT_DEPTH: 10
+  REPO_NAME: "{repo_name}"
+  R_LIBS: "ci/lib"
+
+cache:
+  key: global-cache
+  paths:
+      - ${R_LIBS}
+
+stages:
+  - build
+  - test
+  - pkgdown
+  - pkgdown-move
+  - deploy
+
+building:
+  stage: build
+  script:
+    - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
+    - echo "Library path for packages :" $R_LIBS
+    - mkdir -p $R_LIBS
+    - Rscript -e 'install.packages("remotes")'
+    - Rscript -e 'install.packages("rcmdcheck")'
+    - Rscript -e 'remotes::install_local(upgrade = "never")'
+    - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
+
+# To have the coverage percentage appear as a gitlab badge follow these
+# instructions:
+# https://docs.gitlab.com/ee/user/project/pipelines/settings.html#test-coverage-parsing
+# The coverage parsing string is
+# Coverage: \d+\.\d+
+
+coverage:
+    stage: test
+    allow_failure: true
+    when: on_success
+    only:
+        - master
+        - production
+    script:
+        - Rscript -e 'remotes::install_local(upgrade = "never")'
+        - Rscript -e 'remotes::install_cran(c("covr", "DT"), upgrade = "never")'
+        - Rscript -e 'covr::gitlab(quiet = FALSE)'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+# To produce a code coverage report as a GitLab page see
+# https://about.gitlab.com/2016/11/03/publish-code-coverage-report-with-gitlab-pages/
+
+integration:
+    stage: pkgdown
+    allow_failure: true
+    when: on_success
+    only:
+        - master
+        - production
+        - test-ci
+    script:
+        - Rscript -e 'remotes::install_cran(c("pkgdown"), upgrade = "never")'
+        - Rscript -e 'pkgdown::build_site()'
+    artifacts:
+        paths:
+            - docs
+        expire_in: 30 days
+
+integration-test:
+    stage: pkgdown-move
+    dependencies:
+        - integration
+    only:
+        - test-ci
+    script:
+        - mkdir -p public/test
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/master/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied master artifacts" ||
+          echo "copied master artifacts failed"'
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied production artifacts" ||
+          echo "copied production artifacts failed"'
+        - cp -r docs/* public/test
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+integration-production:
+    stage: pkgdown-move
+    dependencies:
+        - integration
+    only:
+        - production
+    script:
+        - mkdir -p public/production
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/master/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied master artifacts" ||
+          echo "copied master artifacts failed"'
+        - cp -r docs/* public/production
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+integration-master:
+    stage: pkgdown-move
+    dependencies:
+        - integration
+    only:
+        - master
+    script:
+        - mkdir -p public
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied production artifacts" ||
+          echo "copied production artifacts failed"'
+        - cp -r docs/* public
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+pages:
+    stage: deploy
+    script:
+        - echo "deployment with cache"
+    artifacts:
+        paths:
+            - public
+    only:
+        - master
+        - production
+        - test-ci

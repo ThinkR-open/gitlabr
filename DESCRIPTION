@@ -1,6 +1,6 @@
 Package: gitlabr
 Title: Access to the Gitlab API
-Version: 1.1.6.9000
+Version: 2.0.0
 Authors@R: 
     c(person(given = "Jirka",
              family = "Lewandowski",
@@ -11,12 +11,12 @@ Authors@R:
              role = c("aut", "cre"),
              email = "sebastien@thinkr.fr",
              comment = c(ORCID = "0000-0002-1565-9313")))
-Description: Provides R functions to access the API of the
-    project and repository management web application gitlab. For many
-    common tasks (repository file access, issue assignment and status,
-    commenting) convenience wrappers are provided, and in addition the
-    full API can be used by specifying request locations. Gitlab is
-    open-source software and can be self-hosted or used on gitlab.com.
+Description: Provides R functions to access the API of the project and
+    repository management web application gitlab. For many common tasks
+    (repository file access, issue assignment and status, commenting)
+    convenience wrappers are provided, and in addition the full API can be
+    used by specifying request locations. Gitlab is open-source software
+    and can be self-hosted or used on gitlab.com.
 License: GPL (>= 3)
 URL: https://statnmap.github.io/gitlabr/
 BugReports: https://github.com/statnmap/gitlabr/issues
@@ -33,14 +33,15 @@ Imports:
     shiny (>= 0.13.0),
     stringr,
     tibble (>= 1.1),
-    utils,
-    yaml
+    utils
 Suggests:
     knitr,
     rmarkdown,
-    testthat (>= 1.0.2)
+    testthat (>= 1.0.2),
+    yaml
 VignetteBuilder: 
     knitr
 Encoding: UTF-8
 LazyData: true
+Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
