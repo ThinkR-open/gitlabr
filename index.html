@@ -151,32 +151,29 @@
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
 <span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 40 x 131</span>
-<span class="co">#&gt;    id     description   name  name_with_names… path  path_with_names… created_at</span>
-<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 28504… "External co… xcon… Bogdan Rybalka … xcon… bogdan.rybalka.… 2021-07-3…</span>
-<span class="co">#&gt;  2 28503…  &lt;NA&gt;         News… Ketan Totlani /… News… itsketant/Newser 2021-07-3…</span>
-<span class="co">#&gt;  3 28503… "An React Ap… Movi… Ketan Totlani /… Movi… itsketant/Movie… 2021-07-3…</span>
-<span class="co">#&gt;  4 28503… ""            Assi… Avishka Induwar… assi… Avishka0110/ass… 2021-07-3…</span>
-<span class="co">#&gt;  5 28503… "ToDo-App  V… ToDo… MrApolloz / ToD… todo… apolloz1982/tod… 2021-07-3…</span>
-<span class="co">#&gt;  6 28503… "Ant testing" ant-… Evgeny Litvinov… ant-… jakichanka/ant-… 2021-07-3…</span>
-<span class="co">#&gt;  7 28503…  &lt;NA&gt;         HW1-… Lednov V / HW1-… HW1-… lednovv/HW1-js   2021-07-3…</span>
-<span class="co">#&gt;  8 28503… ""            anime Khánh Quốc / an… anime quockhanh.ud/an… 2021-07-3…</span>
-<span class="co">#&gt;  9 28503… ""            Marg… Tugirin Bengkel… marg… tugirinbengkel/… 2021-07-3…</span>
-<span class="co">#&gt; 10 28503… ""            task… Сергей Пантелее… task… spanteleev/task… 2021-07-3…</span>
-<span class="co">#&gt; # … with 30 more rows, and 124 more variables: default_branch &lt;chr&gt;,</span>
+<span class="co">#&gt; # A tibble: 40 x 98</span>
+<span class="co">#&gt;    id     description  name   name_with_names… path  path_with_names… created_at</span>
+<span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
+<span class="co">#&gt;  1 28515… ""           lab5   Earth_Flutter /… lab5  earth_flutter/l… 2021-07-3…</span>
+<span class="co">#&gt;  2 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt;  3 28515…  &lt;NA&gt;        Ralph… Ralph Fischer /… ralp… ralph-fischer1/… 2021-07-3…</span>
+<span class="co">#&gt;  4 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt;  5 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt;  6 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt;  7 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt;  8 28515… ""           r      Eduardo de la C… r     eduardocruzpala… 2021-07-3…</span>
+<span class="co">#&gt;  9 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…</span>
+<span class="co">#&gt; 10 28515… ""           Touca… Gergely Nagy / … touc… rkaaya/toucan-o… 2021-07-3…</span>
+<span class="co">#&gt; # … with 30 more rows, and 91 more variables: default_branch &lt;chr&gt;,</span>
 <span class="co">#&gt; #   ssh_url_to_repo &lt;chr&gt;, http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   readme_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.avatar_url &lt;chr&gt;, namespace.web_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forks_count &lt;chr&gt;, star_count &lt;chr&gt;, last_activity_at &lt;chr&gt;,</span>
+<span class="co">#&gt; #   namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;, namespace.path &lt;chr&gt;,</span>
+<span class="co">#&gt; #   namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;, namespace.web_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_registry_image_prefix &lt;chr&gt;, _links.self &lt;chr&gt;,</span>
 <span class="co">#&gt; #   _links.issues &lt;chr&gt;, _links.merge_requests &lt;chr&gt;,</span>
 <span class="co">#&gt; #   _links.repo_branches &lt;chr&gt;, _links.labels &lt;chr&gt;, _links.events &lt;chr&gt;,</span>
 <span class="co">#&gt; #   _links.members &lt;chr&gt;, packages_enabled &lt;chr&gt;, empty_repo &lt;chr&gt;,</span>
-<span class="co">#&gt; #   archived &lt;chr&gt;, visibility &lt;chr&gt;, owner.id &lt;chr&gt;, owner.name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   owner.username &lt;chr&gt;, owner.state &lt;chr&gt;, owner.avatar_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   owner.web_url &lt;chr&gt;, resolve_outdated_diff_discussions &lt;chr&gt;,</span>
+<span class="co">#&gt; #   archived &lt;chr&gt;, visibility &lt;chr&gt;, resolve_outdated_diff_discussions &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.cadence &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_expiration_policy.keep_n &lt;chr&gt;,</span>
@@ -208,14 +205,9 @@
 <span class="co">#&gt; #   external_authorization_classification_label &lt;chr&gt;,</span>
 <span class="co">#&gt; #   requirements_enabled &lt;chr&gt;, security_and_compliance_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   merge_pipelines_enabled &lt;chr&gt;, merge_trains_enabled &lt;chr&gt;,</span>
-<span class="co">#&gt; #   emails_disabled &lt;chr&gt;, forked_from_project.id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.description &lt;chr&gt;, forked_from_project.name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.name_with_namespace &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.path_with_namespace &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.created_at &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.default_branch &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.ssh_url_to_repo &lt;chr&gt;, …</span></code></pre></div>
+<span class="co">#&gt; #   namespace.parent_id &lt;chr&gt;, readme_url &lt;chr&gt;, namespace.avatar_url &lt;chr&gt;,</span>
+<span class="co">#&gt; #   owner.id &lt;chr&gt;, owner.name &lt;chr&gt;, owner.username &lt;chr&gt;, owner.state &lt;chr&gt;,</span>
+<span class="co">#&gt; #   owner.avatar_url &lt;chr&gt;, owner.web_url &lt;chr&gt;</span></code></pre></div>
 <div id="work-with-a-specific-project" class="section level3">
 <h3 class="hasAnchor">
 <a href="#work-with-a-specific-project" class="anchor"></a>Work with a specific project</h3>
@@ -386,8 +378,8 @@
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=gitlabr"><img src="https://www.r-pkg.org/badges/version/gitlabr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/statnmap/gitlabr/actions"><img src="https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://github.com/statnmap/gitlabr/actions"><img src="https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://codecov.io/gh/statnmap/gitlabr?branch=master"><img src="https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
