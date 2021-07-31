@@ -6,10 +6,10 @@
 <!-- badges: start -->
 
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
-![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr) [![R
-build
-status](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
+![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
+[![Codecov test
+coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://codecov.io/gh/statnmap/gitlabr?branch=master)
 <!-- badges: end -->
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to
@@ -76,32 +76,29 @@ set_gitlab_connection(
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2) 
-#> # A tibble: 40 x 131
-#>    id     description   name  name_with_names… path  path_with_names… created_at
-#>    <chr>  <chr>         <chr> <chr>            <chr> <chr>            <chr>     
-#>  1 28504… "External co… xcon… Bogdan Rybalka … xcon… bogdan.rybalka.… 2021-07-3…
-#>  2 28503…  <NA>         News… Ketan Totlani /… News… itsketant/Newser 2021-07-3…
-#>  3 28503… "An React Ap… Movi… Ketan Totlani /… Movi… itsketant/Movie… 2021-07-3…
-#>  4 28503… ""            Assi… Avishka Induwar… assi… Avishka0110/ass… 2021-07-3…
-#>  5 28503… "ToDo-App  V… ToDo… MrApolloz / ToD… todo… apolloz1982/tod… 2021-07-3…
-#>  6 28503… "Ant testing" ant-… Evgeny Litvinov… ant-… jakichanka/ant-… 2021-07-3…
-#>  7 28503…  <NA>         HW1-… Lednov V / HW1-… HW1-… lednovv/HW1-js   2021-07-3…
-#>  8 28503… ""            anime Khánh Quốc / an… anime quockhanh.ud/an… 2021-07-3…
-#>  9 28503… ""            Marg… Tugirin Bengkel… marg… tugirinbengkel/… 2021-07-3…
-#> 10 28503… ""            task… Сергей Пантелее… task… spanteleev/task… 2021-07-3…
-#> # … with 30 more rows, and 124 more variables: default_branch <chr>,
+#> # A tibble: 40 x 98
+#>    id     description  name   name_with_names… path  path_with_names… created_at
+#>    <chr>  <chr>        <chr>  <chr>            <chr> <chr>            <chr>     
+#>  1 28515… ""           lab5   Earth_Flutter /… lab5  earth_flutter/l… 2021-07-3…
+#>  2 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#>  3 28515…  <NA>        Ralph… Ralph Fischer /… ralp… ralph-fischer1/… 2021-07-3…
+#>  4 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#>  5 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#>  6 28515… "My awesome… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#>  7 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#>  8 28515… ""           r      Eduardo de la C… r     eduardocruzpala… 2021-07-3…
+#>  9 28515… "Project wi… proje… gitlab-qa-sandb… proj… gitlab-qa-sandb… 2021-07-3…
+#> 10 28515… ""           Touca… Gergely Nagy / … touc… rkaaya/toucan-o… 2021-07-3…
+#> # … with 30 more rows, and 91 more variables: default_branch <chr>,
 #> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
-#> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
-#> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
-#> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
-#> #   namespace.avatar_url <chr>, namespace.web_url <chr>,
+#> #   forks_count <chr>, star_count <chr>, last_activity_at <chr>,
+#> #   namespace.id <chr>, namespace.name <chr>, namespace.path <chr>,
+#> #   namespace.kind <chr>, namespace.full_path <chr>, namespace.web_url <chr>,
 #> #   container_registry_image_prefix <chr>, _links.self <chr>,
 #> #   _links.issues <chr>, _links.merge_requests <chr>,
 #> #   _links.repo_branches <chr>, _links.labels <chr>, _links.events <chr>,
 #> #   _links.members <chr>, packages_enabled <chr>, empty_repo <chr>,
-#> #   archived <chr>, visibility <chr>, owner.id <chr>, owner.name <chr>,
-#> #   owner.username <chr>, owner.state <chr>, owner.avatar_url <chr>,
-#> #   owner.web_url <chr>, resolve_outdated_diff_discussions <chr>,
+#> #   archived <chr>, visibility <chr>, resolve_outdated_diff_discussions <chr>,
 #> #   container_expiration_policy.cadence <chr>,
 #> #   container_expiration_policy.enabled <chr>,
 #> #   container_expiration_policy.keep_n <chr>,
@@ -133,14 +130,9 @@ gl_list_projects(max_page = 2)
 #> #   external_authorization_classification_label <chr>,
 #> #   requirements_enabled <chr>, security_and_compliance_enabled <chr>,
 #> #   merge_pipelines_enabled <chr>, merge_trains_enabled <chr>,
-#> #   emails_disabled <chr>, forked_from_project.id <chr>,
-#> #   forked_from_project.description <chr>, forked_from_project.name <chr>,
-#> #   forked_from_project.name_with_namespace <chr>,
-#> #   forked_from_project.path <chr>,
-#> #   forked_from_project.path_with_namespace <chr>,
-#> #   forked_from_project.created_at <chr>,
-#> #   forked_from_project.default_branch <chr>,
-#> #   forked_from_project.ssh_url_to_repo <chr>, …
+#> #   namespace.parent_id <chr>, readme_url <chr>, namespace.avatar_url <chr>,
+#> #   owner.id <chr>, owner.name <chr>, owner.username <chr>, owner.state <chr>,
+#> #   owner.avatar_url <chr>, owner.web_url <chr>
 ```
 
 ### Work with a specific project
