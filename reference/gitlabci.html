@@ -148,30 +148,8 @@ Content of .gitlab-ci.yml file is now created using templates with
 use_gitlab_ci(type = "check-coverage-pkgdown"). See <code><a href='use_gitlab_ci.html'>use_gitlab_ci()</a></code>.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='va'>job_name</span>, stage <span class='op'>=</span> <span class='va'>job_name</span>, allowed_dependencies <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
+    <pre class="usage"><span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='op'>)</span></pre>
 
-<span class='fu'>gl_default_ci_pipeline</span><span class='op'>(</span><span class='op'>)</span></pre>
-
-    <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
-    <table class="ref-arguments">
-    <colgroup><col class="name" /><col class="desc" /></colgroup>
-    <tr>
-      <th>job_name</th>
-      <td><p>Name of job template to get CI definition elements</p></td>
-    </tr>
-    <tr>
-      <th>stage</th>
-      <td><p>Name of stage job belongs to</p></td>
-    </tr>
-    <tr>
-      <th>allowed_dependencies</th>
-      <td><p>List of job names that are allowed to be listed as dependencies of jobs. Usually this is all existing other jobs.</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name</p></td>
-    </tr>
-    </table>
 
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
@@ -180,7 +158,7 @@ use_gitlab_ci(type = "check-coverage-pkgdown"). See <code><a href='use_gitlab_ci
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
 <span class='co'># Deprecated</span>
-<span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='st'>"build"</span>, allowed_dependencies <span class='op'>=</span> <span class='st'>"test"</span><span class='op'>)</span>
+<span class='fu'>gl_ci_job</span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
 </div></pre>
   </div>
