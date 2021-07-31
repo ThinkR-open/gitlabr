@@ -29,6 +29,9 @@ use_gitlab_ci(
 
 \item{type}{type of the CI template to use}
 }
+\value{
+Used for side effects. Creates a .gitlab-ci.yml file in your directory.
+}
 \description{
 Add .gitlab-ci.yml file in your current project from template
 }

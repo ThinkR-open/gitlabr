@@ -7,6 +7,10 @@ and @noRd for not exported
 
 - [ ] checkhelper
 
+Missing or empty return value for exported functions: gl_list_branches, gl_get_branch, gl_create_branch, gl_delete_branch, gl_ci_job, gl_get_comments, gl_get_issue_comments, gl_get_commit_comments, gl_comment_commit, gl_comment_issue, gl_edit_comment, gl_edit_issue_comment, gl_edit_commit_comment, gl_repository, gl_list_files, gl_file_exists, gl_get_file, set_gitlab_connection, unset_gitlab_connection, gl_list_issues, gl_get_issue, gl_to_issue_id, gl_new_issue, gl_create_issue, gl_edit_issue, gl_close_issue, gl_reopen_issue, gl_assign_issue, gl_unassign_issue, gl_delete_issue, NA, NA, archive, assign_issue, close_issue, comment_commit, comment_issue, create_branch, create_merge_request, delete_branch, edit_commit_comment, edit_issue, edit_issue_comment, file_exists, get_comments, get_commit_comments, get_commits, get_diff, get_file, get_issue, get_issue_comments, get_issues, get_project_id, gitlab_connection, list_branches, list_files, list_projects, new_issue, project_connection, proj_req, push_file, reopen_issue, repository, to_issue_id, unassign_issue, NA, gl_create_merge_request, gl_edit_merge_request, gl_close_merge_request, gl_delete_merge_request, gl_list_merge_requests, gl_get_project_id, gl_get_commits, gl_get_diff, glLoginInput, glReactiveLogin
+
+Doc available but need to choose between `@export` or `@noRd`: get_rel, get_next_link, json_to_flat_df, _PACKAGE, NA, NA, NA
+
 ## Create a repo for each OS in the CI
 
 - [x] windows

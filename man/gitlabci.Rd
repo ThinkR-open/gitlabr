@@ -2,21 +2,9 @@
 % Please edit documentation in R/ci.R
 \name{gl_ci_job}
 \alias{gl_ci_job}
-\alias{gl_default_ci_pipeline}
 \title{Define GitLab CI jobs content}
 \usage{
-gl_ci_job(job_name, stage = job_name, allowed_dependencies = c(), ...)
-
-gl_default_ci_pipeline()
-}
-\arguments{
-\item{job_name}{Name of job template to get CI definition elements}
-
-\item{stage}{Name of stage job belongs to}
-
-\item{allowed_dependencies}{List of job names that are allowed to be listed as dependencies of jobs. Usually this is all existing other jobs.}
-
-\item{...}{passed on to ci_r_script: booleans vanilla or slave translate to R executable options with the same name}
+gl_ci_job()
 }
 \description{
 Exploration of job content is deprecated as of 'gitlabr' 1.1.7.
@@ -26,7 +14,7 @@ use_gitlab_ci(type = "check-coverage-pkgdown"). See \code{\link[=use_gitlab_ci]{
 \examples{
 \dontrun{
 # Deprecated
-gl_ci_job("build", allowed_dependencies = "test")
+gl_ci_job()
 }
 }
 \seealso{

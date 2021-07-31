@@ -25,7 +25,6 @@ Depends:
 Imports:
     arpr,
     base64enc,
-    devtools (>= 1.8.0),
     dplyr (>= 0.4.3),
     httr (>= 1.1.0),
     magrittr,
