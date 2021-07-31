@@ -18,6 +18,8 @@ jobs:
 
     name: ${{ matrix.config.os }} (${{ matrix.config.r }})
 
+    concurrency: ${{ matrix.config.projectname }}
+
     strategy:
       fail-fast: false
       matrix:
