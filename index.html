@@ -19,10 +19,10 @@
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="Access to the Gitlab API">
 <meta property="og:description" content="Provides R functions to access the API of the project and
-    repository management web application gitlab. For many common tasks
+    repository management web application GitLab. For many common tasks
     (repository file access, issue assignment and status, commenting)
     convenience wrappers are provided, and in addition the full API can be
-    used by specifying request locations. Gitlab is open-source software
+    used by specifying request locations. GitLab is open-source software
     and can be self-hosted or used on gitlab.com.">
 <meta property="og:image" content="https://statnmap.github.io/gitlabr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -69,7 +69,7 @@
       <a href="articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
     </li>
     <li>
-      <a href="articles/b-projects.html">Manage a project</a>
+      <a href="articles/b-projects.html">Create and manage a new GitLab project</a>
     </li>
     <li>
       <a href="articles/c-alternative-connection-to-projects.html">Alternative connections to projects</a>
@@ -236,7 +236,7 @@
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></code></pre></div>
 <ul>
-<li>If the principal branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
+<li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
 </li>
 </ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
@@ -298,8 +298,8 @@
 <div id="use-additional-requests" class="section level3">
 <h3 class="hasAnchor">
 <a href="#use-additional-requests" class="anchor"></a>Use additional requests</h3>
-<p>If an API request is not already available in {gitlabr}, function <code><a href="reference/gitlab.html">gitlab()</a></code> allows to use any request of the GitLab API <br><span class="math display"> &lt; <em>h</em><em>t</em><em>t</em><em>p</em><em>s</em> : //<em>d</em><em>o</em><em>c</em><em>s</em>.<em>g</em><em>i</em><em>t</em><em>l</em><em>a</em><em>b</em>.<em>c</em><em>o</em><em>m</em>/<em>c</em><em>e</em>/<em>a</em><em>p</em><em>i</em>/&gt;</span><br>.</p>
-<p>For instance, the API documentation shows how to create a new project in <br><span class="math display">$$&lt;https://docs.gitlab.com/ce/api/projects.html#create-project&gt;$$</span><br>:</p>
+<p>If an API request is not already available in {gitlabr}, function <code><a href="reference/gitlab.html">gitlab()</a></code> allows to use any request of the GitLab API <a href="https://docs.gitlab.com/ce/api/" class="uri">https://docs.gitlab.com/ce/api/</a>.</p>
+<p>For instance, the API documentation shows how to create a new project in <a href="https://docs.gitlab.com/ce/api/projects.html#create-project" class="uri">https://docs.gitlab.com/ce/api/projects.html#create-project</a>:</p>
 <ul>
 <li>The verb is <code>POST</code>
 </li>
