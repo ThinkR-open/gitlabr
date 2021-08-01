@@ -152,10 +152,10 @@
 <div id="setup-a-development-environment" class="section level2">
 <h2 class="hasAnchor">
 <a href="#setup-a-development-environment" class="anchor"></a>Setup a development environment</h2>
-<p>The {gitlabr} test suite expects certain entities (user, project, files, comments) to be present in the test server. Below are the guidelines to setup a GitLab instance and the local file <code>tests/environment.yml</code>. Note that <a href="https://gitlab.com/KevCaz/testor" class="uri">https://gitlab.com/KevCaz/testor</a> was created following these guidelines.</p>
+<p>The {gitlabr} test suite expects certain entities (user, project, files, comments) to be present in the test server. Below are the guidelines to setup a GitLab instance and the local file <code>dev/environment.yml</code>. Note that <a href="https://gitlab.com/statnmap/testor.main" class="uri">https://gitlab.com/statnmap/testor.main</a> was created following these guidelines.</p>
 <ol>
 <li><p>Install &amp; make GitLab instance reachable at a certain address. The easiest ways are to use either a Docker image of the GitLab version of interest or directly use <a href="https://gitlab.com" class="uri">https://gitlab.com</a>.</p></li>
-<li><p>Create a file named <code>environment.yml</code> and save it in the <code>tests/</code> directory of your clone of {gitlabr}.</p></li>
+<li><p>Create a file named <code>environment.yml</code> and save it in the <code>dev/</code> directory of your clone of {gitlabr}.</p></li>
 </ol>
 <ul>
 <li>See <code>environment.yml.example</code> as the template to fill as follows</li>
@@ -241,7 +241,7 @@
 <a href="#how-to-run-the-test-suite" class="anchor"></a>How to run the test suite</h3>
 <p>When the test server is set up as described above, tests can be run with the following R code that loads the recorded environment variables and runs the test code:</p>
 <pre class="{r}"><code>devtools::load_all()
-do.call(Sys.setenv, yaml::yaml.load_file("tests/environment.yml")) ## load test environment variables
+do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml")) ## load test environment variables
 devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_ci.R") ## run test on one file</code></pre>
 </div>
