@@ -43,7 +43,7 @@ unset_gitlab_connection <- function() {
 #' @param key option name
 #' @param value option value
 #' @export
-#' @return Used for side effect. Populate user [options()]
+#' @return Used for side effect. Populates user [options()]
 #' @details 
 #' Options accounted for by gitlabr:
 #' 
@@ -51,7 +51,7 @@ unset_gitlab_connection <- function() {
 #' @examples 
 #' # Principal branch is called "master"
 #' gitlabr_options_set("gitlabr.main", "master")
-#' # Go back to default option (principal branch will be "main")
+#' # Go back to default option (default branch will be "main")
 #' gitlabr_options_set("gitlabr.main", NULL)
 gitlabr_options_set <- function(key, value) {
   data <- list(value)

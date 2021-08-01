@@ -1,8 +1,8 @@
 ---
-title: "Manage a project"
+title: "Create and manage a new GitLab project"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{manage-project}
+  %\VignetteIndexEntry{b-Create and manage a new GitLab project}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -19,7 +19,16 @@ knitr::opts_chunk$set(
 library(gitlabr)
 ```
 
+This code is the one you can run with an account on <https://gitlab.com> to be able to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md).
+
+You can use this code to create all your new projects with a specific template. 
+For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. 
+This makes you sure that all collaborators know how to find issues and how to interact with you.
+
 # Set up GitLab connection
+
+- Do not forget to define an environment variable named `GITLAB_COM_TOKEN`
+  + You can use `usethis::edit_r_environ()` to open the correct file
 
 ```{r}
 # GitLab con
@@ -29,69 +38,128 @@ set_gitlab_connection(
 )
 ```
 
-# List existing projects
+# Define the project
 
-- Limit the list to the 10 first projects available to the user on GitLab.com
-
-```{r}
-gl_list_projects(max_page = 1, per_page = 10)
-```
-
-
-# Create a new project
-```{r, eval=FALSE}
-my_project <- gl_new_project(name = "toto")
-# my_project <- gl_new_project(name = "toto", namespace_id = 123)
-```
-
-# Create an issue in this project
+- Name of the project
+- Name of the default branch
 
 ```{r}
-the_issue <- gl_create_issue(title = "Title of Issue", project = 25221772)
+test_project_name <- "testor.main"
+main_branch <- "main"
 ```
 
+## Create a project called `testor.main`, owned by the user
 
-# List project issue state events
+Project is initialized with a README file
 
-Gets a list of all state events for a single issue. 
+```{r}
+project_info <- gl_new_project(
+  name = test_project_name, 
+  default_branch = main_branch,
+  initialize_with_readme = TRUE
+)
+```
 
-```{r, eval=FALSE}
-project_id <- my_project[["id"]]
+## Verify branch created (depending on GitLab, main branch may still be "master")
+```{r}
+gl_list_branches(project = project_info$id)
+```
 
-#' @param project_id Project if
-#' @param resource_id id of the resource chosen
-#' @param resource Character among "issues", "merge_requests", "epics"
-#' @param event Character among "iteration", "label", "milestone", "state", "weight"
-gl_resource_events <- function(project_id,
-                           resource_id,
-                           resource = c("issues", "merge_requests", "epics"),
-                           event = c("label", "iteration", "milestone", "state", "weight"),
-                           ...) {
+## Open the URL of the project
+```{r}
+browseURL(project_info$web_url)
+```
+
+## Add/modify and commit the `README.md`
+
+```{r}
+# Content of the README
+content_md <- paste("
+# testor.main
+
+Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
+")
+
+# Push file with a commit
+gl_push_file(
+  project = project_info$id,
+  file_path = "README.md",
+  content = content_md,
+  commit_message = "Update README",
+  branch = main_branch,
+  overwrite = TRUE)
+
+```
+
+## Create a new branch named "for-tests"
+
+```{r}
+# Create the new branch
+gl_create_branch(project = project_info$id, branch = "for-tests", ref = main_branch)
+
+# List branches to see if it was created
+# Note that branch creation can take a while, wait a little before using `gl_list_branches()`
+# gl_list_branches(project = project_info$id)
+```
+
+## Add and commit a CI file (".gitlab-ci.yml")
+
+The ".gitlab-ci.yml" below is a simple example of CI with artifact.
+If you want a proper CI for your R package or bookdown project, you may want to look at `gitlabr::use_gitlab_ci()` and run it when you cloned your project locally.
+
+
+```{r}
+content_ci <- paste("
+testing:
+  script: echo 'test 1 2 1 2' > 'test.txt'
+  artifacts:
+    paths:
+      - test.txt
+")
+
+gl_push_file(
+  project = project_info$id,
+  file_path = ".gitlab-ci.yml",
+  content = content_ci,
+  commit_message = "Add CI to the main branch",
+  branch = main_branch,
+  overwrite = TRUE)
+
+```
+
+## Use the commit created above and add a follow-up comment
+```{r}
+# Get list of commits in default branch
+commits_in_main <- gl_get_commits(project = project_info$id, ref_name = main_branch)
+# Add a comment to this commmit
+gl_comment_commit(
+  project = project_info$id, 
+  id = commits_in_main$id[1], 
+  text = "Write a comment")
+```
+
+## Create a first issue (#1) with a follow-up comment
+
+```{r}
+# Create an issue
+issue_info <- gl_create_issue(
+  project = project_info$id, 
+  title = "Dont close issue 1", 
+  description = "An example issue to not close for tests")
+
+# Create a comment to the issue
+gl_comment_issue(
+  project = project_info$id, 
+  id = issue_info$iid, 
+  text = "A comment on issue to not close")
   
-  resource <- match.arg(resource)
-  event <- match.arg(event)
-  
-  if (resource == "merge_requests" & event %in% c("iteration", "weight")) {
-    stop('merge_requests can not be associated with "iteration", "weight"')
-  }
-  if (resource == "epics" & event %in% c("iteration", "milestone", "state", "weight")) {
-    stop('epics can not be associated with "iteration", "milestone", "state", "weight"')
-  }
-  
-    gitlab(req = paste0("projects/", project_id, "/", resource,"/", resource_id, "/resource_", event,"_events"),
-           verb = httr::GET, ...)
-
-}
-
-events <- gl_resource_events(project_id = project_id, 
-                             resource = "issues", 
-                             resource_id = 5, 
-                             event = "label")
 ```
 
 ## Delete project
 
-```{r}
+- Use with caution!
+
+```{r, eval=FALSE}
 gl_delete_project(project_id)
 ```
 

@@ -11,7 +11,7 @@ if (file.exists(here::here("dev/environment.yml"))) {
 }
 
 # Create all projects for CI or local
-# Projects with name containing "master" will have principal branch named "master", "main" otherwise
+# Projects with name containing "master" will have default branch named "master", "main" otherwise
 # CI only - to allow run in parallel
 projects_names <- c("testor.macos", "testor.windows", "testor.release",
                     "testor.devel", "testor.release.master", "testor.coverage")
@@ -22,7 +22,7 @@ projects_names <- c("testor.main", "testor.master")
 all_outputs <- list()
 
 for (test_project_name in projects_names) {
-  # Define main branch (currently gitlab is only for "main" by default in unit tests)
+  # Define main branch
   if (grepl("master", test_project_name)) {
     gitlabr_options_set("gitlabr.main", "master")
   } else {

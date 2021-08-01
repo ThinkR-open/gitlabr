@@ -37,7 +37,7 @@ gl_ci_job <- function() {
 #'  along with Code coverage with {covr} and {pkgdown} site on GitLab Pages.
 #' - "bookdown": Build {bookdown} HTML and PDF site on GitLab Pages
 #' - "bookdown-production": Build {bookdown} HTML and PDF site on GitLab Pages. 
-#'  Where principal page is for branch named 'production' and "dev/" sub-folder is for 
+#'  Where default page is for branch named 'production' and "dev/" sub-folder is for 
 #'  'main' (or 'master') branch.
 #'
 #' @export

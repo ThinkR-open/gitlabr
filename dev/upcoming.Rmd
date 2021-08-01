@@ -1,0 +1,118 @@
+---
+title: "Manage a project"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{manage-project}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  eval = FALSE
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+# Set up GitLab connection
+
+```{r}
+# GitLab con
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+```
+
+## List project issue state events
+
+Gets a list of all state events for a single issue. 
+
+```{r, eval=FALSE}
+project_id <- my_project[["id"]]
+
+#' @param project_id Project if
+#' @param resource_id id of the resource chosen
+#' @param resource Character among "issues", "merge_requests", "epics"
+#' @param event Character among "iteration", "label", "milestone", "state", "weight"
+gl_resource_events <- function(project_id,
+                           resource_id,
+                           resource = c("issues", "merge_requests", "epics"),
+                           event = c("label", "iteration", "milestone", "state", "weight"),
+                           ...) {
+  
+  resource <- match.arg(resource)
+  event <- match.arg(event)
+  
+  if (resource == "merge_requests" & event %in% c("iteration", "weight")) {
+    stop('merge_requests can not be associated with "iteration", "weight"')
+  }
+  if (resource == "epics" & event %in% c("iteration", "milestone", "state", "weight")) {
+    stop('epics can not be associated with "iteration", "milestone", "state", "weight"')
+  }
+  
+    gitlab(req = paste0("projects/", project_id, "/", resource,"/", resource_id, "/resource_", event,"_events"),
+           verb = httr::GET, ...)
+
+}
+
+events <- gl_resource_events(project_id = project_id, 
+                             resource = "issues", 
+                             resource_id = 5, 
+                             event = "label")
+```
+
+## Wiki
+
+```{r}
+wiki <- readLines(system.file("gitlab", "wiki_home.md", package = "thinkridentity"))
+# Home
+wiki_home <- gitlab(req = paste0("projects/", project_id, "/wikis"),
+                    verb = httr::POST,
+                    content = paste(wiki, collapse = "\n"),
+                    title = "home",
+                    format = "markdown")
+
+```
+
+## Protect branches
+
+```{r}
+  p_branches <- gitlab(req = paste0("projects/", project_id, "/protected_branches"),
+                       verb = httr::GET)
+
+  # Delete master protection
+  if (nrow(p_branches) != 0 && "master" %in% p_branches[["name"]]) {
+    gitlab(req = paste0("projects/", project_id, "/protected_branches/master"),
+           verb = httr::DELETE)
+  }
+
+  # Add master protection
+  protect_master <- gitlab(req = paste0("projects/", project_id, "/protected_branches"),
+                           verb = httr::POST,
+                           name = "master",
+                           push_access_level = ifelse(isTRUE(unprotect), 40, 0),
+                           merge_access_level = 40 # Maintainers
+  )
+```
+
+## Modify autoclose and coverage regex
+
+```{r}
+modify_autoclose_and_coverage <- function(project_id, autoclose = FALSE,
+                                          build_coverage_regex = "Coverage: \\d+\\.\\d+") {
+  protect_prod <- gitlab(req = paste0("projects/", project_id),
+                         verb = httr::PUT,
+                         autoclose_referenced_issues = autoclose,
+                         build_coverage_regex = build_coverage_regex
+  )
+  message("Issues are set to", ifelse(autoclose, " ", " not ") ,"auto-close when merged in 'master'")
+  message("build_coverage_regex is set to: ", build_coverage_regex)
+}
+```
+

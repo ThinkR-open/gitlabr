@@ -157,7 +157,7 @@ gl_list_projects(max_page = 2)
 my_project <- 20384533 #repo.rtask",
 ```
 
--   If the principal branch is not named `main`, you need to specify it
+-   If the default branch is not named `main`, you need to specify it
     with `gitlabr_options_set()`
 
 ``` r
@@ -225,10 +225,10 @@ You will need to open the issue manually in this case.*
 
 If an API request is not already available in {gitlabr}, function
 `gitlab()` allows to use any request of the GitLab API
-\[<https://docs.gitlab.com/ce/api/>\].
+<https://docs.gitlab.com/ce/api/>.
 
 For instance, the API documentation shows how to create a new project in
-\[<https://docs.gitlab.com/ce/api/projects.html#create-project>\]:
+<https://docs.gitlab.com/ce/api/projects.html#create-project>:
 
 -   The verb is `POST`
 -   The request is `projects`

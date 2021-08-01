@@ -12,7 +12,7 @@ gitlabr_options_set(key, value)
 \item{value}{option value}
 }
 \value{
-Used for side effect. Populate user \code{\link[=options]{options()}}
+Used for side effect. Populates user \code{\link[=options]{options()}}
 }
 \description{
 Set gitlabr options
@@ -26,6 +26,6 @@ Options accounted for by gitlabr:
 \examples{
 # Principal branch is called "master"
 gitlabr_options_set("gitlabr.main", "master")
-# Go back to default option (principal branch will be "main")
+# Go back to default option (default branch will be "main")
 gitlabr_options_set("gitlabr.main", NULL)
 }
