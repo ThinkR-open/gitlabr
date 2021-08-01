@@ -8,13 +8,13 @@ Please also note the [Code of Conduct](CONDUCT.md).
 ## Setup a development environment
 
 The {gitlabr} test suite expects certain entities (user, project, files, comments) to be present in the test server. 
-Below are the guidelines to setup a GitLab instance and the local file `tests/environment.yml`. 
-Note that <https://gitlab.com/KevCaz/testor> was created following these guidelines. 
+Below are the guidelines to setup a GitLab instance and the local file `dev/environment.yml`. 
+Note that <https://gitlab.com/statnmap/testor.main> was created following these guidelines. 
 
 
 1. Install & make GitLab instance reachable at a certain address. The easiest ways are to use either a Docker image of the GitLab version of interest or directly use <https://gitlab.com>. 
 
-2. Create a file named `environment.yml` and save it in the `tests/` directory of your clone of {gitlabr}.
+2. Create a file named `environment.yml` and save it in the `dev/` directory of your clone of {gitlabr}.
   + See `environment.yml.example` as the template to fill as follows
 
 3. Create a user on your GitLab instance
@@ -81,7 +81,7 @@ When the test server is set up as described above, tests can be run with the fol
 
 ```{r}
 devtools::load_all()
-do.call(Sys.setenv, yaml::yaml.load_file("tests/environment.yml")) ## load test environment variables
+do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml")) ## load test environment variables
 devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_ci.R") ## run test on one file
 ```

@@ -1,7 +1,7 @@
 usethis::use_build_ignore("dev_history.R")
 usethis::use_build_ignore("dev/")
 usethis::use_build_ignore("README.Rmd")
-usethis::use_git_ignore("tests/environment.yml")
+usethis::use_git_ignore("dev/environment.yml")
 usethis::use_git_ignore("README_cache/")
 usethis::use_build_ignore("README_cache/")
 
@@ -90,7 +90,22 @@ urlchecker::url_check()
 urlchecker::url_update()
 
 # check on other distributions
+
+# /!\ Do not send tests/environment.yml to CRAN /!\
+# For now `devtools::check()` uses the entire dev directory
+# If one day, it copies only non RBuildignore dirs, then put back
+# "environment.yml" in "tests"
+# fs::file_move(
+#   "tests/environment.yml",
+#   "dev/environment.yml"
+# )
+# fs::file_move(
+#   "tests/environment.yml.example",
+#   "dev/environment.yml.example"
+# )
+
 # _rhub
+
 devtools::check_rhub()
 rhub::check_on_windows(check_args = "--force-multiarch")
 rhub::check_on_solaris()
@@ -118,6 +133,17 @@ rhub::check(platform = "windows-x86_64-devel")
 devtools::check_win_devel()
 devtools::check_win_release()
 
+# /!\ Do not send tests/environment.yml to CRAN /!\
+# Put back for local tests if needed
+# fs::file_move(
+#   "dev/environment.yml",
+#   "tests/environment.yml"
+# )
+# fs::file_move(
+#   "dev/environment.yml.example",
+#   "tests/environment.yml.example"
+# )
+
 # Update NEWS
 # Bump version manually and add list of changes
 
@@ -129,5 +155,9 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 # Verify you're ready for release, and release
 devtools::release()
+# Do not send directly, instead, build
+devtools::build()
+# Remove "testthat/environment.yml"
+# Send the tar.gz to https://cran.r-project.org/submit.html
 
 

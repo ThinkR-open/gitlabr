@@ -1,11 +1,11 @@
 library(testthat)
 library(gitlabr)
 
-# Create your own "environment.yml" from "environment.yml.example"
-if (file.exists("environment.yml")) {
+# Create your own "dev/environment.yml" from "dev/environment.yml.example"
+if (file.exists("../dev/environment.yml")) {
   do.call(
     Sys.setenv,
-    yaml::yaml.load_file("environment.yml")
+    yaml::yaml.load_file("../dev/environment.yml")
   )
 }
 

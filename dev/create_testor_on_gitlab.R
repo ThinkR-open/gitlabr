@@ -3,10 +3,10 @@ pkgload::load_all()
 # From here, you should already have followed step 1-4 in CONTRIBUTING.md
 
 # Load environment variables
-if (file.exists(here::here("tests/environment.yml"))) {
+if (file.exists(here::here("dev/environment.yml"))) {
   do.call(
     Sys.setenv,
-    yaml::yaml.load_file(here::here("tests/environment.yml"))
+    yaml::yaml.load_file(here::here("dev/environment.yml"))
   )
 }
 
@@ -68,8 +68,8 @@ for (test_project_name in projects_names) {
   
   # 6. Get the ID of the project
   # This will be presented at the end of this script
-  # message("Add variable in your tests/environment.yml: GITLABR_TEST_PROJECT_NAME: ", project_info$name)
-  # message("Add variable in your tests/environment.yml: GITLABR_TEST_PROJECT_ID: ", project_info$id)
+  # message("Add variable in your dev/environment.yml: GITLABR_TEST_PROJECT_NAME: ", project_info$name)
+  # message("Add variable in your dev/environment.yml: GITLABR_TEST_PROJECT_ID: ", project_info$id)
   
   # 7. Add/modify and commit the `README.md`:
   content_md <- paste("
@@ -114,16 +114,16 @@ testing:
                     text = "Write a comment")
   
   # This will be presented at the end of this script
-  # message("Add variable in tests/environment.yml: COMMENTED_COMMIT: ", comment_infos = commits_in_main$id[1])
+  # message("Add variable in dev/environment.yml: COMMENTED_COMMIT: ", comment_infos = commits_in_main$id[1])
   
   # 11. Create a first issue (#1) with a follow-up comment
   issue_info <- gl_create_issue(project = project_info$id, title = "Dont close issue 1", description = "An example issue to not close for tests")
   gl_comment_issue(project = project_info$id, id = issue_info$iid, text = "A comment on issue to not close")
   
-  # Remind environment variables to add in "tests/environment.yml"
-  message("Add variable in your tests/environment.yml: GITLABR_TEST_PROJECT_NAME: ", project_info$name)
-  message("Add variable in your tests/environment.yml: GITLABR_TEST_PROJECT_ID: ", project_info$id)
-  message("Add variable in your tests/environment.yml: COMMENTED_COMMIT: ", commits_in_main$id[1])
+  # Remind environment variables to add in "dev/environment.yml"
+  message("Add variable in your dev/environment.yml: GITLABR_TEST_PROJECT_NAME: ", project_info$name)
+  message("Add variable in your dev/environment.yml: GITLABR_TEST_PROJECT_ID: ", project_info$id)
+  message("Add variable in your dev/environment.yml: COMMENTED_COMMIT: ", commits_in_main$id[1])
   
   all_outputs[[test_project_name]] <-
     list(
@@ -141,7 +141,7 @@ testing:
 }
 
 # ci.matrix is for CI in .github workflows
-# local.env is to fill "tests/environment.yml"
+# local.env is to fill "dev/environment.yml"
 print(purrr::transpose(all_outputs))
 
 # For local tests, you will not be able to test on both repo in the same loop.

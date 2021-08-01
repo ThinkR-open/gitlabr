@@ -1,7 +1,7 @@
-if (file.exists("../environment.yml")) {
+if (file.exists("../../dev/environment.yml")) {
   do.call(
     Sys.setenv,
-    yaml::yaml.load_file("../environment.yml")
+    yaml::yaml.load_file("../../dev/environment.yml")
   )
 }
 
