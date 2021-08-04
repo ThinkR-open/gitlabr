@@ -14,7 +14,7 @@
 #' @details
 #' - `gl_comment_commit`: might also contain `path`, `line`
 #' and `line_type` (old or new) to attach the comment to a specific in a file.
-#' See http://docs.gitlab.com/ce/api/commits.html
+#' See https://docs.gitlab.com/ce/api/commits.html
 #' - `gl_get_issue_comments`: might also contain `comment_id` to get a specific
 #' comment of an issue.
 #' 

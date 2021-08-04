@@ -288,5 +288,9 @@ adding more convenience functions, filing issues, etc.
 [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)
 compiles some information helpful in that process.
 
-Please also note the [Code of
-Conduct](https://github.com/statnmap/gitlabr/blob/main/CONDUCT.md).
+## Code of Conduct
+
+Please note that the gitlabr project is released with a [Contributor
+Code of
+Conduct](https://statnmap.github.io/gitlabr/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.

@@ -20,3 +20,4 @@ Dockerfile
 ^codecov\.yml$
 ^README_cache$
 ^cran-comments\.md$
+^CODE_OF_CONDUCT\.md$
