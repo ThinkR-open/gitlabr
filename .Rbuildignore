@@ -19,3 +19,4 @@ Dockerfile
 ^Meta$
 ^codecov\.yml$
 ^README_cache$
+^cran-comments\.md$

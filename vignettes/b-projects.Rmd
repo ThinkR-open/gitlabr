@@ -19,7 +19,7 @@ knitr::opts_chunk$set(
 library(gitlabr)
 ```
 
-This code is the one you can run with an account on <https://gitlab.com> to be able to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md).
+This code is the one you can run with an account on gitlab.com to be able to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md).
 
 You can use this code to create all your new projects with a specific template. 
 For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. 

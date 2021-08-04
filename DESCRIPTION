@@ -1,5 +1,5 @@
 Package: gitlabr
-Title: Access to the Gitlab API
+Title: Access to the 'Gitlab' API
 Version: 2.0.0
 Authors@R: 
     c(person(given = "Jirka",
@@ -12,11 +12,11 @@ Authors@R:
              email = "sebastien@thinkr.fr",
              comment = c(ORCID = "0000-0002-1565-9313")))
 Description: Provides R functions to access the API of the project and
-    repository management web application GitLab. For many common tasks
+    repository management web application 'GitLab'. For many common tasks
     (repository file access, issue assignment and status, commenting)
     convenience wrappers are provided, and in addition the full API can be
-    used by specifying request locations. GitLab is open-source software
-    and can be self-hosted or used on gitlab.com.
+    used by specifying request locations. 'GitLab' is open-source software
+    and can be self-hosted or used on <https://about.gitlab.com>.
 License: GPL (>= 3)
 URL: https://statnmap.github.io/gitlabr/
 BugReports: https://github.com/statnmap/gitlabr/issues

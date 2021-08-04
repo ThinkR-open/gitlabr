@@ -4,6 +4,7 @@ usethis::use_build_ignore("README.Rmd")
 usethis::use_git_ignore("dev/environment.yml")
 usethis::use_git_ignore("README_cache/")
 usethis::use_build_ignore("README_cache/")
+usethis::use_git_ignore("cran-comments.md")
 
 # Doc
 usethis::use_vignette("projects")
@@ -155,9 +156,19 @@ usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
 
 # Verify you're ready for release, and release
 devtools::release()
-# Do not send directly, instead, build
-devtools::build()
-# Remove "testthat/environment.yml"
-# Send the tar.gz to https://cran.r-project.org/submit.html
 
+# Thanks for article
+library(purrr)
+repos <- gh::gh("/repos/statnmap/gitlabr/stats/contributors")
+map(repos, "author") %>% map("login")
 
+map_chr(repos, ~paste0(
+  # "[&#x0040;",
+  "[",
+  pluck(.x, "author", "login"),
+  "](",
+  pluck(.x, "author", "html_url"),
+  ")"
+  )
+) %>% 
+  glue::glue_collapse(sep = ", ", last = " and ")

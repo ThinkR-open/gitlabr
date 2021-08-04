@@ -15,6 +15,7 @@ Breaking changes
 
 Major
 
+* New use of `use_gitlab_ci()` with pre-defined templates
 * Add new functions to manage projects: `gl_get_project()`, `gl_new_project()`, `gl_edit_project()`,
  `gl_delete_project()`
 * Update documentation: recommend using `gl_*` functions
