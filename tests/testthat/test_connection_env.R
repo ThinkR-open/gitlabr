@@ -45,6 +45,17 @@ names_2 <- names(my_gitlab_list_projects_output_raw)[!grepl("[.]", names(my_gitl
 names_3 <- names(gitlab_projects_api_raw)[!grepl("[.]", names(gitlab_projects_api_raw))]
 names_4 <- names(gl_list_projects_output_raw)[!grepl("[.]", names(gl_list_projects_output_raw))]
 
+all_same <- function(.x) (isTRUE(all(is.na(.x)) || all(.x == .x[1])))
+all_same(1:4)
+all_same(c(NA, 1, 2, 3))
+all_same(c(NA, "", "", "a"))
+all_same(rep(1, 4))
+all_same(rep(NA, 4))
+all_same(rep("toto", 4))
+all_same(c("toto", "a"))
+all_same(rep(TRUE, 4))
+all_same(rep(FALSE, 4))
+
 # Retrieve all projects in common to be sure all infos are there, and missing one are empty
 # Get id present in all four ways
 id_common <- 
@@ -59,7 +70,7 @@ id_common <-
   # ungroup() %>% 
   # filter(id == first(id)) %>% 
   # All values equal to first one
-  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  summarise_all(all_same) %>% 
   select(-id) %>% 
   summarise_all(all)
 
@@ -150,7 +161,7 @@ id_common <-
   # ungroup() %>% 
   # filter(id == first(id)) %>% 
   # All values equal to first one
-  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  summarise_all(all_same) %>% 
   select(-id) %>% 
   summarise_all(all)
 
@@ -225,7 +236,7 @@ id_common <-
   # ungroup() %>% 
   # filter(id == first(id)) %>% 
   # All values equal to first one
-  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  summarise_all(all_same) %>% 
   select(-id) %>% 
   summarise_all(all)
 
