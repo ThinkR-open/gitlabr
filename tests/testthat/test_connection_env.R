@@ -1,3 +1,5 @@
+library(dplyr)
+
 # Main branch ----
 test_that("gitlabr_options_set works", {
   expect_equal(get_main(), getOption("gitlabr.main", default = "main"))
@@ -37,12 +39,29 @@ gl_list_projects_output_raw <- gl_list_projects(gitlab_con = my_gitlab_test, max
 
 # names with dots [.] only exist if there are sub-lists. 
 # This is not always the case depending on projects.
-# Names without dots are mandatory fields, apparently
+# Names without dots are also not always existing fields, apparently
 names_1 <- names(my_gitlab_projects_output_raw)[!grepl("[.]", names(my_gitlab_projects_output_raw))]
 names_2 <- names(my_gitlab_list_projects_output_raw)[!grepl("[.]", names(my_gitlab_list_projects_output_raw))]
 names_3 <- names(gitlab_projects_api_raw)[!grepl("[.]", names(gitlab_projects_api_raw))]
 names_4 <- names(gl_list_projects_output_raw)[!grepl("[.]", names(gl_list_projects_output_raw))]
 
+# Retrieve all projects in common to be sure all infos are there, and missing one are empty
+# Get id present in all four ways
+id_common <- 
+  bind_rows(my_gitlab_projects_output_raw,
+          my_gitlab_list_projects_output_raw,
+          gitlab_projects_api_raw,
+          gl_list_projects_output_raw) %>% 
+  group_by(id) %>% 
+  mutate(n = n()) %>% 
+  # id in all four ways
+  filter(n == 4) %>% 
+  # ungroup() %>% 
+  # filter(id == first(id)) %>% 
+  # All values equal to first one
+  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  select(-id) %>% 
+  summarise_all(all)
 
 test_that("GitLab connection creation works", {
 
@@ -59,14 +78,16 @@ test_that("GitLab connection creation works", {
   expect_equal(nrow(gitlab_projects_api_raw), 20)
   expect_equal(nrow(gl_list_projects_output_raw), 20)
   
-  # Mandatory col names are all the same
-  expect_length(names_1[!names_1 %in% names_2], 0)
-  expect_length(names_1[!names_1 %in% names_3], 0)
-  expect_length(names_1[!names_1 %in% names_4], 0)
-  expect_length(names_2[!names_2 %in% names_1], 0)
-  expect_length(names_2[!names_2 %in% names_3], 0)
-  expect_length(names_3[!names_3 %in% names_4], 0)
+  # Col names in common should be greater than zero
+  expect_gt(length(names_1[names_1 %in% names_2]), 0)
+  expect_gt(length(names_1[names_1 %in% names_3]), 0)
+  expect_gt(length(names_1[names_1 %in% names_4]), 0)
+  expect_gt(length(names_2[names_2 %in% names_1]), 0)
+  expect_gt(length(names_2[names_2 %in% names_3]), 0)
+  expect_gt(length(names_3[names_3 %in% names_4]), 0)
 
+  # All values are the same (everything should be TRUE)
+  expect_length(which(!id_common[1,]), 0)
 })
 
 # gl_project_connection ----
@@ -115,6 +136,24 @@ names_1 <- names(my_gitlab_projects_self_raw)[!grepl("[.]", names(my_gitlab_proj
 names_2 <- names(my_gitlab_list_projects_self_raw)[!grepl("[.]", names(my_gitlab_list_projects_self_raw))]
 names_4 <- names(gl_list_projects_empty_raw)[!grepl("[.]", names(gl_list_projects_empty_raw))]
 
+# Retrieve all projects in common to be sure all infos are there, and missing one are empty
+# Get id present in all four ways
+id_common <- 
+  bind_rows(gitlab_projects_raw,
+            my_gitlab_projects_self_raw,
+            my_gitlab_list_projects_self_raw,
+            gl_list_projects_empty_raw) %>% 
+  group_by(id) %>% 
+  mutate(n = n()) %>% 
+  # id in all four ways
+  filter(n == 4) %>% 
+  # ungroup() %>% 
+  # filter(id == first(id)) %>% 
+  # All values equal to first one
+  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  select(-id) %>% 
+  summarise_all(all)
+
 
 test_that("set_gl_connection works", {
 
@@ -131,13 +170,16 @@ test_that("set_gl_connection works", {
   expect_equal(nrow(my_gitlab_list_projects_self_raw), 20)
   expect_equal(nrow(gl_list_projects_empty_raw), 20)
   
-  # Mandatory col names are all the same
-  expect_length(names_1[!names_1 %in% names_2], 0)
-  expect_length(names_1[!names_1 %in% names_4], 0)
-  expect_length(names_1[!names_1 %in% names_0], 0)
-  expect_length(names_2[!names_2 %in% names_1], 0)
-  expect_length(names_2[!names_2 %in% names_4], 0)
-  expect_length(names_4[!names_4 %in% names_0], 0)
+  # Col names in common should be greater than zero
+  expect_gt(length(names_1[names_1 %in% names_2]), 0)
+  expect_gt(length(names_1[names_1 %in% names_0]), 0)
+  expect_gt(length(names_1[names_1 %in% names_4]), 0)
+  expect_gt(length(names_2[names_2 %in% names_1]), 0)
+  expect_gt(length(names_2[names_2 %in% names_4]), 0)
+  expect_gt(length(names_4[names_4 %in% names_0]), 0)
+  
+  # All values are the same (everything should be TRUE)
+  expect_length(which(!id_common[1,]), 0)
 })
 # unset connection
 unset_gitlab_connection()
@@ -169,6 +211,23 @@ names_1 <- names(my_gitlab_projects_self_raw)[!grepl("[.]", names(my_gitlab_proj
 names_2 <- names(my_gitlab_list_projects_self_raw)[!grepl("[.]", names(my_gitlab_list_projects_self_raw))]
 names_4 <- names(gl_list_projects_empty_raw)[!grepl("[.]", names(gl_list_projects_empty_raw))]
 
+# Retrieve all projects in common to be sure all infos are there, and missing one are empty
+# Get id present in all four ways
+id_common <- 
+  bind_rows(gitlab_projects_raw,
+            my_gitlab_projects_self_raw,
+            my_gitlab_list_projects_self_raw,
+            gl_list_projects_empty_raw) %>% 
+  group_by(id) %>% 
+  mutate(n = n()) %>% 
+  # id in all four ways
+  filter(n == 4) %>% 
+  # ungroup() %>% 
+  # filter(id == first(id)) %>% 
+  # All values equal to first one
+  summarise_all(~(all(is.na(.x) || all(.x == .x[1])))) %>% 
+  select(-id) %>% 
+  summarise_all(all)
 
 test_that("set_gl_connection with dots works", {
 
@@ -185,13 +244,17 @@ test_that("set_gl_connection with dots works", {
   expect_equal(nrow(my_gitlab_list_projects_self_raw), 20)
   expect_equal(nrow(gl_list_projects_empty_raw), 20)
   
-  # Mandatory col names are all the same
-  expect_length(names_1[!names_1 %in% names_2], 0)
-  expect_length(names_1[!names_1 %in% names_4], 0)
-  expect_length(names_1[!names_1 %in% names_0], 0)
-  expect_length(names_2[!names_2 %in% names_1], 0)
-  expect_length(names_2[!names_2 %in% names_4], 0)
-  expect_length(names_4[!names_4 %in% names_0], 0)
+  
+  # Col names in common should be greater than zero
+  expect_gt(length(names_1[names_1 %in% names_2]), 0)
+  expect_gt(length(names_1[names_1 %in% names_0]), 0)
+  expect_gt(length(names_1[names_1 %in% names_4]), 0)
+  expect_gt(length(names_2[names_2 %in% names_1]), 0)
+  expect_gt(length(names_2[names_2 %in% names_4]), 0)
+  expect_gt(length(names_4[names_4 %in% names_0]), 0)
+  
+  # All values are the same (everything should be TRUE)
+  expect_length(which(!id_common[1,]), 0)
   
 })
 unset_gitlab_connection()
