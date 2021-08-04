@@ -72,7 +72,8 @@ id_common <-
   # All values equal to first one
   summarise_all(all_same) %>% 
   select(-id) %>% 
-  summarise_all(all)
+  summarise_all(all) %>% 
+  unlist()
 
 test_that("GitLab connection creation works", {
 
@@ -98,7 +99,10 @@ test_that("GitLab connection creation works", {
   expect_gt(length(names_3[names_3 %in% names_4]), 0)
 
   # All values are the same (everything should be TRUE)
-  expect_length(which(!id_common[1,]), 0)
+  if (length(names(id_common[id_common == FALSE]) != 0)) {
+    warning("Names with not common info: ", names(id_common[id_common == FALSE]))
+  }
+  expect_equal(names(id_common[id_common == FALSE]), character(0))
 })
 
 # gl_project_connection ----
@@ -163,7 +167,8 @@ id_common <-
   # All values equal to first one
   summarise_all(all_same) %>% 
   select(-id) %>% 
-  summarise_all(all)
+  summarise_all(all) %>% 
+  unlist()
 
 
 test_that("set_gl_connection works", {
@@ -190,7 +195,10 @@ test_that("set_gl_connection works", {
   expect_gt(length(names_4[names_4 %in% names_0]), 0)
   
   # All values are the same (everything should be TRUE)
-  expect_length(which(!id_common[1,]), 0)
+  if (length(names(id_common[id_common == FALSE]) != 0)) {
+    warning("Names with not common info: ", names(id_common[id_common == FALSE]))
+  }
+  expect_equal(names(id_common[id_common == FALSE]), character(0))
 })
 # unset connection
 unset_gitlab_connection()
@@ -238,7 +246,8 @@ id_common <-
   # All values equal to first one
   summarise_all(all_same) %>% 
   select(-id) %>% 
-  summarise_all(all)
+  summarise_all(all) %>% 
+  unlist()
 
 test_that("set_gl_connection with dots works", {
 
@@ -265,8 +274,12 @@ test_that("set_gl_connection with dots works", {
   expect_gt(length(names_4[names_4 %in% names_0]), 0)
   
   # All values are the same (everything should be TRUE)
-  expect_length(which(!id_common[1,]), 0)
-  
+  # expect_equal(which(!id_common[1,]), 0)
+  if (length(names(id_common[id_common == FALSE]) != 0)) {
+    warning("Names with not common info: ", names(id_common[id_common == FALSE]))
+  }
+  expect_equal(names(id_common[id_common == FALSE]), character(0))
+
 })
 unset_gitlab_connection()
 
