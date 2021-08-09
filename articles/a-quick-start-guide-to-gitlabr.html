@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -114,7 +114,14 @@
 <div id="quick-start-example" class="section level1">
 <h1 class="hasAnchor">
 <a href="#quick-start-example" class="anchor"></a>Quick Start Example</h1>
-<p>To run the code in this vignette you’ll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">documentation</a> on how to generate PATs. In the <strong>Scopes</strong> section you only need to tick the <em>api</em> box. + For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code> + Tick the fist checkboxes (the <code>api</code> scope) + Add the token in your “.Renviron” as <code>GITLAB_COM_TOKEN</code></p>
+<p>To run the code in this vignette you’ll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">documentation</a> on how to generate PATs. In the <strong>Scopes</strong> section you only need to tick the <em>api</em> box.</p>
+<ul>
+<li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
+</li>
+<li>Tick the fist checkboxes (the <code>api</code> scope)</li>
+<li>Add the token in your “.Renviron” as <code>GITLAB_COM_TOKEN</code>
+</li>
+</ul>
 <p>R code using {gitlabr} to perform some easy, common GitLab actions can look like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
