@@ -158,26 +158,31 @@
 <li>Find the list of projects available to you
 <ul>
 <li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
+<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="uri">https://docs.gitlab.com/ee/api/projects.html</a>
+<ul>
+<li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
-<span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 40 x 126</span>
+<span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span>, owned <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
+<span class="co">#&gt; # A tibble: 40 x 127</span>
 <span class="co">#&gt;    id     description  name   name_with_names… path  path_with_names… created_at</span>
 <span class="co">#&gt;    &lt;chr&gt;  &lt;chr&gt;        &lt;chr&gt;  &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 28518… "自动化练习" test   Amazing8 / test  test  Amazing8/test    2021-07-3…</span>
-<span class="co">#&gt;  2 28518… ""           proje… helma saboor / … proj… helma-programme… 2021-07-3…</span>
-<span class="co">#&gt;  3 28518… ""           OxSwi… Piyathida Jikja… oxsw… Bestkilled/oxsw… 2021-07-3…</span>
-<span class="co">#&gt;  4 28518… ""           test_2 thanhbinhhd197 … test… thanhbinhhd197/… 2021-07-3…</span>
-<span class="co">#&gt;  5 28518… ""           Creat… android_flutter… crea… android_flutter… 2021-07-3…</span>
-<span class="co">#&gt;  6 28518… ""           week5… flutter / week5… week… flutter149/week… 2021-07-3…</span>
-<span class="co">#&gt;  7 28518… ""           java-… Simona Coptil /… java… coptils/java-fu… 2021-07-3…</span>
-<span class="co">#&gt;  8 28518… ""           Minec… Tim Weyand / Mi… mine… tim.weyand/mine… 2021-07-3…</span>
-<span class="co">#&gt;  9 28518… "node serve… giova… Palmer Oliveira… giov… expalmer/giovana 2021-07-3…</span>
-<span class="co">#&gt; 10 28518… ""           Weath… raia paturet / … weat… raia-paturet/we… 2021-07-3…</span>
-<span class="co">#&gt; # … with 30 more rows, and 119 more variables: default_branch &lt;chr&gt;,</span>
+<span class="co">#&gt;  1 28734… "C64 musics… 8bit_… gryken / 8bit_m… 8bit… gryken2017/8bit… 2021-08-0…</span>
+<span class="co">#&gt;  2 28734… ""           yomay… Hekka / yomayod… yoma… helencloudell/y… 2021-08-0…</span>
+<span class="co">#&gt;  3 28734… "role for d… r_doc… kh_ansible_role… r_do… kh_ansible_role… 2021-08-0…</span>
+<span class="co">#&gt;  4 28734…  &lt;NA&gt;        Gimov… Gimovers / Gimo… gimo… g480/gimovers    2021-08-0…</span>
+<span class="co">#&gt;  5 28734… ""           Hotel  Gokkul A / Hotel hotel Gokkul23/hotel   2021-08-0…</span>
+<span class="co">#&gt;  6 28734… ""           NotIm… mwoolf-verifica… noti… mwoolf-verifica… 2021-08-0…</span>
+<span class="co">#&gt;  7 28734… ""           Dohoa… Trưởng Nguyễn Đ… doho… nguyenductruong… 2021-08-0…</span>
+<span class="co">#&gt;  8 28734… ""           test   Maksym Snizhyns… test  maxim.snezhinsk… 2021-08-0…</span>
+<span class="co">#&gt;  9 28734…  &lt;NA&gt;        Filde… Fildena 100 mg … fild… fildena-1001/fi… 2021-08-0…</span>
+<span class="co">#&gt; 10 28734… ""           Fulls… Yomna BATCH / F… full… YomnaBATCH/full… 2021-08-0…</span>
+<span class="co">#&gt; # … with 30 more rows, and 120 more variables: default_branch &lt;chr&gt;,</span>
 <span class="co">#&gt; #   ssh_url_to_repo &lt;chr&gt;, http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   readme_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span>
 <span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span>
@@ -204,9 +209,9 @@
 <span class="co">#&gt; #   forking_access_level &lt;chr&gt;, wiki_access_level &lt;chr&gt;,</span>
 <span class="co">#&gt; #   builds_access_level &lt;chr&gt;, snippets_access_level &lt;chr&gt;,</span>
 <span class="co">#&gt; #   pages_access_level &lt;chr&gt;, operations_access_level &lt;chr&gt;,</span>
-<span class="co">#&gt; #   analytics_access_level &lt;chr&gt;, shared_runners_enabled &lt;chr&gt;,</span>
-<span class="co">#&gt; #   lfs_enabled &lt;chr&gt;, creator_id &lt;chr&gt;, import_status &lt;chr&gt;,</span>
-<span class="co">#&gt; #   open_issues_count &lt;chr&gt;, ci_default_git_depth &lt;chr&gt;,</span>
+<span class="co">#&gt; #   analytics_access_level &lt;chr&gt;, container_registry_access_level &lt;chr&gt;,</span>
+<span class="co">#&gt; #   shared_runners_enabled &lt;chr&gt;, lfs_enabled &lt;chr&gt;, creator_id &lt;chr&gt;,</span>
+<span class="co">#&gt; #   import_status &lt;chr&gt;, open_issues_count &lt;chr&gt;, ci_default_git_depth &lt;chr&gt;,</span>
 <span class="co">#&gt; #   ci_forward_deployment_enabled &lt;chr&gt;, ci_job_token_scope_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   public_jobs &lt;chr&gt;, build_timeout &lt;chr&gt;,</span>
 <span class="co">#&gt; #   auto_cancel_pending_pipelines &lt;chr&gt;, ci_config_path &lt;chr&gt;,</span>
@@ -221,13 +226,13 @@
 <span class="co">#&gt; #   external_authorization_classification_label &lt;chr&gt;,</span>
 <span class="co">#&gt; #   requirements_enabled &lt;chr&gt;, security_and_compliance_enabled &lt;chr&gt;,</span>
 <span class="co">#&gt; #   merge_pipelines_enabled &lt;chr&gt;, merge_trains_enabled &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.parent_id &lt;chr&gt;, avatar_url &lt;chr&gt;, forked_from_project.id &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.description &lt;chr&gt;, forked_from_project.name &lt;chr&gt;,</span>
+<span class="co">#&gt; #   namespace.parent_id &lt;chr&gt;, emails_disabled &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forked_from_project.id &lt;chr&gt;, forked_from_project.description &lt;chr&gt;,</span>
+<span class="co">#&gt; #   forked_from_project.name &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.name_with_namespace &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   forked_from_project.path_with_namespace &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.created_at &lt;chr&gt;,</span>
-<span class="co">#&gt; #   forked_from_project.default_branch &lt;chr&gt;, …</span></code></pre></div>
+<span class="co">#&gt; #   forked_from_project.created_at &lt;chr&gt;, …</span></code></pre></div>
 <div id="work-with-a-specific-project" class="section level3">
 <h3 class="hasAnchor">
 <a href="#work-with-a-specific-project" class="anchor"></a>Work with a specific project</h3>
