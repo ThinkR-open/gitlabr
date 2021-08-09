@@ -27,7 +27,11 @@ building:
     - Rscript -e 'install.packages("rcmdcheck")'
     - Rscript -e 'remotes::install_local(upgrade = "never")'
     - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
-
+  artifacts:
+      paths:
+          - check
+      expire_in: 30 days
+      
 # To have the coverage percentage appear as a gitlab badge follow these
 # instructions:
 # https://docs.gitlab.com/ee/user/project/pipelines/settings.html#test-coverage-parsing
@@ -63,6 +67,7 @@ integration:
         - test-ci
     script:
         - Rscript -e 'remotes::install_cran(c("pkgdown"), upgrade = "never")'
+        - Rscript -e 'remotes::install_local(upgrade = "never")'
         - Rscript -e 'pkgdown::build_site()'
     artifacts:
         paths:

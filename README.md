@@ -52,10 +52,10 @@ R code using {gitlabr} to perform some common GitLab actions can look
 like this
 
 -   Create a TOKEN on your GitLab instance with scopes: `api`
-
+    -   For instance on gitlab.com:
+        `https://gitlab.com/-/profile/personal_access_tokens`
 -   Store your token in .Renviron as `GITLAB_COM_TOKEN` with
     `usethis::edit_r_environ()` and restart your session
-
 -   Set a connection to GitLab instance
 
 ``` r

@@ -19,9 +19,10 @@ knitr::opts_chunk$set(
 # Quick Start Example
 
 To run the code in this vignette you'll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab [documentation](https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html) on how to generate PATs. In the **Scopes** section you only need to tick the *api* box.
-  + For instance on gitlab.com: `https://gitlab.com/-/profile/personal_access_tokens`
-  + Tick the fist checkboxes (the `api` scope) 
-  + Add the token in your ".Renviron" as `GITLAB_COM_TOKEN`
+
++ For instance on gitlab.com: `https://gitlab.com/-/profile/personal_access_tokens`
++ Tick the fist checkboxes (the `api` scope) 
++ Add the token in your ".Renviron" as `GITLAB_COM_TOKEN`
 
 R code using {gitlabr} to perform some easy, common GitLab actions can look like this:
 
