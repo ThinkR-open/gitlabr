@@ -29,22 +29,22 @@ my_gitlab_test <- gl_connection(
 
 # Way 1
 my_gitlab_projects_output_raw <- my_gitlab_test("projects", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_2
 my_gitlab_list_projects_output_raw <- my_gitlab_test(gl_list_projects, max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_3
 gitlab_projects_api_raw <- gitlab("projects",
        api_root = paste0(test_url, "/api/v", test_api_version, "/"),
        private_token = test_private_token,
        max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_4
 gl_list_projects_output_raw <- gl_list_projects(gitlab_con = my_gitlab_test, max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # names with dots [.] only exist if there are sub-lists. 
 # This is not always the case depending on projects.
@@ -164,19 +164,19 @@ set_gitlab_connection(my_gitlab_test)
 # Note that we cannot compare directly all outputs because GitLab projects are actively increasing
 # Way_0 - gitlab_connection already set
 gitlab_projects_raw <- gitlab("projects", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way 1 - gitlab_connection already set
 my_gitlab_projects_self_raw <- my_gitlab_test("projects", gitlab_con = "self", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_2 - gitlab_connection already set
 my_gitlab_list_projects_self_raw <- my_gitlab_test(gl_list_projects, gitlab_con = "self", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_4 - gitlab_connection already set
 gl_list_projects_empty_raw <- gl_list_projects(max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # names with dots [.] only exist if there are sub-lists. 
 # This is not always the case depending on projects.
@@ -255,19 +255,19 @@ set_gitlab_connection(gitlab_url = test_url,
 # Note that we cannot compare directly all outputs because GitLab projects are actively increasing
 # Way_0 - gitlab_connection already set
 gitlab_projects_raw <- gitlab("projects", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way 1 - gitlab_connection already set
 my_gitlab_projects_self_raw <- my_gitlab_test("projects", gitlab_con = "self", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_2 - gitlab_connection already set
 my_gitlab_list_projects_self_raw <- my_gitlab_test(gl_list_projects, gitlab_con = "self", max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # Way_4 - gitlab_connection already set
 gl_list_projects_empty_raw <- gl_list_projects(max_page = 1, owned = TRUE) %>% 
-  select(-last_activity_at)
+  select(-last_activity_at, -open_issues_count)
 
 # names with dots [.] only exist if there are sub-lists. 
 # This is not always the case depending on projects.
