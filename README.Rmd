@@ -55,7 +55,7 @@ R code using {gitlabr} to perform some common GitLab actions can look like this
   + For instance on gitlab.com: `https://gitlab.com/-/profile/personal_access_tokens`
 - Store your token in .Renviron as `GITLAB_COM_TOKEN` with `usethis::edit_r_environ()` and restart your session 
 - Set a connection to GitLab instance
-```{r}
+```{r, cache=FALSE}
 library(gitlabr)
 
 # You can verify your token works
@@ -69,9 +69,11 @@ set_gitlab_connection(
 
 - Find the list of projects available to you
   + Define a limit of pages of projects to search in with `max_page`, otherwise the entire GitLab.com will be downloaded here...
+  + Find all parameters available in the API for projects on this page: https://docs.gitlab.com/ee/api/projects.html
+    + For instance, we can set `owned = FALSE` to retrieve all projects except ours.
 ```{r}
 # a tibble is returned, as is always by {gitlabr} functions
-gl_list_projects(max_page = 2) 
+gl_list_projects(max_page = 2, owned = FALSE) 
 ```
 
 ### Work with a specific project
