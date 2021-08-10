@@ -168,7 +168,7 @@ my_project <- 20384533 #repo.rtask",
 gitlabr_options_set("gitlabr.main", "master")
 ```
 
--   List files of the project using `gl_list_files`
+-   List files of the project using `gl_list_files()`
 
 ``` r
 gl_list_files(project = my_project)
@@ -179,7 +179,7 @@ gl_list_files(project = my_project)
 #> 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644
 ```
 
--   List issues with `gl_list_issues`
+-   List issues with `gl_list_issues()`
 
 ``` r
 gl_list_issues(project = my_project)

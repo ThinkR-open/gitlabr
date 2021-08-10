@@ -10,6 +10,12 @@ if (file.exists(here::here("dev/environment.yml"))) {
   )
 }
 
+# Set connection
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLABR_TEST_TOKEN")
+)
+
 # Create all projects for CI or local
 # Projects with name containing "master" will have default branch named "master", "main" otherwise
 # CI only - to allow run in parallel
@@ -30,12 +36,6 @@ for (test_project_name in projects_names) {
   }
   main_branch <- get_main()
 
-  # Set connection
-  set_gitlab_connection(
-    gitlab_url = "https://gitlab.com",
-    private_token = Sys.getenv("GITLABR_TEST_TOKEN")
-  )
-  
   # 5. Create a project called `testor`, owned by the user
   project_info <- gl_new_project(name = test_project_name, 
                                  default_branch = main_branch,
@@ -147,3 +147,63 @@ print(purrr::transpose(all_outputs))
 # For local tests, you will not be able to test on both repo in the same loop.
 # You can comment environment variables when needed
 # Also, only content of sub-list "local.env" is required
+
+# Create extra projects just to be sure there is something to test ----
+source(here::here("dev/testor_tools.R"))
+
+gitlabr_options_set("gitlabr.main", "main")
+# _ R package
+project_name <- "demo.package"
+project_info <- gl_new_project(name = project_name, 
+                               default_branch = "main",
+                               initialize_with_readme = TRUE)
+# Create tmp dir
+tmpdir <- tempfile(pattern = "pkg-")
+dir.create(tmpdir)
+project_path <- file.path(tmpdir, project_name)
+
+# Clone in tmp dir
+clone_locally(project_name = project_info$path, 
+              group_url = project_info$namespace.web_url, 
+              project_path = project_path,
+              open = TRUE)
+
+usethis::with_project(project_path, {
+    usethis::create_package(path = project_path, open = FALSE)
+    attachment::att_amend_desc()
+})
+
+push_to_repo(project_path, message = 'Init repo')
+
+
+# _ bookdown
+project_name <- "demo.bookdown"
+project_info <- gl_new_project(name = project_name, 
+                               default_branch = "main",
+                               initialize_with_readme = TRUE)
+# Create tmp dir
+tmpdir <- tempfile(pattern = "pkg-")
+dir.create(tmpdir)
+project_path <- file.path(tmpdir, project_name)
+
+# Clone in tmp dir
+clone_locally(project_name = project_info$path, 
+              group_url = project_info$namespace.web_url, 
+              project_path = project_path,
+              open = TRUE)
+
+file.copy(
+  list.files(
+    system.file("rstudio", "templates", "project", "resources", package = "bookdown"),
+    all.files = TRUE, full.names = TRUE, recursive = TRUE
+  ),
+  to = project_path,
+  recursive = TRUE)
+# Add CI
+gitlabr::use_gitlab_ci(path = file.path(project_path, ".gitlab-ci.yml"),
+                      type = "bookdown")
+
+push_to_repo(project_path, message = 'Init repo')
+
+# _ bookdown production
+# _ R package with {renv}
