@@ -11,53 +11,48 @@ cache:
       - ${R_LIBS}
 
 stages:
-  - install-deps
   - book-create
   - deploy
 
-installation:
-    stage: install-deps
+book-branch:
+    stage: book-create
+    except:
+        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
+        - production
+        - merge_requests
     script:
         - echo "Library path for packages :" $R_LIBS
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - Rscript -e 'imports <- unique(c("bookdown", "knitr", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        
-book-production:
-    stage: book-create
-    only:
-        - production
-    script:
-        - echo "Library path for packages :" $R_LIBS
-        - mkdir -p $R_LIBS
+        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
         - mkdir -p public
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/master/download?job=pages" &&
-          unzip artifacts.zip &&
-          rm artifacts.zip &&
-          echo "copied master artifacts" ||
-          echo "copied master artifacts failed"'
-        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
-        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
     artifacts:
         paths:
             - public
         expire_in: 30 days
-
-book-dev:
+        
+        
+book-main:
     stage: book-create
     only:
+        - ${CI_DEFAULT_BRANCH}
         - master
         - main
         - merge_requests
     script:
         - echo "Library path for packages :" $R_LIBS
         - mkdir -p $R_LIBS
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
         - mkdir -p public
@@ -66,12 +61,41 @@ book-dev:
           rm artifacts.zip &&
           echo "copied production artifacts" ||
           echo "copied production artifacts failed"'
-        # Clean dev directory
-        - Rscript -e 'unlink("public/dev", recursive = TRUE)'
-        - mkdir -p public/dev
+        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
+        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+book-production:
+    stage: book-create
+    only:
+        - production
+    script:
+        - echo "Library path for packages :" $R_LIBS
+        - mkdir -p $R_LIBS
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'tinytex::install_tinytex()'
+        - mkdir -p public
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied $CI_DEFAULT_BRANCH artifacts" ||
+          echo "copied $CI_DEFAULT_BRANCH artifacts failed"'
+        # Clean production directory
+        - Rscript -e 'unlink("public/production", recursive = TRUE)'
+        - mkdir -p public/production
         # Keep clean to FALSE to retrieve intermediate files in case something fails
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public/dev")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public/dev")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "production/dev")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "production/dev")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/production/_pagedown.html")'
     artifacts:
         paths:
             - public
@@ -85,6 +109,7 @@ pages:
         paths:
             - public
     only:
+        - ${CI_DEFAULT_BRANCH}
         - master
         - main
         - production

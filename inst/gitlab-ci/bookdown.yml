@@ -11,34 +11,23 @@ cache:
       - ${R_LIBS}
 
 stages:
-  - install-deps
   - book-create
   - deploy
 
-installation:
-    stage: install-deps
+book-main:
+    stage: book-create
     script:
         - echo "Library path for packages :" $R_LIBS
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - Rscript -e 'imports <- unique(c("bookdown", "knitr", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        
-book-production:
-    stage: book-create
-    only:
-        - main
-        - master
-    script:
-        - echo "Library path for packages :" $R_LIBS
-        - mkdir -p $R_LIBS
+        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
-        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
-        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
+        - mkdir -p public
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
     artifacts:
         paths:
             - public
@@ -52,7 +41,7 @@ pages:
         paths:
             - public
     only:
+        - ${CI_DEFAULT_BRANCH}
         - master
         - main
-        - production
 
