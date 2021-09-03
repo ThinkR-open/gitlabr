@@ -15,6 +15,8 @@
 #' gl_get_projects(max_page = 1)
 #' # List users projects
 #' gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
+#' # List group projects
+#' gl_list_group_projects(group_id = "<<group-id>>", max_page = 1)
 #' }
 gl_list_projects <- function(...) {
   gitlab("projects", ...)
@@ -30,6 +32,14 @@ gl_get_projects <- gl_list_projects
 gl_list_user_projects <- function(user_id, ...) {
   gitlab(c("users", user_id, "projects"), ...)
 }
+
+#' @param group_id id of the group to list project from
+#' @export
+#' @rdname gl_list_projects
+gl_list_group_projects <- function(group_id, ...) {
+  gitlab(c("groups", group_id, "projects"), ...)
+}
+
 
 #' @param project project name or id
 #' @export

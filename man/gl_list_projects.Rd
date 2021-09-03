@@ -4,6 +4,7 @@
 \alias{gl_list_projects}
 \alias{gl_get_projects}
 \alias{gl_list_user_projects}
+\alias{gl_list_group_projects}
 \alias{gl_get_project}
 \title{List projects information}
 \usage{
@@ -13,12 +14,16 @@ gl_get_projects(...)
 
 gl_list_user_projects(user_id, ...)
 
+gl_list_group_projects(group_id, ...)
+
 gl_get_project(project, ...)
 }
 \arguments{
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 
 \item{user_id}{id of the user to list project from}
+
+\item{group_id}{id of the group to list project from}
 
 \item{project}{project name or id}
 }
@@ -41,5 +46,7 @@ set_gitlab_connection(
 gl_get_projects(max_page = 1)
 # List users projects
 gl_list_user_projects(user_id = "<<user-id>>", max_page = 1)
+# List group projects
+gl_list_group_projects(group_id = "<<group-id>>", max_page = 1)
 }
 }
