@@ -30,6 +30,7 @@
 #' @importFrom tibble tibble as_tibble
 #' @importFrom magrittr %T>%
 #' @importFrom dplyr bind_rows
+#' @importFrom stringr str_replace_all str_replace
 #' @export
 #' 
 #' @return the response from the GitLab API, usually as a `tibble` and including all pages
@@ -244,7 +245,7 @@ format_row <- function(row, ...) {
   row %>%
     lapply(unlist, use.names = FALSE, ...) %>%
     # tibble::as_tibble(stringsAsFactors = FALSE)
-    tibble::as_tibble(.name_repair = "minimal")
+    tibble::as_tibble(.name_repair = "unique")
 }
 
 #' @importFrom dplyr bind_rows

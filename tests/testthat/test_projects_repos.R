@@ -1,12 +1,29 @@
 # gl_list_projects ----
-
 all_projects <- gl_list_projects(max_page = 1, per_page = 10)
-# Chances are "testor" is one of the latest project with activity because of other unit tests
-all_user_projects <- gl_list_user_projects(user_id = test_user_id, max_page = 1, order_by = "last_activity_at")
 
 test_that("gl_list_projects work", {
   expect_equal(nrow(all_projects), 10)
   expect_true(all(c("id", "name", "path") %in% names(all_projects)))
+})
+
+# gl_list_user_projects ----
+# Chances are "testor" is one of the latest project with activity because of other unit tests
+all_user_projects <- gl_list_user_projects(user_id = test_user_id, max_page = 1, order_by = "last_activity_at")
+
+test_that("gl_list_user_projects work", {
+  some_projects <- paste0("testor.", c("macos", "windows", "release",
+     "devel", "coverage", "main", "release.master"))
+  expect_true(all(some_projects %in% all_user_projects[["name"]]))
+  expect_true(all(c("id", "name", "path") %in% names(all_user_projects)))
+})
+
+# gl_list_group_projects ----
+all_group_projects <- gl_list_group_projects(group_id = test_group_id, max_page = 1)
+
+test_that("gl_list_group_projects work", {
+  some_projects <- c("publication_guide")
+  expect_true(all(some_projects %in% all_group_projects[["name"]]))
+  expect_true(all(c("id", "name", "path") %in% names(all_group_projects)))
 })
 
 # gl_get_project ----
