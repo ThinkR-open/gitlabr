@@ -116,3 +116,18 @@ modify_autoclose_and_coverage <- function(project_id, autoclose = FALSE,
 }
 ```
 
+## Combine lists of tags in one column
+
+Get columns with same name to combine into a list-column
+
+- tag_list
+
+ ```{r}
+ # tibble::as_tibble(.name_repair = "unique") or "minimal" ?
+
+
+    bind_rows() %>% 
+    unite("tag_list", starts_with("tag_list"), sep = ",")  %>% 
+    mutate(tag_list = str_replace_all(tag_list,"NA,?","")) %>% 
+    mutate(tag_list = str_replace(tag_list,",$",""))
+ ```

@@ -8,12 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides R functions to access the API of the project and
-    repository management web application 'GitLab'. For many common tasks
-    (repository file access, issue assignment and status, commenting)
-    convenience wrappers are provided, and in addition the full API can be
-    used by specifying request locations. 'GitLab' is open-source software
-    and can be self-hosted or used on <https://about.gitlab.com>.
+Provides R functions to access the API of the project and repository management web application 'GitLab'. For many common tasks (repository file access, issue assignment and status, commenting) convenience wrappers are provided, and in addition the full API can be used by specifying request locations. 'GitLab' is open-source software and can be self-hosted or used on <https://about.gitlab.com>.
 }
 \seealso{
 Useful links:
@@ -24,7 +19,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sebastien Rochette \email{sebastien@thinkr.fr} (\href{https://orcid.org/0000-0002-1565-9313}{ORCID})
+\strong{Maintainer}: Sébastien Rochette \email{sebastien@thinkr.fr} (\href{https://orcid.org/0000-0002-1565-9313}{ORCID})
 
 Authors:
 \itemize{

@@ -29,8 +29,7 @@
 #' @importFrom utils capture.output
 #' @importFrom tibble tibble as_tibble
 #' @importFrom magrittr %T>%
-#' @importFrom dplyr bind_rows starts_with
-#' @importFrom tidyr unite
+#' @importFrom dplyr bind_rows
 #' @importFrom stringr str_replace_all str_replace
 #' @export
 #' 
@@ -246,7 +245,7 @@ format_row <- function(row, ...) {
   row %>%
     lapply(unlist, use.names = FALSE, ...) %>%
     # tibble::as_tibble(stringsAsFactors = FALSE)
-    tibble::as_tibble( .name_repair = "unique" )
+    tibble::as_tibble(.name_repair = "unique")
 }
 
 #' @importFrom dplyr bind_rows
@@ -257,10 +256,7 @@ json_to_flat_df <- function(l) {
     iff(is_single_row, list) %>%
     lapply(unlist, recursive = TRUE) %>%
     lapply(format_row) %>%
-    bind_rows() %>% 
-    unite("tag_list", starts_with("tag_list"), sep = ",")  %>% 
-    mutate(tag_list = str_replace_all(tag_list,"NA,?","")) %>% 
-    mutate(tag_list = str_replace(tag_list,",$",""))
+    bind_rows()
 }
 
 call_filter_dots <- function(fun,

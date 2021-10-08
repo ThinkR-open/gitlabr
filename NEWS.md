@@ -1,5 +1,9 @@
 # gitlabr 2.0.0.9000
 
+New
+
+* `gl_list_group_projects()` lists projects of a group thanks to @Yoshinobu-Ishizaki
+
 # gitlabr 2.0.0
 
 Breaking changes
