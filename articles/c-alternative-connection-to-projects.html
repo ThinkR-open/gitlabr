@@ -116,21 +116,33 @@
 <div id="creating-connections" class="section level1">
 <h1 class="hasAnchor">
 <a href="#creating-connections" class="anchor"></a>Creating connections</h1>
-<p>The idea of connections in {gitlabr} is to generate functions with the same signature and capability of the central API call function <code><a href="../reference/gitlab.html">gitlab()</a></code>, but with certain parameters set to fixed values (<a href="https://en.wikipedia.org/wiki/Currying">“curried”</a>). This way these more specialized functions represent and provide the connection – for example – to a specific GitLab instance as a specific user. Such specialized functions can be created by the function <code><a href="../reference/gitlabr-deprecated.html">gitlab_connection()</a></code> and then used exactly as you would use <code><a href="../reference/gitlab.html">gitlab()</a></code>:</p>
+<p>The recommended way to set a connection once and for all to a specific GitLab instance during your session is to use <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> as specified in the quick start guide vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
+  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>However, if you are looking for connections to multiple GitLab instances in the same session or would like to set different accounts, you can define connections using <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
+<p>The idea of connections in {gitlabr} is to generate functions with the same signature and capability as that of the central API call function <code><a href="../reference/gitlab.html">gitlab()</a></code>, but with certain parameters set to fixed values (<a href="https://en.wikipedia.org/wiki/Currying">“curried”</a>). This way these more specialized functions represent and provide the connection – for example – to a specific GitLab instance as a specific user. Such specialized functions can be created with the function <code><a href="../reference/gl_connection.html">gl_connection()</a></code> and then used exactly as you would use <code><a href="../reference/gitlab.html">gitlab()</a></code>:</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span><span class="st">"https://gitlab.com"</span>,
                            private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">my_gitlab</span><span class="op">(</span><span class="st">"projects"</span><span class="op">)</span></code></pre></div>
-<p><code><a href="../reference/gitlabr-deprecated.html">gitlab_connection()</a></code> can take arbitrary parameters, returning a function that issues API requests with these parameter values set.</p>
-<p>As a convenience wrapper to directly connect to a specific project in a GitLab instance, <code><a href="../reference/gl_connection.html">gl_project_connection()</a></code> exists.</p>
+<p><code><a href="../reference/gl_connection.html">gl_connection()</a></code> can take arbitrary parameters, returning a function that issues API requests with these parameter values.</p>
+<p>Similarly, <code><a href="../reference/gl_connection.html">gl_project_connection()</a></code> can be used as a convenience wrapper to directly connect to a specific project in a GitLab instance.</p>
 <div id="function-in-function-style" class="section level2">
 <h2 class="hasAnchor">
 <a href="#function-in-function-style" class="anchor"></a>function-in-function style</h2>
-<p>Instead of the query as character vector <code><a href="../reference/gitlab.html">gitlab()</a></code> and thus also all connections accept equivalently a <em>function</em> as first argument, that is then called with the additional parameters and using the connection for all API calls:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span><span class="va">gl_create_issue</span>, <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></code></pre></div>
+<p>The recommended way to use {gitlabr} functions is to directly use <code>gl_*()</code> function after setting the <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code>. For instance with <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
+<p>When using custom connections, as for calling the <code><a href="../reference/gitlab.html">gitlab()</a></code> function, the query is passed through the <code>req</code> argument as a vector of characters (e.g. “projects”).</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="st">"&lt;my-project-id&gt;"</span>, <span class="st">"issues"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<p>Another option is to pass a <em>function</em> to the <code>req</code> argument that will then be called along with the additional parameters, using the connection for all API calls :</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span><span class="va">gl_create_issue</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle style works for all convenience functions of {gitlabr} starting with <code>gl_*()</code>.</p>
-<p>Some of the convenience perform additional transformation or renaming of parameters. Hence, the parameters given to the exemplary <code>my_gitlab(...)</code> call after the function should be valid according the documentation of the respective function and may differ from names used in the GitLab API itself, although this is the case only in very few cases.</p>
+<p>Some of the convenience functions perform additional transformation or renaming of parameters. Hence, the parameters given to the exemplary <code>my_gitlab(...)</code> call after the function should be valid according to the specified function’s documentation, and may differ from names used in the GitLab API itself, although this occurs only very rarely.</p>
 </div>
 </div>
   </div>

@@ -113,8 +113,8 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
-<p>This code is the one you can run with an account on gitlab.com to be able to contribute to {gitlabr} and set a testing environment (See <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
-<p>You can use this code to create all your new projects with a specific template. For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. This makes you sure that all collaborators know how to find issues and how to interact with you.</p>
+<p>You can use this code to create all your new projects with a specific template. For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. This will make sure all collaborators know how to find issues and how to interact with you.</p>
+<p>Given you have a <a href="gitlab.com">GitLab.com</a> account, this code can also be run to contribute to {gitlabr} and set a testing environment (See <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>).</p>
 <div id="set-up-gitlab-connection" class="section level1">
 <h1 class="hasAnchor">
 <a href="#set-up-gitlab-connection" class="anchor"></a>Set up GitLab connection</h1>
@@ -145,7 +145,7 @@
 <div id="create-a-project-called-testor-main-owned-by-the-user" class="section level2">
 <h2 class="hasAnchor">
 <a href="#create-a-project-called-testor-main-owned-by-the-user" class="anchor"></a>Create a project called <code>testor.main</code>, owned by the user</h2>
-<p>Project is initialized with a README file</p>
+<p>Project is initialized with a README file.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">project_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_new_project.html">gl_new_project</a></span><span class="op">(</span>
   name <span class="op">=</span> <span class="va">test_project_name</span>, 
@@ -153,9 +153,9 @@
   initialize_with_readme <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div id="verify-branch-created-depending-on-gitlab-main-branch-may-still-be-master" class="section level2">
+<div id="check-created-branch-depending-on-gitlab-main-branch-may-still-be-master" class="section level2">
 <h2 class="hasAnchor">
-<a href="#verify-branch-created-depending-on-gitlab-main-branch-may-still-be-master" class="anchor"></a>Verify branch created (depending on GitLab, main branch may still be “master”)</h2>
+<a href="#check-created-branch-depending-on-gitlab-main-branch-may-still-be-master" class="anchor"></a>Check created branch (depending on GitLab, main branch may still be “master”)</h2>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gl_list_branches.html">gl_list_branches</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">project_info</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 </div>
@@ -200,7 +200,7 @@ Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
 <div id="add-and-commit-a-ci-file--gitlab-ci-yml" class="section level2">
 <h2 class="hasAnchor">
 <a href="#add-and-commit-a-ci-file--gitlab-ci-yml" class="anchor"></a>Add and commit a CI file (“.gitlab-ci.yml”)</h2>
-<p>The “.gitlab-ci.yml” below is a simple example of CI with artifact. If you want a proper CI for your R package or bookdown project, you may want to look at <code><a href="../reference/use_gitlab_ci.html">gitlabr::use_gitlab_ci()</a></code> and run it when you cloned your project locally.</p>
+<p>The “.gitlab-ci.yml” below is a simple example of CI with artifact. If you want a proper CI for your R package or bookdown project, you may want to look at <code><a href="../reference/use_gitlab_ci.html">gitlabr::use_gitlab_ci()</a></code> and run it once you cloned your project locally.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="st">"
 testing:
