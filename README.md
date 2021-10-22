@@ -9,7 +9,7 @@
 ![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
 [![Codecov test
-coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://codecov.io/gh/statnmap/gitlabr?branch=master)
+coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/statnmap/gitlabr?branch=main)
 <!-- badges: end -->
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to
@@ -82,70 +82,26 @@ set_gitlab_connection(
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
 gl_list_projects(max_page = 2, owned = FALSE) 
-#> # A tibble: 40 x 127
-#>    id     description  name   name_with_names… path  path_with_names… created_at
-#>    <chr>  <chr>        <chr>  <chr>            <chr> <chr>            <chr>     
-#>  1 28734… "C64 musics… 8bit_… gryken / 8bit_m… 8bit… gryken2017/8bit… 2021-08-0…
-#>  2 28734… ""           yomay… Hekka / yomayod… yoma… helencloudell/y… 2021-08-0…
-#>  3 28734… "role for d… r_doc… kh_ansible_role… r_do… kh_ansible_role… 2021-08-0…
-#>  4 28734…  <NA>        Gimov… Gimovers / Gimo… gimo… g480/gimovers    2021-08-0…
-#>  5 28734… ""           Hotel  Gokkul A / Hotel hotel Gokkul23/hotel   2021-08-0…
-#>  6 28734… ""           NotIm… mwoolf-verifica… noti… mwoolf-verifica… 2021-08-0…
-#>  7 28734… ""           Dohoa… Trưởng Nguyễn Đ… doho… nguyenductruong… 2021-08-0…
-#>  8 28734… ""           test   Maksym Snizhyns… test  maxim.snezhinsk… 2021-08-0…
-#>  9 28734…  <NA>        Filde… Fildena 100 mg … fild… fildena-1001/fi… 2021-08-0…
-#> 10 28734… ""           Fulls… Yomna BATCH / F… full… YomnaBATCH/full… 2021-08-0…
-#> # … with 30 more rows, and 120 more variables: default_branch <chr>,
+#> # A tibble: 40 × 135
+#>    id       description name  name_with_names… path  path_with_names… created_at
+#>    <chr>    <chr>       <chr> <chr>            <chr> <chr>            <chr>     
+#>  1 30670263 ""          Proj… Enzo Lop / Proj… proj… enzo.lop.pro/pr… 2021-10-2…
+#>  2 30670257 ""          test  Seung-hyun Lee … test  faintblue324/te… 2021-10-2…
+#>  3 30670253 ""          s54   Zuitt-projects … s54   zuitt-projects3… 2021-10-2…
+#>  4 30670220 ""          temp… taka / template  temp… hnam/template    2021-10-2…
+#>  5 30670189 ""          Jeng… NATALIA GARCIA … jeng… 22113346/jenga-… 2021-10-2…
+#>  6 30670181 ""          RStu… yannyven / RStu… rstu… yannyven/rstudi… 2021-10-2…
+#>  7 30670175 "NAO ENSTA… NAO-… Danut POP / NAO… NAO-… blueDonuts69/NA… 2021-10-2…
+#>  8 30670166 "A complet… remo… Alexa Fevic / r… remo… alexafevic/remo… 2021-10-2…
+#>  9 30670163 ""          YAOD… flagarde / YAOD… YAOD… flagarde/YAODAQ  2021-10-2…
+#> 10 30670162 ""          eval… zenika-poei-ren… eval… zenika-poei-ren… 2021-10-2…
+#> # … with 30 more rows, and 128 more variables: default_branch <chr>,
 #> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
 #> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
 #> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
 #> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
 #> #   namespace.avatar_url <chr>, namespace.web_url <chr>,
-#> #   container_registry_image_prefix <chr>, _links.self <chr>,
-#> #   _links.issues <chr>, _links.merge_requests <chr>,
-#> #   _links.repo_branches <chr>, _links.labels <chr>, _links.events <chr>,
-#> #   _links.members <chr>, packages_enabled <chr>, empty_repo <chr>,
-#> #   archived <chr>, visibility <chr>, owner.id <chr>, owner.name <chr>,
-#> #   owner.username <chr>, owner.state <chr>, owner.avatar_url <chr>,
-#> #   owner.web_url <chr>, resolve_outdated_diff_discussions <chr>,
-#> #   container_expiration_policy.cadence <chr>,
-#> #   container_expiration_policy.enabled <chr>,
-#> #   container_expiration_policy.keep_n <chr>,
-#> #   container_expiration_policy.older_than <chr>,
-#> #   container_expiration_policy.name_regex <chr>,
-#> #   container_expiration_policy.next_run_at <chr>, issues_enabled <chr>,
-#> #   merge_requests_enabled <chr>, wiki_enabled <chr>, jobs_enabled <chr>,
-#> #   snippets_enabled <chr>, container_registry_enabled <chr>,
-#> #   service_desk_enabled <chr>, service_desk_address <chr>,
-#> #   can_create_merge_request_in <chr>, issues_access_level <chr>,
-#> #   repository_access_level <chr>, merge_requests_access_level <chr>,
-#> #   forking_access_level <chr>, wiki_access_level <chr>,
-#> #   builds_access_level <chr>, snippets_access_level <chr>,
-#> #   pages_access_level <chr>, operations_access_level <chr>,
-#> #   analytics_access_level <chr>, container_registry_access_level <chr>,
-#> #   shared_runners_enabled <chr>, lfs_enabled <chr>, creator_id <chr>,
-#> #   import_status <chr>, open_issues_count <chr>, ci_default_git_depth <chr>,
-#> #   ci_forward_deployment_enabled <chr>, ci_job_token_scope_enabled <chr>,
-#> #   public_jobs <chr>, build_timeout <chr>,
-#> #   auto_cancel_pending_pipelines <chr>, ci_config_path <chr>,
-#> #   only_allow_merge_if_pipeline_succeeds <chr>,
-#> #   restrict_user_defined_variables <chr>, request_access_enabled <chr>,
-#> #   only_allow_merge_if_all_discussions_are_resolved <chr>,
-#> #   remove_source_branch_after_merge <chr>,
-#> #   printing_merge_request_link_enabled <chr>, merge_method <chr>,
-#> #   squash_option <chr>, auto_devops_enabled <chr>,
-#> #   auto_devops_deploy_strategy <chr>, autoclose_referenced_issues <chr>,
-#> #   keep_latest_artifact <chr>, approvals_before_merge <chr>, mirror <chr>,
-#> #   external_authorization_classification_label <chr>,
-#> #   requirements_enabled <chr>, security_and_compliance_enabled <chr>,
-#> #   merge_pipelines_enabled <chr>, merge_trains_enabled <chr>,
-#> #   namespace.parent_id <chr>, emails_disabled <chr>,
-#> #   forked_from_project.id <chr>, forked_from_project.description <chr>,
-#> #   forked_from_project.name <chr>,
-#> #   forked_from_project.name_with_namespace <chr>,
-#> #   forked_from_project.path <chr>,
-#> #   forked_from_project.path_with_namespace <chr>,
-#> #   forked_from_project.created_at <chr>, …
+#> #   container_registry_image_prefix <chr>, _links.self <chr>, …
 ```
 
 ### Work with a specific project
@@ -172,7 +128,7 @@ gitlabr_options_set("gitlabr.main", "master")
 
 ``` r
 gl_list_files(project = my_project)
-#> # A tibble: 2 x 5
+#> # A tibble: 2 × 5
 #>   id                                       name        type  path        mode  
 #>   <chr>                                    <chr>       <chr> <chr>       <chr> 
 #> 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644
@@ -183,21 +139,18 @@ gl_list_files(project = my_project)
 
 ``` r
 gl_list_issues(project = my_project)
-#> # A tibble: 2 x 35
-#>   id    iid   project_id title description state created_at updated_at author.id
-#>   <chr> <chr> <chr>      <chr> <chr>       <chr> <chr>      <chr>      <chr>    
-#> 1 6952… 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  
-#> 2 6952… 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  
+#> # A tibble: 2 × 35
+#>   id       iid   project_id title description state created_at updated_at author.id
+#>   <chr>    <chr> <chr>      <chr> <chr>       <chr> <chr>      <chr>      <chr>    
+#> 1 69525849 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  
+#> 2 69525845 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  
 #> # … with 26 more variables: author.name <chr>, author.username <chr>,
 #> #   author.state <chr>, author.avatar_url <chr>, author.web_url <chr>,
 #> #   type <chr>, user_notes_count <chr>, merge_requests_count <chr>,
 #> #   upvotes <chr>, downvotes <chr>, confidential <chr>, issue_type <chr>,
 #> #   web_url <chr>, time_stats.time_estimate <chr>,
 #> #   time_stats.total_time_spent <chr>, task_completion_status.count <chr>,
-#> #   task_completion_status.completed_count <chr>, blocking_issues_count <chr>,
-#> #   has_tasks <chr>, _links.self <chr>, _links.notes <chr>,
-#> #   _links.award_emoji <chr>, _links.project <chr>, references.short <chr>,
-#> #   references.relative <chr>, references.full <chr>
+#> #   task_completion_status.completed_count <chr>, …
 ```
 
 -   Create an issue
