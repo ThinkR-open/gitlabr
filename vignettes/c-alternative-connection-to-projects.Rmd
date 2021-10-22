@@ -21,9 +21,19 @@ library(gitlabr)
 
 # Creating connections
 
-The idea of connections in {gitlabr} is to generate functions with the same signature and capability of the central API call function `gitlab()`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)).
+The recommended way to set a connection once and for all to a specific GitLab instance during your session is to use `set_gitlab_connection()` as specified in the quick start guide vignette.
+
+```{r}
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+```
+
+However, if you are looking for connections to multiple GitLab instances in the same session or would like to set different accounts, you can define connections using `gl_connection()`.  
+
+The idea of connections in {gitlabr} is to generate functions with the same signature and capability as that of the central API call function `gitlab()`, but with certain parameters set to fixed values (["curried"](https://en.wikipedia.org/wiki/Currying)).
 This way these more specialized functions represent and provide the connection -- for example -- to a specific GitLab instance as a specific user.
-Such specialized functions can be created by the function `gitlab_connection()` and then used exactly as you would use `gitlab()`:
+Such specialized functions can be created with the function `gl_connection()` and then used exactly as you would use `gitlab()`:
 
 ```{r eval = FALSE}
 my_gitlab <- gl_connection("https://gitlab.com",
@@ -38,19 +48,33 @@ my_gitlab("projects") %>%
   select(name, everything())
 ```
 
-`gitlab_connection()` can take arbitrary parameters, returning a function that issues API requests with these parameter values set.
+`gl_connection()` can take arbitrary parameters, returning a function that issues API requests with these parameter values.
 
-As a convenience wrapper to directly connect to a specific project in a GitLab instance, `gl_project_connection()` exists.
+Similarly, `gl_project_connection()` can be used as a convenience wrapper to directly connect to a specific project in a GitLab instance. 
 
 ## function-in-function style
 
-Instead of the query as character vector `gitlab()` and thus also all connections accept equivalently a *function* as first argument, that is then called with the additional parameters and using the connection for all API calls:
+The recommended way to use {gitlabr} functions is to directly use `gl_*()` function after setting the `set_gitlab_connection()`.
+For instance with `gl_create_issue()`.
+
+```{r}
+gl_create_issue(project = "<my-project-id>", title = "Implement new feature")
+```
+
+
+When using custom connections, as for calling the `gitlab()` function, the query is passed through the `req` argument as a vector of characters (e.g. "projects").
+
+```{r}
+my_gitlab(req = c("projects", "<my-project-id>", "issues"))
+```
+
+Another option is to pass a *function* to the `req` argument that will then be called along with the additional parameters, using the connection for all API calls :
 
 ```{r eval = FALSE}
-my_gitlab(gl_create_issue, "Implement new feature", project = my_project)
+my_gitlab(gl_create_issue, title = "Implement new feature", project = "<my-project-id>")
 ```
 
 `gl_create_issue()` is an example function here, the principle style works for all convenience functions of {gitlabr} starting with `gl_*()`.
 
-Some of the convenience perform additional transformation or renaming of parameters.
-Hence, the parameters given to the exemplary `my_gitlab(...)` call after the function should be valid according the documentation of the respective function and may differ from names used in the GitLab API itself, although this is the case only in very few cases.
+Some of the convenience functions perform additional transformation or renaming of parameters.
+Hence, the parameters given to the exemplary `my_gitlab(...)` call after the function should be valid according to the specified function's documentation, and may differ from names used in the GitLab API itself, although this occurs only very rarely.

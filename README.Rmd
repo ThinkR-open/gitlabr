@@ -21,7 +21,7 @@ knitr::opts_chunk$set(
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
-[![Codecov test coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://codecov.io/gh/statnmap/gitlabr?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/statnmap/gitlabr?branch=main)
 <!-- badges: end -->
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html**

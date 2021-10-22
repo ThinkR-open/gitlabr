@@ -19,11 +19,12 @@ knitr::opts_chunk$set(
 library(gitlabr)
 ```
 
-This code is the one you can run with an account on gitlab.com to be able to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md).
-
 You can use this code to create all your new projects with a specific template. 
 For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. 
-This makes you sure that all collaborators know how to find issues and how to interact with you.
+This will make sure all collaborators know how to find issues and how to interact with you.
+
+Given you have a [GitLab.com](gitlab.com) account, this code can also be run to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)).
+
 
 # Set up GitLab connection
 
@@ -50,7 +51,7 @@ main_branch <- "main"
 
 ## Create a project called `testor.main`, owned by the user
 
-Project is initialized with a README file
+Project is initialized with a README file.
 
 ```{r}
 project_info <- gl_new_project(
@@ -60,7 +61,7 @@ project_info <- gl_new_project(
 )
 ```
 
-## Verify branch created (depending on GitLab, main branch may still be "master")
+## Check created branch (depending on GitLab, main branch may still be "master")
 ```{r}
 gl_list_branches(project = project_info$id)
 ```
@@ -105,7 +106,7 @@ gl_create_branch(project = project_info$id, branch = "for-tests", ref = main_bra
 ## Add and commit a CI file (".gitlab-ci.yml")
 
 The ".gitlab-ci.yml" below is a simple example of CI with artifact.
-If you want a proper CI for your R package or bookdown project, you may want to look at `gitlabr::use_gitlab_ci()` and run it when you cloned your project locally.
+If you want a proper CI for your R package or bookdown project, you may want to look at `gitlabr::use_gitlab_ci()` and run it once you cloned your project locally.
 
 
 ```{r}
