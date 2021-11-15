@@ -27,7 +27,12 @@ book-branch:
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
         - mkdir -p public
@@ -52,7 +57,12 @@ book-main:
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
         - mkdir -p public
@@ -80,7 +90,12 @@ book-production:
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown", attachment::att_from_rmds(".", recursive = FALSE)));attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
         - Rscript -e 'tinytex::install_tinytex()'
         - mkdir -p public
