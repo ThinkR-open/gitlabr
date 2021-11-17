@@ -1,7 +1,8 @@
 image: {image}
 
 variables:
-  RENV_PATHS_CACHE: "renv/library"
+  RENV_PATHS_CACHE: "cache"
+  RENV_PATHS_LIBRARY: "renv/library"
   GIT_DEPTH: 10
   REPO_NAME: "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
   R_LIBS: "ci/lib"
@@ -10,6 +11,7 @@ cache:
   key: global-cache
   paths:
       - ${RENV_PATHS_CACHE}
+      - ${RENV_PATHS_LIBRARY}
       - ${R_LIBS}
 
 stages:
@@ -25,6 +27,7 @@ building:
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS
     - mkdir -p $R_LIBS
+    - mkdir -p $RENV_PATHS_CACHE
     - Rscript -e 'source("renv/activate.R")'
     - Rscript -e 'renv::restore()'
     - Rscript -e 'install.packages("remotes")'
