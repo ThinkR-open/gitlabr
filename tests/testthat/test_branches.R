@@ -3,13 +3,13 @@ test_that("branch access works", {
   # Without project parameter named
   ## List branches
   list_branch <- gl_list_branches(test_project)
-  expect_is(list_branch, "data.frame")
+  expect_s3_class(list_branch, "data.frame")
   expect_true(all(list_branch[["name"]] %in% c(get_main(), "for-tests"))) # main and for-tests
   
   # With project parameter named
   ## List branches
   list_branch <- gl_list_branches(project = test_project)
-  expect_is(list_branch, "data.frame")
+  expect_s3_class(list_branch, "data.frame")
   expect_true(all(list_branch[["name"]] %in% c(get_main(), "for-tests"))) # main and for-tests
   
   ## creating branch

@@ -12,15 +12,15 @@ if (test_api_version == 3) {
 }
 test_that("getting issues works", {
   
-  expect_is(new_issue_infos, "data.frame")
+  expect_s3_class(new_issue_infos, "data.frame")
   expect_gt(nrow(new_issue_infos), 0L)
   
-  expect_is(all_issues, "data.frame")
+  expect_s3_class(all_issues, "data.frame")
   expect_gt(nrow(all_issues), 0L)
   # 20 lines max for max_page=1
   expect_lte(nrow(all_issues), 20)
   
-  expect_is(opened_issues, "data.frame")
+  expect_s3_class(opened_issues, "data.frame")
   expect_equal(nrow(opened_issues), 2)
   
   ## old API

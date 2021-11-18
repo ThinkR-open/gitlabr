@@ -18,7 +18,7 @@ test_login_module <- function(test_url = Sys.getenv("GITLABR_TEST_URL"),
 
 serv <- test_login_module()
 test_that("shinyApp is correct", {
-  expect_is(serv, "shiny.appobj")
+  expect_s3_class(serv, "shiny.appobj")
 })
 
 test_that("app server", {
@@ -35,5 +35,5 @@ test_that("app server", {
   
   serv <- glReactiveLogin(input, output, session, gitlab_url = test_url,
                   api_version = test_api_version)
-  expect_is(serv, "reactive.event")
+  expect_s3_class(serv, "reactive.event")
 })

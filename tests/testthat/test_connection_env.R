@@ -87,12 +87,12 @@ id_common <-
 
 test_that("GitLab connection creation works", {
 
-  expect_is(my_gitlab_test, "function")
+  expect_equal(class(my_gitlab_test), "function")
   
-  expect_is(my_gitlab_projects_output_raw, "data.frame")
-  expect_is(my_gitlab_list_projects_output_raw, "data.frame")
-  expect_is(gitlab_projects_api_raw, "data.frame")
-  expect_is(gl_list_projects_output_raw, "data.frame")
+  expect_s3_class(my_gitlab_projects_output_raw, "data.frame")
+  expect_s3_class(my_gitlab_list_projects_output_raw, "data.frame")
+  expect_s3_class(gitlab_projects_api_raw, "data.frame")
+  expect_s3_class(gl_list_projects_output_raw, "data.frame")
   
   # one page is 20 lines max
   expect_lte(nrow(my_gitlab_projects_output_raw), 20)
@@ -151,12 +151,13 @@ my_gl_list_files <- gl_list_files(gitlab_con = my_project, max_page = 1)
 
 test_that("Project connection creation works", {
   
-  expect_is(my_project, "function")
+  expect_equal(class(my_project), "function")
   
-  expect_is(my_project_list_files, "data.frame")
-  expect_is(my_gl_list_files, "data.frame")
+  expect_s3_class(my_project_list_files, "data.frame")
+  expect_s3_class(my_gl_list_files, "data.frame")
   
-  expect_equivalent(my_project_list_files,
+  #  Use expect_equal(ignore_attr = TRUE) ?
+  expect_equal(my_project_list_files,
                     my_gl_list_files)
 })
 
@@ -209,12 +210,12 @@ id_common <-
 
 test_that("set_gl_connection works", {
 
-  expect_is(gitlab, "function")
+  expect_equal(class(gitlab), "function")
   
-  expect_is(gitlab_projects_raw, "data.frame")
-  expect_is(my_gitlab_projects_self_raw, "data.frame")
-  expect_is(my_gitlab_list_projects_self_raw, "data.frame")
-  expect_is(gl_list_projects_empty_raw, "data.frame")
+  expect_s3_class(gitlab_projects_raw, "data.frame")
+  expect_s3_class(my_gitlab_projects_self_raw, "data.frame")
+  expect_s3_class(my_gitlab_list_projects_self_raw, "data.frame")
+  expect_s3_class(gl_list_projects_empty_raw, "data.frame")
   
   # one page is 20 lines max
   expect_lte(nrow(gitlab_projects_raw), 20)
@@ -299,12 +300,12 @@ id_common <-
 
 test_that("set_gl_connection with dots works", {
 
-  expect_is(gitlab, "function")
+  expect_equal(class(gitlab), "function")
   
-  expect_is(gitlab_projects_raw, "data.frame")
-  expect_is(my_gitlab_projects_self_raw, "data.frame")
-  expect_is(my_gitlab_list_projects_self_raw, "data.frame")
-  expect_is(gl_list_projects_empty_raw, "data.frame")
+  expect_s3_class(gitlab_projects_raw, "data.frame")
+  expect_s3_class(my_gitlab_projects_self_raw, "data.frame")
+  expect_s3_class(my_gitlab_list_projects_self_raw, "data.frame")
+  expect_s3_class(gl_list_projects_empty_raw, "data.frame")
   
   # one page is 20 lines
   expect_lte(nrow(gitlab_projects_raw), 20)
