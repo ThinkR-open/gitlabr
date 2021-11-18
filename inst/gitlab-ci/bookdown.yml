@@ -47,6 +47,4 @@ pages:
             - public
     only:
         - ${CI_DEFAULT_BRANCH}
-        - master
-        - main
 

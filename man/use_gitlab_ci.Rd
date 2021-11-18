@@ -7,7 +7,6 @@
 use_gitlab_ci(
   image = "rocker/verse:latest",
   repo_name = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-  url = "https://gitlab.com",
   path = ".gitlab-ci.yml",
   overwrite = TRUE,
   add_to_Rbuildignore = TRUE,
@@ -18,8 +17,6 @@ use_gitlab_ci(
 \item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
 
 \item{repo_name}{REPO_NAME environment variable for R CRAN mirror used}
-
-\item{url}{url of the GitLab instance}
 
 \item{path}{destination path for writing GitLab CI yml file}
 
