@@ -2,7 +2,7 @@ ci_path <- tempfile(fileext = ".yml")
 
 test_that("CI yml generation works", {
   
-  use_gitlab_ci(path = ci_path, type = "check-coverage-pkgdown", url = "https://gitlab.com")
+  use_gitlab_ci(path = ci_path, type = "check-coverage-pkgdown")
   
   # file.copy(from = ci_path, to = "tests/testthat/gitlab-ci.yml", overwrite = TRUE)
   
@@ -25,13 +25,13 @@ test_that("CI builds access works", {
 
   # Without named project param
   all_jobs <- gl_jobs(test_project)
-  expect_is(all_jobs, "data.frame")
+  expect_s3_class(all_jobs, "data.frame")
   
   # With named project param
   all_jobs <- gl_jobs(project = test_project)
-  expect_is(all_jobs, "data.frame")
+  expect_s3_class(all_jobs, "data.frame")
   all_pipelines <- gl_pipelines(project = test_project)
-  expect_is(all_pipelines, "data.frame")
+  expect_s3_class(all_pipelines, "data.frame")
   
   # issue #13
   # Create a job that will save an artifact
