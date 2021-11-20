@@ -1,8 +1,8 @@
 image: {image}
 
 variables:
-  RENV_PATHS_CACHE: "/opt/local/renv/cache"
-  RENV_LOCAL_CACHE: "renv/library"
+  RENV_PATHS_CACHE: "cache"
+  RENV_PATHS_LIBRARY: "renv/library"
   GIT_DEPTH: 10
   REPO_NAME: "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
   R_LIBS: "ci/lib"
@@ -11,7 +11,7 @@ cache:
   key: global-cache
   paths:
       - ${RENV_PATHS_CACHE}
-      - ${RENV_LOCAL_CACHE}
+      - ${RENV_PATHS_LIBRARY}
       - ${R_LIBS}
 
 stages:
@@ -27,6 +27,7 @@ building:
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS
     - mkdir -p $R_LIBS
+    - mkdir -p $RENV_PATHS_CACHE
     - Rscript -e 'source("renv/activate.R")'
     - Rscript -e 'renv::restore()'
     - Rscript -e 'install.packages("remotes")'
@@ -49,7 +50,7 @@ coverage:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - ${CI_DEFAULT_BRANCH}
         - production
     script:
         - Rscript -e 'source("renv/activate.R")'
@@ -69,7 +70,7 @@ integration:
     allow_failure: true
     when: on_success
     only:
-        - master
+        - ${CI_DEFAULT_BRANCH}
         - production
         - test-ci
     script:
@@ -91,12 +92,12 @@ integration-test:
         - test-ci
     script:
         - mkdir -p public/test
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/master/download?job=pages" &&
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
           unzip artifacts.zip &&
           rm artifacts.zip &&
-          echo "copied master artifacts" ||
-          echo "copied master artifacts failed"'
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
+          echo "copied $CI_DEFAULT_BRANCH artifacts" ||
+          echo "copied $CI_DEFAULT_BRANCH artifacts failed"'
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
           unzip artifacts.zip &&
           rm artifacts.zip &&
           echo "copied production artifacts" ||
@@ -115,26 +116,26 @@ integration-production:
         - production
     script:
         - mkdir -p public/production
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/master/download?job=pages" &&
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
           unzip artifacts.zip &&
           rm artifacts.zip &&
-          echo "copied master artifacts" ||
-          echo "copied master artifacts failed"'
+          echo "copied $CI_DEFAULT_BRANCH artifacts" ||
+          echo "copied $CI_DEFAULT_BRANCH artifacts failed"'
         - cp -r docs/* public/production
     artifacts:
         paths:
             - public
         expire_in: 30 days
 
-integration-master:
+integration-main:
     stage: pkgdown-move
     dependencies:
         - integration
     only:
-        - master
+        - ${CI_DEFAULT_BRANCH}
     script:
         - mkdir -p public
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "{url}/api/v4/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
           unzip artifacts.zip &&
           rm artifacts.zip &&
           echo "copied production artifacts" ||
@@ -153,6 +154,6 @@ pages:
         paths:
             - public
     only:
-        - master
+        - ${CI_DEFAULT_BRANCH}
         - production
         - test-ci

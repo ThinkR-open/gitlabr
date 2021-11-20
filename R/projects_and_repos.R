@@ -97,7 +97,13 @@ gl_get_project_id <- function(project_name, ...) {
              (sum(matches_path_with_namespace) == 0L &
                 matches_path | matches_name))
   
-  if (nrow(matching) > 1) {
+  if (nrow(matching) == 0) {
+    stop("There was no matching 'id' with your project name. ",
+         "Either it does not exist, or most probably, ", 
+         "it is not available in the first projects available to you. ",
+         "The name-matching is limited to the first pages of projects accessible. ",
+         "Please use directly the 'id' of your project.")
+  } else if (nrow(matching) > 1) {
     warning(paste(c("Multiple projects with given name or path found,",
                     "please use explicit name with namespace:",
                     matching$path_with_namespace,
@@ -110,7 +116,7 @@ gl_get_project_id <- function(project_name, ...) {
 }
 
 to_project_id <- function(x, ...) {
-  if (!is.na(as.numeric(x)) | is.numeric(x)) {
+  if (!is.na(suppressWarnings(as.numeric(x))) | is.numeric(x)) {
     as.numeric(x)
   } else {
     gl_get_project_id(x, ...)

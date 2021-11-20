@@ -24,9 +24,9 @@ gl_ci_job <- function() {
 #' @param path destination path for writing GitLab CI yml file
 #' @param overwrite whether to overwrite existing GitLab CI yml file
 #' @param repo_name REPO_NAME environment variable for R CRAN mirror used
-#' @param url url of the GitLab instance
 #' @param type type of the CI template to use
-#' @param add_to_Rbuildignore add CI yml file (from `path`) to .Rbuildignore?
+#' @param add_to_Rbuildignore add CI yml file and cache path used inside the 
+#' CI workflow to .Rbuildignore?
 #'
 #' @details 
 #' Types available are:  
@@ -53,7 +53,6 @@ gl_ci_job <- function() {
 #' }
 use_gitlab_ci <- function(image = "rocker/verse:latest",
                           repo_name = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
-                          url = 'https://gitlab.com',
                           path = ".gitlab-ci.yml",
                           overwrite = TRUE,
                           add_to_Rbuildignore = TRUE,
@@ -70,8 +69,8 @@ use_gitlab_ci <- function(image = "rocker/verse:latest",
   lines <- gsub(pattern = "\\{image\\}", replacement = image, x = lines)
   # Changer {repo_name}
   lines <- gsub(pattern = "\\{repo_name\\}", replacement = repo_name, x = lines)
-  # Changer {url}
-  lines <- gsub(pattern = "\\{url\\}", replacement = url, x = lines)
+  # Changer {url} - $CI_API_V4_URL
+  # lines <- gsub(pattern = "\\{url\\}", replacement = url, x = lines)
   
   writeLines(enc2utf8(lines), path)
   
@@ -86,6 +85,9 @@ use_gitlab_ci <- function(image = "rocker/verse:latest",
     r_build_ignore <- readLines(path_build_ignore)
     if (!"^ci/lib$" %in% r_build_ignore) {
       writeLines(enc2utf8(c(r_build_ignore, "^ci/lib$")), path_build_ignore)
+    }
+    if (grepl("renv", type) & !"^cache$" %in% r_build_ignore) {
+      writeLines(enc2utf8(c(r_build_ignore, "^cache$")), path_build_ignore)
     }
   }
   
