@@ -219,17 +219,17 @@ comment of an issue.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># fill in login parameters</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
-  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span>
-<span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"commit"</span>, 
-  id <span class='op'>=</span> <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span>
-<span class='fu'>gl_comment_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='fl'>1</span>, 
-  text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># fill in login parameters</span></span>
+<span class='r-in'><span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,</span>
+<span class='r-in'>  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, object_type <span class='op'>=</span> <span class='st'>"issue"</span>, <span class='fl'>1</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gl_get_comments</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='st'>"commit"</span>, </span>
+<span class='r-in'>  id <span class='op'>=</span> <span class='st'>"8ce5ef240123cd78c1537991e5de8d8323666b15"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='fu'>gl_comment_issue</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class='fl'>1</span>, </span>
+<span class='r-in'>  text <span class='op'>=</span> <span class='st'>"Almost done!"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

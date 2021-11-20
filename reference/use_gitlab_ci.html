@@ -155,7 +155,6 @@
     <pre class="usage"><span class='fu'>use_gitlab_ci</span><span class='op'>(</span>
   image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>,
   repo_name <span class='op'>=</span> <span class='st'>"https://packagemanager.rstudio.com/all/__linux__/focal/latest"</span>,
-  url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
   path <span class='op'>=</span> <span class='st'>".gitlab-ci.yml"</span>,
   overwrite <span class='op'>=</span> <span class='cn'>TRUE</span>,
   add_to_Rbuildignore <span class='op'>=</span> <span class='cn'>TRUE</span>,
@@ -172,10 +171,6 @@
     <tr>
       <th>repo_name</th>
       <td><p>REPO_NAME environment variable for R CRAN mirror used</p></td>
-    </tr>
-    <tr>
-      <th>url</th>
-      <td><p>url of the GitLab instance</p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -213,13 +208,13 @@ Where default page is for branch named 'production' and "dev/" sub-folder is for
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># Create in another directory</span>
-<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".yml"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='co'># Create in your current project with template for packages checking</span>
-<span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, type <span class='op'>=</span> <span class='st'>"check-coverage-pkgdown"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='co'># Create in another directory</span></span>
+<span class='r-in'><span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, path <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempfile</a></span><span class='op'>(</span>fileext <span class='op'>=</span> <span class='st'>".yml"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='co'># Create in your current project with template for packages checking</span></span>
+<span class='r-in'><span class='fu'>use_gitlab_ci</span><span class='op'>(</span>image <span class='op'>=</span> <span class='st'>"rocker/verse:latest"</span>, type <span class='op'>=</span> <span class='st'>"check-coverage-pkgdown"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

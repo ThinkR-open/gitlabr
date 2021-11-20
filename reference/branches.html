@@ -188,27 +188,27 @@ List, create and delete branches" />
     <p>Tibble of branches available in the project with descriptive variables</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
-<span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,
-  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>project_id</span> <span class='op'>&lt;-</span> <span class='va'>...</span> <span class='co'>## Fill in your project ID</span>
-
-<span class='co'># List branches of the project</span>
-<span class='fu'>gl_list_branches</span><span class='op'>(</span>project_ <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span> 
-<span class='co'># Create branch "new_feature"</span>
-<span class='fu'>gl_create_branch</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>,
-                 branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span>
-<span class='co'># Confirm that the branch was created</span>
-<span class='fu'>gl_get_branch</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span>
-<span class='co'># List all branches - this may take some time before your branch really appears there</span>
-<span class='fu'>gl_list_branches</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span>
-<span class='co'># Delete branch again</span>
-<span class='fu'>gl_delete_branch</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>,
-                 branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span>
-<span class='co'># Check that we're back where we started</span>
-<span class='fu'>gl_list_branches</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span>
-<span class='op'>}</span>
-</div></pre>
+    <pre class="examples"><span class='r-in'><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span></span>
+<span class='r-in'><span class='fu'><a href='set_gitlab_connection.html'>set_gitlab_connection</a></span><span class='op'>(</span>gitlab_url <span class='op'>=</span> <span class='st'>"https://gitlab.com"</span>,</span>
+<span class='r-in'>  private_token <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.getenv.html'>Sys.getenv</a></span><span class='op'>(</span><span class='st'>"GITLAB_COM_TOKEN"</span><span class='op'>)</span><span class='op'>)</span></span>
+<span class='r-in'><span class='va'>project_id</span> <span class='op'>&lt;-</span> <span class='va'>...</span> <span class='co'>## Fill in your project ID</span></span>
+<span class='r-in'></span>
+<span class='r-in'><span class='co'># List branches of the project</span></span>
+<span class='r-in'><span class='fu'>gl_list_branches</span><span class='op'>(</span>project_ <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span> </span>
+<span class='r-in'><span class='co'># Create branch "new_feature"</span></span>
+<span class='r-in'><span class='fu'>gl_create_branch</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>,</span>
+<span class='r-in'>                 branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Confirm that the branch was created</span></span>
+<span class='r-in'><span class='fu'>gl_get_branch</span><span class='op'>(</span><span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>, branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># List all branches - this may take some time before your branch really appears there</span></span>
+<span class='r-in'><span class='fu'>gl_list_branches</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Delete branch again</span></span>
+<span class='r-in'><span class='fu'>gl_delete_branch</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span>,</span>
+<span class='r-in'>                 branch <span class='op'>=</span> <span class='st'>"new_feature"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='co'># Check that we're back where we started</span></span>
+<span class='r-in'><span class='fu'>gl_list_branches</span><span class='op'>(</span>project <span class='op'>=</span> <span class='st'>"&lt;&lt;your-project-id&gt;&gt;"</span><span class='op'>)</span></span>
+<span class='r-in'><span class='op'>}</span></span>
+</pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
