@@ -24,6 +24,7 @@ stages:
 building:
   stage: build
   script:
+    - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS
     - mkdir -p $R_LIBS
@@ -50,7 +51,8 @@ coverage:
     allow_failure: true
     when: on_success
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
         - production
     script:
         - Rscript -e 'source("renv/activate.R")'
@@ -71,7 +73,8 @@ integration:
     allow_failure: true
     when: on_success
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
         - production
         - test-ci
     script:
@@ -134,7 +137,8 @@ integration-main:
     dependencies:
         - integration
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
     script:
         - mkdir -p public
         - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
@@ -156,6 +160,7 @@ pages:
         paths:
             - public
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
         - production
         - test-ci

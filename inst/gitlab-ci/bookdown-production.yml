@@ -17,10 +17,12 @@ stages:
 book-branch:
     stage: book-create
     except:
-        - ${CI_DEFAULT_BRANCH}
+        - main
+        - master
         - production
         - merge_requests
     script:
+        - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
         - echo "Library path for packages :" $R_LIBS
         - mkdir -p $R_LIBS
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
@@ -46,7 +48,8 @@ book-branch:
 book-main:
     stage: book-create
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - master
+        - main
         - merge_requests
     script:
         - echo "Library path for packages :" $R_LIBS
@@ -120,6 +123,7 @@ pages:
         paths:
             - public
     only:
-        - ${CI_DEFAULT_BRANCH}
+        - main
+        - master
         - production
 
