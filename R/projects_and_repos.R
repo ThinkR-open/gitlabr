@@ -40,6 +40,19 @@ gl_list_group_projects <- function(group_id, ...) {
   gitlab(c("groups", group_id, "projects"), ...)
 }
 
+#' List members of a group
+#' 
+#' @param group_id group id.
+#' @export
+#' @return Tibble of members of group.
+#' @examples
+#' \dontrun{
+#' # Get members of the gitlab-org/ci-sample-projects group (https://gitlab.com/gitlab-org/ci-sample-projects).
+#' gl_list_group_members(12057612)
+#' }
+gl_list_group_members <- function(group_id) {
+  gitlab(c("groups", group_id, "members"))
+}
 
 #' @param project project name or id
 #' @export
@@ -264,4 +277,18 @@ gl_delete_project <- function(project) {
   
   gitlab(req = c("projects", to_project_id(project)),
          verb = httr::DELETE)
+}
+
+#' List members of a project
+#' 
+#' @param project_id project id.
+#' @export
+#' @return Tibble of members of project
+#' @examples
+#' \dontrun{
+#' # Get members of the gitlab-org/gitlab project (https://gitlab.com/gitlab-org/gitlab).
+#' gl_list_project_members(278964)
+#' }
+gl_list_project_members <- function(project_id) {
+  gitlab(c("projects", project_id, "members"))
 }
