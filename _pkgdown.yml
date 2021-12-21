@@ -7,6 +7,7 @@ reference:
     desc: >
       Convenient wrapper functions
     contents:
+    - gl_new_project
     - gl_assign_issue
     - gl_builds
     - gl_close_issue
@@ -45,6 +46,7 @@ reference:
     contents:
     - set_gitlab_connection
     - gitlab
+    - gitlabr_options_set
   - title: Continuous Integration
     desc: >
       Create .gitlab-ci.yml file for projects continuous integration
@@ -63,8 +65,6 @@ reference:
     - gl_proj_req
     - glLoginInput
     - gl_to_issue_id
-    - iff
-    - update_gitlabr_code 
   - title: Deprecated functions
     contents:
     - gitlabr-deprecated

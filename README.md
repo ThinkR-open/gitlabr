@@ -5,7 +5,7 @@
 
 <!-- badges: start -->
 
-[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
+[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
 [![Codecov test
