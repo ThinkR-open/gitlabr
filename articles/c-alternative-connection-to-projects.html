@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -83,7 +79,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statnmap/gitlabr/">
+  <a href="https://github.com/statnmap/gitlabr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -104,7 +100,7 @@
       <h1 data-toc-skip>Alternative connections to projects</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/master/vignettes/c-alternative-connection-to-projects.Rmd"><code>vignettes/c-alternative-connection-to-projects.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/HEAD/vignettes/c-alternative-connection-to-projects.Rmd" class="external-link"><code>vignettes/c-alternative-connection-to-projects.Rmd</code></a></small>
       <div class="hidden name"><code>c-alternative-connection-to-projects.Rmd</code></div>
 
     </div>
@@ -112,32 +108,32 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
-<div id="creating-connections" class="section level1">
-<h1 class="hasAnchor">
-<a href="#creating-connections" class="anchor"></a>Creating connections</h1>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
+<div class="section level1">
+<h1 id="creating-connections">Creating connections<a class="anchor" aria-label="anchor" href="#creating-connections"></a>
+</h1>
 <p>The recommended way to set a connection once and for all to a specific GitLab instance during your session is to use <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> as specified in the quick start guide vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
   gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>However, if you are looking for connections to multiple GitLab instances in the same session or would like to set different accounts, you can define connections using <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
-<p>The idea of connections in {gitlabr} is to generate functions with the same signature and capability as that of the central API call function <code><a href="../reference/gitlab.html">gitlab()</a></code>, but with certain parameters set to fixed values (<a href="https://en.wikipedia.org/wiki/Currying">“curried”</a>). This way these more specialized functions represent and provide the connection – for example – to a specific GitLab instance as a specific user. Such specialized functions can be created with the function <code><a href="../reference/gl_connection.html">gl_connection()</a></code> and then used exactly as you would use <code><a href="../reference/gitlab.html">gitlab()</a></code>:</p>
+<p>The idea of connections in {gitlabr} is to generate functions with the same signature and capability as that of the central API call function <code><a href="../reference/gitlab.html">gitlab()</a></code>, but with certain parameters set to fixed values (<a href="https://en.wikipedia.org/wiki/Currying" class="external-link">“curried”</a>). This way these more specialized functions represent and provide the connection – for example – to a specific GitLab instance as a specific user. Such specialized functions can be created with the function <code><a href="../reference/gl_connection.html">gl_connection()</a></code> and then used exactly as you would use <code><a href="../reference/gitlab.html">gitlab()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span><span class="st">"https://gitlab.com"</span>,
-                           private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
+                           private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
 <span class="fu">my_gitlab</span><span class="op">(</span><span class="st">"projects"</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/gl_connection.html">gl_connection()</a></code> can take arbitrary parameters, returning a function that issues API requests with these parameter values.</p>
 <p>Similarly, <code><a href="../reference/gl_connection.html">gl_project_connection()</a></code> can be used as a convenience wrapper to directly connect to a specific project in a GitLab instance.</p>
-<div id="function-in-function-style" class="section level2">
-<h2 class="hasAnchor">
-<a href="#function-in-function-style" class="anchor"></a>function-in-function style</h2>
+<div class="section level2">
+<h2 id="function-in-function-style">function-in-function style<a class="anchor" aria-label="anchor" href="#function-in-function-style"></a>
+</h2>
 <p>The recommended way to use {gitlabr} functions is to directly use <code>gl_*()</code> function after setting the <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code>. For instance with <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
 <p>When using custom connections, as for calling the <code><a href="../reference/gitlab.html">gitlab()</a></code> function, the query is passed through the <code>req</code> argument as a vector of characters (e.g. “projects”).</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="st">"&lt;my-project-id&gt;"</span>, <span class="st">"issues"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="st">"&lt;my-project-id&gt;"</span>, <span class="st">"issues"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p>Another option is to pass a <em>function</em> to the <code>req</code> argument that will then be called along with the additional parameters, using the connection for all API calls :</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">my_gitlab</span><span class="op">(</span><span class="va">gl_create_issue</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span><span class="op">)</span></code></pre></div>
@@ -158,11 +154,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
+  <p></p>
+<p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -170,6 +168,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -83,7 +79,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statnmap/gitlabr/">
+  <a href="https://github.com/statnmap/gitlabr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -104,7 +100,7 @@
       <h1 data-toc-skip>Go further: understand and build your functions</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/master/vignettes/d-go-further-understand-and-build.Rmd"><code>vignettes/d-go-further-understand-and-build.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/HEAD/vignettes/d-go-further-understand-and-build.Rmd" class="external-link"><code>vignettes/d-go-further-understand-and-build.Rmd</code></a></small>
       <div class="hidden name"><code>d-go-further-understand-and-build.Rmd</code></div>
 
     </div>
@@ -112,51 +108,51 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
-<p>There are more locations and actions that can be accessed through the GitLab API. See the <a href="https://docs.gitlab.com/ce/api/">documentation of the GitLab API</a> for this.</p>
-<div id="api-calls" class="section level1">
-<h1 class="hasAnchor">
-<a href="#api-calls" class="anchor"></a>API calls</h1>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
+<p>There are more locations and actions that can be accessed through the GitLab API. See the <a href="https://docs.gitlab.com/ce/api/" class="external-link">documentation of the GitLab API</a> for this.</p>
+<div class="section level1">
+<h1 id="api-calls">API calls<a class="anchor" aria-label="anchor" href="#api-calls"></a>
+</h1>
 <p>This section describes how R function calls are translated into HTTP requests to the GitLab API ({gitlabr}’s “low level interface”). For a documentation using {gitlabr} without knowledge of the GitLab API ({gitlabr}’s “high level interface”), see the <a href="#quick-start-example">“Quick Start Example”</a> above or refer to the individual function documentation in the Reference section of {gitlabr}’s pkgdown <a href="https://statnmap.github.io/gitlabr/reference/index.html">site</a>.</p>
 <p>Currently ({gitlabr} &gt;= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version &lt; 9.0) is still included via flag parameters, but is no longer maintained. For details see the section “API version” of the documentation of <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
 <p>The core function of the low level interface is <code><a href="../reference/gitlab.html">gitlab()</a></code>, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span><span class="op">)</span>, 
+<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span><span class="op">)</span>, 
        api_root <span class="op">=</span> <span class="st">"https://gitlab.com/api/v4"</span>,
        private_token <span class="op">=</span> <span class="st">"XXX"</span>, <span class="co"># authentication for API</span>
-       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span>
+       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span>
        state <span class="op">=</span> <span class="st">"active"</span><span class="op">)</span> <span class="co"># additional parameters (...) for the query</span></code></pre></div>
 <p>translates to</p>
 <pre><code>GET https://gitlab.com/api/v4/projects/12/issues?state=active&amp;private_token=XXX</code></pre>
-<p>This way, any request documented in the <a href="https://docs.gitlab.com/ce/api">GitLab API documentation</a> can be issued from {gitlabr}.</p>
+<p>This way, any request documented in the <a href="https://docs.gitlab.com/ce/api" class="external-link">GitLab API documentation</a> can be issued from {gitlabr}.</p>
 <p>The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to <code><a href="../reference/gitlab.html">gitlab()</a></code>. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gl_new_issue.html">gl_edit_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"test-project"</span>, <span class="fl">12</span>, description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,
            api_root <span class="op">=</span> <span class="st">"..."</span>, private_token <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></code></pre></div>
 <p>does nothing but</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"projects"</span>,
+<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>,
          <span class="fl">4</span>,  <span class="co"># numeric id of test-project is found by search</span>
          <span class="st">"issues"</span>,
          <span class="fl">12</span><span class="op">)</span>,
        description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,
        api_root <span class="op">=</span> <span class="st">"..."</span>,
        private_token <span class="op">=</span> <span class="st">"XXX"</span>,
-       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html">PUT</a></span><span class="op">)</span></code></pre></div>
+       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span><span class="op">)</span></code></pre></div>
 <p>and hence translates to</p>
 <pre><code>PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%20feature</code></pre>
 <p>To spare you the repetitive task of specifying the API root and key in every call, you can use <code><a href="../reference/gitlabr-deprecated.html">gitlab_connection()</a></code> as described below.</p>
 <p>{gitlabr} is implemented following the functional programming paradigm. Several of its functions return or accept functions as arguments. This results in huge flexibility in how API requests using {gitlabr} can be formulated in your R code. Three major styles are described below, after introducing the central mechanism of creating more specific API connection functions.</p>
 </div>
-<div id="writing-custom-gitlab-request-functions" class="section level1">
-<h1 class="hasAnchor">
-<a href="#writing-custom-gitlab-request-functions" class="anchor"></a>Writing custom gitlab request functions</h1>
+<div class="section level1">
+<h1 id="writing-custom-gitlab-request-functions">Writing custom gitlab request functions<a class="anchor" aria-label="anchor" href="#writing-custom-gitlab-request-functions"></a>
+</h1>
 <p>It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into {gitlabr} and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to <code><a href="../reference/gitlab.html">gitlab()</a></code> (or another convenience function) to which the <code>...</code> argument is passed on.</p>
 <p>That is, a simple function to block users directly from R is as simple as:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">gl_block_user</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">uid</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="va">uid</span>, <span class="st">"block"</span><span class="op">)</span>,  <span class="co">## for API side documentation see:</span>
-         verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html">PUT</a></span>, <span class="co">## https://docs.gitlab.com/ce/api/users.html#block-user</span>
+  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="va">uid</span>, <span class="st">"block"</span><span class="op">)</span>,  <span class="co">## for API side documentation see:</span>
+         verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span>, <span class="co">## https://docs.gitlab.com/ce/api/users.html#block-user</span>
          <span class="va">...</span><span class="op">)</span> <span class="co">## don't forget the dots to make {gitlabr} features fully available</span>
 <span class="op">}</span></code></pre></div>
 <p>More hints for more convenience:</p>
@@ -165,7 +161,7 @@
 <li>To translate project names to numeric ids automatically, you can use {gitlabr}’s internal functions <code><a href="../reference/gitlabr-deprecated.html">proj_req()</a></code> translating the request location.</li>
 <li>To translate user-visible project-wide issue ids to global ids used by the GitLab API, you can use {gitlabr}’s internal function <code><a href="../reference/gitlabr-deprecated.html">to_issue_id()</a></code> when constructing the request.</li>
 </ul>
-<p>And last but not least, if you’ve written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to {gitlabr} on <a href="https://github.com/statnmap/gitlabr">https://github.com/statnmap/gitlabr</a>.</p>
+<p>And last but not least, if you’ve written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to {gitlabr} on <a href="https://github.com/statnmap/gitlabr" class="external-link">https://github.com/statnmap/gitlabr</a>.</p>
 </div>
   </div>
 
@@ -180,11 +176,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
+  <p></p>
+<p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -192,6 +190,8 @@
 
   
 
+
+  
 
   </body>
 </html>

@@ -26,6 +26,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-article">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -38,18 +40,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="../index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="../reference/index.html">Reference</a>
 </li>
@@ -83,7 +79,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statnmap/gitlabr/">
+  <a href="https://github.com/statnmap/gitlabr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -104,17 +100,17 @@
       <h1 data-toc-skip>Quick Start Guide to {gitlabr}</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/master/vignettes/a-quick-start-guide-to-gitlabr.Rmd"><code>vignettes/a-quick-start-guide-to-gitlabr.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/statnmap/gitlabr/blob/HEAD/vignettes/a-quick-start-guide-to-gitlabr.Rmd" class="external-link"><code>vignettes/a-quick-start-guide-to-gitlabr.Rmd</code></a></small>
       <div class="hidden name"><code>a-quick-start-guide-to-gitlabr.Rmd</code></div>
 
     </div>
 
     
     
-<div id="quick-start-example" class="section level1">
-<h1 class="hasAnchor">
-<a href="#quick-start-example" class="anchor"></a>Quick Start Example</h1>
-<p>To run the code in this vignette you’ll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html">documentation</a> on how to generate PATs. In the <strong>Scopes</strong> section you only need to tick the <em>api</em> box.</p>
+<div class="section level1">
+<h1 id="quick-start-example">Quick Start Example<a class="anchor" aria-label="anchor" href="#quick-start-example"></a>
+</h1>
+<p>To run the code in this vignette you’ll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html" class="external-link">documentation</a> on how to generate PATs. In the <strong>Scopes</strong> section you only need to tick the <em>api</em> box.</p>
 <ul>
 <li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
 </li>
@@ -124,18 +120,18 @@
 </ul>
 <p>R code using {gitlabr} to perform some easy, common GitLab actions can look like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
 
 <span class="co"># Store your token in .Renviron and restart your session</span>
 <span class="fu">usethis</span><span class="fu">::</span><span class="fu">edit_r_environ</span><span class="op">(</span><span class="op">)</span>
 <span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span>
 <span class="co"># You can verify it worked</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
 
 <span class="co"># connect as a fixed user to a GitLab instance</span>
 <span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
   gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
 <span class="op">)</span>
 
 <span class="fu"><a href="../reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># Returns all projects on GitLab, so we limit to just the first page of results.</span>
@@ -165,9 +161,9 @@
 <span class="fu"><a href="../reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, 
                project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></code></pre></div>
 </div>
-<div id="central-features-of-gitlabr" class="section level1">
-<h1 class="hasAnchor">
-<a href="#central-features-of-gitlabr" class="anchor"></a>Central features of {gitlabr}</h1>
+<div class="section level1">
+<h1 id="central-features-of-gitlabr">Central features of {gitlabr}<a class="anchor" aria-label="anchor" href="#central-features-of-gitlabr"></a>
+</h1>
 <ul>
 <li>{gitlabr} provides a high and a low level interface to the GitLab API at the same time:
 <ul>
@@ -181,31 +177,31 @@
 <li>You can write your own convenience wrappers on top of the {gitlabr} logic following only one principle as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom GitLab request functions”</a>.</li>
 </ul>
 </div>
-<div id="set-connection-and-explore-the-gitlab-instance" class="section level1">
-<h1 class="hasAnchor">
-<a href="#set-connection-and-explore-the-gitlab-instance" class="anchor"></a>Set connection and explore the GitLab instance</h1>
+<div class="section level1">
+<h1 id="set-connection-and-explore-the-gitlab-instance">Set connection and explore the GitLab instance<a class="anchor" aria-label="anchor" href="#set-connection-and-explore-the-gitlab-instance"></a>
+</h1>
 <p>This is the recommended way of using {gitlabr}. In order to avoid the repeated specification of <code>gitlab_con()</code> in the parameter style, you can also set a global variable managed by {gitlabr} to use a specific connection function for every call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span>
 <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle works for all convenience functions of {gitlabr} starting with <code>gl_*()</code></p>
 <p>Note that the set style is not purely functional, since <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> changes a saved global variable affecting the results of all future <code><a href="../reference/gitlab.html">gitlab()</a></code> calls. You can reset this variable to the default value using <code><a href="../reference/set_gitlab_connection.html">unset_gitlab_connection()</a></code>.</p>
-<div id="parameter-style" class="section level2">
-<h2 class="hasAnchor">
-<a href="#parameter-style" class="anchor"></a>parameter style</h2>
+<div class="section level2">
+<h2 id="parameter-style">parameter style<a class="anchor" aria-label="anchor" href="#parameter-style"></a>
+</h2>
 <p>All convenience wrappers accept a parameter <code>gitlab_con()</code> specifying the function to use for the actual API call. Hence, you can pass a GitLab connection (as returned by <code><a href="../reference/gl_connection.html">gl_connection()</a></code>) with the R function call:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span>
   gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
 
 <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span><span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span>, gitlab_con <span class="op">=</span> <span class="va">my_gitlab</span><span class="op">)</span></code></pre></div>
 <p>Again, <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle style works for all convenience functions of {gitlabr} listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom GitLab request functions”</a>.</p>
 </div>
 </div>
-<div id="using-gitlab-ci-with-gitlabr" class="section level1">
-<h1 class="hasAnchor">
-<a href="#using-gitlab-ci-with-gitlabr" class="anchor"></a>Using GitLab CI with {gitlabr}</h1>
+<div class="section level1">
+<h1 id="using-gitlab-ci-with-gitlabr">Using GitLab CI with {gitlabr}<a class="anchor" aria-label="anchor" href="#using-gitlab-ci-with-gitlabr"></a>
+</h1>
 <p>{gitlabr} can also be used to create a <code>.gitlab-ci.yml</code> file to test, build and check an R package using GitLab’s CI software. See the <code><a href="../reference/use_gitlab_ci.html">use_gitlab_ci()</a></code> and related functions for documentation.</p>
 </div>
   </div>
@@ -221,11 +217,13 @@
 
 
       <footer><div class="copyright">
-  <p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
+  <p></p>
+<p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -233,6 +231,8 @@
 
   
 
+
+  
 
   </body>
 </html>

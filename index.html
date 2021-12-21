@@ -31,6 +31,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -43,18 +45,12 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0.9000</span>
       </span>
     </div>
 
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-<li>
-  <a href="index.html">
-    <span class="fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
 <li>
   <a href="reference/index.html">Reference</a>
 </li>
@@ -88,7 +84,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statnmap/gitlabr/">
+  <a href="https://github.com/statnmap/gitlabr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -106,33 +102,32 @@
       </header><div class="row">
   <div class="contents col-md-9">
 
-<div id="gitlabr-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#gitlabr-" class="anchor"></a>{gitlabr} <img src="reference/figures/logo.png" align="right" alt="" width="120">
+<div class="section level1">
+<div class="page-header"><h1 id="gitlabr-">{gitlabr} <img src="reference/figures/logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#gitlabr-"></a>
 </h1></div>
 <!-- badges: start -->
 
 <p><strong>There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: <a href="https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html" class="uri">https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html</a></strong></p>
-<p><em>Note that the {gitlabr} package was originally created by <a href="https://github.com/jirkalewandowski/gitlabr">Jirka Lewandowski</a>. The present repository is a fork to be able to continue development of this package.</em></p>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
+<p><em>Note that the {gitlabr} package was originally created by <a href="https://github.com/jirkalewandowski/gitlabr" class="external-link">Jirka Lewandowski</a>. The present repository is a fork to be able to continue development of this package.</em></p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
 <p>You can install the most recent stable version from CRAN using:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></code></pre></div>
-<p>To install the development version using <a href="https://cran.r-project.org/package=devtools">devtools</a>, type:</p>
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></code></pre></div>
+<p>To install the development version using <a href="https://cran.r-project.org/package=devtools" class="external-link">devtools</a>, type:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></code></pre></div>
-<p>See the <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
+<p>See the <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
 </div>
-<div id="recommended-gitlab-versions" class="section level2">
-<h2 class="hasAnchor">
-<a href="#recommended-gitlab-versions" class="anchor"></a>Recommended GitLab versions</h2>
+<div class="section level2">
+<h2 id="recommended-gitlab-versions">Recommended GitLab versions<a class="anchor" aria-label="anchor" href="#recommended-gitlab-versions"></a>
+</h2>
 <p>GitLab 11.6 or higher is generally recommended when using {gitlabr} version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.</p>
 </div>
-<div id="quick-start-example" class="section level2">
-<h2 class="hasAnchor">
-<a href="#quick-start-example" class="anchor"></a>Quick Start Example</h2>
+<div class="section level2">
+<h2 id="quick-start-example">Quick Start Example<a class="anchor" aria-label="anchor" href="#quick-start-example"></a>
+</h2>
 <p>R code using {gitlabr} to perform some common GitLab actions can look like this</p>
 <ul>
 <li>Create a TOKEN on your GitLab instance with scopes: <code>api</code>
@@ -145,7 +140,7 @@
 <li>Set a connection to GitLab instance</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
 
 <span class="co"># You can verify your token works</span>
 <span class="co"># Sys.getenv("GITLAB_COM_TOKEN")</span>
@@ -153,12 +148,12 @@
 <span class="co"># connect as a fixed user to a GitLab instance for the session</span>
 <span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
   gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <ul>
 <li>Find the list of projects available to you
 <ul>
 <li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
-<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="uri">https://docs.gitlab.com/ee/api/projects.html</a>
+<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a>
 <ul>
 <li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li>
 </ul>
@@ -189,13 +184,13 @@
 <span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
 <span class="co">#&gt; #   namespace.avatar_url &lt;chr&gt;, namespace.web_url &lt;chr&gt;,</span>
 <span class="co">#&gt; #   container_registry_image_prefix &lt;chr&gt;, _links.self &lt;chr&gt;, …</span></code></pre></div>
-<div id="work-with-a-specific-project" class="section level3">
-<h3 class="hasAnchor">
-<a href="#work-with-a-specific-project" class="anchor"></a>Work with a specific project</h3>
+<div class="section level3">
+<h3 id="work-with-a-specific-project">Work with a specific project<a class="anchor" aria-label="anchor" href="#work-with-a-specific-project"></a>
+</h3>
 <ul>
 <li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
 <ul>
-<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li>
+<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li>
 </ul>
 </li>
 </ul>
@@ -258,11 +253,11 @@
 <span class="fu"><a href="reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></code></pre></div>
 <p><em>Note that recent version of GitLab may have anti-spam on opening issues, leading to ERROR with <code><a href="reference/gl_new_issue.html">gl_create_issue()</a></code> if you abuse the API. You will need to open the issue manually in this case.</em></p>
 </div>
-<div id="use-additional-requests" class="section level3">
-<h3 class="hasAnchor">
-<a href="#use-additional-requests" class="anchor"></a>Use additional requests</h3>
-<p>If an API request is not already available in {gitlabr}, function <code><a href="reference/gitlab.html">gitlab()</a></code> allows to use any request of the GitLab API <a href="https://docs.gitlab.com/ce/api/" class="uri">https://docs.gitlab.com/ce/api/</a>.</p>
-<p>For instance, the API documentation shows how to create a new project in <a href="https://docs.gitlab.com/ce/api/projects.html#create-project" class="uri">https://docs.gitlab.com/ce/api/projects.html#create-project</a>:</p>
+<div class="section level3">
+<h3 id="use-additional-requests">Use additional requests<a class="anchor" aria-label="anchor" href="#use-additional-requests"></a>
+</h3>
+<p>If an API request is not already available in {gitlabr}, function <code><a href="reference/gitlab.html">gitlab()</a></code> allows to use any request of the GitLab API <a href="https://docs.gitlab.com/ce/api/" class="external-link uri">https://docs.gitlab.com/ce/api/</a>.</p>
+<p>For instance, the API documentation shows how to create a new project in <a href="https://docs.gitlab.com/ce/api/projects.html#create-project" class="external-link uri">https://docs.gitlab.com/ce/api/projects.html#create-project</a>:</p>
 <ul>
 <li>The verb is <code>POST</code>
 </li>
@@ -276,22 +271,22 @@
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gitlab.html">gitlab</a></span><span class="op">(</span>
   req <span class="op">=</span> <span class="st">"projects"</span>,
-  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html">POST</a></span>,
+  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,
   name <span class="op">=</span> <span class="st">"toto"</span>,
   default_branch <span class="op">=</span> <span class="st">"main"</span>
 <span class="op">)</span></code></pre></div>
 <p>Implement whatever suits your needs !</p>
 </div>
-<div id="unset-connection" class="section level3">
-<h3 class="hasAnchor">
-<a href="#unset-connection" class="anchor"></a>Unset connection</h3>
+<div class="section level3">
+<h3 id="unset-connection">Unset connection<a class="anchor" aria-label="anchor" href="#unset-connection"></a>
+</h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/set_gitlab_connection.html">unset_gitlab_connection</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 </div>
 </div>
-<div id="using-gitlab-ci-with-gitlabr" class="section level2">
-<h2 class="hasAnchor">
-<a href="#using-gitlab-ci-with-gitlabr" class="anchor"></a>Using GitLab CI with {gitlabr}</h2>
+<div class="section level2">
+<h2 id="using-gitlab-ci-with-gitlabr">Using GitLab CI with {gitlabr}<a class="anchor" aria-label="anchor" href="#using-gitlab-ci-with-gitlabr"></a>
+</h2>
 <p>{gitlabr} can also be used to create a <code>.gitlab-ci.yml</code> file to test, build and check an R package, a bookdown, … using GitLab’s CI software. Use <code><a href="reference/use_gitlab_ci.html">gitlabr::use_gitlab_ci()</a></code> with a specific <code>type</code> in your project and your CI should be ready to start in the next commit.</p>
 <p>There are pre-defined templates:</p>
 <ul>
@@ -301,23 +296,23 @@
 <li><p>check-coverage-pkgdown.yml</p></li>
 </ul>
 </div>
-<div id="further-information" class="section level2">
-<h2 class="hasAnchor">
-<a href="#further-information" class="anchor"></a>Further information</h2>
+<div class="section level2">
+<h2 id="further-information">Further information<a class="anchor" aria-label="anchor" href="#further-information"></a>
+</h2>
 <ul>
 <li>For an introduction see the <code>vignette("quick-start-guide-to-gitlabr")</code>
 </li>
-<li>When writing custom extensions (“convenience functions”) for {gitlabr} or when you experience any trouble, the very extensive <a href="https://docs.gitlab.com/ce/api/">GitLab API documentation</a> can be helpful.</li>
+<li>When writing custom extensions (“convenience functions”) for {gitlabr} or when you experience any trouble, the very extensive <a href="https://docs.gitlab.com/ce/api/" class="external-link">GitLab API documentation</a> can be helpful.</li>
 </ul>
 </div>
 </div>
-<div id="contributing-to-gitlabr" class="section level1">
-<h1 class="hasAnchor">
-<a href="#contributing-to-gitlabr" class="anchor"></a>Contributing to {gitlabr}</h1>
-<p>You’re welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a> compiles some information helpful in that process.</p>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<div class="section level1">
+<h1 id="contributing-to-gitlabr">Contributing to {gitlabr}<a class="anchor" aria-label="anchor" href="#contributing-to-gitlabr"></a>
+</h1>
+<p>You’re welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> compiles some information helpful in that process.</p>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the gitlabr project is released with a <a href="https://statnmap.github.io/gitlabr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
@@ -326,55 +321,65 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=gitlabr">https://​cloud.r-project.org/​package=gitlabr</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/statnmap/gitlabr/">https://​github.com/​statnmap/​gitlabr/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/statnmap/gitlabr/issues">https://​github.com/​statnmap/​gitlabr/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=gitlabr" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/statnmap/gitlabr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/statnmap/gitlabr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>GPL (&gt;= 3)</li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CONTRIBUTING.html">Contributing guide</a></li>
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>Jirka Lewandowski <br><small class="roles"> Author </small>  </li>
-<li>Sébastien Rochette <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html#citation">Citing gitlabr</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://cran.r-project.org/package=gitlabr"><img src="https://www.r-pkg.org/badges/version/gitlabr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/statnmap/gitlabr/actions"><img src="https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/statnmap/gitlabr?branch=main"><img src="https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li>Jirka Lewandowski <br><small class="roles"> Author </small>  </li>
+<li>Sébastien Rochette <br><small class="roles"> Author, maintainer </small> <a href="https://orcid.org/0000-0002-1565-9313" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://cran.r-project.org/package=gitlabr" class="external-link"><img src="https://www.r-pkg.org/badges/version/gitlabr" alt="CRAN_Status_Badge"></a></li>
+<li><a href="https://github.com/statnmap/gitlabr/actions" class="external-link"><img src="https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://app.codecov.io/gh/statnmap/gitlabr?branch=main" class="external-link"><img src="https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
+  <p></p>
+<p>Developed by Jirka Lewandowski, Sébastien Rochette.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
 </div>
 
       </footer>
@@ -382,6 +387,8 @@
 
   
 
+
+  
 
   </body>
 </html>
