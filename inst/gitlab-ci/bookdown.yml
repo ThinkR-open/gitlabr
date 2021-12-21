@@ -4,11 +4,12 @@ variables:
   GIT_DEPTH: 10
   REPO_NAME: "{repo_name}"
   R_LIBS: "ci/lib"
+  R_LIBS_USER: "ci/lib"
 
 cache:
   key: global-cache
   paths:
-      - ${R_LIBS}
+      - ${R_LIBS_USER}
 
 stages:
   - book-create
@@ -17,8 +18,8 @@ stages:
 book-main:
     stage: book-create
     script:
-        - echo "Library path for packages :" $R_LIBS
-        - mkdir -p $R_LIBS
+        - echo "Library path for packages :" $R_LIBS_USER
+        - mkdir -p $R_LIBS_USER
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
         - >

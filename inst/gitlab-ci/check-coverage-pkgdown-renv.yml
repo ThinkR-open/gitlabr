@@ -6,13 +6,14 @@ variables:
   GIT_DEPTH: 10
   REPO_NAME: "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
   R_LIBS: "ci/lib"
+  R_LIBS_USER: "ci/lib"
 
 cache:
   key: global-cache
   paths:
       - ${RENV_PATHS_CACHE}
       - ${RENV_PATHS_LIBRARY}
-      - ${R_LIBS}
+      - ${R_LIBS_USER}
 
 stages:
   - build
@@ -26,8 +27,8 @@ building:
   script:
     - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
-    - echo "Library path for packages :" $R_LIBS
-    - mkdir -p $R_LIBS
+    - echo "Library path for packages :" $R_LIBS_USER
+    - mkdir -p $R_LIBS_USER
     - mkdir -p $RENV_PATHS_CACHE
     - Rscript -e 'source("renv/activate.R")'
     - Rscript -e 'renv::restore()'
