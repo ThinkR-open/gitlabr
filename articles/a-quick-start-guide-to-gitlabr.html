@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -107,9 +107,9 @@
 
     
     
-<div class="section level1">
-<h1 id="quick-start-example">Quick Start Example<a class="anchor" aria-label="anchor" href="#quick-start-example"></a>
-</h1>
+<div class="section level2">
+<h2 id="quick-start-example">Quick Start Example<a class="anchor" aria-label="anchor" href="#quick-start-example"></a>
+</h2>
 <p>To run the code in this vignette you’ll need to have a GitLab account and you need to generate a personal access token (PAT). See the GitLab <a href="https://docs.gitlab.com/ce/user/profile/personal_access_tokens.html" class="external-link">documentation</a> on how to generate PATs. In the <strong>Scopes</strong> section you only need to tick the <em>api</em> box.</p>
 <ul>
 <li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
@@ -161,9 +161,9 @@
 <span class="fu"><a href="../reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, 
                project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="central-features-of-gitlabr">Central features of {gitlabr}<a class="anchor" aria-label="anchor" href="#central-features-of-gitlabr"></a>
-</h1>
+<div class="section level2">
+<h2 id="central-features-of-gitlabr">Central features of {gitlabr}<a class="anchor" aria-label="anchor" href="#central-features-of-gitlabr"></a>
+</h2>
 <ul>
 <li>{gitlabr} provides a high and a low level interface to the GitLab API at the same time:
 <ul>
@@ -177,18 +177,18 @@
 <li>You can write your own convenience wrappers on top of the {gitlabr} logic following only one principle as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom GitLab request functions”</a>.</li>
 </ul>
 </div>
-<div class="section level1">
-<h1 id="set-connection-and-explore-the-gitlab-instance">Set connection and explore the GitLab instance<a class="anchor" aria-label="anchor" href="#set-connection-and-explore-the-gitlab-instance"></a>
-</h1>
+<div class="section level2">
+<h2 id="set-connection-and-explore-the-gitlab-instance">Set connection and explore the GitLab instance<a class="anchor" aria-label="anchor" href="#set-connection-and-explore-the-gitlab-instance"></a>
+</h2>
 <p>This is the recommended way of using {gitlabr}. In order to avoid the repeated specification of <code>gitlab_con()</code> in the parameter style, you can also set a global variable managed by {gitlabr} to use a specific connection function for every call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span>
 <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle works for all convenience functions of {gitlabr} starting with <code>gl_*()</code></p>
 <p>Note that the set style is not purely functional, since <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> changes a saved global variable affecting the results of all future <code><a href="../reference/gitlab.html">gitlab()</a></code> calls. You can reset this variable to the default value using <code><a href="../reference/set_gitlab_connection.html">unset_gitlab_connection()</a></code>.</p>
-<div class="section level2">
-<h2 id="parameter-style">parameter style<a class="anchor" aria-label="anchor" href="#parameter-style"></a>
-</h2>
+<div class="section level3">
+<h3 id="parameter-style">parameter style<a class="anchor" aria-label="anchor" href="#parameter-style"></a>
+</h3>
 <p>All convenience wrappers accept a parameter <code>gitlab_con()</code> specifying the function to use for the actual API call. Hence, you can pass a GitLab connection (as returned by <code><a href="../reference/gl_connection.html">gl_connection()</a></code>) with the R function call:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span>
@@ -199,9 +199,9 @@
 <p>Again, <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle style works for all convenience functions of {gitlabr} listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom GitLab request functions”</a>.</p>
 </div>
 </div>
-<div class="section level1">
-<h1 id="using-gitlab-ci-with-gitlabr">Using GitLab CI with {gitlabr}<a class="anchor" aria-label="anchor" href="#using-gitlab-ci-with-gitlabr"></a>
-</h1>
+<div class="section level2">
+<h2 id="using-gitlab-ci-with-gitlabr">Using GitLab CI with {gitlabr}<a class="anchor" aria-label="anchor" href="#using-gitlab-ci-with-gitlabr"></a>
+</h2>
 <p>{gitlabr} can also be used to create a <code>.gitlab-ci.yml</code> file to test, build and check an R package using GitLab’s CI software. See the <code><a href="../reference/use_gitlab_ci.html">use_gitlab_ci()</a></code> and related functions for documentation.</p>
 </div>
   </div>
@@ -223,7 +223,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

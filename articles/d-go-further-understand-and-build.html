@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -110,9 +110,9 @@
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
 <p>There are more locations and actions that can be accessed through the GitLab API. See the <a href="https://docs.gitlab.com/ce/api/" class="external-link">documentation of the GitLab API</a> for this.</p>
-<div class="section level1">
-<h1 id="api-calls">API calls<a class="anchor" aria-label="anchor" href="#api-calls"></a>
-</h1>
+<div class="section level2">
+<h2 id="api-calls">API calls<a class="anchor" aria-label="anchor" href="#api-calls"></a>
+</h2>
 <p>This section describes how R function calls are translated into HTTP requests to the GitLab API ({gitlabr}’s “low level interface”). For a documentation using {gitlabr} without knowledge of the GitLab API ({gitlabr}’s “high level interface”), see the <a href="#quick-start-example">“Quick Start Example”</a> above or refer to the individual function documentation in the Reference section of {gitlabr}’s pkgdown <a href="https://statnmap.github.io/gitlabr/reference/index.html">site</a>.</p>
 <p>Currently ({gitlabr} &gt;= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version &lt; 9.0) is still included via flag parameters, but is no longer maintained. For details see the section “API version” of the documentation of <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
 <p>The core function of the low level interface is <code><a href="../reference/gitlab.html">gitlab()</a></code>, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.</p>
@@ -144,9 +144,9 @@
 <p>To spare you the repetitive task of specifying the API root and key in every call, you can use <code><a href="../reference/gitlabr-deprecated.html">gitlab_connection()</a></code> as described below.</p>
 <p>{gitlabr} is implemented following the functional programming paradigm. Several of its functions return or accept functions as arguments. This results in huge flexibility in how API requests using {gitlabr} can be formulated in your R code. Three major styles are described below, after introducing the central mechanism of creating more specific API connection functions.</p>
 </div>
-<div class="section level1">
-<h1 id="writing-custom-gitlab-request-functions">Writing custom gitlab request functions<a class="anchor" aria-label="anchor" href="#writing-custom-gitlab-request-functions"></a>
-</h1>
+<div class="section level2">
+<h2 id="writing-custom-gitlab-request-functions">Writing custom gitlab request functions<a class="anchor" aria-label="anchor" href="#writing-custom-gitlab-request-functions"></a>
+</h2>
 <p>It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into {gitlabr} and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to <code><a href="../reference/gitlab.html">gitlab()</a></code> (or another convenience function) to which the <code>...</code> argument is passed on.</p>
 <p>That is, a simple function to block users directly from R is as simple as:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
@@ -182,7 +182,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

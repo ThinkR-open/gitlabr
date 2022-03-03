@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -109,9 +109,9 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
-<div class="section level1">
-<h1 id="creating-connections">Creating connections<a class="anchor" aria-label="anchor" href="#creating-connections"></a>
-</h1>
+<div class="section level2">
+<h2 id="creating-connections">Creating connections<a class="anchor" aria-label="anchor" href="#creating-connections"></a>
+</h2>
 <p>The recommended way to set a connection once and for all to a specific GitLab instance during your session is to use <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> as specified in the quick start guide vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
@@ -125,9 +125,9 @@
 <span class="fu">my_gitlab</span><span class="op">(</span><span class="st">"projects"</span><span class="op">)</span></code></pre></div>
 <p><code><a href="../reference/gl_connection.html">gl_connection()</a></code> can take arbitrary parameters, returning a function that issues API requests with these parameter values.</p>
 <p>Similarly, <code><a href="../reference/gl_connection.html">gl_project_connection()</a></code> can be used as a convenience wrapper to directly connect to a specific project in a GitLab instance.</p>
-<div class="section level2">
-<h2 id="function-in-function-style">function-in-function style<a class="anchor" aria-label="anchor" href="#function-in-function-style"></a>
-</h2>
+<div class="section level3">
+<h3 id="function-in-function-style">function-in-function style<a class="anchor" aria-label="anchor" href="#function-in-function-style"></a>
+</h3>
 <p>The recommended way to use {gitlabr} functions is to directly use <code>gl_*()</code> function after setting the <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code>. For instance with <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
@@ -160,7 +160,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>

@@ -50,7 +50,7 @@
   <a href="../reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -111,9 +111,9 @@
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
 <p>You can use this code to create all your new projects with a specific template. For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. This will make sure all collaborators know how to find issues and how to interact with you.</p>
 <p>Given you have a <a href="gitlab.com">GitLab.com</a> account, this code can also be run to contribute to {gitlabr} and set a testing environment (See <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a>).</p>
-<div class="section level1">
-<h1 id="set-up-gitlab-connection">Set up GitLab connection<a class="anchor" aria-label="anchor" href="#set-up-gitlab-connection"></a>
-</h1>
+<div class="section level2">
+<h2 id="set-up-gitlab-connection">Set up GitLab connection<a class="anchor" aria-label="anchor" href="#set-up-gitlab-connection"></a>
+</h2>
 <ul>
 <li>Do not forget to define an environment variable named <code>GITLAB_COM_TOKEN</code>
 <ul>
@@ -128,9 +128,9 @@
   private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level1">
-<h1 id="define-the-project">Define the project<a class="anchor" aria-label="anchor" href="#define-the-project"></a>
-</h1>
+<div class="section level2">
+<h2 id="define-the-project">Define the project<a class="anchor" aria-label="anchor" href="#define-the-project"></a>
+</h2>
 <ul>
 <li>Name of the project</li>
 <li>Name of the default branch</li>
@@ -138,9 +138,9 @@
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">test_project_name</span> <span class="op">&lt;-</span> <span class="st">"testor.main"</span>
 <span class="va">main_branch</span> <span class="op">&lt;-</span> <span class="st">"main"</span></code></pre></div>
-<div class="section level2">
-<h2 id="create-a-project-called-testor-main-owned-by-the-user">Create a project called <code>testor.main</code>, owned by the user<a class="anchor" aria-label="anchor" href="#create-a-project-called-testor-main-owned-by-the-user"></a>
-</h2>
+<div class="section level3">
+<h3 id="create-a-project-called-testor-main-owned-by-the-user">Create a project called <code>testor.main</code>, owned by the user<a class="anchor" aria-label="anchor" href="#create-a-project-called-testor-main-owned-by-the-user"></a>
+</h3>
 <p>Project is initialized with a README file.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">project_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_new_project.html">gl_new_project</a></span><span class="op">(</span>
@@ -149,21 +149,21 @@
   initialize_with_readme <span class="op">=</span> <span class="cn">TRUE</span>
 <span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="check-created-branch-depending-on-gitlab-main-branch-may-still-be-master">Check created branch (depending on GitLab, main branch may still be “master”)<a class="anchor" aria-label="anchor" href="#check-created-branch-depending-on-gitlab-main-branch-may-still-be-master"></a>
-</h2>
+<div class="section level3">
+<h3 id="check-created-branch-depending-on-gitlab-main-branch-may-still-be-master">Check created branch (depending on GitLab, main branch may still be “master”)<a class="anchor" aria-label="anchor" href="#check-created-branch-depending-on-gitlab-main-branch-may-still-be-master"></a>
+</h3>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/branches.html">gl_list_branches</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">project_info</span><span class="op">$</span><span class="va">id</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="open-the-url-of-the-project">Open the URL of the project<a class="anchor" aria-label="anchor" href="#open-the-url-of-the-project"></a>
-</h2>
+<div class="section level3">
+<h3 id="open-the-url-of-the-project">Open the URL of the project<a class="anchor" aria-label="anchor" href="#open-the-url-of-the-project"></a>
+</h3>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/browseURL.html" class="external-link">browseURL</a></span><span class="op">(</span><span class="va">project_info</span><span class="op">$</span><span class="va">web_url</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="addmodify-and-commit-the-readme-md">Add/modify and commit the <code>README.md</code><a class="anchor" aria-label="anchor" href="#addmodify-and-commit-the-readme-md"></a>
-</h2>
+<div class="section level3">
+<h3 id="addmodify-and-commit-the-readme-md">Add/modify and commit the <code>README.md</code><a class="anchor" aria-label="anchor" href="#addmodify-and-commit-the-readme-md"></a>
+</h3>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Content of the README</span>
 <span class="va">content_md</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"
@@ -181,9 +181,9 @@ Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
   branch <span class="op">=</span> <span class="va">main_branch</span>,
   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="create-a-new-branch-named-for-tests">Create a new branch named “for-tests”<a class="anchor" aria-label="anchor" href="#create-a-new-branch-named-for-tests"></a>
-</h2>
+<div class="section level3">
+<h3 id="create-a-new-branch-named-for-tests">Create a new branch named “for-tests”<a class="anchor" aria-label="anchor" href="#create-a-new-branch-named-for-tests"></a>
+</h3>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create the new branch</span>
 <span class="fu"><a href="../reference/branches.html">gl_create_branch</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">project_info</span><span class="op">$</span><span class="va">id</span>, branch <span class="op">=</span> <span class="st">"for-tests"</span>, ref <span class="op">=</span> <span class="va">main_branch</span><span class="op">)</span>
@@ -192,9 +192,9 @@ Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
 <span class="co"># Note that branch creation can take a while, wait a little before using `gl_list_branches()`</span>
 <span class="co"># gl_list_branches(project = project_info$id)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="add-and-commit-a-ci-file--gitlab-ci-yml">Add and commit a CI file (“.gitlab-ci.yml”)<a class="anchor" aria-label="anchor" href="#add-and-commit-a-ci-file--gitlab-ci-yml"></a>
-</h2>
+<div class="section level3">
+<h3 id="add-and-commit-a-ci-file--gitlab-ci-yml">Add and commit a CI file (“.gitlab-ci.yml”)<a class="anchor" aria-label="anchor" href="#add-and-commit-a-ci-file--gitlab-ci-yml"></a>
+</h3>
 <p>The “.gitlab-ci.yml” below is a simple example of CI with artifact. If you want a proper CI for your R package or bookdown project, you may want to look at <code><a href="../reference/use_gitlab_ci.html">gitlabr::use_gitlab_ci()</a></code> and run it once you cloned your project locally.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">content_ci</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"
@@ -213,9 +213,9 @@ testing:
   branch <span class="op">=</span> <span class="va">main_branch</span>,
   overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="use-the-commit-created-above-and-add-a-follow-up-comment">Use the commit created above and add a follow-up comment<a class="anchor" aria-label="anchor" href="#use-the-commit-created-above-and-add-a-follow-up-comment"></a>
-</h2>
+<div class="section level3">
+<h3 id="use-the-commit-created-above-and-add-a-follow-up-comment">Use the commit created above and add a follow-up comment<a class="anchor" aria-label="anchor" href="#use-the-commit-created-above-and-add-a-follow-up-comment"></a>
+</h3>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Get list of commits in default branch</span>
 <span class="va">commits_in_main</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_get_commits.html">gl_get_commits</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">project_info</span><span class="op">$</span><span class="va">id</span>, ref_name <span class="op">=</span> <span class="va">main_branch</span><span class="op">)</span>
@@ -225,9 +225,9 @@ testing:
   id <span class="op">=</span> <span class="va">commits_in_main</span><span class="op">$</span><span class="va">id</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, 
   text <span class="op">=</span> <span class="st">"Write a comment"</span><span class="op">)</span></code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="create-a-first-issue-1-with-a-follow-up-comment">Create a first issue (#1) with a follow-up comment<a class="anchor" aria-label="anchor" href="#create-a-first-issue-1-with-a-follow-up-comment"></a>
-</h2>
+<div class="section level3">
+<h3 id="create-a-first-issue-1-with-a-follow-up-comment">Create a first issue (#1) with a follow-up comment<a class="anchor" aria-label="anchor" href="#create-a-first-issue-1-with-a-follow-up-comment"></a>
+</h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># Create an issue</span>
 <span class="va">issue_info</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>
@@ -242,9 +242,9 @@ testing:
   text <span class="op">=</span> <span class="st">"A comment on issue to not close"</span><span class="op">)</span>
   </code></pre></div>
 </div>
-<div class="section level2">
-<h2 id="delete-project">Delete project<a class="anchor" aria-label="anchor" href="#delete-project"></a>
-</h2>
+<div class="section level3">
+<h3 id="delete-project">Delete project<a class="anchor" aria-label="anchor" href="#delete-project"></a>
+</h3>
 <ul>
 <li>Use with caution!</li>
 </ul>
@@ -271,7 +271,7 @@ testing:
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.1.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
 </div>
 
       </footer>
