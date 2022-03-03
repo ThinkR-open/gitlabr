@@ -31,9 +31,9 @@ building:
     - mkdir -p $R_LIBS_USER
     - mkdir -p $RENV_PATHS_CACHE
     - Rscript -e 'source("renv/activate.R")'
-    - Rscript -e 'renv::restore()'
     - Rscript -e 'install.packages("remotes")'
     - Rscript -e 'install.packages("rcmdcheck")'
+    - Rscript -e 'renv::restore()'
     - Rscript -e 'remotes::install_local(upgrade = "never")'
     - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
   artifacts:
@@ -57,9 +57,9 @@ coverage:
         - production
     script:
         - Rscript -e 'source("renv/activate.R")'
-        - Rscript -e 'renv::restore()'
         - Rscript -e 'install.packages("remotes")'
         - Rscript -e 'remotes::install_cran(c("covr", "DT"), upgrade = "never")'
+        - Rscript -e 'renv::restore()'
         - Rscript -e 'covr::gitlab(quiet = FALSE)'
     artifacts:
         paths:
@@ -80,10 +80,10 @@ integration:
         - test-ci
     script:
         - Rscript -e 'source("renv/activate.R")'
-        - Rscript -e 'renv::restore()'
         - Rscript -e 'install.packages("remotes")'
-        - Rscript -e 'remotes::install_local(upgrade = "never")'
         - Rscript -e 'remotes::install_cran(c("pkgdown"), upgrade = "never")'
+        - Rscript -e 'renv::restore()'
+        - Rscript -e 'remotes::install_local(upgrade = "never")'
         - Rscript -e 'pkgdown::build_site()'
     artifacts:
         paths:
