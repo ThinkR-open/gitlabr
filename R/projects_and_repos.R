@@ -265,3 +265,13 @@ gl_delete_project <- function(project) {
   gitlab(req = c("projects", to_project_id(project)),
          verb = httr::DELETE)
 }
+
+#' @export
+gl_list_project_members <- function(project, ...) {
+  gitlab(req = c("projects", to_project_id(project), "members"))
+}
+
+#' @export
+gl_list_group_members <- function(group_id, ...) {
+  gitlab(req = c("groups", group_id, "members"))
+}
