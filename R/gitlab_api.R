@@ -102,9 +102,10 @@ gitlab <- function(req,
     l <- list(...)
     private_token <- l$private_token
     l <- within(l, rm(private_token))
+    private_token_header <- httr::add_headers("PRIVATE-TOKEN" = private_token)
     
     (if (page == "all") {l} else { c(page = page, l)}) %>%
-      pipe_into(argname_verb, verb, url = url, httr::add_headers("PRIVATE-TOKEN" = private_token)) %>%
+      pipe_into(argname_verb, verb, url = url, private_token_header) %>%
       http_error_or_content()   -> resp
     
     resp$ct %>%
@@ -118,7 +119,7 @@ gitlab <- function(req,
         nxt_resp <- resp$nxt %>%
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
-          httr::GET(httr::add_headers("PRIAVTE-TOKEN" = private_token)) %>%
+          httr::GET(private_token_header) %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
