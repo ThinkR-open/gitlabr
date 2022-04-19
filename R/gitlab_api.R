@@ -112,15 +112,13 @@ gitlab <- function(req,
       iff(debug, print) -> resp$ct
     
     if (page == "all") {
-      private_token <- list(...)[["private_token"]]
       # pages_retrieved <- 0L
       pages_retrieved <- 1L
       while (length(resp$nxt) > 0 && is.finite(max_page) && pages_retrieved < max_page) {
         nxt_resp <- resp$nxt %>%
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
-          paste0("&private_token=", private_token) %>%
-          httr::GET() %>%
+          httr::GET(httr::add_headers("PRIAVTE-TOKEN" = private_token)) %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
