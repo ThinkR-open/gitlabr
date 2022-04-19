@@ -99,8 +99,12 @@ gitlab <- function(req,
       iff(debug, function(x) { print(paste(c("URL:", x, " "
                                              , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
     
-    (if (page == "all") {list(...)} else { list(page = page, ...)}) %>%
-      pipe_into(argname_verb, verb, url = url) %>%
+    l <- list(...)
+    private_token <- l$private_token
+    l <- within(l, rm(private_token))
+    
+    (if (page == "all") {l} else { c(page = page, l)}) %>%
+      pipe_into(argname_verb, verb, url = url, httr::add_headers("PRIVATE-TOKEN" = private_token)) %>%
       http_error_or_content()   -> resp
     
     resp$ct %>%
