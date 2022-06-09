@@ -22,7 +22,8 @@ use_gitlab_ci(
 
 \item{overwrite}{whether to overwrite existing GitLab CI yml file}
 
-\item{add_to_Rbuildignore}{add CI yml file (from \code{path}) to .Rbuildignore?}
+\item{add_to_Rbuildignore}{add CI yml file and cache path used inside the
+CI workflow to .Rbuildignore?}
 
 \item{type}{type of the CI template to use}
 }

@@ -79,7 +79,7 @@ gl_project_connection <- function(gitlab_url,
                                   api_version = 4,
                                   api_location = paste0("/api/v", api_version, "/")) {
   
-  gl_con_root <- paste0(gitlab_url, api_location)
+  gl_con_root <- httr::modify_url(gitlab_url, path = api_location)
 
   return(function(req, ...) {
     if (is.function(req)) {

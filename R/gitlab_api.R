@@ -99,8 +99,14 @@ gitlab <- function(req,
       iff(debug, function(x) { print(paste(c("URL:", x, " "
                                              , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
     
-    (if (page == "all") {list(...)} else { list(page = page, ...)}) %>%
-      pipe_into(argname_verb, verb, url = url) %>%
+    # Extract private token to put it in header
+    l <- list(...)
+    private_token <- l$private_token
+    l <- within(l, rm(private_token))
+    private_token_header <- httr::add_headers("PRIVATE-TOKEN" = private_token)
+    
+    (if (page == "all") {l} else { c(page = page, l)}) %>%
+      pipe_into(argname_verb, verb, url = url, private_token_header) %>%
       http_error_or_content()   -> resp
     
     resp$ct %>%
@@ -108,15 +114,13 @@ gitlab <- function(req,
       iff(debug, print) -> resp$ct
     
     if (page == "all") {
-      private_token <- list(...)[["private_token"]]
       # pages_retrieved <- 0L
       pages_retrieved <- 1L
       while (length(resp$nxt) > 0 && is.finite(max_page) && pages_retrieved < max_page) {
         nxt_resp <- resp$nxt %>%
           as.character() %>%
           iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
-          paste0("&private_token=", private_token) %>%
-          httr::GET() %>%
+          httr::GET(private_token_header) %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
