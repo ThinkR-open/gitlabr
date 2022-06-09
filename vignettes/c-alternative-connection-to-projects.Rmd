@@ -78,3 +78,17 @@ my_gitlab(gl_create_issue, title = "Implement new feature", project = "<my-proje
 
 Some of the convenience functions perform additional transformation or renaming of parameters.
 Hence, the parameters given to the exemplary `my_gitlab(...)` call after the function should be valid according to the specified function's documentation, and may differ from names used in the GitLab API itself, although this occurs only very rarely.
+
+## Define a custom function with `gitlab()` and a temporary connection
+
+All API possibilities are not available in {gitlabr}. You can look at vignette "Go further: understand and build your functions" if you want to build your own API function.  
+Using a `gitlab()`, out of the recommended way for connection, requires using the `gitlab_con` parameter as follows.
+
+```{r}
+gitlab(
+  c("projects", "<my-project-id>", "issues"),
+  gitlab_con = gl_connection("https://gitlab.com",
+                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+)
+```
+

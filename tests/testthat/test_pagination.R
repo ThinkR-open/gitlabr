@@ -15,7 +15,7 @@ test_that("Pagination produces the same results", {
   users_2_1 <- gitlab("users", per_page = 2, page = 1)
   expect_true(nrow(users_2_1) == 2)
   expect_true(nrow(users_2_2) == 2)
-  expect_equal(nrow(setdiff(users_2_1, users_2_2)), 2)
+  expect_equal(nrow(dplyr::setdiff(users_2_1, users_2_2)), 2)
   
   # Get all pages (default) until max_page
   users_all <- gitlab("users", page = "all", max_page = 2)

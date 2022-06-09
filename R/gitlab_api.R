@@ -99,6 +99,7 @@ gitlab <- function(req,
       iff(debug, function(x) { print(paste(c("URL:", x, " "
                                              , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
     
+    # Extract private token to put it in header
     l <- list(...)
     private_token <- l$private_token
     l <- within(l, rm(private_token))
