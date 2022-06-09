@@ -39,7 +39,7 @@ pkgdown::build_site()
 attachment::att_amend_desc() #extra.suggests = "glue")
 devtools::load_all()
 devtools::test()
-devtools::check() # /!\ Tests are currently skip /!\
+devtools::check() # /!\ Tests are currently skip if no token in "dev/environment.yml"/!\
 devtools::build_vignettes()
 
 

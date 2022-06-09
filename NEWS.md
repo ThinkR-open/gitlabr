@@ -14,10 +14,12 @@ New features
 
 * Connection now uses the token as "header" instead of being sent clearly in the URL (#66, @ei-ds) 
 * `gl_list_group_projects()` lists projects of a group (@Yoshinobu-Ishizaki)
+* `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 
 Minor changes
 
 * doc HTML5 re-created with last version of roxygen2
+
 
 # gitlabr 2.0.0
 
