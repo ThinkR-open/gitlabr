@@ -3,6 +3,7 @@
 New
 
 * `gl_list_group_projects()` lists projects of a group thanks to @Yoshinobu-Ishizaki
+* `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 
 # gitlabr 2.0.0
 
