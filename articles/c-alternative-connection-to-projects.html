@@ -140,6 +140,18 @@
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle style works for all convenience functions of {gitlabr} starting with <code>gl_*()</code>.</p>
 <p>Some of the convenience functions perform additional transformation or renaming of parameters. Hence, the parameters given to the exemplary <code>my_gitlab(...)</code> call after the function should be valid according to the specified function’s documentation, and may differ from names used in the GitLab API itself, although this occurs only very rarely.</p>
 </div>
+<div class="section level3">
+<h3 id="define-a-custom-function-with-gitlab-and-a-temporary-connection">Define a custom function with <code>gitlab()</code> and a temporary connection<a class="anchor" aria-label="anchor" href="#define-a-custom-function-with-gitlab-and-a-temporary-connection"></a>
+</h3>
+<p>All API possibilities are not available in {gitlabr}. You can look at vignette “Go further: understand and build your functions” if you want to build your own API function.<br>
+Using a <code><a href="../reference/gitlab.html">gitlab()</a></code>, out of the recommended way for connection, requires using the <code>gitlab_con</code> parameter as follows.</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="st">"&lt;my-project-id&gt;"</span>, <span class="st">"issues"</span><span class="op">)</span>,
+  gitlab_con <span class="op">=</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span><span class="st">"https://gitlab.com"</span>,
+                           private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+</div>
 </div>
   </div>
 
@@ -160,7 +172,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>

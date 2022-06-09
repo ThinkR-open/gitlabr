@@ -106,7 +106,6 @@
 <div class="page-header"><h1 id="gitlabr-">{gitlabr} <img src="reference/figures/logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#gitlabr-"></a>
 </h1></div>
 <!-- badges: start -->
-
 <p><strong>There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: <a href="https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html" class="uri">https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html</a></strong></p>
 <p><em>Note that the {gitlabr} package was originally created by <a href="https://github.com/jirkalewandowski/gitlabr" class="external-link">Jirka Lewandowski</a>. The present repository is a fork to be able to continue development of this package.</em></p>
 <div class="section level2">
@@ -130,11 +129,8 @@
 </h2>
 <p>R code using {gitlabr} to perform some common GitLab actions can look like this</p>
 <ul>
-<li>Create a TOKEN on your GitLab instance with scopes: <code>api</code>
-<ul>
-<li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
-</li>
-</ul>
+<li>Create a TOKEN on your GitLab instance with scopes: <code>api</code><ul><li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
+</li></ul>
 </li>
 <li>Store your token in .Renviron as <code>GITLAB_COM_TOKEN</code> with <code>usethis::edit_r_environ()</code> and restart your session</li>
 <li>Set a connection to GitLab instance</li>
@@ -149,18 +145,12 @@
 <span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
   gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
   private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
-<ul>
-<li>Find the list of projects available to you
-<ul>
+<ul><li>Find the list of projects available to you<ul>
 <li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
-<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a>
-<ul>
-<li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li>
-</ul>
+<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a><ul><li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li></ul>
 </li>
 </ul>
-</li>
-</ul>
+</li></ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
 <span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span>, owned <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
@@ -187,25 +177,16 @@
 <div class="section level3">
 <h3 id="work-with-a-specific-project">Work with a specific project<a class="anchor" aria-label="anchor" href="#work-with-a-specific-project"></a>
 </h3>
-<ul>
-<li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
-<ul>
-<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li>
-</ul>
-</li>
-</ul>
+<ul><li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.<ul><li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li></ul>
+</li></ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></code></pre></div>
-<ul>
-<li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
-</li>
-</ul>
+<ul><li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
+</li></ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gitlabr_options_set.html">gitlabr_options_set</a></span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></code></pre></div>
-<ul>
-<li>List files of the project using <code><a href="reference/gl_repository.html">gl_list_files()</a></code>
-</li>
-</ul>
+<ul><li>List files of the project using <code><a href="reference/gl_repository.html">gl_list_files()</a></code>
+</li></ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 × 5</span>
@@ -213,10 +194,8 @@
 <span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span>
 <span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span>
 <span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></code></pre></div>
-<ul>
-<li>List issues with <code><a href="reference/gl_list_issues.html">gl_list_issues()</a></code>
-</li>
-</ul>
+<ul><li>List issues with <code><a href="reference/gl_list_issues.html">gl_list_issues()</a></code>
+</li></ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
 <span class="co">#&gt; # A tibble: 2 × 35</span>
@@ -231,9 +210,7 @@
 <span class="co">#&gt; #   web_url &lt;chr&gt;, time_stats.time_estimate &lt;chr&gt;,</span>
 <span class="co">#&gt; #   time_stats.total_time_spent &lt;chr&gt;, task_completion_status.count &lt;chr&gt;,</span>
 <span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, …</span></code></pre></div>
-<ul>
-<li>Create an issue</li>
-</ul>
+<ul><li>Create an issue</li></ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="co"># create a new issue</span>
 <span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span>
@@ -379,7 +356,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer>

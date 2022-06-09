@@ -69,7 +69,6 @@
     </div>
 
 <div id="contributing-to-gitlabr" class="section level1">
-
 <p>You’re welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. This document compiles some information helpful in that process.</p>
 <p>Please also note the <a href="CONDUCT.html">Code of Conduct</a>.</p>
 <div class="section level2">
@@ -77,31 +76,23 @@
 <p>The {gitlabr} test suite expects certain entities (user, project, files, comments) to be present in the test server. Below are the guidelines to setup a GitLab instance and the local file <code>dev/environment.yml</code>. Note that <a href="https://gitlab.com/statnmap/testor.main" class="external-link uri">https://gitlab.com/statnmap/testor.main</a> was created following these guidelines.</p>
 <ol style="list-style-type: decimal"><li><p>Install &amp; make GitLab instance reachable at a certain address. The easiest ways are to use either a Docker image of the GitLab version of interest or directly use <a href="https://gitlab.com" class="external-link uri">https://gitlab.com</a>.</p></li>
 <li><p>Create a file named <code>environment.yml</code> and save it in the <code>dev/</code> directory of your clone of {gitlabr}.</p></li>
-</ol><ul><li>See <code>environment.yml.example</code> as the template to fill as follows</li>
-</ul><ol start="3" style="list-style-type: decimal"><li>Create a user on your GitLab instance</li>
-</ol><ul><li>Add your username in <code>environment.yml</code> as <code>GITLABR_TEST_LOGIN</code>
+</ol><ul><li>See <code>environment.yml.example</code> as the template to fill as follows</li></ul><ol start="3" style="list-style-type: decimal"><li>Create a user on your GitLab instance</li></ol><ul><li>Add your username in <code>environment.yml</code> as <code>GITLABR_TEST_LOGIN</code>
 </li>
-<li>Add your user ID in <code>environment.yml</code> as <code>GITLABR_TEST_LOGIN_ID</code> (numeric)
-<ul><li>Go to your profile (e.g. <a href="https://gitlab.com/profile" class="external-link uri">https://gitlab.com/profile</a>) and look up for your User ID</li>
-</ul></li>
+<li>Add your user ID in <code>environment.yml</code> as <code>GITLABR_TEST_LOGIN_ID</code> (numeric)<ul><li>Go to your profile (e.g. <a href="https://gitlab.com/profile" class="external-link uri">https://gitlab.com/profile</a>) and look up for your User ID</li></ul></li>
 <li>Add your user password in <code>environment.yml</code> as <code>GITLABR_TEST_PASSWORD</code>
 </li>
-</ul><ol start="4" style="list-style-type: decimal"><li>Generate a private access token for the user that grants all read/write access to the API</li>
-</ol><ul><li>For instance on gitlab.com: <a href="https://gitlab.com/profile/personal_access_tokens" class="external-link uri">https://gitlab.com/profile/personal_access_tokens</a>
+</ul><ol start="4" style="list-style-type: decimal"><li>Generate a private access token for the user that grants all read/write access to the API</li></ol><ul><li>For instance on gitlab.com: <a href="https://gitlab.com/profile/personal_access_tokens" class="external-link uri">https://gitlab.com/profile/personal_access_tokens</a>
 </li>
 <li>Tick the fist checkboxes (the <code>api</code> scope)</li>
 <li>Add the token in the <code>environment.yml</code> or environment variables as “GITLABR_TEST_TOKEN”</li>
 </ul><p><strong>=&gt; From now on, you can use “dev/create_testor_on_gitlab.R” script to automate required repository content for steps 5 - 11.</strong></p>
-<ol start="5" style="list-style-type: decimal"><li>Create a project called <code>testor</code>, owned by the user, and containing a <code>README.md</code> file</li>
-</ol><ul><li>New Project &gt; Initialize with a README</li>
+<ol start="5" style="list-style-type: decimal"><li>Create a project called <code>testor</code>, owned by the user, and containing a <code>README.md</code> file</li></ol><ul><li>New Project &gt; Initialize with a README</li>
 <li>be sure that the main branch is called <code>main</code>
 </li>
 <li>Add the project name in the <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_NAME”</li>
-</ul><ol start="6" style="list-style-type: decimal"><li>Get the ID of the project and add it in <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_ID”</li>
-</ol><ul><li>Project Overview &gt; Details</li>
+</ul><ol start="6" style="list-style-type: decimal"><li>Get the ID of the project and add it in <code>environment.yml</code> as variable named “GITLABR_TEST_PROJECT_ID”</li></ol><ul><li>Project Overview &gt; Details</li>
 <li>The Project ID is under the name of your project</li>
-</ul><ol start="7" style="list-style-type: decimal"><li>Add/modify and commit the <code>README.md</code>:</li>
-</ol><div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu"># testor</span></span>
+</ul><ol start="7" style="list-style-type: decimal"><li>Add/modify and commit the <code>README.md</code>:</li></ol><div class="sourceCode" id="cb1"><pre class="sourceCode md"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu"># testor</span></span>
 <span id="cb1-2"><a href="#cb1-2"></a></span>
 <span id="cb1-3"><a href="#cb1-3"></a>Repository to test R package <span class="ot">[{gitlabr}](https://github.com/statnmap/gitlabr)</span></span></code></pre></div>
 <ol start="8" style="list-style-type: decimal"><li><p>Go to Repository &gt; Branches and create a branch named “for-tests”.</p></li>
@@ -111,14 +102,12 @@
 <span id="cb2-3"><a href="#cb2-3"></a><span class="at">  </span><span class="fu">artifacts</span><span class="kw">:</span></span>
 <span id="cb2-4"><a href="#cb2-4"></a><span class="at">    </span><span class="fu">paths</span><span class="kw">:</span></span>
 <span id="cb2-5"><a href="#cb2-5"></a><span class="at">      </span><span class="kw">-</span><span class="at"> test.txt</span></span></code></pre></div>
-<ol start="10" style="list-style-type: decimal"><li>Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the <code>environment.yml</code> as variable named ‘COMMENTED_COMMIT’, to do so:</li>
-</ol><ul><li>Go to Repository &gt; Commits</li>
+<ol start="10" style="list-style-type: decimal"><li>Create a commit (or use the commit just created), add a follow-up comment and add its 40-character SHA-1 hash in the <code>environment.yml</code> as variable named ‘COMMENTED_COMMIT’, to do so:</li></ol><ul><li>Go to Repository &gt; Commits</li>
 <li>Copy the <sha1> of the relevant commit</sha1></li>
 <li>Click on the relevant commit</li>
 <li>Write a comment</li>
 <li>Add its <sha1> in ‘COMMENTED_COMMIT’ in <code>environment.yml</code></sha1></li>
-</ul><ol start="11" style="list-style-type: decimal"><li>Create a first issue (#1) with a follow-up comment</li>
-</ol><ul><li>Go to Issues &gt; List &gt; New issue</li>
+</ul><ol start="11" style="list-style-type: decimal"><li>Create a first issue (#1) with a follow-up comment</li></ol><ul><li>Go to Issues &gt; List &gt; New issue</li>
 <li>Add a title and a description for the issue then click on <code>Submit issue</code>
 </li>
 <li>Then add a follow-up comment to this issue</li>
@@ -177,7 +166,7 @@ To do so, you can comment all but one OS in ".github/workflows/R-CMD-check.yaml"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.2.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
 </div>
 
       </footer></div>
