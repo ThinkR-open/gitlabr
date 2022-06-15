@@ -1,6 +1,10 @@
 # gitlabr 2.0.0.9000
 
-New
+## Breaking changes
+
+* `multilist_to_tibble()` handles outputs of the API, for only one level. The users will have to extract sub-list themselves depending on the column content. (Linked to #51)
+
+## New
 
 * Connection now uses the token as "header" instead of being sent clearly in the URL (#66, @ei-ds) 
 * `gl_list_group_projects()` lists projects of a group (@Yoshinobu-Ishizaki)
