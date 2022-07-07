@@ -50,7 +50,7 @@ gl_list_branches <- function(project, verb = httr::GET, ...) {
 gl_create_branch <- function(project, branch, ref = "master", verb = httr::POST, ...) {
   gitlab(gl_proj_req(project, c("repository", "branches"), ...),
          verb = httr::POST,
-         branch_name = branch, ## This is legacy for API v3 use and will be ignored by API v4
+         # branch_name = branch, ## This is legacy for API v3 use and will be ignored by API v4
          branch = branch,
          ref = ref,
          auto_format = FALSE,
@@ -129,6 +129,14 @@ gl_proj_req <- function(project, req, ...) {
     return(c("projects", to_project_id(project, ...), req))
   }
 }
+#' @export
+gl_user_req <- function(user, req, ...) {
+  if (missing(user) || is.null(user)) {
+    return(req)
+  } else {
+    return(c("users", to_user_id(user, ...), req))
+  }
+}
 
 #' Get a project id by name
 #' 
@@ -160,12 +168,53 @@ gl_get_project_id <- function(project_name, verb = httr::GET, auto_format = TRUE
   matching[1,"id"] %>%
     as.integer()
 }
+#' @export
+gl_get_user_id <- function(user_name = NULL, email = NULL, verb = httr::GET, auto_format = TRUE, ...) {
+  
+  matching <- gitlab(req = "users", ...) 
+  # %>%
+  #   mutate(matches_name = name == username,
+  #          matches_path = path == username,
+  #          matches_path_with_namespace = path_with_namespace == user_name) %>%
+  #   filter(matches_path_with_namespace |
+  #            (sum(matches_path_with_namespace) == 0L &
+  #               matches_path | matches_name))
+  
+  
+  if ( !is.null(email)){
+  matching <- matching %>% filter(email == {{email}}) 
+  }
+  if ( !is.null(user_name)){
+  matching <- matching %>% filter(user_name == username) 
+  }
+  
+
+  if (nrow(matching) > 1) {
+    # warning(paste(c("Multiple users with given name or path found,",
+    #                 "please use explicit name with namespace:",
+    #                 matching$path_with_namespace,
+    #                 paste("Picking", matching[1,"path_with_namespace"], "as default")),
+    #               collapse = "\n"))
+    warning("multiple ID")
+  }
+  
+  matching[,"id"] %>%
+    pull()
+}
 
 to_project_id <- function(x, ...) {
   if (is.numeric(x)) {
     x
   } else
     gl_get_project_id(x, ...)
+}
+
+#' @export
+to_user_id <- function(x, ...) {
+  if (is.numeric(x)) {
+    x
+  } else
+    gl_get_user_id(x, ...)
 }
 
 #' Get a file from a gitlab repository
