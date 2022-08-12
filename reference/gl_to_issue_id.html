@@ -77,31 +77,40 @@ global iid is no longer functional.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gl_to_issue_id</span><span class="op">(</span><span class="va">project</span>, <span class="va">issue_id</span>, api_version <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_to_issue_id</span><span class="op">(</span><span class="va">project</span>, <span class="va">issue_id</span>, api_version <span class="op">=</span> <span class="fl">3</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>project</dt>
 <dd><p>project name or id</p></dd>
+
+
 <dt>issue_id</dt>
 <dd><p>projectwide issue id (as seen by e.g. GitLab website users)</p></dd>
+
+
 <dt>api_version</dt>
 <dd><p>Since this function is no longer necessary for GitLab API v4,
 this must be set to 3 in order to avoid deprecation warning and HTTP error.</p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed on to <code><a href="gitlab.html">gitlab()</a></code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Global GitLab API issue id</p>
+    
+
+<p>Global GitLab API issue id</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu">gl_to_issue_id</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;my-project&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span>, api_version <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">gl_to_issue_id</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;my-project&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span>, api_version <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -116,7 +125,7 @@ this must be set to 3 in order to avoid deprecation warning and HTTP error.</p><
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

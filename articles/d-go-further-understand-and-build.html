@@ -108,7 +108,7 @@
     
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span></code></pre></div>
 <p>There are more locations and actions that can be accessed through the GitLab API. See the <a href="https://docs.gitlab.com/ce/api/" class="external-link">documentation of the GitLab API</a> for this.</p>
 <div class="section level2">
 <h2 id="api-calls">API calls<a class="anchor" aria-label="anchor" href="#api-calls"></a>
@@ -117,28 +117,28 @@
 <p>Currently ({gitlabr} &gt;= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version &lt; 9.0) is still included via flag parameters, but is no longer maintained. For details see the section “API version” of the documentation of <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
 <p>The core function of the low level interface is <code><a href="../reference/gitlab.html">gitlab()</a></code>, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span><span class="op">)</span>, 
-       api_root <span class="op">=</span> <span class="st">"https://gitlab.com/api/v4"</span>,
-       private_token <span class="op">=</span> <span class="st">"XXX"</span>, <span class="co"># authentication for API</span>
-       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span>
-       state <span class="op">=</span> <span class="st">"active"</span><span class="op">)</span> <span class="co"># additional parameters (...) for the query</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">12</span>, <span class="st">"issues"</span><span class="op">)</span>, </span>
+<span>       api_root <span class="op">=</span> <span class="st">"https://gitlab.com/api/v4"</span>,</span>
+<span>       private_token <span class="op">=</span> <span class="st">"XXX"</span>, <span class="co"># authentication for API</span></span>
+<span>       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,  <span class="co"># defaults to GET, but POST, PUT, DELETE can be used likewise</span></span>
+<span>       state <span class="op">=</span> <span class="st">"active"</span><span class="op">)</span> <span class="co"># additional parameters (...) for the query</span></span></code></pre></div>
 <p>translates to</p>
 <pre><code>GET https://gitlab.com/api/v4/projects/12/issues?state=active&amp;private_token=XXX</code></pre>
 <p>This way, any request documented in the <a href="https://docs.gitlab.com/ce/api" class="external-link">GitLab API documentation</a> can be issued from {gitlabr}.</p>
 <p>The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to <code><a href="../reference/gitlab.html">gitlab()</a></code>. For example:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gl_new_issue.html">gl_edit_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"test-project"</span>, <span class="fl">12</span>, description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,
-           api_root <span class="op">=</span> <span class="st">"..."</span>, private_token <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gl_new_issue.html">gl_edit_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="st">"test-project"</span>, <span class="fl">12</span>, description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,</span>
+<span>           api_root <span class="op">=</span> <span class="st">"..."</span>, private_token <span class="op">=</span> <span class="st">"XXX"</span><span class="op">)</span></span></code></pre></div>
 <p>does nothing but</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>,
-         <span class="fl">4</span>,  <span class="co"># numeric id of test-project is found by search</span>
-         <span class="st">"issues"</span>,
-         <span class="fl">12</span><span class="op">)</span>,
-       description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,
-       api_root <span class="op">=</span> <span class="st">"..."</span>,
-       private_token <span class="op">=</span> <span class="st">"XXX"</span>,
-       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>,</span>
+<span>         <span class="fl">4</span>,  <span class="co"># numeric id of test-project is found by search</span></span>
+<span>         <span class="st">"issues"</span>,</span>
+<span>         <span class="fl">12</span><span class="op">)</span>,</span>
+<span>       description <span class="op">=</span> <span class="st">"Really cool new feature"</span>,</span>
+<span>       api_root <span class="op">=</span> <span class="st">"..."</span>,</span>
+<span>       private_token <span class="op">=</span> <span class="st">"XXX"</span>,</span>
+<span>       verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span><span class="op">)</span></span></code></pre></div>
 <p>and hence translates to</p>
 <pre><code>PUT .../projects/4/issues/12?private_token=XXX?description=Really%20cool%20new%20feature</code></pre>
 <p>To spare you the repetitive task of specifying the API root and key in every call, you can use <code><a href="../reference/gitlabr-deprecated.html">gitlab_connection()</a></code> as described below.</p>
@@ -150,11 +150,11 @@
 <p>It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into {gitlabr} and work conveniently with all connection and call idioms described in this vignette. The only requirement to your function is that it executes an R function call to <code><a href="../reference/gitlab.html">gitlab()</a></code> (or another convenience function) to which the <code>...</code> argument is passed on.</p>
 <p>That is, a simple function to block users directly from R is as simple as:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">gl_block_user</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">uid</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span>
-  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="va">uid</span>, <span class="st">"block"</span><span class="op">)</span>,  <span class="co">## for API side documentation see:</span>
-         verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span>, <span class="co">## https://docs.gitlab.com/ce/api/users.html#block-user</span>
-         <span class="va">...</span><span class="op">)</span> <span class="co">## don't forget the dots to make {gitlabr} features fully available</span>
-<span class="op">}</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">gl_block_user</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">uid</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"users"</span>, <span class="va">uid</span>, <span class="st">"block"</span><span class="op">)</span>,  <span class="co">## for API side documentation see:</span></span>
+<span>         verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">PUT</a></span>, <span class="co">## https://docs.gitlab.com/ce/api/users.html#block-user</span></span>
+<span>         <span class="va">...</span><span class="op">)</span> <span class="co">## don't forget the dots to make {gitlabr} features fully available</span></span>
+<span><span class="op">}</span></span></code></pre></div>
 <p>More hints for more convenience:</p>
 <ul>
 <li>To be consistent with another important {gitlabr} principle, make sure your function returns a <code>tibble</code> (which it does if you simply pass up the return value of <code><a href="../reference/gitlab.html">gitlab()</a></code> or one of the package’s own convenience functions). <code><a href="../reference/gitlab.html">gitlab()</a></code> has some heuristics to format the API response to a <code>tibble</code>, if these fail for your specific request, you can pass <code>auto_format = FALSE</code> and format the response manually.</li>
@@ -182,7 +182,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

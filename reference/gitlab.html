@@ -79,60 +79,83 @@ own. See the gitlabr vignette for more information on this.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gitlab</span><span class="op">(</span>
-  <span class="va">req</span>,
-  <span class="va">api_root</span>,
-  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,
-  auto_format <span class="op">=</span> <span class="cn">TRUE</span>,
-  debug <span class="op">=</span> <span class="cn">FALSE</span>,
-  gitlab_con <span class="op">=</span> <span class="st">"default"</span>,
-  page <span class="op">=</span> <span class="st">"all"</span>,
-  max_page <span class="op">=</span> <span class="fl">10</span>,
-  enforce_api_root <span class="op">=</span> <span class="cn">TRUE</span>,
-  argname_verb <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">DELETE</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>    
-    <span class="st">"query"</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>     <span class="st">"body"</span> <span class="op">}</span>,
-  <span class="va">...</span>
-<span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gitlab</span><span class="op">(</span></span>
+<span>  <span class="va">req</span>,</span>
+<span>  <span class="va">api_root</span>,</span>
+<span>  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,</span>
+<span>  auto_format <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  debug <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>  gitlab_con <span class="op">=</span> <span class="st">"default"</span>,</span>
+<span>  page <span class="op">=</span> <span class="st">"all"</span>,</span>
+<span>  max_page <span class="op">=</span> <span class="fl">10</span>,</span>
+<span>  enforce_api_root <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  argname_verb <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">DELETE</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>    </span>
+<span>    <span class="st">"query"</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>     <span class="st">"body"</span> <span class="op">}</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>req</dt>
 <dd><p>vector of characters that represents the call (e.g. <code>c("projects", project_id, "events")</code>)</p></dd>
+
+
 <dt>api_root</dt>
 <dd><p>URL where the GitLab API to request resides (e.g. <code>https://gitlab.myserver.com/api/v3/</code>)</p></dd>
+
+
 <dt>verb</dt>
 <dd><p>http verb to use for request in form of one of the <code>httr</code> functions
 <code><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">httr::GET()</a></code>, <code><a href="https://httr.r-lib.org/reference/PUT.html" class="external-link">httr::PUT()</a></code>, <code><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">httr::POST()</a></code>, <code><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">httr::DELETE()</a></code></p></dd>
+
+
 <dt>auto_format</dt>
 <dd><p>whether to format the returned object automatically to a flat data.frame</p></dd>
+
+
 <dt>debug</dt>
 <dd><p>if TRUE API URL and query will be printed, defaults to FALSE</p></dd>
+
+
 <dt>gitlab_con</dt>
 <dd><p>function to use for issuing API requests (e.g. as returned by
 <code><a href="gitlabr-deprecated.html">gitlab_connection()</a></code></p></dd>
+
+
 <dt>page</dt>
 <dd><p>number of page of API response to get; if "all" (default), all pages
 (up to max_page parameter!) are queried successively and combined.</p></dd>
+
+
 <dt>max_page</dt>
 <dd><p>maximum number of pages to retrieve. Defaults to 10. This is an upper limit
 to prevent gitlabr getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 is recommended only under controlled circumstances.</p></dd>
+
+
 <dt>enforce_api_root</dt>
 <dd><p>if multiple pages are requested, the API root URL is ensured
 to be the same as in the original call for all calls using the "next page" URL returned
 by GitLab This makes sense for security and in cases where GitLab is behind a reverse proxy
 and ignorant about its URL from external.</p></dd>
+
+
 <dt>argname_verb</dt>
 <dd><p>name of the argument of the verb that fields and information are passed on to</p></dd>
+
+
 <dt>...</dt>
 <dd><p>named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
 may include private_token and all other parameters as documented for the GitLab API</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>the response from the GitLab API, usually as a <code>tibble</code> and including all pages</p>
+    
+
+<p>the response from the GitLab API, usually as a <code>tibble</code> and including all pages</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -142,12 +165,12 @@ may include private_token and all other parameters as documented for the GitLab 
 <li><p>The request is <code>projects</code></p></li>
 <li><p>Required attributes are <code>name</code> or <code>path</code> (if <code>name</code> not set)</p></li>
 <li><p><code>default_branch</code> is an attribute that can be set if wanted</p></li>
-</ul><p>The corresponding use of <code>gitlab()</code> is:</p><div class="sourceCode"><pre><code><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span>
-  req <span class="op">=</span> <span class="st">"projects"</span>,
-  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,
-  name <span class="op">=</span> <span class="st">"toto"</span>,
-  default_branch <span class="op">=</span> <span class="st">"main"</span>
-<span class="op">)</span></code></pre></div>
+</ul><p>The corresponding use of <code>gitlab()</code> is:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span></span>
+<span>  req <span class="op">=</span> <span class="st">"projects"</span>,</span>
+<span>  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"toto"</span>,</span>
+<span>  default_branch <span class="op">=</span> <span class="st">"main"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 
 <p>Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 you can give it a try.</p>
@@ -155,19 +178,19 @@ you can give it a try.</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Connect as a fixed user to a GitLab instance</span></span>
-<span class="r-in"><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
-<span class="r-in">  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span>
-<span class="r-in">  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"></span>
-<span class="r-in"><span class="co"># Use a simple request</span></span>
-<span class="r-in"><span class="fu">gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="st">"projects"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Use a combined request with extra parameters</span></span>
-<span class="r-in"><span class="fu">gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">1234</span>, <span class="st">"issues"</span><span class="op">)</span>,</span>
-<span class="r-in">       state <span class="op">=</span> <span class="st">"closed"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Connect as a fixed user to a GitLab instance</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span></span>
+<span class="r-in"><span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Use a simple request</span></span></span>
+<span class="r-in"><span><span class="fu">gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="st">"projects"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Use a combined request with extra parameters</span></span></span>
+<span class="r-in"><span><span class="fu">gitlab</span><span class="op">(</span>req <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="fl">1234</span>, <span class="st">"issues"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>       state <span class="op">=</span> <span class="st">"closed"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -182,7 +205,7 @@ you can give it a try.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

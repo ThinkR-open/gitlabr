@@ -113,10 +113,10 @@
 </h2>
 <p>You can install the most recent stable version from CRAN using:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span><span class="op">)</span></span></code></pre></div>
 <p>To install the development version using <a href="https://cran.r-project.org/package=devtools" class="external-link">devtools</a>, type:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"statnmap/gitlabr"</span><span class="op">)</span></span></code></pre></div>
 <p>See the <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
 </div>
 <div class="section level2">
@@ -136,15 +136,15 @@
 <li>Set a connection to GitLab instance</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
-
-<span class="co"># You can verify your token works</span>
-<span class="co"># Sys.getenv("GITLAB_COM_TOKEN")</span>
-
-<span class="co"># connect as a fixed user to a GitLab instance for the session</span>
-<span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
-  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># You can verify your token works</span></span>
+<span><span class="co"># Sys.getenv("GITLAB_COM_TOKEN")</span></span>
+<span></span>
+<span><span class="co"># connect as a fixed user to a GitLab instance for the session</span></span>
+<span><span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
+<span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span>
+<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <ul><li>Find the list of projects available to you<ul>
 <li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
 <li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a><ul><li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li></ul>
@@ -152,82 +152,82 @@
 </ul>
 </li></ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span>
-<span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span>, owned <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> 
-<span class="co">#&gt; # A tibble: 40 × 135</span>
-<span class="co">#&gt;    id       description name  name_with_names… path  path_with_names… created_at</span>
-<span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span>
-<span class="co">#&gt;  1 30670263 ""          Proj… Enzo Lop / Proj… proj… enzo.lop.pro/pr… 2021-10-2…</span>
-<span class="co">#&gt;  2 30670257 ""          test  Seung-hyun Lee … test  faintblue324/te… 2021-10-2…</span>
-<span class="co">#&gt;  3 30670253 ""          s54   Zuitt-projects … s54   zuitt-projects3… 2021-10-2…</span>
-<span class="co">#&gt;  4 30670220 ""          temp… taka / template  temp… hnam/template    2021-10-2…</span>
-<span class="co">#&gt;  5 30670189 ""          Jeng… NATALIA GARCIA … jeng… 22113346/jenga-… 2021-10-2…</span>
-<span class="co">#&gt;  6 30670181 ""          RStu… yannyven / RStu… rstu… yannyven/rstudi… 2021-10-2…</span>
-<span class="co">#&gt;  7 30670175 "NAO ENSTA… NAO-… Danut POP / NAO… NAO-… blueDonuts69/NA… 2021-10-2…</span>
-<span class="co">#&gt;  8 30670166 "A complet… remo… Alexa Fevic / r… remo… alexafevic/remo… 2021-10-2…</span>
-<span class="co">#&gt;  9 30670163 ""          YAOD… flagarde / YAOD… YAOD… flagarde/YAODAQ  2021-10-2…</span>
-<span class="co">#&gt; 10 30670162 ""          eval… zenika-poei-ren… eval… zenika-poei-ren… 2021-10-2…</span>
-<span class="co">#&gt; # … with 30 more rows, and 128 more variables: default_branch &lt;chr&gt;,</span>
-<span class="co">#&gt; #   ssh_url_to_repo &lt;chr&gt;, http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   readme_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span>
-<span class="co">#&gt; #   namespace.avatar_url &lt;chr&gt;, namespace.web_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   container_registry_image_prefix &lt;chr&gt;, _links.self &lt;chr&gt;, …</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span></span>
+<span><span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span>, owned <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span>
+<span><span class="co">#&gt; # A tibble: 40 × 135</span></span>
+<span><span class="co">#&gt;    id       description name  name_with_names… path  path_with_names… created_at</span></span>
+<span><span class="co">#&gt;    &lt;chr&gt;    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt; &lt;chr&gt;            &lt;chr&gt;     </span></span>
+<span><span class="co">#&gt;  1 30670263 ""          Proj… Enzo Lop / Proj… proj… enzo.lop.pro/pr… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  2 30670257 ""          test  Seung-hyun Lee … test  faintblue324/te… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  3 30670253 ""          s54   Zuitt-projects … s54   zuitt-projects3… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  4 30670220 ""          temp… taka / template  temp… hnam/template    2021-10-2…</span></span>
+<span><span class="co">#&gt;  5 30670189 ""          Jeng… NATALIA GARCIA … jeng… 22113346/jenga-… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  6 30670181 ""          RStu… yannyven / RStu… rstu… yannyven/rstudi… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  7 30670175 "NAO ENSTA… NAO-… Danut POP / NAO… NAO-… blueDonuts69/NA… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  8 30670166 "A complet… remo… Alexa Fevic / r… remo… alexafevic/remo… 2021-10-2…</span></span>
+<span><span class="co">#&gt;  9 30670163 ""          YAOD… flagarde / YAOD… YAOD… flagarde/YAODAQ  2021-10-2…</span></span>
+<span><span class="co">#&gt; 10 30670162 ""          eval… zenika-poei-ren… eval… zenika-poei-ren… 2021-10-2…</span></span>
+<span><span class="co">#&gt; # … with 30 more rows, and 128 more variables: default_branch &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   ssh_url_to_repo &lt;chr&gt;, http_url_to_repo &lt;chr&gt;, web_url &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   readme_url &lt;chr&gt;, forks_count &lt;chr&gt;, star_count &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   last_activity_at &lt;chr&gt;, namespace.id &lt;chr&gt;, namespace.name &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   namespace.path &lt;chr&gt;, namespace.kind &lt;chr&gt;, namespace.full_path &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   namespace.avatar_url &lt;chr&gt;, namespace.web_url &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   container_registry_image_prefix &lt;chr&gt;, _links.self &lt;chr&gt;, …</span></span></code></pre></div>
 <div class="section level3">
 <h3 id="work-with-a-specific-project">Work with a specific project<a class="anchor" aria-label="anchor" href="#work-with-a-specific-project"></a>
 </h3>
 <ul><li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.<ul><li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li></ul>
 </li></ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></span></code></pre></div>
 <ul><li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
 </li></ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gitlabr_options_set.html">gitlabr_options_set</a></span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gitlabr_options_set.html">gitlabr_options_set</a></span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></span></code></pre></div>
 <ul><li>List files of the project using <code><a href="reference/gl_repository.html">gl_list_files()</a></code>
 </li></ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 5</span>
-<span class="co">#&gt;   id                                       name        type  path        mode  </span>
-<span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span>
-<span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span>
-<span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
+<span><span class="co">#&gt;   id                                       name        type  path        mode  </span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span></span>
+<span><span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span></span>
+<span><span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></span></code></pre></div>
 <ul><li>List issues with <code><a href="reference/gl_list_issues.html">gl_list_issues()</a></code>
 </li></ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-<span class="co">#&gt; # A tibble: 2 × 35</span>
-<span class="co">#&gt;   id       iid   project_id title description state created_at updated_at author.id</span>
-<span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span>
-<span class="co">#&gt; 1 69525849 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  </span>
-<span class="co">#&gt; 2 69525845 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  </span>
-<span class="co">#&gt; # … with 26 more variables: author.name &lt;chr&gt;, author.username &lt;chr&gt;,</span>
-<span class="co">#&gt; #   author.state &lt;chr&gt;, author.avatar_url &lt;chr&gt;, author.web_url &lt;chr&gt;,</span>
-<span class="co">#&gt; #   type &lt;chr&gt;, user_notes_count &lt;chr&gt;, merge_requests_count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   upvotes &lt;chr&gt;, downvotes &lt;chr&gt;, confidential &lt;chr&gt;, issue_type &lt;chr&gt;,</span>
-<span class="co">#&gt; #   web_url &lt;chr&gt;, time_stats.time_estimate &lt;chr&gt;,</span>
-<span class="co">#&gt; #   time_stats.total_time_spent &lt;chr&gt;, task_completion_status.count &lt;chr&gt;,</span>
-<span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, …</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span><span class="co">#&gt; # A tibble: 2 × 35</span></span>
+<span><span class="co">#&gt;   id       iid   project_id title description state created_at updated_at author.id</span></span>
+<span><span class="co">#&gt;   &lt;chr&gt;    &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;      &lt;chr&gt;      &lt;chr&gt;    </span></span>
+<span><span class="co">#&gt; 1 69525849 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  </span></span>
+<span><span class="co">#&gt; 2 69525845 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  </span></span>
+<span><span class="co">#&gt; # … with 26 more variables: author.name &lt;chr&gt;, author.username &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   author.state &lt;chr&gt;, author.avatar_url &lt;chr&gt;, author.web_url &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   type &lt;chr&gt;, user_notes_count &lt;chr&gt;, merge_requests_count &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   upvotes &lt;chr&gt;, downvotes &lt;chr&gt;, confidential &lt;chr&gt;, issue_type &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   web_url &lt;chr&gt;, time_stats.time_estimate &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   time_stats.total_time_spent &lt;chr&gt;, task_completion_status.count &lt;chr&gt;,</span></span>
+<span><span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, …</span></span></code></pre></div>
 <ul><li>Create an issue</li></ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># create a new issue</span>
-<span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span>
-
-<span class="co"># statnmap user ID</span>
-<span class="va">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span>
-
-<span class="co"># assign issue to me</span>
-<span class="fu"><a href="reference/gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>,
-                issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>,
-                assignee_id <span class="op">=</span> <span class="va">my_id</span><span class="op">)</span>
-
-<span class="co"># Verify new issue is here</span>
-<span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, state <span class="op">=</span> <span class="st">"opened"</span><span class="op">)</span>
-
-<span class="co"># close issue</span>
-<span class="fu"><a href="reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></code></pre></div>
+<code class="sourceCode R"><span><span class="co"># create a new issue</span></span>
+<span><span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># statnmap user ID</span></span>
+<span><span class="va">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span></span>
+<span></span>
+<span><span class="co"># assign issue to me</span></span>
+<span><span class="fu"><a href="reference/gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>,</span>
+<span>                issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>,</span>
+<span>                assignee_id <span class="op">=</span> <span class="va">my_id</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Verify new issue is here</span></span>
+<span><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, state <span class="op">=</span> <span class="st">"opened"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># close issue</span></span>
+<span><span class="fu"><a href="reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></span></code></pre></div>
 <p><em>Note that recent version of GitLab may have anti-spam on opening issues, leading to ERROR with <code><a href="reference/gl_new_issue.html">gl_create_issue()</a></code> if you abuse the API. You will need to open the issue manually in this case.</em></p>
 </div>
 <div class="section level3">
@@ -246,19 +246,19 @@
 </ul>
 <p>The corresponding use of <code><a href="reference/gitlab.html">gitlab()</a></code> is:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/gitlab.html">gitlab</a></span><span class="op">(</span>
-  req <span class="op">=</span> <span class="st">"projects"</span>,
-  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,
-  name <span class="op">=</span> <span class="st">"toto"</span>,
-  default_branch <span class="op">=</span> <span class="st">"main"</span>
-<span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/gitlab.html">gitlab</a></span><span class="op">(</span></span>
+<span>  req <span class="op">=</span> <span class="st">"projects"</span>,</span>
+<span>  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,</span>
+<span>  name <span class="op">=</span> <span class="st">"toto"</span>,</span>
+<span>  default_branch <span class="op">=</span> <span class="st">"main"</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>Implement whatever suits your needs !</p>
 </div>
 <div class="section level3">
 <h3 id="unset-connection">Unset connection<a class="anchor" aria-label="anchor" href="#unset-connection"></a>
 </h3>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="reference/set_gitlab_connection.html">unset_gitlab_connection</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="reference/set_gitlab_connection.html">unset_gitlab_connection</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -356,7 +356,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

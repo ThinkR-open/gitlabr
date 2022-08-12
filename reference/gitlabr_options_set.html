@@ -75,19 +75,26 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="va">key</span>, <span class="va">value</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="va">key</span>, <span class="va">value</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>key</dt>
 <dd><p>option name</p></dd>
+
+
 <dt>value</dt>
 <dd><p>option value</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Used for side effect. Populates user <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code></p>
+    
+
+<p>Used for side effect. Populates user <code><a href="https://rdrr.io/r/base/options.html" class="external-link">options()</a></code></p>
+
+
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -96,10 +103,10 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="co"># Principal branch is called "master"</span></span>
-<span class="r-in"><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Go back to default option (default branch will be "main")</span></span>
-<span class="r-in"><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="cn">NULL</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Principal branch is called "master"</span></span></span>
+<span class="r-in"><span><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Go back to default option (default branch will be "main")</span></span></span>
+<span class="r-in"><span><span class="fu">gitlabr_options_set</span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="cn">NULL</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -114,7 +121,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

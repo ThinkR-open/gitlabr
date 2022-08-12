@@ -75,15 +75,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gl_list_issues</span><span class="op">(</span>
-  project <span class="op">=</span> <span class="cn">NULL</span>,
-  issue_id <span class="op">=</span> <span class="cn">NULL</span>,
-  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,
-  api_version <span class="op">=</span> <span class="fl">4</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">gl_get_issue</span><span class="op">(</span><span class="va">project</span>, <span class="va">issue_id</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_list_issues</span><span class="op">(</span></span>
+<span>  project <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  issue_id <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span>,</span>
+<span>  api_version <span class="op">=</span> <span class="fl">4</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_get_issue</span><span class="op">(</span><span class="va">project</span>, <span class="va">issue_id</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -91,21 +91,32 @@
     <dl><dt>project</dt>
 <dd><p>project name or id, may be null for all issues created by user.
 If using the ID, set it as numeric, otherwise this is used as project name.</p></dd>
+
+
 <dt>issue_id</dt>
 <dd><p>optional issue id (projectwide; for API v3 only you can use global iid when api_version is <code>3</code>)</p></dd>
+
+
 <dt>verb</dt>
 <dd><p>ignored; all calls with this function will have <code><a href="gitlab.html">gitlab()</a></code>'s
 default verb <code><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">httr::GET</a></code></p></dd>
+
+
 <dt>api_version</dt>
 <dd><p>a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If <code>3</code>
 filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)</p></dd>
+
+
 <dt>...</dt>
 <dd><p>further parameters passed on to <code><a href="gitlab.html">gitlab()</a></code>, may be
 state, labels, issue id, ...</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Tibble of issues of the project with descriptive variables.</p>
+    
+
+<p>Tibble of issues of the project with descriptive variables.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -115,24 +126,24 @@ using a project connection</p>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="co"># Set the connection for the session</span></span>
-<span class="r-in"><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
-<span class="r-in">  gitlab_url <span class="op">=</span> <span class="va">test_url</span>,</span>
-<span class="r-in">  private_token <span class="op">=</span> <span class="va">test_private_token</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># list issues</span></span>
-<span class="r-in"><span class="fu">gl_list_issues</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, max_page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># list opened issues</span></span>
-<span class="r-in"><span class="fu">gl_list_issues</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, state <span class="op">=</span> <span class="st">"opened"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Get one issue</span></span>
-<span class="r-in"><span class="fu">gl_get_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Create new issue</span></span>
-<span class="r-in"><span class="fu"><a href="gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, </span>
-<span class="r-in">  description <span class="op">=</span> <span class="st">"It should be awesome."</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Assign user to issue 1</span></span>
-<span class="r-in"><span class="fu"><a href="gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span>, assignee_id <span class="op">=</span> <span class="st">"&lt;&lt;user-id&gt;&gt;"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Set the connection for the session</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="va">test_url</span>,</span></span>
+<span class="r-in"><span>  private_token <span class="op">=</span> <span class="va">test_private_token</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># list issues</span></span></span>
+<span class="r-in"><span><span class="fu">gl_list_issues</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, max_page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># list opened issues</span></span></span>
+<span class="r-in"><span><span class="fu">gl_list_issues</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, state <span class="op">=</span> <span class="st">"opened"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Get one issue</span></span></span>
+<span class="r-in"><span><span class="fu">gl_get_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create new issue</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, </span></span>
+<span class="r-in"><span>  description <span class="op">=</span> <span class="st">"It should be awesome."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Assign user to issue 1</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span>, assignee_id <span class="op">=</span> <span class="st">"&lt;&lt;user-id&gt;&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -147,7 +158,7 @@ using a project connection</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

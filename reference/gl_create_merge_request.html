@@ -75,44 +75,59 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gl_create_merge_request</span><span class="op">(</span>
-  <span class="va">project</span>,
-  <span class="va">source_branch</span>,
-  target_branch <span class="op">=</span> <span class="fu">get_main</span><span class="op">(</span><span class="op">)</span>,
-  <span class="va">title</span>,
-  <span class="va">description</span>,
-  <span class="va">...</span>
-<span class="op">)</span>
-
-<span class="fu">gl_edit_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">gl_close_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span><span class="op">)</span>
-
-<span class="fu">gl_delete_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">gl_list_merge_requests</span><span class="op">(</span><span class="va">project</span>, <span class="va">...</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_create_merge_request</span><span class="op">(</span></span>
+<span>  <span class="va">project</span>,</span>
+<span>  <span class="va">source_branch</span>,</span>
+<span>  target_branch <span class="op">=</span> <span class="fu">get_main</span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="va">title</span>,</span>
+<span>  <span class="va">description</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_edit_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_close_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_delete_merge_request</span><span class="op">(</span><span class="va">project</span>, <span class="va">merge_request_iid</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_list_merge_requests</span><span class="op">(</span><span class="va">project</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>project</dt>
 <dd><p>name or id of project (not repository!)</p></dd>
+
+
 <dt>source_branch</dt>
 <dd><p>name of branch to be merged</p></dd>
+
+
 <dt>target_branch</dt>
 <dd><p>name of branch into which to merge</p></dd>
+
+
 <dt>title</dt>
 <dd><p>title of the merge request</p></dd>
+
+
 <dt>description</dt>
 <dd><p>description text for the merge request</p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed on to <code><a href="gitlab.html">gitlab()</a></code>. Might contain more fields documented in GitLab API doc.</p></dd>
+
+
 <dt>merge_request_iid</dt>
 <dd><p>iid of the merge request</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>Tibble of created or remaining merge requests of the project
+    
+
+<p>Tibble of created or remaining merge requests of the project
 with informative variables.</p>
     </div>
 
@@ -132,7 +147,7 @@ with informative variables.</p>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

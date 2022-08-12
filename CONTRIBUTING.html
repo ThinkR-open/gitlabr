@@ -114,10 +114,10 @@
 </ul><div class="section level3">
 <h3 id="how-to-run-the-test-suite">How to run the test suite<a class="anchor" aria-label="anchor" href="#how-to-run-the-test-suite"></a></h3>
 <p>When the test server is set up as described above, tests can be run with the following R code that loads the recorded environment variables and runs the test code:</p>
-<pre class="{r}"><code><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span>
-<span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">Sys.setenv</span>, <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/yaml.load.html" class="external-link">yaml.load_file</a></span><span class="op">(</span><span class="st">"dev/environment.yml"</span><span class="op">)</span><span class="op">)</span> <span class="co">## load test environment variables</span>
-<span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span> <span class="co">## run all tests</span>
-<span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_file.html" class="external-link">test_file</a></span><span class="op">(</span><span class="st">"tests/testthat/test_ci.R"</span><span class="op">)</span> <span class="co">## run test on one file</span></code></pre>
+<pre class="{r}"><code><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">load_all</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/do.call.html" class="external-link">do.call</a></span><span class="op">(</span><span class="va">Sys.setenv</span>, <span class="fu">yaml</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/yaml/man/yaml.load.html" class="external-link">yaml.load_file</a></span><span class="op">(</span><span class="st">"dev/environment.yml"</span><span class="op">)</span><span class="op">)</span> <span class="co">## load test environment variables</span></span>
+<span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">test</span><span class="op">(</span><span class="op">)</span> <span class="co">## run all tests</span></span>
+<span><span class="fu">testthat</span><span class="fu">::</span><span class="fu"><a href="https://testthat.r-lib.org/reference/test_file.html" class="external-link">test_file</a></span><span class="op">(</span><span class="st">"tests/testthat/test_ci.R"</span><span class="op">)</span> <span class="co">## run test on one file</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="how-to-check-the-package-with-github-actions-on-your-own-fork">How to check the package with GitHub Actions on your own fork<a class="anchor" aria-label="anchor" href="#how-to-check-the-package-with-github-actions-on-your-own-fork"></a></h3>
@@ -166,7 +166,7 @@ To do so, you can comment all but one OS in ".github/workflows/R-CMD-check.yaml"
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>

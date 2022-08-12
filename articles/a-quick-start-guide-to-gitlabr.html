@@ -120,46 +120,46 @@
 </ul>
 <p>R code using {gitlabr} to perform some easy, common GitLab actions can look like this:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span>
-
-<span class="co"># Store your token in .Renviron and restart your session</span>
-<span class="fu">usethis</span><span class="fu">::</span><span class="fu">edit_r_environ</span><span class="op">(</span><span class="op">)</span>
-<span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span>
-<span class="co"># You can verify it worked</span>
-<span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
-
-<span class="co"># connect as a fixed user to a GitLab instance</span>
-<span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span>
-  gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span>
-<span class="op">)</span>
-
-<span class="fu"><a href="../reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># Returns all projects on GitLab, so we limit to just the first page of results.</span>
-
-<span class="co"># It's unlikely that you'll want to use {gitlabr} to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).</span>
-<span class="co"># Here we use the [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask)</span>
-<span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span>
-<span class="fu"><a href="../reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-
-<span class="co"># create a new issue</span>
-<span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Implement new feature"</span>,
-                                  project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-
-<span class="co"># statnmap user ID</span>
-<span class="va">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span>
-
-<span class="co"># assign issue to me</span>
-<span class="fu"><a href="../reference/gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span>assignee_id <span class="op">=</span> <span class="va">example_user</span><span class="op">$</span><span class="va">id</span>,
-                issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>,
-                project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-
-<span class="co"># List opened issues</span>
-<span class="fu"><a href="../reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>state <span class="op">=</span> <span class="st">"opened"</span>,
-               project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span>
-
-<span class="co"># close the issue</span>
-<span class="fu"><a href="../reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, 
-               project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Store your token in .Renviron and restart your session</span></span>
+<span><span class="fu">usethis</span><span class="fu">::</span><span class="fu">edit_r_environ</span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co"># Add: GITLAB_COM_TOKEN=YourTokenHere</span></span>
+<span><span class="co"># You can verify it worked</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># connect as a fixed user to a GitLab instance</span></span>
+<span><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
+<span>  gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,</span>
+<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>page <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>  <span class="co"># Returns all projects on GitLab, so we limit to just the first page of results.</span></span>
+<span></span>
+<span><span class="co"># It's unlikely that you'll want to use {gitlabr} to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).</span></span>
+<span><span class="co"># Here we use the [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask)</span></span>
+<span><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span></span>
+<span><span class="fu"><a href="../reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># create a new issue</span></span>
+<span><span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>title <span class="op">=</span> <span class="st">"Implement new feature"</span>,</span>
+<span>                                  project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># statnmap user ID</span></span>
+<span><span class="va">my_id</span> <span class="op">&lt;-</span> <span class="fl">4809823</span></span>
+<span></span>
+<span><span class="co"># assign issue to me</span></span>
+<span><span class="fu"><a href="../reference/gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span>assignee_id <span class="op">=</span> <span class="va">example_user</span><span class="op">$</span><span class="va">id</span>,</span>
+<span>                issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>,</span>
+<span>                project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># List opened issues</span></span>
+<span><span class="fu"><a href="../reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>state <span class="op">=</span> <span class="st">"opened"</span>,</span>
+<span>               project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># close the issue</span></span>
+<span><span class="fu"><a href="../reference/gl_new_issue.html">gl_close_issue</a></span><span class="op">(</span>issue_id <span class="op">=</span> <span class="va">new_feature_issue</span><span class="op">$</span><span class="va">iid</span>, </span>
+<span>               project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span><span class="op">$</span><span class="va">state</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="central-features-of-gitlabr">Central features of {gitlabr}<a class="anchor" aria-label="anchor" href="#central-features-of-gitlabr"></a>
@@ -182,8 +182,8 @@
 </h2>
 <p>This is the recommended way of using {gitlabr}. In order to avoid the repeated specification of <code>gitlab_con()</code> in the parameter style, you can also set a global variable managed by {gitlabr} to use a specific connection function for every call:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span>
-<span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, <span class="st">"Implement new feature"</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span><span class="va">my_gitlab</span><span class="op">)</span></span>
+<span><span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, <span class="st">"Implement new feature"</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle works for all convenience functions of {gitlabr} starting with <code>gl_*()</code></p>
 <p>Note that the set style is not purely functional, since <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code> changes a saved global variable affecting the results of all future <code><a href="../reference/gitlab.html">gitlab()</a></code> calls. You can reset this variable to the default value using <code><a href="../reference/set_gitlab_connection.html">unset_gitlab_connection()</a></code>.</p>
 <div class="section level3">
@@ -191,11 +191,11 @@
 </h3>
 <p>All convenience wrappers accept a parameter <code>gitlab_con()</code> specifying the function to use for the actual API call. Hence, you can pass a GitLab connection (as returned by <code><a href="../reference/gl_connection.html">gl_connection()</a></code>) with the R function call:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span>
-  gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,
-  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span>
-
-<span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span><span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span>, gitlab_con <span class="op">=</span> <span class="va">my_gitlab</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span></span>
+<span>  gitlab_url <span class="op">=</span> <span class="st">"https://about.gitlab.com/"</span>,</span>
+<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span><span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="va">my_project</span>, gitlab_con <span class="op">=</span> <span class="va">my_gitlab</span><span class="op">)</span></span></code></pre></div>
 <p>Again, <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the principle style works for all convenience functions of {gitlabr} listed in the <a href="#convenience-function-list">“Convenience function list”</a> below or user-defined functions as described in the section <a href="#writing-custom-gitlab-request-functions">“Writing custom GitLab request functions”</a>.</p>
 </div>
 </div>
@@ -223,7 +223,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>

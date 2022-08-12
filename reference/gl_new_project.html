@@ -75,27 +75,36 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="fu">gl_new_project</span><span class="op">(</span><span class="va">name</span>, <span class="va">path</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">gl_edit_project</span><span class="op">(</span><span class="va">project</span>, <span class="va">...</span><span class="op">)</span>
-
-<span class="fu">gl_delete_project</span><span class="op">(</span><span class="va">project</span><span class="op">)</span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_new_project</span><span class="op">(</span><span class="va">name</span>, <span class="va">path</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_edit_project</span><span class="op">(</span><span class="va">project</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_delete_project</span><span class="op">(</span><span class="va">project</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
 <dd><p>of the new project. The name of the new project. Equals path if not provided</p></dd>
+
+
 <dt>path</dt>
 <dd><p>to the new project if name is not provided. Repository name for new project. Generated based on name if not provided (generated as lowercase with dashes).</p></dd>
+
+
 <dt>...</dt>
 <dd><p>passed on to <code><a href="gitlab.html">gitlab()</a></code> API call for "Create project"</p></dd>
+
+
 <dt>project</dt>
 <dd><p>The ID or URL-encoded path of the project.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
-    <p>A tibble with the project information. <code>gl_delete_project()</code> returns an empty tibble.</p>
+    
+
+<p>A tibble with the project information. <code>gl_delete_project()</code> returns an empty tibble.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
@@ -104,18 +113,18 @@
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span>
-<span class="r-in"><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
-<span class="r-in">  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span>
-<span class="r-in">  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Create new project</span></span>
-<span class="r-in"><span class="fu">gl_new_project</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"toto"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Edit existing project</span></span>
-<span class="r-in"><span class="fu">gl_edit_project</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, default_branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span>
-<span class="r-in"><span class="co"># Delete project</span></span>
-<span class="r-in"><span class="fu">gl_delete_project</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span><span class="op">)</span></span>
-<span class="r-in"><span class="op">}</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span></span>
+<span class="r-in"><span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create new project</span></span></span>
+<span class="r-in"><span><span class="fu">gl_new_project</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"toto"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Edit existing project</span></span></span>
+<span class="r-in"><span><span class="fu">gl_edit_project</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, default_branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Delete project</span></span></span>
+<span class="r-in"><span><span class="fu">gl_delete_project</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
     </div>
   </div>
@@ -130,7 +139,7 @@
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.3.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer></div>
