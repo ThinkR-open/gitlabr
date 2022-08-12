@@ -3,7 +3,6 @@ image: {image}
 variables:
   GIT_DEPTH: 10
   REPO_NAME: "{repo_name}"
-  R_LIBS: "ci/lib"
   R_LIBS_USER: "ci/lib"
 
 cache:
