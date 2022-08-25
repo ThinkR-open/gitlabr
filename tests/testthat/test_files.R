@@ -77,6 +77,46 @@ test_that("Repo access works", {
   list_files <- gl_list_files(project = test_project, ref = "for-tests")
   expect_true(!"dataset.csv" %in% list_files[["name"]])
   
+  # Push file in a folder
+  list_files <- gl_list_files(project = test_project, ref = "for-tests")
+  tmpfile <- tempfile(fileext = ".csv")
+  write.csv(mtcars, file = tmpfile)
+  out_push <- gl_push_file(
+    project = test_project, 
+    file_path = "test-folder/dataset.csv", 
+    content = paste(readLines(tmpfile), collapse = "\n"),
+    commit_message = "Push file for test in a folder",
+    branch = "for-tests",
+    overwrite = FALSE)
+  
+  expect_s3_class(out_push, "data.frame")
+  expect_equal(nrow(out_push), 1)
+  expect_equal(out_push[["file_path"]], "test-folder/dataset.csv")
+  list_files <- gl_list_files(project = test_project, path = "test-folder", ref = "for-tests")
+  expect_true("test-folder/dataset.csv" %in% list_files[["path"]]) 
+  
+  # Do not overwrite a file in a folder
+  out_push <- gl_push_file(
+    project = test_project, 
+    file_path = "test-folder/dataset.csv", 
+    content = paste(readLines(tmpfile), collapse = "\n"),
+    commit_message = "Push file for test in a folder",
+    branch = "for-tests",
+    overwrite = FALSE)
+  
+  expect_s3_class(out_push, "data.frame")
+  expect_equal(nrow(out_push), 0)
+  
+  # Delete file in a folder
+  out_del <- gl_delete_file(
+    project = test_project, 
+    file_path = "test-folder/dataset.csv", 
+    commit_message = "Delete file in a folder for test",
+    branch = "for-tests"
+  )
+  list_files <- gl_list_files(project = test_project, path = "test-folder", ref = "for-tests")
+  expect_true(!"test-folder/dataset.csv" %in% list_files[["path"]])
+  
   ## old API
   expect_warning(repository(project = test_project), regexp = "deprecated")
 })
