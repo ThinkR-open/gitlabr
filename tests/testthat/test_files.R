@@ -107,6 +107,10 @@ test_that("Repo access works", {
   expect_s3_class(out_push, "data.frame")
   expect_equal(nrow(out_push), 0)
   
+  # Get file in a folder
+  readme_content <- gl_get_file(project = test_project, file_path = "test-folder/dataset.csv", ref = "for-tests")
+  expect_type(readme_content, "character")
+  
   # Delete file in a folder
   out_del <- gl_delete_file(
     project = test_project, 
