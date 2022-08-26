@@ -45,13 +45,7 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
 #' gl_list_files(project = <<your-project-id>>, path = <<path-to-folder>>)
 #' }
 gl_list_files <- function(project, path = "", ref = get_main(), ...) {
-  
-  if (path == "")
-    req = c("repository", "tree")
-  else
-    req = c("repository", paste0("tree?path=", utils::URLencode(path, reserved = TRUE)))
-  
-  gitlab(gl_proj_req(project, req, ...), ref = ref, ...)
+  gitlab(gl_proj_req(project, c("repository", "tree"), ...), path = path, ref = ref, ...)
 }
 
 #' For `gl_file_exists` dots are passed on to [gl_list_files()] and GitLab API call
