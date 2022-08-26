@@ -2,27 +2,23 @@
 #' 
 #' @param ... passed on to [gitlab()]
 #' @export
-#' @return tibble of each project with corresponding information
+#' @return tibble of each group with corresponding information
 #' 
 #' @examples \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com", 
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
-#' # List all projects
+#' # List all groups
 #' gl_get_groups(max_page = 1)
-#' # List users groups
-#' gl_list_user_groups(user_id = "<<user-id>>", max_page = 1)
 #' # List sub-groups of a group
 #' gl_list_sub_groups(group_id = "<<group-id>>", max_page = 1)
-#' # List projects of a group
-#' gl_list_group_projects(group_id = "<<group-id>>", max_page = 1)
 #' }
 gl_list_groups <- function(...) {
   gitlabr::gitlab("groups", ...)
 }
 
-#' @param group_id id of the group to list project from
+#' @param group_id id of the group to list group from
 #' @export
 #' @rdname gl_list_groups
 gl_list_sub_groups <- function(group_id, ...) {
@@ -34,13 +30,13 @@ gl_list_sub_groups <- function(group_id, ...) {
 #' Prefixes the request location with "groups/:id/subgroups" and automatically
 #' translates group names into ids
 #' 
-#' @param group project name or id
+#' @param group group name or id
 #' @param ... passed on to [gl_get_group_id()]
 #' @export
-#' @return A vector of character to be used as request for functions involving projects
+#' @return A vector of character to be used as request for functions involving groups
 #' @examples 
 #' \dontrun{
-#' gl_group_req("test_group"<<your-project-id>>)
+#' gl_group_req("test_group"<<your-group-id>>)
 #' }
 gl_group_req <- function(group, ...) {
   if (missing(group) || is.null(group)) {
@@ -52,7 +48,7 @@ gl_group_req <- function(group, ...) {
 
 #' Get a group id by name
 #' 
-#' @param group_name project name
+#' @param group_name group name
 #' @param ... passed on to [gitlab()]
 #' @importFrom dplyr mutate filter
 #' 
@@ -65,7 +61,7 @@ gl_group_req <- function(group, ...) {
 #' @return Integer. ID of the group if found.
 #' @examples
 #' \dontrun{
-#' gl_get_group_id("<<your-project-name>>")
+#' gl_get_group_id("<<your-group-name>>")
 #' }
 gl_get_group_id <- function(group_name, ...) {
   
@@ -80,7 +76,7 @@ gl_get_group_id <- function(group_name, ...) {
   if (nrow(matching) == 0) {
     stop("There was no matching 'id' with your group name. ",
          "Either it does not exist, or most probably, ", 
-         "it is not available in the first projects available to you. ",
+         "it is not available in the first groups available to you. ",
          "The name-matching is limited to the first pages of groups accessible. ",
          "Please use directly the 'id' of your group.")
   } else if (nrow(matching) > 1) {
@@ -101,5 +97,57 @@ to_group_id <- function(x, ...) {
   } else {
     gl_get_group_id(x, ...)
   }
+}
+
+
+#' Manage groups
+#' @param path to the new group
+#' @param name of the new group
+#' @param ... passed on to [gitlab()] API call for "Create group"
+#' @export
+#' @return A tibble with the group information. `gl_delete_group()` returns an empty tibble.
+#' @details 
+#' You can use extra parameters as proposed in the GitLab API.
+#' 
+#' @examples \dontrun{
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' # Create new group
+#' gl_new_group(name = "mygroup")
+#' # Edit existing group
+#' gl_edit_group(group = "<<your-group-id>>", default_branch = "main")
+#' # Delete group
+#' gl_delete_group(group = "<<your-group-id>>")
+#' }
+gl_new_group <- function(name,
+                         path,
+                         ...) {
+    gitlab(req = "groups", 
+           path = path,
+           name = name,
+           verb = httr::POST,
+           ...)
+}
+
+#' @param group The ID or URL-encoded path of the group.
+#' @rdname gl_new_group
+#' @export
+gl_edit_group <- function(group,
+                          ...) {
+  
+  gitlab(req = c("groups", to_group_id(group)), 
+         verb = httr::PUT,
+         ...)
+  
+}
+
+#' @rdname gl_new_group
+#' @export
+gl_delete_group <- function(group) {
+  
+  gitlab(req = c("groups", to_group_id(group)),
+         verb = httr::DELETE)
 }
 
