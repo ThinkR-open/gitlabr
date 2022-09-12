@@ -79,7 +79,7 @@ DT::datatable(x)
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
 
 # Check content
-# remotes::install_github("ThinkR-open/checkhelper")
+# install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')
 tags <- checkhelper::find_missing_tags()
 View(tags)
 
@@ -88,32 +88,22 @@ View(tags)
 spelling::spell_check_package()
 
 # Check URL are correct
-# remotes::install_github("r-lib/urlchecker")
+# install.packages('urlchecker', repos = 'https://r-lib.r-universe.dev')
 urlchecker::url_check()
 urlchecker::url_update()
 
 # check on other distributions
 
 # /!\ Do not send tests/environment.yml to CRAN /!\
-# For now `devtools::check()` uses the entire dev directory
-# If one day, it copies only non RBuildignore dirs, then put back
-# "environment.yml" in "tests"
-# fs::file_move(
-#   "tests/environment.yml",
-#   "dev/environment.yml"
-# )
-# fs::file_move(
-#   "tests/environment.yml.example",
-#   "dev/environment.yml.example"
-# )
+# There are now in "dev/", and are not sent to CRAN
 
 # _rhub
 
 devtools::check_rhub()
 rhub::check_on_windows(check_args = "--force-multiarch")
-rhub::check_on_solaris()
+rhub::check_on_solaris(show_status = FALSE)
 rhub::check(platform = "debian-clang-devel")
-rhub::check_for_cran()
+rhub::check_for_cran(show_status = FALSE)
 
 # Run locally in Docker
 # docker pull rhub/debian-clang-devel
@@ -130,22 +120,15 @@ rstudioapi::navigateToFile(system.file(package = "rhub", "bin", "rhub-linux-dock
 # /opt/R-devel/bin/R
 
 
-rhub::check(platform = "windows-x86_64-devel")
+rhub::check(platform = "windows-x86_64-devel", show_status = FALSE)
 
 # _win devel
 devtools::check_win_devel()
 devtools::check_win_release()
+devtools::check_mac_release()
 
 # /!\ Do not send tests/environment.yml to CRAN /!\
-# Put back for local tests if needed
-# fs::file_move(
-#   "dev/environment.yml",
-#   "tests/environment.yml"
-# )
-# fs::file_move(
-#   "dev/environment.yml.example",
-#   "tests/environment.yml.example"
-# )
+# There are now in "dev/", and are not sent to CRAN
 
 # Update NEWS
 # Bump version manually and add list of changes
