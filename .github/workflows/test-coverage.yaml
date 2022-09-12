@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
       GITLABR_TEST_LOGIN_ID: ${{ secrets.GITLABR_TEST_LOGIN_ID }}
       GITLABR_TEST_PASSWORD: ${{ secrets.GITLABR_TEST_PASSWORD }}
