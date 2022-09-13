@@ -19,7 +19,7 @@ own. See the gitlabr vignette for more information on this."><meta property="og:
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.0.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1</span>
       </span>
     </div>
 
@@ -89,8 +89,12 @@ own. See the gitlabr vignette for more information on this.</p>
 <span>  page <span class="op">=</span> <span class="st">"all"</span>,</span>
 <span>  max_page <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  enforce_api_root <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  argname_verb <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">DELETE</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span>    </span>
-<span>    <span class="st">"query"</span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span>     <span class="st">"body"</span> <span class="op">}</span>,</span>
+<span>  argname_verb <span class="op">=</span> <span class="kw">if</span> <span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/GET.html" class="external-link">GET</a></span><span class="op">)</span> <span class="op">|</span> <span class="fu"><a href="https://rdrr.io/r/base/identical.html" class="external-link">identical</a></span><span class="op">(</span><span class="va">verb</span>, <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/DELETE.html" class="external-link">DELETE</a></span><span class="op">)</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    </span>
+<span>    <span class="st">"query"</span></span>
+<span> <span class="op">}</span> <span class="kw">else</span> <span class="op">{</span></span>
+<span>     <span class="st">"body"</span></span>
+<span> <span class="op">}</span>,</span>
 <span>  <span class="va">...</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -165,13 +169,13 @@ may include private_token and all other parameters as documented for the GitLab 
 <li><p>The request is <code>projects</code></p></li>
 <li><p>Required attributes are <code>name</code> or <code>path</code> (if <code>name</code> not set)</p></li>
 <li><p><code>default_branch</code> is an attribute that can be set if wanted</p></li>
-</ul><p>The corresponding use of <code>gitlab()</code> is:</p><div class="sourceCode"><pre><code><span><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span></span>
-<span>  req <span class="op">=</span> <span class="st">"projects"</span>,</span>
-<span>  verb <span class="op">=</span> <span class="fu">httr</span><span class="fu">::</span><span class="va"><a href="https://httr.r-lib.org/reference/POST.html" class="external-link">POST</a></span>,</span>
-<span>  name <span class="op">=</span> <span class="st">"toto"</span>,</span>
-<span>  default_branch <span class="op">=</span> <span class="st">"main"</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-
+</ul><p>The corresponding use of <code>gitlab()</code> is:</p>
+<p></p><div class="sourceCode"><pre><code><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">gitlab</span>(</span>
+<span id="cb1-2"><a href="#cb1-2"></a>  <span class="dt">req =</span> <span class="st">"projects"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3"></a>  <span class="dt">verb =</span> httr<span class="op">::</span>POST,</span>
+<span id="cb1-4"><a href="#cb1-4"></a>  <span class="dt">name =</span> <span class="st">"toto"</span>,</span>
+<span id="cb1-5"><a href="#cb1-5"></a>  <span class="dt">default_branch =</span> <span class="st">"main"</span></span>
+<span id="cb1-6"><a href="#cb1-6"></a>)</span></code></pre><p></p></div>
 <p>Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 you can give it a try.</p>
     </div>
