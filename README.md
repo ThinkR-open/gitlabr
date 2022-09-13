@@ -33,7 +33,7 @@ To install the development version using
 [devtools](https://cran.r-project.org/package=devtools), type:
 
 ``` r
-devtools::install_github("statnmap/gitlabr")
+install.packages("statnmap/gitlabr", repos = 'https://thinkr-open.r-universe.dev')
 ```
 
 See the
@@ -44,7 +44,7 @@ information.
 ## Recommended GitLab versions
 
 GitLab 11.6 or higher is generally recommended when using {gitlabr}
-version 1.1.6 or higher. This {gitlabr} version uses the GitLab API v4.
+version 2.0.0 or higher. This {gitlabr} version uses the GitLab API v4.
 
 ## Quick Start Example
 

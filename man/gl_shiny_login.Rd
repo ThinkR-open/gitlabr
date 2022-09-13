@@ -16,7 +16,9 @@ glReactiveLogin(
   api_version = 4,
   success_message = "GitLab login successful!",
   failure_message = "GitLab login failed!",
-  on_error = function(...) {     stop(failure_message) }
+  on_error = function(...) {
+     stop(failure_message)
+ }
 )
 }
 \arguments{

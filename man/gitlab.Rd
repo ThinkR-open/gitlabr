@@ -14,8 +14,12 @@ gitlab(
   page = "all",
   max_page = 10,
   enforce_api_root = TRUE,
-  argname_verb = if (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {    
-    "query" } else {     "body" },
+  argname_verb = if (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {
+    
+    "query"
+ } else {
+     "body"
+ },
   ...
 )
 }
@@ -72,13 +76,15 @@ For instance, the API documentation shows how to create a new project in
 \item \code{default_branch} is an attribute that can be set if wanted
 }
 
-The corresponding use of \code{gitlab()} is:\preformatted{gitlab(
+The corresponding use of \code{gitlab()} is:
+
+\if{html}{\out{<div class="sourceCode">}}\preformatted{gitlab(
   req = "projects",
   verb = httr::POST,
   name = "toto",
   default_branch = "main"
 )
-}
+}\if{html}{\out{</div>}}
 
 Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 you can give it a try.
