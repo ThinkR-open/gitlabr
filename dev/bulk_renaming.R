@@ -23,9 +23,10 @@ tibble(old_name = ls(envir = as.environment("package:gitlabr"))) %>%
 ")) -> replacements
 
 replacements %>%
-  mutate(doc_entry = paste0("#'    \\code{", old_name, "} \\tab is now called \\code{", new_name, "}")) %$%
-  { c("#' Deprecated functions",
-      "#'", 
+  mutate(doc_entry = paste0("#'    \\code{", old_name, "} \\tab is now called \\code{", new_name, "}")) %$% {
+    c(
+      "#' Deprecated functions",
+      "#'",
       "#' Many functions were renamed with version 0.7 to the \\code{gl_} naming scheme.",
       "#' ",
       "#' @param ... Parameters to the new function",
@@ -35,7 +36,9 @@ replacements %>%
       doc_entry,
       "#' }",
       "NULL",
-      "") } -> documentation_header
+      ""
+    )
+  } -> documentation_header
 
 unlink("R/legacy_headers.R")
 replacements %$%

@@ -21,8 +21,8 @@ usethis::use_coverage()
 usethis::use_github_action(url = "https://github.com/DavisVaughan/extrachecks-html5/blob/main/R-CMD-check-HTML5.yaml")
 
 # Check pr ----
-# To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>). 
-# If you make changes, run pr_push() to push them back to GitHub. 
+# To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>).
+# If you make changes, run pr_push() to push them back to GitHub.
 # After you have merged the PR, run pr_finish() to delete the local branch.
 usethis::pr_fetch(24)
 usethis::pr_push()
@@ -35,7 +35,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 pkgdown::build_site()
 
 # Development ----
-attachment::att_amend_desc() #extra.suggests = "glue")
+attachment::att_amend_desc() # extra.suggests = "glue")
 devtools::load_all()
 devtools::test()
 devtools::check() # /!\ Tests are currently skip /!\
@@ -49,8 +49,8 @@ usethis::use_release_issue()
 # remotes::install_github("ropensci-review-tools/autotest")
 # debugonce(autotest:::rm_not_parseable)
 
-local <- utils::fileSnapshot (".", timestamp = tempfile("timestamp"), md5sum = TRUE)
-home <- utils::fileSnapshot ("~", timestamp = tempfile("timestamp"), md5sum = TRUE)
+local <- utils::fileSnapshot(".", timestamp = tempfile("timestamp"), md5sum = TRUE)
+home <- utils::fileSnapshot("~", timestamp = tempfile("timestamp"), md5sum = TRUE)
 
 # run tests or whatever, then ...
 # x <- autotest::autotest_package(test = TRUE)
@@ -65,7 +65,7 @@ rcmdcheck::rcmdcheck(check_dir = dircheck)
 the_dir <- list.files(file.path(dircheck), pattern = ".Rcheck", full.names = TRUE)
 # Same tests, no new files
 all(list.files(file.path(the_dir, "tests", "testthat")) %in%
-      list.files(file.path(".", "tests", "testthat")))
+  list.files(file.path(".", "tests", "testthat")))
 
 devtools::build_vignettes()
 devtools::clean_vignettes()
@@ -147,13 +147,12 @@ library(purrr)
 repos <- gh::gh("/repos/statnmap/gitlabr/stats/contributors")
 map(repos, "author") %>% map("login")
 
-map_chr(repos, ~paste0(
+map_chr(repos, ~ paste0(
   # "[&#x0040;",
   "[",
   pluck(.x, "author", "login"),
   "](",
   pluck(.x, "author", "html_url"),
   ")"
-  )
-) %>% 
+)) %>%
   glue::glue_collapse(sep = ", ", last = " and ")

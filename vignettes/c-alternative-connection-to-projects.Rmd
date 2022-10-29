@@ -26,7 +26,8 @@ The recommended way to set a connection once and for all to a specific GitLab in
 ```{r}
 set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 ```
 
 However, if you are looking for connections to multiple GitLab instances in the same session or would like to set different accounts, you can define connections using `gl_connection()`.  
@@ -37,7 +38,8 @@ Such specialized functions can be created with the function `gl_connection()` an
 
 ```{r eval = FALSE}
 my_gitlab <- gl_connection("https://gitlab.com",
-                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 my_gitlab("projects")
 ```
 
@@ -88,7 +90,7 @@ Using a `gitlab()`, out of the recommended way for connection, requires using th
 gitlab(
   c("projects", "<my-project-id>", "issues"),
   gitlab_con = gl_connection("https://gitlab.com",
-                           private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+    private_token = Sys.getenv("GITLAB_COM_TOKEN")
+  )
 )
 ```
-
