@@ -40,11 +40,11 @@ building:
       - check
     expire_in: 30 days
 
-# To have the coverage percentage appear as a gitlab badge follow these
-# instructions:
-# https://docs.gitlab.com/ee/user/project/pipelines/settings.html#test-coverage-parsing
-# The coverage parsing string is
-# Coverage: \d+\.\d+
+# For gitlab versions below 15.0,
+# in order to have the coverage percentage appear as a gitlab badge,
+# you will need to:
+# - Go to your project Settings > CI/CD
+# - Set the coverage parsing string to: Coverage: \d+\.\d+
 
 coverage:
   stage: test
