@@ -31,11 +31,12 @@ Currently ({gitlabr} >= 1.1.6) GitLab API v4 is supported. Support for GitLab AP
 The core function of the low level interface is `gitlab()`, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
 
 ```{r eval = FALSE}
-gitlab(c("projects", 12, "issues"), 
-       api_root = "https://gitlab.com/api/v4",
-       private_token = "XXX", # authentication for API
-       verb = httr::GET,  # defaults to GET, but POST, PUT, DELETE can be used likewise
-       state = "active") # additional parameters (...) for the query
+gitlab(c("projects", 12, "issues"),
+  api_root = "https://gitlab.com/api/v4",
+  private_token = "XXX", # authentication for API
+  verb = httr::GET, # defaults to GET, but POST, PUT, DELETE can be used likewise
+  state = "active"
+) # additional parameters (...) for the query
 ```
 
 translates to
@@ -49,21 +50,27 @@ This way, any request documented in the [GitLab API documentation](https://docs.
 The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab()`. For example:
 
 ```{r eval = FALSE}
-gl_edit_issue(project = "test-project", 12, description = "Really cool new feature",
-           api_root = "...", private_token = "XXX")
+gl_edit_issue(
+  project = "test-project", 12, description = "Really cool new feature",
+  api_root = "...", private_token = "XXX"
+)
 ```
 
 does nothing but
 
 ```{r eval = FALSE}
-gitlab(c("projects",
-         4,  # numeric id of test-project is found by search
-         "issues",
-         12),
-       description = "Really cool new feature",
-       api_root = "...",
-       private_token = "XXX",
-       verb = httr::PUT)
+gitlab(
+  c(
+    "projects",
+    4, # numeric id of test-project is found by search
+    "issues",
+    12
+  ),
+  description = "Really cool new feature",
+  api_root = "...",
+  private_token = "XXX",
+  verb = httr::PUT
+)
 ```
 
 and hence translates to
@@ -87,9 +94,10 @@ The only requirement to your function is that it executes an R function call to 
 That is, a simple function to block users directly from R is as simple as:
 ```{r}
 gl_block_user <- function(uid, ...) {
-  gitlab(c("users", uid, "block"),  ## for API side documentation see:
-         verb = httr::PUT, ## https://docs.gitlab.com/ce/api/users.html#block-user
-         ...) ## don't forget the dots to make {gitlabr} features fully available
+  gitlab(c("users", uid, "block"), ## for API side documentation see:
+    verb = httr::PUT, ## https://docs.gitlab.com/ce/api/users.html#block-user
+    ...
+  ) ## don't forget the dots to make {gitlabr} features fully available
 }
 ```
 

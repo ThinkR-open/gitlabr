@@ -38,7 +38,7 @@ install.packages("gitlabr")
 
 To install the development version using [devtools](https://cran.r-project.org/package=devtools), type:
 ```{r, eval=FALSE}
-install.packages("statnmap/gitlabr", repos = 'https://thinkr-open.r-universe.dev')
+install.packages("statnmap/gitlabr", repos = "https://thinkr-open.r-universe.dev")
 ```
 
 See the [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
@@ -64,7 +64,8 @@ library(gitlabr)
 # connect as a fixed user to a GitLab instance for the session
 set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 ```
 
 - Find the list of projects available to you
@@ -73,7 +74,7 @@ set_gitlab_connection(
     + For instance, we can set `owned = FALSE` to retrieve all projects except ours.
 ```{r}
 # a tibble is returned, as is always by {gitlabr} functions
-gl_list_projects(max_page = 2, owned = FALSE) 
+gl_list_projects(max_page = 2, owned = FALSE)
 ```
 
 ### Work with a specific project
@@ -82,7 +83,7 @@ gl_list_projects(max_page = 2, owned = FALSE)
   + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on GitLab.com
   
 ```{r}
-my_project <- 20384533 #repo.rtask",
+my_project <- 20384533 # repo.rtask",
 ```
 
 - If the default branch is not named `main`, you need to specify it with `gitlabr_options_set()`
@@ -113,9 +114,11 @@ new_feature_issue <- gl_create_issue(project = my_project, title = "Implement ne
 my_id <- 4809823
 
 # assign issue to me
-gl_assign_issue(project = my_project,
-                issue_id = new_feature_issue$iid,
-                assignee_id = my_id)
+gl_assign_issue(
+  project = my_project,
+  issue_id = new_feature_issue$iid,
+  assignee_id = my_id
+)
 
 # Verify new issue is here
 gl_list_issues(project = my_project, state = "opened")
