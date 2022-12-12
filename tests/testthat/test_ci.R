@@ -2,21 +2,27 @@ ci_path <- tempfile(fileext = ".yml")
 
 test_that("CI yml generation works", {
   
+  # check-coverage
   use_gitlab_ci(path = ci_path, type = "check-coverage-pkgdown")
   
+  # rstudioapi::navigateToFile(ci_path)
   # file.copy(from = ci_path, to = "tests/testthat/gitlab-ci.yml", overwrite = TRUE)
-  
-  # use_gitlab_ci(image = "pointsofinterest/gitlabr:latest",
-  #               path = ci_path,
-  #               push_to_remotes = list(
-  #                 "github" = "https://${GITHUB_USERNAME}:${GITHUB_PASSWORD}@github.com/${REPO.git}",
-  #                 "gitlab_com" = "https://${GITLAB_COM_USERNAME}:${GITLAB_COM_PASSWORD}@gitlab.com/${REPO.git}"))
-  # 
+
   expect_equal(yaml::yaml.load_file(ci_path),
-               yaml::yaml.load_file("gitlab-ci.yml"))
+               yaml::yaml.load_file("gitlab-ci-check-coverage-pkgdown.yml"))
   expect_true(file.exists(file.path(dirname(ci_path), ".Rbuildignore")))
   
-  on.exit(unlink(ci_path))
+  unlink(ci_path)
+  
+  # book --
+  use_gitlab_ci(path = ci_path, type = "bookdown-production")
+  # file.copy(from = ci_path, to = "tests/testthat/gitlab-ci-bookdown-production.yml", overwrite = TRUE)
+  
+  expect_equal(yaml::yaml.load_file(ci_path),
+               yaml::yaml.load_file("gitlab-ci-bookdown-production.yml"))
+  
+  
+  unlink(ci_path)
   
 })
 

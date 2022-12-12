@@ -1,0 +1,131 @@
+image: rocker/verse:latest
+
+variables:
+  GIT_DEPTH: 10
+  REPO_NAME: "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
+  R_LIBS_USER: "ci/lib"
+
+cache:
+  key: global-cache
+  paths:
+      - ${R_LIBS_USER}
+
+stages:
+  - book-create
+  - deploy
+
+book-branch:
+    stage: book-create
+    except:
+        - main
+        - master
+        - production
+        - merge_requests
+    script:
+        - lsb_release -c
+        - R -e "sessionInfo()"
+        - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
+        - echo "Library path for packages :" $R_LIBS_USER
+        - mkdir -p $R_LIBS_USER
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'tinytex::install_tinytex()'
+        - mkdir -p public
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+        
+        
+book-main:
+    stage: book-create
+    only:
+        - master
+        - main
+        - merge_requests
+    script:
+        - echo "Library path for packages :" $R_LIBS
+        - mkdir -p $R_LIBS
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'tinytex::install_tinytex()'
+        - mkdir -p public
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied production artifacts" ||
+          echo "copied production artifacts failed"'
+        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
+        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+book-production:
+    stage: book-create
+    only:
+        - production
+    script:
+        - echo "Library path for packages :" $R_LIBS
+        - mkdir -p $R_LIBS
+        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - >
+          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
+            attachment::att_from_rmds(".", recursive = FALSE)));
+            if (packageVersion("attachment") <= "0.2.2") {
+              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
+              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
+        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'tinytex::install_tinytex()'
+        - mkdir -p public
+        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
+          unzip artifacts.zip &&
+          rm artifacts.zip &&
+          echo "copied $CI_DEFAULT_BRANCH artifacts" ||
+          echo "copied $CI_DEFAULT_BRANCH artifacts failed"'
+        # Clean production directory
+        - Rscript -e 'unlink("public/production", recursive = TRUE)'
+        - mkdir -p public/production
+        # Keep clean to FALSE to retrieve intermediate files in case something fails
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "production/dev")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "production/dev")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/production/_pagedown.html")'
+    artifacts:
+        paths:
+            - public
+        expire_in: 30 days
+
+pages:
+    stage: deploy
+    script:
+        - echo "book deployment"
+    artifacts:
+        paths:
+            - public
+    only:
+        - main
+        - master
+        - production
+

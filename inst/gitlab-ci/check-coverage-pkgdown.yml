@@ -1,4 +1,4 @@
-image: { image }
+image: {image}
 
 variables:
   GIT_DEPTH: 10
