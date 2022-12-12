@@ -24,6 +24,8 @@ stages:
 building:
   stage: build
   script:
+    - lsb_release -c
+    - R -e "sessionInfo()"
     - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
     - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS_USER

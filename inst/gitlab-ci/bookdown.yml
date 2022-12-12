@@ -17,6 +17,8 @@ stages:
 book-main:
     stage: book-create
     script:
+        - lsb_release -c
+        - R -e "sessionInfo()"
         - echo "Library path for packages :" $R_LIBS_USER
         - mkdir -p $R_LIBS_USER
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
