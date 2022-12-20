@@ -33,7 +33,7 @@ To install the development version using
 [devtools](https://cran.r-project.org/package=devtools), type:
 
 ``` r
-install.packages("statnmap/gitlabr", repos = 'https://thinkr-open.r-universe.dev')
+install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
 ```
 
 See the

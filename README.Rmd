@@ -38,7 +38,7 @@ install.packages("gitlabr")
 
 To install the development version using [devtools](https://cran.r-project.org/package=devtools), type:
 ```{r, eval=FALSE}
-install.packages("statnmap/gitlabr", repos = 'https://thinkr-open.r-universe.dev')
+install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
 ```
 
 See the [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
