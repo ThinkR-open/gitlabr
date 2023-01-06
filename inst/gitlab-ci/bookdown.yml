@@ -30,7 +30,7 @@ book-main:
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'tinytex::install_tinytex()'
+        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'

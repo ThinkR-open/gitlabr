@@ -36,7 +36,7 @@ book-branch:
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'tinytex::install_tinytex()'
+        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
@@ -54,8 +54,8 @@ book-main:
         - main
         - merge_requests
     script:
-        - echo "Library path for packages :" $R_LIBS
-        - mkdir -p $R_LIBS
+        - echo "Library path for packages :" $R_LIBS_USER
+        - mkdir -p $R_LIBS_USER
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
         - >
@@ -65,7 +65,7 @@ book-main:
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'tinytex::install_tinytex()'
+        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
         - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
           unzip artifacts.zip &&
@@ -87,8 +87,8 @@ book-production:
     only:
         - production
     script:
-        - echo "Library path for packages :" $R_LIBS
-        - mkdir -p $R_LIBS
+        - echo "Library path for packages :" $R_LIBS_USER
+        - mkdir -p $R_LIBS_USER
         - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
         - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
         - >
@@ -98,7 +98,7 @@ book-production:
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
         - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'tinytex::install_tinytex()'
+        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
         - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
           unzip artifacts.zip &&
