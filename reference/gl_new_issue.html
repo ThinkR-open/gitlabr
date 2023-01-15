@@ -143,7 +143,8 @@ filtering happens by global iid, if false, it happens by projectwide ID. For API
 <span class="r-in"><span><span class="fu">gl_assign_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class="va">new_issue_iid</span>, assignee_id <span class="op">=</span> <span class="st">"&lt;&lt;user-id&gt;&gt;"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co">## unassign it</span></span></span>
 <span class="r-in"><span><span class="fu">gl_unassign_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class="va">new_issue_iid</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co">## Delete issue as if it never existed</span></span></span>
+<span class="r-in"><span><span class="co">## Delete issue as if it never existed </span></span></span>
+<span class="r-in"><span><span class="co">## (please note that you must have "Owner" role on the Gitlab project)</span></span></span>
 <span class="r-in"><span><span class="fu">gl_delete_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class="va">new_issue_iid</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>
 </code></pre></div>
