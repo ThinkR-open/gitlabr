@@ -1,6 +1,6 @@
 Package: gitlabr
 Title: Access to the 'Gitlab' API
-Version: 2.0.1
+Version: 2.0.1.9000
 Authors@R: c(
     person("Jirka", "Lewandowski", , "jirka.lewandowski@wzb.eu", role = "aut"),
     person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = c("aut", "cre"),
@@ -27,6 +27,7 @@ Imports:
     shiny (>= 0.13.0),
     stringr,
     tibble (>= 1.1),
+    tidyr,
     utils
 Suggests:
     knitr,

@@ -1,3 +1,7 @@
+# gitlabr (development)
+
+* `multilist_to_tibble()` transforms a deep structured nested list from an API into a tibble (#86, @statnmap, @ymansiaux)
+
 # gitlabr 2.0.1
 
 New features
