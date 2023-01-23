@@ -27,6 +27,7 @@ Imports:
     shiny (>= 0.13.0),
     stringr,
     tibble (>= 1.1),
+    tidyr,
     utils
 Suggests:
     knitr,
