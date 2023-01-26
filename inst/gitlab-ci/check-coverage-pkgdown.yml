@@ -28,7 +28,7 @@ building:
     - mkdir -p $R_LIBS_USER
     - Rscript -e 'install.packages("remotes")'
     - Rscript -e 'install.packages("rcmdcheck")'
-    - Rscript -e 'remotes::install_local(upgrade = "never")'
+    - Rscript -e 'remotes::install_local(upgrade = "always")'
     - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
   artifacts:
     paths:
