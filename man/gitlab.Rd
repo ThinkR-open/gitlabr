@@ -93,14 +93,16 @@ you can give it a try.
 \dontrun{
 # Connect as a fixed user to a GitLab instance
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 
 # Use a simple request
 gitlab(req = "projects")
 # Use a combined request with extra parameters
-gitlab(req = c("projects", 1234, "issues"),
-       state = "closed")
+gitlab(
+  req = c("projects", 1234, "issues"),
+  state = "closed"
+)
 }
 }
