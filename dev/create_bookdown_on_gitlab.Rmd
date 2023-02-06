@@ -14,6 +14,8 @@ source("dev/testor_tools.R")
 
 # Create a bookdown project on Forge
 
+You will need a environment variable named `"FORGE_THINKR_TOKEN"` with your token.
+
 ## GitLab connection 
 
 ```{r}
@@ -25,16 +27,31 @@ set_gitlab_connection(
 )
 ```
 
-## Create a new empty project 
+## Create a new empty project if it does not exist
 
 ```{r}
 project_name <- "example-bookdown"
-project_info <- gl_new_project(
-  name = project_name, 
-  default_branch = "main",
-  namespace_id = 27, # thinkrverse
-  initialize_with_readme = TRUE
-)
+
+project_url <- gl_list_group_projects(27) %>% # thinkrverse
+  filter(name == project_name) %>% 
+  pull(path_with_namespace)
+
+if (length(project_url) != 0) {
+  
+  message("The project already exists")
+  
+} else {
+  
+  project_info <- gl_new_project(
+    name = project_name,
+    default_branch = "main",
+    namespace_id = 27, # thinkrverse
+    initialize_with_readme = TRUE
+  )
+  
+  project_url <- project_info$path_with_namespace
+  
+}
 ```
 
 ## Clone locally
@@ -47,14 +64,14 @@ project_path <- file.path(tmpdir, project_name)
 
 ## Clone in tmp dir
 clone_locally(
-  project_name = project_info$path, 
-  group_url = "https://gitlab.com/thinkr-open", 
+  project_name = project_url, 
+  group_url = gitlab_forge_url, 
   project_path = project_path,
   open = FALSE
 )
 ```
 
-## Create th bookdown skeleton
+## Create the bookdown skeleton
 
 ```{r}
 ## Create bookdown
@@ -77,21 +94,23 @@ push_to_repo(
 )
 ```
 
-## Delete the project if needed
+## Delete the project
 
 ```{r}
-# project_id <- gl_get_project_id(
-#   project_name = project_name
-# )
-# 
-# gitlab(req = paste0("projects/", project_id),
-#        verb = httr::DELETE)
+project_id <- gl_get_project_id(
+  project_name = project_name
+)
+
+gitlab(req = paste0("projects/", project_id),
+       verb = httr::DELETE)
 
 ## Clean the tmpdir
 unlink(project_path, recursive = TRUE)
 ```
 
 # Create a bookdown project on GitLab
+
+You will need a environment variable named `"GITLAB_COM_TOKEN"` with your token.
 
 ## GitLab connection 
 
@@ -109,12 +128,27 @@ set_gitlab_connection(
 
 ```{r}
 project_name <- "example-bookdown"
-project_info <- gl_new_project(
-  name = project_name, 
-  default_branch = "main",
-  namespace_id = 15567755, # thinkr-open
-  initialize_with_readme = TRUE
-)
+
+project_url <- gl_list_group_projects(15567755) %>% # thinkr-open
+  filter(name == project_name) %>% 
+  pull(path_with_namespace)
+
+if (length(project_url) != 0) {
+  
+  message("The project already exists")
+  
+} else {
+  
+  project_info <- gl_new_project(
+    name = project_name,
+    default_branch = "main",
+    namespace_id = 15567755, # thinkr-open
+    initialize_with_readme = TRUE
+  )
+  
+  project_url <- project_info$path_with_namespace
+  
+}
 ```
 
 ## Clone locally
@@ -160,12 +194,12 @@ push_to_repo(
 ## Delete the project if needed
 
 ```{r}
-# project_id <- gl_get_project_id(
-#   project_name = project_name
-# )
-# 
-# gitlab(req = paste0("projects/", project_id),
-#        verb = httr::DELETE)
+project_id <- gl_get_project_id(
+  project_name = project_name
+)
+
+gitlab(req = paste0("projects/", project_id),
+       verb = httr::DELETE)
 
 ## Clean the tmpdir
 unlink(project_path, recursive = TRUE)
