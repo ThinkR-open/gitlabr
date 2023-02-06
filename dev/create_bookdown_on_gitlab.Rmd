@@ -1,0 +1,172 @@
+---
+title: "Create a bookdown project"
+output: html_document
+date: '2023-02-06'
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+pkgload::load_all()
+
+source("dev/testor_tools.R")
+```
+
+# Create a bookdown project on Forge
+
+## GitLab connection 
+
+```{r}
+gitlab_forge_url <- "https://forge.thinkr.fr"
+
+set_gitlab_connection(
+  gitlab_url = gitlab_forge_url,
+  private_token = Sys.getenv("FORGE_THINKR_TOKEN")
+)
+```
+
+## Create a new empty project 
+
+```{r}
+project_name <- "example-bookdown"
+project_info <- gl_new_project(
+  name = project_name, 
+  default_branch = "main",
+  namespace_id = 27, # thinkrverse
+  initialize_with_readme = TRUE
+)
+```
+
+## Clone locally
+
+```{r}
+## Create tmp dir
+tmpdir <- tempfile(pattern = "book-")
+dir.create(tmpdir)
+project_path <- file.path(tmpdir, project_name)
+
+## Clone in tmp dir
+clone_locally(
+  project_name = project_info$path, 
+  group_url = "https://gitlab.com/thinkr-open", 
+  project_path = project_path,
+  open = FALSE
+)
+```
+
+## Create th bookdown skeleton
+
+```{r}
+## Create bookdown
+bookdown::create_bs4_book(
+  path = project_path
+)
+
+## Try to render bookdown
+bookdown::render_book(
+  input = project_path
+)
+```
+
+## Push to the repo 
+
+```{r}
+push_to_repo(
+  project_path, 
+  message = 'Init bookdown repo'
+)
+```
+
+## Delete the project if needed
+
+```{r}
+# project_id <- gl_get_project_id(
+#   project_name = project_name
+# )
+# 
+# gitlab(req = paste0("projects/", project_id),
+#        verb = httr::DELETE)
+
+## Clean the tmpdir
+unlink(project_path, recursive = TRUE)
+```
+
+# Create a bookdown project on GitLab
+
+## GitLab connection 
+
+```{r}
+gitlab_url <- "https://gitlab.com"
+
+## Set connection
+set_gitlab_connection(
+  gitlab_url = gitlab_url,
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
+```
+
+## Create a new empty project 
+
+```{r}
+project_name <- "example-bookdown"
+project_info <- gl_new_project(
+  name = project_name, 
+  default_branch = "main",
+  namespace_id = 15567755, # thinkr-open
+  initialize_with_readme = TRUE
+)
+```
+
+## Clone locally
+
+```{r}
+## Create tmp dir
+tmpdir <- tempfile(pattern = "book-")
+dir.create(tmpdir)
+project_path <- file.path(tmpdir, project_name)
+
+## Clone in tmp dir
+clone_locally(
+  project_name = project_info$path, 
+  group_url = "https://gitlab.com/thinkr-open", 
+  project_path = project_path,
+  open = FALSE
+)
+```
+
+## Create th bookdown skeleton
+
+```{r}
+## Create bookdown
+bookdown::create_bs4_book(
+  path = project_path
+)
+
+## Try to render bookdown
+bookdown::render_book(
+  input = project_path
+)
+```
+
+## Push to the repo 
+
+```{r}
+push_to_repo(
+  project_path, 
+  message = 'Init bookdown repo'
+)
+```
+
+## Delete the project if needed
+
+```{r}
+# project_id <- gl_get_project_id(
+#   project_name = project_name
+# )
+# 
+# gitlab(req = paste0("projects/", project_id),
+#        verb = httr::DELETE)
+
+## Clean the tmpdir
+unlink(project_path, recursive = TRUE)
+```
