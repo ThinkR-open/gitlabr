@@ -5,6 +5,7 @@ usethis::use_git_ignore("dev/environment.yml")
 usethis::use_git_ignore("README_cache/")
 usethis::use_build_ignore("README_cache/")
 usethis::use_git_ignore("cran-comments.md")
+usethis::use_git_ignore("pkgdown/")
 
 # Doc
 usethis::use_vignette("projects")
