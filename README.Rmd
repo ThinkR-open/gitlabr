@@ -20,11 +20,11 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
-[![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
-[![Codecov test coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/statnmap/gitlabr?branch=main)
+[![codecov](https://app.codecov.io/gh/ThinkR-open/gitlabr/branch/main/graph/badge.svg?token=EVRTX5LST9)](https://app.codecov.io/gh/ThinkR-open/gitlabr)
+[![R-CMD-check](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html**
+**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html**
 
 _Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
 
@@ -41,7 +41,7 @@ To install the development version using [devtools](https://cran.r-project.org/p
 install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
 ```
 
-See the [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
+See the [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
 
 ## Recommended GitLab versions
 
@@ -174,9 +174,9 @@ cat(paste("-", list.files("inst/gitlab-ci/"), collapse = "\n\n"))
 
 # Contributing to {gitlabr}
 
-You're welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md) compiles some information helpful in that process.
+You're welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md) compiles some information helpful in that process.
 
 
 ## Code of Conduct
 
-Please note that the gitlabr project is released with a [Contributor Code of Conduct](https://statnmap.github.io/gitlabr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+Please note that the gitlabr project is released with a [Contributor Code of Conduct](https://thinkr-open.github.io/gitlabr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.

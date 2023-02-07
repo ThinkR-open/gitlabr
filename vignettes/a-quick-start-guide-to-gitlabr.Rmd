@@ -72,7 +72,7 @@ gl_close_issue(issue_id = new_feature_issue$iid,
 # Central features of {gitlabr}
 
 - {gitlabr} provides a high and a low level interface to the GitLab API at the same time:
-    - Common queries are wrapped in special convenience functions that can be used without any knowledge of the GitLab API itself (convenience functions are listed in a dedicated section on {gitlabr}'s pkgdown [site](https://statnmap.github.io/gitlabr/reference/index.html)).
+    - Common queries are wrapped in special convenience functions that can be used without any knowledge of the GitLab API itself (convenience functions are listed in a dedicated section on {gitlabr}'s pkgdown [site](https://thinkr-open.github.io/gitlabr/reference/index.html)).
     - Still, the package can be used to access the complete GitLab API -- learn how to use its full power in the section ["API calls"](#api-calls). 
 - The output of every call to a {gitlabr} function is a `tibble` to integrate seamless into dplyr's data manipulation mindset (often called the "tidyverse")
 - Pagination is wrapped for the user, but can be controlled via parameters `page` and `per_page` if necessary.

@@ -1,3 +1,3 @@
 # testor
 
-Test project for {gitlabr} package: https://github.com/statnmap/gitlabr
+Test project for {gitlabr} package: https://github.com/ThinkR-open/gitlabr

@@ -75,7 +75,7 @@ for (test_project_name in projects_names) {
   content_md <- paste("
 # testor
 
-Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
+Repository to test R package [{gitlabr}](https://github.com/ThinkR-open/gitlabr)
 ")
   
   gl_push_file(

@@ -1,5 +1,11 @@
 # gitlabr (development)
 
+## Breaking changes
+
+* Transfer ownership of the project to ThinkR-open
+
+## Minor changes
+
 * `multilist_to_tibble()` transforms a deep structured nested list from an API into a tibble (#86, @statnmap, @ymansiaux)
 
 # gitlabr 2.0.1

@@ -14,7 +14,7 @@ roxygen2md::roxygen2md()
 usethis::use_code_of_conduct()
 
 # Add CI
-usethis::use_github_action_check_standard()
+usethis::use_github_action("check-standard")
 usethis::use_github_action("pkgdown")
 usethis::use_github_action("test-coverage")
 usethis::use_coverage()
@@ -49,31 +49,7 @@ usethis::use_release_issue()
 # remotes::install_github("ropensci-review-tools/autotest")
 # debugonce(autotest:::rm_not_parseable)
 
-local <- utils::fileSnapshot (".", timestamp = tempfile("timestamp"), md5sum = TRUE)
-home <- utils::fileSnapshot ("~", timestamp = tempfile("timestamp"), md5sum = TRUE)
 
-# run tests or whatever, then ...
-# x <- autotest::autotest_package(test = TRUE)
-devtools::test()
-devtools::run_examples()
-# vignettes
-dircheck <- tempfile("check")
-dir.create(dircheck)
-rcmdcheck::rcmdcheck(check_dir = dircheck)
-# browseURL(dircheck)
-
-the_dir <- list.files(file.path(dircheck), pattern = ".Rcheck", full.names = TRUE)
-# Same tests, no new files
-all(list.files(file.path(the_dir, "tests", "testthat")) %in%
-      list.files(file.path(".", "tests", "testthat")))
-
-devtools::build_vignettes()
-devtools::clean_vignettes()
-
-utils::changedFiles(local, md5sum = TRUE)
-utils::changedFiles(home, md5sum = TRUE)
-
-DT::datatable(x)
 
 # Check package as CRAN
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
@@ -82,6 +58,10 @@ rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
 # install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')
 tags <- checkhelper::find_missing_tags()
 View(tags)
+# Check that the state is clean after check
+all_files <- checkhelper::check_clean_userspace()
+all_files
+checkhelper::check_as_cran()
 
 # Check spelling
 # usethis::use_spell_check()
@@ -144,7 +124,7 @@ devtools::release()
 
 # Thanks for article
 library(purrr)
-repos <- gh::gh("/repos/statnmap/gitlabr/stats/contributors")
+repos <- gh::gh("/repos/ThinkR-open/gitlabr/stats/contributors")
 map(repos, "author") %>% map("login")
 
 map_chr(repos, ~paste0(

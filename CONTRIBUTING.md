@@ -45,7 +45,7 @@ Note that <https://gitlab.com/statnmap/testor.main> was created following these 
 ```md
 # testor
 
-Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
+Repository to test R package [{gitlabr}](https://github.com/ThinkR-open/gitlabr)
 ```
 
 8. Go to Repository > Branches and create a branch named "for-tests".

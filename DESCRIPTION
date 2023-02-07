@@ -13,8 +13,9 @@ Description: Provides R functions to access the API of the project and
     used by specifying request locations. 'GitLab' is open-source software
     and can be self-hosted or used on <https://about.gitlab.com>.
 License: GPL (>= 3)
-URL: https://statnmap.github.io/gitlabr/
-BugReports: https://github.com/statnmap/gitlabr/issues
+URL: https://thinkr-open.github.io/gitlabr/,
+    https://github.com/ThinkR-open/gitlabr
+BugReports: https://github.com/ThinkR-open/gitlabr/issues
 Depends:
     R (>= 3.1.2)
 Imports:
@@ -36,8 +37,9 @@ Suggests:
     yaml
 VignetteBuilder: 
     knitr
+Config/Needs/website: ThinkR-open/thinkrtemplate
 Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.1
+RoxygenNote: 7.2.2

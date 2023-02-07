@@ -13,8 +13,9 @@ Provides R functions to access the API of the project and repository management 
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://statnmap.github.io/gitlabr/}
-  \item Report bugs at \url{https://github.com/statnmap/gitlabr/issues}
+  \item \url{https://thinkr-open.github.io/gitlabr/}
+  \item \url{https://github.com/ThinkR-open/gitlabr}
+  \item Report bugs at \url{https://github.com/ThinkR-open/gitlabr/issues}
 }
 
 }
