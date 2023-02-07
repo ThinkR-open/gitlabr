@@ -23,7 +23,7 @@ You can use this code to create all your new projects with a specific template.
 For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. 
 This will make sure all collaborators know how to find issues and how to interact with you.
 
-Given you have a [GitLab.com](https://about.gitlab.com/) account, this code can also be run to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)).
+Given you have a [GitLab.com](https://about.gitlab.com/) account, this code can also be run to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md)).
 
 
 # Set up GitLab connection

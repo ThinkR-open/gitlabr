@@ -7,14 +7,13 @@
 
 [![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
-[![R-CMD-check](https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg)](https://github.com/statnmap/gitlabr/actions)
-[![Codecov test
-coverage](https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg)](https://app.codecov.io/gh/statnmap/gitlabr?branch=main)
+[![codecov](https://app.codecov.io/gh/ThinkR-open/gitlabr/branch/main/graph/badge.svg?token=EVRTX5LST9)](https://app.codecov.io/gh/ThinkR-open/gitlabr)
+[![R-CMD-check](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 **There are multiple breaking changes in {gitlabr} v2, please refer to
 the corresponding vignette:
-<https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html>**
+<https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html>**
 
 *Note that the {gitlabr} package was originally created by [Jirka
 Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present
@@ -37,7 +36,7 @@ install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
 ```
 
 See the
-[CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md)
 for instructions on how to run tests locally and contributor
 information.
 
@@ -51,12 +50,12 @@ version 2.0.0 or higher. This {gitlabr} version uses the GitLab API v4.
 R code using {gitlabr} to perform some common GitLab actions can look
 like this
 
--   Create a TOKEN on your GitLab instance with scopes: `api`
-    -   For instance on gitlab.com:
-        `https://gitlab.com/-/profile/personal_access_tokens`
--   Store your token in .Renviron as `GITLAB_COM_TOKEN` with
-    `usethis::edit_r_environ()` and restart your session
--   Set a connection to GitLab instance
+- Create a TOKEN on your GitLab instance with scopes: `api`
+  - For instance on gitlab.com:
+    `https://gitlab.com/-/profile/personal_access_tokens`
+- Store your token in .Renviron as `GITLAB_COM_TOKEN` with
+  `usethis::edit_r_environ()` and restart your session
+- Set a connection to GitLab instance
 
 ``` r
 library(gitlabr)
@@ -70,14 +69,13 @@ set_gitlab_connection(
   private_token = Sys.getenv("GITLAB_COM_TOKEN"))
 ```
 
--   Find the list of projects available to you
-    -   Define a limit of pages of projects to search in with
-        `max_page`, otherwise the entire GitLab.com will be downloaded
-        here…
-    -   Find all parameters available in the API for projects on this
-        page: <https://docs.gitlab.com/ee/api/projects.html>
-        -   For instance, we can set `owned = FALSE` to retrieve all
-            projects except ours.
+- Find the list of projects available to you
+  - Define a limit of pages of projects to search in with `max_page`,
+    otherwise the entire GitLab.com will be downloaded here…
+  - Find all parameters available in the API for projects on this page:
+    <https://docs.gitlab.com/ee/api/projects.html>
+    - For instance, we can set `owned = FALSE` to retrieve all projects
+      except ours.
 
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
@@ -106,25 +104,25 @@ gl_list_projects(max_page = 2, owned = FALSE)
 
 ### Work with a specific project
 
--   Explore one of your projects. You can set the name of the project or
-    its ID. The ID is highly recommended, in particular if your project
-    does not appear in the first pages of projects above.
-    -   Let’s explore [project
-        “repo.rtask”](https://gitlab.com/statnmap/repo.rtask), with
-        `ID = 20384533` on GitLab.com
+- Explore one of your projects. You can set the name of the project or
+  its ID. The ID is highly recommended, in particular if your project
+  does not appear in the first pages of projects above.
+  - Let’s explore [project
+    “repo.rtask”](https://gitlab.com/statnmap/repo.rtask), with
+    `ID = 20384533` on GitLab.com
 
 ``` r
 my_project <- 20384533 #repo.rtask",
 ```
 
--   If the default branch is not named `main`, you need to specify it
-    with `gitlabr_options_set()`
+- If the default branch is not named `main`, you need to specify it with
+  `gitlabr_options_set()`
 
 ``` r
 gitlabr_options_set("gitlabr.main", "master")
 ```
 
--   List files of the project using `gl_list_files()`
+- List files of the project using `gl_list_files()`
 
 ``` r
 gl_list_files(project = my_project)
@@ -135,7 +133,7 @@ gl_list_files(project = my_project)
 #> 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644
 ```
 
--   List issues with `gl_list_issues()`
+- List issues with `gl_list_issues()`
 
 ``` r
 gl_list_issues(project = my_project)
@@ -153,7 +151,7 @@ gl_list_issues(project = my_project)
 #> #   task_completion_status.completed_count <chr>, …
 ```
 
--   Create an issue
+- Create an issue
 
 ``` r
 # create a new issue
@@ -187,11 +185,11 @@ If an API request is not already available in {gitlabr}, function
 For instance, the API documentation shows how to create a new project in
 <https://docs.gitlab.com/ce/api/projects.html#create-project>:
 
--   The verb is `POST`
--   The request is `projects`
--   Required attributes are `name` or `path` (if `name` not set)
--   `default_branch` is an attribute that can be set if wanted, but not
-    required
+- The verb is `POST`
+- The request is `projects`
+- Required attributes are `name` or `path` (if `name` not set)
+- `default_branch` is an attribute that can be set if wanted, but not
+  required
 
 The corresponding use of `gitlab()` is:
 
@@ -221,33 +219,31 @@ and your CI should be ready to start in the next commit.
 
 There are pre-defined templates:
 
--   bookdown-production.yml
+- bookdown-production.yml
 
--   bookdown.yml
+- bookdown.yml
 
--   check-coverage-pkgdown-renv.yml
+- check-coverage-pkgdown-renv.yml
 
--   check-coverage-pkgdown.yml
+- check-coverage-pkgdown.yml
 
 ## Further information
 
--   For an introduction see the
-    `vignette("quick-start-guide-to-gitlabr")`
--   When writing custom extensions (“convenience functions”) for
-    {gitlabr} or when you experience any trouble, the very extensive
-    [GitLab API documentation](https://docs.gitlab.com/ce/api/) can be
-    helpful.
+- For an introduction see the `vignette("quick-start-guide-to-gitlabr")`
+- When writing custom extensions (“convenience functions”) for {gitlabr}
+  or when you experience any trouble, the very extensive [GitLab API
+  documentation](https://docs.gitlab.com/ce/api/) can be helpful.
 
 # Contributing to {gitlabr}
 
 You’re welcome to contribute to {gitlabr} by editing the source code,
 adding more convenience functions, filing issues, etc.
-[CONTRIBUTING.md](https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md)
+[CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md)
 compiles some information helpful in that process.
 
 ## Code of Conduct
 
 Please note that the gitlabr project is released with a [Contributor
 Code of
-Conduct](https://statnmap.github.io/gitlabr/CODE_OF_CONDUCT.html). By
+Conduct](https://thinkr-open.github.io/gitlabr/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
