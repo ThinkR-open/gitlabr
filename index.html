@@ -24,7 +24,7 @@
     convenience wrappers are provided, and in addition the full API can be
     used by specifying request locations. GitLab is open-source software
     and can be self-hosted or used on &lt;https://about.gitlab.com&gt;.">
-<meta property="og:image" content="https://statnmap.github.io/gitlabr/logo.png">
+<meta property="og:image" content="https://thinkr-open.github.io/gitlabr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -45,7 +45,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
       </span>
     </div>
 
@@ -84,7 +84,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/statnmap/gitlabr/" class="external-link">
+  <a href="https://github.com/ThinkR-open/gitlabr/" class="external-link">
     <span class="fab fa-github fa-lg"></span>
      
   </a>
@@ -106,7 +106,8 @@
 <div class="page-header"><h1 id="gitlabr-">{gitlabr} <img src="reference/figures/logo.png" align="right" alt="" width="120"><a class="anchor" aria-label="anchor" href="#gitlabr-"></a>
 </h1></div>
 <!-- badges: start -->
-<p><strong>There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: <a href="https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html" class="uri">https://statnmap.github.io/gitlabr/articles/z-gitlabr-v2.html</a></strong></p>
+
+<p><strong>There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: <a href="https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html" class="uri">https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html</a></strong></p>
 <p><em>Note that the {gitlabr} package was originally created by <a href="https://github.com/jirkalewandowski/gitlabr" class="external-link">Jirka Lewandowski</a>. The present repository is a fork to be able to continue development of this package.</em></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
@@ -117,7 +118,7 @@
 <p>To install the development version using <a href="https://cran.r-project.org/package=devtools" class="external-link">devtools</a>, type:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"gitlabr"</span>, repos <span class="op">=</span> <span class="st">'https://thinkr-open.r-universe.dev'</span><span class="op">)</span></span></code></pre></div>
-<p>See the <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
+<p>See the <a href="https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> for instructions on how to run tests locally and contributor information.</p>
 </div>
 <div class="section level2">
 <h2 id="recommended-gitlab-versions">Recommended GitLab versions<a class="anchor" aria-label="anchor" href="#recommended-gitlab-versions"></a>
@@ -129,14 +130,17 @@
 </h2>
 <p>R code using {gitlabr} to perform some common GitLab actions can look like this</p>
 <ul>
-<li>Create a TOKEN on your GitLab instance with scopes: <code>api</code><ul><li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
-</li></ul>
+<li>Create a TOKEN on your GitLab instance with scopes: <code>api</code>
+<ul>
+<li>For instance on gitlab.com: <code>https://gitlab.com/-/profile/personal_access_tokens</code>
+</li>
+</ul>
 </li>
 <li>Store your token in .Renviron as <code>GITLAB_COM_TOKEN</code> with <code>usethis::edit_r_environ()</code> and restart your session</li>
 <li>Set a connection to GitLab instance</li>
 </ul>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://statnmap.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thinkr-open.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># You can verify your token works</span></span>
 <span><span class="co"># Sys.getenv("GITLAB_COM_TOKEN")</span></span>
@@ -145,12 +149,18 @@
 <span><span class="fu"><a href="reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
 <span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span>
 <span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<ul><li>Find the list of projects available to you<ul>
+<ul>
+<li>Find the list of projects available to you
+<ul>
 <li>Define a limit of pages of projects to search in with <code>max_page</code>, otherwise the entire GitLab.com will be downloaded here…</li>
-<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a><ul><li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li></ul>
+<li>Find all parameters available in the API for projects on this page: <a href="https://docs.gitlab.com/ee/api/projects.html" class="external-link uri">https://docs.gitlab.com/ee/api/projects.html</a>
+<ul>
+<li>For instance, we can set <code>owned = FALSE</code> to retrieve all projects except ours.</li>
+</ul>
 </li>
 </ul>
-</li></ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># a tibble is returned, as is always by {gitlabr} functions</span></span>
 <span><span class="fu"><a href="reference/gl_list_projects.html">gl_list_projects</a></span><span class="op">(</span>max_page <span class="op">=</span> <span class="fl">2</span>, owned <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span>
@@ -177,16 +187,25 @@
 <div class="section level3">
 <h3 id="work-with-a-specific-project">Work with a specific project<a class="anchor" aria-label="anchor" href="#work-with-a-specific-project"></a>
 </h3>
-<ul><li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.<ul><li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li></ul>
-</li></ul>
+<ul>
+<li>Explore one of your projects. You can set the name of the project or its ID. The ID is highly recommended, in particular if your project does not appear in the first pages of projects above.
+<ul>
+<li>Let’s explore <a href="https://gitlab.com/statnmap/repo.rtask" class="external-link">project “repo.rtask”</a>, with <code>ID = 20384533</code> on GitLab.com</li>
+</ul>
+</li>
+</ul>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_project</span> <span class="op">&lt;-</span> <span class="fl">20384533</span> <span class="co">#repo.rtask",</span></span></code></pre></div>
-<ul><li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
-</li></ul>
+<ul>
+<li>If the default branch is not named <code>main</code>, you need to specify it with <code><a href="reference/gitlabr_options_set.html">gitlabr_options_set()</a></code>
+</li>
+</ul>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gitlabr_options_set.html">gitlabr_options_set</a></span><span class="op">(</span><span class="st">"gitlabr.main"</span>, <span class="st">"master"</span><span class="op">)</span></span></code></pre></div>
-<ul><li>List files of the project using <code><a href="reference/gl_repository.html">gl_list_files()</a></code>
-</li></ul>
+<ul>
+<li>List files of the project using <code><a href="reference/gl_repository.html">gl_list_files()</a></code>
+</li>
+</ul>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gl_repository.html">gl_list_files</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 5</span></span>
@@ -194,8 +213,10 @@
 <span><span class="co">#&gt;   &lt;chr&gt;                                    &lt;chr&gt;       &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt; </span></span>
 <span><span class="co">#&gt; 1 9c66eff9a1f6f34b6d9108ef07d76f8ce4c4e47f NEWS.md     blob  NEWS.md     100644</span></span>
 <span><span class="co">#&gt; 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644</span></span></code></pre></div>
-<ul><li>List issues with <code><a href="reference/gl_list_issues.html">gl_list_issues()</a></code>
-</li></ul>
+<ul>
+<li>List issues with <code><a href="reference/gl_list_issues.html">gl_list_issues()</a></code>
+</li>
+</ul>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="reference/gl_list_issues.html">gl_list_issues</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 2 × 35</span></span>
@@ -210,7 +231,9 @@
 <span><span class="co">#&gt; #   web_url &lt;chr&gt;, time_stats.time_estimate &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   time_stats.total_time_spent &lt;chr&gt;, task_completion_status.count &lt;chr&gt;,</span></span>
 <span><span class="co">#&gt; #   task_completion_status.completed_count &lt;chr&gt;, …</span></span></code></pre></div>
-<ul><li>Create an issue</li></ul>
+<ul>
+<li>Create an issue</li>
+</ul>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># create a new issue</span></span>
 <span><span class="va">new_feature_issue</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gl_new_issue.html">gl_create_issue</a></span><span class="op">(</span>project <span class="op">=</span> <span class="va">my_project</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span><span class="op">)</span></span>
@@ -286,11 +309,11 @@
 <div class="section level1">
 <h1 id="contributing-to-gitlabr">Contributing to {gitlabr}<a class="anchor" aria-label="anchor" href="#contributing-to-gitlabr"></a>
 </h1>
-<p>You’re welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. <a href="https://github.com/statnmap/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> compiles some information helpful in that process.</p>
+<p>You’re welcome to contribute to {gitlabr} by editing the source code, adding more convenience functions, filing issues, etc. <a href="https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md" class="external-link">CONTRIBUTING.md</a> compiles some information helpful in that process.</p>
 <div class="section level2">
 <h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
 </h2>
-<p>Please note that the gitlabr project is released with a <a href="https://statnmap.github.io/gitlabr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
+<p>Please note that the gitlabr project is released with a <a href="https://thinkr-open.github.io/gitlabr/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
 
@@ -301,15 +324,16 @@
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
 <li><a href="https://cloud.r-project.org/package=gitlabr" class="external-link">View on CRAN</a></li>
-<li><a href="https://github.com/statnmap/gitlabr/" class="external-link">Browse source code</a></li>
-<li><a href="https://github.com/statnmap/gitlabr/issues" class="external-link">Report a bug</a></li>
+<li><a href="https://github.com/ThinkR-open/gitlabr/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/ThinkR-open/gitlabr/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
 <div class="license">
 <h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
-<li>GPL (&gt;= 3)</li>
+<li><a href="LICENSE.html">Full license</a></li>
+<li><small>GPL (&gt;= 3)</small></li>
 </ul>
 </div>
 
@@ -340,8 +364,8 @@
 <h2 data-toc-skip>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://cran.r-project.org/package=gitlabr" class="external-link"><img src="https://www.r-pkg.org/badges/version/gitlabr" alt="CRAN_Status_Badge"></a></li>
-<li><a href="https://github.com/statnmap/gitlabr/actions" class="external-link"><img src="https://github.com/statnmap/gitlabr/workflows/R-CMD-check/badge.svg" alt="R-CMD-check"></a></li>
-<li><a href="https://app.codecov.io/gh/statnmap/gitlabr?branch=main" class="external-link"><img src="https://codecov.io/gh/statnmap/gitlabr/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://app.codecov.io/gh/ThinkR-open/gitlabr" class="external-link"><img src="https://app.codecov.io/gh/ThinkR-open/gitlabr/branch/main/graph/badge.svg?token=EVRTX5LST9" alt="codecov"></a></li>
+<li><a href="https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
 </ul>
 </div>
 
