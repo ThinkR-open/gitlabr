@@ -265,3 +265,36 @@ gl_delete_project <- function(project) {
   gitlab(req = c("projects", to_project_id(project)),
          verb = httr::DELETE)
 }
+
+#' @param group_id id of the group to list subgroups from
+#' @export
+#' @rdname gl_list_subgroups
+gl_list_group_subgroups <- function(group_id, ...) {
+  gitlab(c("groups", group_id, "subgroups"), ...)
+}
+
+#' Manage projects
+#' @param name of the new subgroup. The name of the new subgroup
+#' @param visibility of the new subgroup. "public", "private"...
+#' @param group_id id of the group to create subgroups into
+#' @param ... passed on to [gitlab()] API call for "Create project"
+#' @export
+#' @return A tibble with the subgroup information.
+gl_new_subgroup <- function(name,
+                            visibility,
+                            group_id,
+                            ...) {
+
+  
+    gitlab(req = "groups",
+           name = name,
+           visibility = visibility,
+           parent_id = group_id,
+           verb = httr::POST,
+           ...)
+  
+}
+
+
+
+
