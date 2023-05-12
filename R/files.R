@@ -140,6 +140,7 @@ gl_push_file <- function(project,
 }
 
 #' @rdname onefile
+#' @export
 gl_delete_file <- function(project,
                          file_path,
                          commit_message,

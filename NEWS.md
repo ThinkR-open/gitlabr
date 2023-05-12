@@ -1,4 +1,4 @@
-# gitlabr (development)
+# gitlabr 2.0.2
 
 ## Breaking changes
 
