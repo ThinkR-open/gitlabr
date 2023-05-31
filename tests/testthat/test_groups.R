@@ -3,12 +3,24 @@ test_that("gl_list_groups works", {
   group_list <- gl_list_groups()
   expect_gte(nrow(group_list), 0)
   expect_true(all(c("id", "name", "path") %in% names(group_list)))
+  
+  if (test_group_name == "thinkr-open") {
+    expect_true("thinkr-open" %in% group_list[["name"]])
+  }
 })
 
 test_that("gl_list_sub_groups works", {
   subgroup_list <- gl_list_sub_groups(test_group_id)
-  expect_equal(nrow(subgroup_list), 1)
-  expect_true(all(c("id", "name", "path") %in% names(subgroup_list)))
+  
+  if (nrow(subgroup_list) >= 1) {
+    # Only work if user is member of the group with a subgroup
+    # expect_gte(nrow(subgroup_list), 1)
+    expect_true(all(c("id", "name", "path") %in% names(subgroup_list)))
+    
+    if (test_group_name == "thinkr-open") {
+      expect_true("dontdelete.subgroup.for.gitlabr" %in% subgroup_list[["name"]])
+    }
+  }
 })
 
 # Dont test to avoid GitLab rejection. 

@@ -7,18 +7,25 @@
 \usage{
 gl_list_groups(...)
 
-gl_list_sub_groups(group_id, ...)
+gl_list_sub_groups(group, ...)
 }
 \arguments{
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 
-\item{group_id}{id of the group to list group from}
+\item{group}{The ID or URL-encoded path of the group}
 }
 \value{
 tibble of each group with corresponding information
 }
 \description{
 List groups information
+}
+\details{
+When using \code{gl_list_sub_groups()}, if you request this list as:
+\itemize{
+\item An unauthenticated user, the response returns only public groups.
+\item An authenticated user, the response returns only the groups you’re a member of and does not include public groups.
+}
 }
 \examples{
 \dontrun{

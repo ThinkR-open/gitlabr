@@ -36,7 +36,7 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 pkgdown::build_site()
 
 # Development ----
-attachment::att_amend_desc() #extra.suggests = "glue")
+attachment::att_amend_desc(update.config = TRUE) #extra.suggests = "glue")
 devtools::load_all()
 devtools::test()
 devtools::check() # /!\ Tests are currently skip if no token in "dev/environment.yml"/!\

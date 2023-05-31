@@ -4,13 +4,18 @@
 #' @export
 #' @return tibble of each group with corresponding information
 #' 
+#' @details
+#' When using `gl_list_sub_groups()`, if you request this list as:
+#' - An unauthenticated user, the response returns only public groups.
+#' - An authenticated user, the response returns only the groups you’re a member of and does not include public groups.
+#' 
 #' @examples \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com", 
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
 #' # List all groups
-#' gl_get_groups(max_page = 1)
+#' gl_list_groups(max_page = 1)
 #' # List sub-groups of a group
 #' gl_list_sub_groups(group_id = "<<group-id>>", max_page = 1)
 #' }
@@ -18,11 +23,11 @@ gl_list_groups <- function(...) {
   gitlabr::gitlab("groups", ...)
 }
 
-#' @param group_id id of the group to list group from
+#' @param group The ID or URL-encoded path of the group
 #' @export
 #' @rdname gl_list_groups
-gl_list_sub_groups <- function(group_id, ...) {
-  gitlab(c("groups", group_id, "subgroups"), ...)
+gl_list_sub_groups <- function(group, ...) {
+  gitlab(c("groups", to_group_id(group), "subgroups"), ...)
 }
 
 #' Create a group specific request

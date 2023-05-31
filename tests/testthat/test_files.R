@@ -119,7 +119,7 @@ test_that("Repo access works", {
     branch = "for-tests"
   )
   list_files <- gl_list_files(project = test_project, path = "test-folder", ref = "for-tests")
-  expect_true(!"test-folder/dataset.csv" %in% list_files[["path"]])
+  expect_false("test-folder/dataset.csv" %in% list_files[["path"]])
   
   ## old API
   expect_warning(repository(project = test_project), regexp = "deprecated")

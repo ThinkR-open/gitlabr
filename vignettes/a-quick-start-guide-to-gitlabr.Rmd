@@ -37,10 +37,11 @@ Sys.getenv("GITLAB_COM_TOKEN")
 
 # connect as a fixed user to a GitLab instance
 set_gitlab_connection(
-  gitlab_url = "https://about.gitlab.com/",
+  gitlab_url = "https://gitlab.com/",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 
+gl_list_groups(page = 1) # Returns all groups you have access to
 gl_list_projects(page = 1)  # Returns all projects on GitLab, so we limit to just the first page of results.
 
 # It's unlikely that you'll want to use {gitlabr} to interact with all the projects on GitLab, so a better approach is to define the project you want to work on. This is done by finding the the project ID on GitLab.com (it is listed right below the project name on the repo front page).
