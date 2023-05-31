@@ -149,6 +149,14 @@ print(purrr::transpose(all_outputs))
 # Also, only content of sub-list "local.env" is required
 
 # Create extra projects just to be sure there is something to test ----
+# This is to get some R styled projects so that we can test GitLab CI
+
+# Set connection
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLABR_TEST_TOKEN")
+)
+
 source(here::here("dev/testor_tools.R"))
 
 gitlabr_options_set("gitlabr.main", "main")
