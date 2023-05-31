@@ -89,7 +89,14 @@ gl_proj_req <- function(project, req, ...) {
 #' }
 gl_get_project_id <- function(project_name, ...) {
   
-  matching <- gitlab(req = "projects", ...) %>%
+  if (is.null(list(...)$simple)) {
+    req <- gitlab(req = "projects", ..., simple = TRUE)
+  } else {
+    req <- gitlab(req = "projects", ...)
+  }
+  
+  
+  matching <- req %>%
     mutate(matches_name = name == project_name,
            matches_path = path == project_name,
            matches_path_with_namespace = path_with_namespace == project_name) %>%
@@ -264,4 +271,36 @@ gl_delete_project <- function(project) {
   
   gitlab(req = c("projects", to_project_id(project)),
          verb = httr::DELETE)
+}
+
+#' List members of a specific project
+#' @param project The ID or URL-encoded path of the project.
+#' @param ... passed on to [gitlab()] API call for "project"
+#' 
+#' @export
+#' @examples \dontrun{
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_list_project_members(project = "<<your-project-id>>")
+#' }
+gl_list_project_members <- function(project, ...) {
+  gitlab(req = c("projects", to_project_id(project), "members"))
+}
+
+#' List members of a specific group
+#' @param group The ID or URL-encoded path of the group
+#' @param ... passed on to [gitlab()] API call for "groups"
+#'
+#' @export
+#' @examples \dontrun{
+#' set_gitlab_connection(
+#'   gitlab_url = "https://gitlab.com", 
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#' gl_list_group_members(group = "<<your-group-id>>")
+#' }
+gl_list_group_members <- function(group, ...) {
+  gitlab(req = c("groups", group, "members"))
 }

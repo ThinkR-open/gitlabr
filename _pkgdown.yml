@@ -40,6 +40,8 @@ reference:
     - gl_reopen_issue
     - gl_repository
     - gl_unassign_issue
+    - gl_list_group_members
+    - gl_list_project_members
   - title: Set global options
     desc: >
       Define connection to an instance of GitLab
