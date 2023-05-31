@@ -82,7 +82,13 @@
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_get_project_id.html</loc>
   </url>
   <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_group_members.html</loc>
+  </url>
+  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_issues.html</loc>
+  </url>
+  <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_project_members.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_projects.html</loc>
