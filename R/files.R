@@ -18,8 +18,6 @@
 #' gl_repository(project = <<your-project-id>>)
 #' # _All contributors
 #' gl_repository(project = <<your-project-id>>, "contributors")
-#' # _List files
-#' gl_list_files(project = <<your-project-id>>)
 #' # _Get content of one file
 #' gl_get_file(project = <<your-project-id>>, file_path = "README.md")
 #' # _Test if file exists
@@ -29,11 +27,25 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
   gitlab(gl_proj_req(project, c("repository", req), ...), ref = ref, ...)
 }
 
-#' @rdname gl_repository
+
+#' List of files in a folder
+#' 
+#' @param project name or id of project (not repository!)
+#' @param path path of the folder
+#' @param ref name of ref (commit branch or tag) 
+#' @param ... passed on to [gitlab()] API call
 #' @importFrom purrr partial
 #' @export
-gl_list_files <- function(project, ref = get_main(), ...) {
-  gitlab(gl_proj_req(project, c("repository", "tree"), ...), ref = ref, ...)
+#' @examples \dontrun{
+#' # Set GitLab connection for examples
+#' set_gitlab_connection(
+#'  gitlab_url = "https://gitlab.com",
+#'  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+#' 
+#' gl_list_files(project = <<your-project-id>>, path = <<path-to-folder>>)
+#' }
+gl_list_files <- function(project, path = "", ref = get_main(), ...) {
+  gitlab(gl_proj_req(project, c("repository", "tree"), ...), path = path, ref = ref, ...)
 }
 
 #' For `gl_file_exists` dots are passed on to [gl_list_files()] and GitLab API call
@@ -49,7 +61,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
     iff(dirname(file_path) != ".", c, path = dirname(file_path)) %>%
     iffn(project_missing, c, project = project) %>%
     pipe_into("args", do.call, what = gl_list_files) %>%
-    dplyr::filter(name == basename(file_path)) %>%
+    dplyr::filter( {if (nrow(.) > 0) name else ""} == basename(file_path)) %>%
     { nrow(.) > 0 }
 }
 
@@ -77,7 +89,7 @@ gl_get_file <- function(project,
                   ...)
   } else {
     gl_repository(project = project,
-                  req = c("files", file_path),
+                  req = c("files", utils::URLencode(file_path, reserved = TRUE)),
                   ref = ref,
                   verb = httr::GET,
                   ...)
@@ -126,7 +138,7 @@ gl_push_file <- function(project,
   
   exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
   if (!exists || overwrite) {
-    gitlab(req = gl_proj_req(project = project, c("repository", "files", file_path), ...),
+    gitlab(req = gl_proj_req(project = project, c("repository", "files", utils::URLencode(file_path, reserved = TRUE)), ...),
            branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
            branch = branch,
            content = content,
@@ -140,6 +152,7 @@ gl_push_file <- function(project,
 }
 
 #' @rdname onefile
+#' @export
 gl_delete_file <- function(project,
                          file_path,
                          commit_message,
@@ -148,7 +161,7 @@ gl_delete_file <- function(project,
   
   exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
   if (exists) {
-    gitlab(req = gl_proj_req(project = project, c("repository", "files", file_path), ...),
+    gitlab(req = gl_proj_req(project = project, c("repository", "files", utils::URLencode(file_path, reserved = TRUE)), ...),
            branch_name = branch,  ## This is legacy for API v3 use and will be ignored by API v4
            branch = branch,
            commit_message = commit_message,

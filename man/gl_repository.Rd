@@ -2,14 +2,11 @@
 % Please edit documentation in R/files.R
 \name{gl_repository}
 \alias{gl_repository}
-\alias{gl_list_files}
 \alias{gl_file_exists}
 \alias{gl_get_file}
 \title{Access to repository files in GitLab}
 \usage{
 gl_repository(project, req = c("tree"), ref = get_main(), ...)
-
-gl_list_files(project, ref = get_main(), ...)
 
 gl_file_exists(project, file_path, ref, ...)
 
@@ -60,8 +57,6 @@ set_gitlab_connection(
 gl_repository(project = <<your-project-id>>)
 # _All contributors
 gl_repository(project = <<your-project-id>>, "contributors")
-# _List files
-gl_list_files(project = <<your-project-id>>)
 # _Get content of one file
 gl_get_file(project = <<your-project-id>>, file_path = "README.md")
 # _Test if file exists
