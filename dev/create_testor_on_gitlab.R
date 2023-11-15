@@ -22,7 +22,7 @@ set_gitlab_connection(
 projects_names <- c("testor.macos", "testor.windows", "testor.release",
                     "testor.devel", "testor.release.master", "testor.coverage")
 # Local - Only the first one is mandatory
-projects_names <- c("testor.main", "testor.master")
+projects_names <- "testor.main"
 
 # Store all outputs
 all_outputs <- list()
