@@ -111,6 +111,7 @@ gl_comment_issue <- function(project,
 }
 
 #' @rdname gl_comments
+#' @export
 gl_edit_comment <- function(project,
                             object_type,
                             text,
