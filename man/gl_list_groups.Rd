@@ -34,7 +34,7 @@ set_gitlab_connection(
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 # List all groups
-gl_get_groups(max_page = 1)
+gl_list_groups(max_page = 1)
 # List sub-groups of a group
 gl_list_sub_groups(group_id = "<<group-id>>", max_page = 1)
 }

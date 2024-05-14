@@ -27,7 +27,8 @@ If in subdirectory, the parent directory should exist.}
 
 \item{commit_message}{Message to use for commit with new/updated file}
 
-\item{branch}{name of branch where to append newly generated commit with new/updated file}
+\item{branch}{name of branch where to append newly generated
+commit with new/updated file}
 
 \item{overwrite}{whether to overwrite files that already exist}
 

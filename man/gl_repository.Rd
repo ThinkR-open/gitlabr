@@ -31,9 +31,11 @@ in GitLab API, as vector or part of URL)}
 
 \item{file_path}{path to file}
 
-\item{to_char}{flag if output should be converted to char; otherwise it is of class raw}
+\item{to_char}{flag if output should be converted to char;
+otherwise it is of class raw}
 
-\item{api_version}{a switch to force deprecated GitLab API v3 behavior. See details section "API version" of \code{\link[=gl_connection]{gl_connection()}}}
+\item{api_version}{a switch to force deprecated GitLab API v3 behavior.
+See details section "API version" of \code{\link[=gl_connection]{gl_connection()}}}
 }
 \value{
 Tibble of files available in the branch with descriptive variables.
@@ -41,7 +43,8 @@ Tibble of files available in the branch with descriptive variables.
 \description{
 Access to repository files in GitLab
 
-For \code{gl_file_exists} dots are passed on to \code{\link[=gl_list_files]{gl_list_files()}} and GitLab API call
+For \code{gl_file_exists} dots are passed on to \code{\link[=gl_list_files]{gl_list_files()}}
+and GitLab API call
 
 Get a file from a GitLab repository
 }
@@ -60,6 +63,9 @@ gl_repository(project = <<your-project-id>>, "contributors")
 # _Get content of one file
 gl_get_file(project = <<your-project-id>>, file_path = "README.md")
 # _Test if file exists
-gl_file_exists(project = <<your-project-id>>, file_path = "README.md", ref = "main")
+gl_file_exists(
+  project = <<your-project-id>>,
+  file_path = "README.md",
+  ref = "main")
 }
 }
