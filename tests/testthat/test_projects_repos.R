@@ -11,13 +11,7 @@ test_that("gl_list_projects work", {
 all_user_projects <- gl_list_user_projects(user_id = test_user_id, max_page = 2, order_by = "last_activity_at")
 
 test_that("gl_list_user_projects work", {
-  some_projects <- paste0("testor.", c("macos", "windows", "release",
-                                       "devel", "coverage", "main", "release.master"))
-  expect_true(any(some_projects %in% all_user_projects[["name"]]))
-  
-  if (test_login == "statnmap") {
-    expect_true(all(some_projects %in% all_user_projects[["name"]]))  
-  }
+  expect_true(all(test_project_name %in% all_user_projects[["name"]]))
   expect_true(all(c("id", "name", "path") %in% names(all_user_projects)))
 })
 
