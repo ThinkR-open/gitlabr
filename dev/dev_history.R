@@ -55,85 +55,102 @@ do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml"))
 devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_files.R") ## run test on one file
 
-# Prepare for CRAN ----
-usethis::use_release_issue()
-# Test no output generated in the user files
-# pkgload::load_all(export_all = FALSE)
-# remotes::install_github("ropensci-review-tools/autotest")
-# debugonce(autotest:::rm_not_parseable)
+# Checks for CRAN release ----
 
+## Prepare for CRAN ----
 
+# Check package coverage
+covr::package_coverage()
+covr::report()
+
+# _Check in interactive test-inflate for templates and Addins
+pkgload::load_all()
+devtools::test()
+testthat::test_dir("tests/testthat/")
+
+# Run examples in interactive mode too
+devtools::run_examples()
 
 # Check package as CRAN
-rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"))
+devtools::check(args = c("--no-manual", "--as-cran"))
 
 # Check content
 # install.packages('checkhelper', repos = 'https://thinkr-open.r-universe.dev')
-tags <- checkhelper::find_missing_tags()
-View(tags)
-# Check that the state is clean after check
-all_files <- checkhelper::check_clean_userspace()
+checkhelper::find_missing_tags()
+
+# _Check that you let the house clean after the check, examples and tests
+all_files <- checkhelper::check_clean_userspace() # ok si ce qui reste c'est dans tmpdir()
 all_files
-checkhelper::check_as_cran()
+
 
 # Check spelling
 # usethis::use_spell_check()
-spelling::spell_check_package()
+spelling::spell_check_package() # regarder s'il y a des typos
 
-# Check URL are correct
+# Check URL are correct - No redirection
 # install.packages('urlchecker', repos = 'https://r-lib.r-universe.dev')
 urlchecker::url_check()
-urlchecker::url_update()
+urlchecker::url_update() # corrige les redirections
+
+
+# Check as cran:
+# probleme rencontre: cf https://github.com/ThinkR-open/checkhelper/issues/79
+withr::with_options(list(repos = c(CRAN = "https://cran.rstudio.com")), {
+  callr::default_repos()
+  checkhelper::check_as_cran()
+})
+checkhelper::check_as_cran()
+
 
 # check on other distributions
+# _rhub v2
+rhub::rhub_setup() # Commit, push, merge
+rhub::rhub_doctor()
+rhub::rhub_platforms()
+rhub::rhub_check() # launch manually
 
-# /!\ Do not send tests/environment.yml to CRAN /!\
-# There are now in "dev/", and are not sent to CRAN
-
-# _rhub
-
-devtools::check_rhub()
-rhub::check_on_windows(check_args = "--force-multiarch")
-rhub::check_on_solaris(show_status = FALSE)
-rhub::check(platform = "debian-clang-devel")
-rhub::check_for_cran(show_status = FALSE)
-
-# Run locally in Docker
-# docker pull rhub/debian-clang-devel
-# docker run -ti rhub/debian-clang-devel bash
-# docker run -v /mnt/Data/github/ThinkR-open/fusen:/home/root/toto -ti rhub/debian-clang-devel bash
-# debugonce(rhub::local_check_linux)
-rhub::local_check_linux(image = "rhub/debian-clang-devel")
-# a55df815-38f2-4854-a3bc-29cdcac878cc-2
-
-rstudioapi::navigateToFile(system.file(package = "rhub", "bin", "rhub-linux-docker.sh"))
-# docker container start -i 7181196d-bc3c-4fc8-a0e8-dc511150335d-2
-# docker exec -it 7181196d-bc3c-4fc8-a0e8-dc511150335d-2 bash
-# https://www.thorsten-hans.com/how-to-run-commands-in-stopped-docker-containers/
-# /opt/R-devel/bin/R
-
-
-rhub::check(platform = "windows-x86_64-devel", show_status = FALSE)
-
-# _win devel
+# _win devel CRAN
 devtools::check_win_devel()
+# _win release CRAN
 devtools::check_win_release()
+# _macos CRAN
+# Need to follow the URL proposed to see the results
 devtools::check_mac_release()
 
-# /!\ Do not send tests/environment.yml to CRAN /!\
-# There are now in "dev/", and are not sent to CRAN
+# Check reverse dependencies
+# remotes::install_github("r-lib/revdepcheck")
+usethis::use_git_ignore("revdep/")
+usethis::use_build_ignore("revdep/")
+
+devtools::revdep()
+library(revdepcheck)
+# In another session
+id <- rstudioapi::terminalExecute("Rscript -e 'revdepcheck::revdep_check(num_workers = 4)'")
+rstudioapi::terminalKill(id)
+# See outputs
+revdep_details(revdep = "pkg")
+revdep_summary() # table of results by package
+revdep_report() # in revdep/
+# Clean up when on CRAN
+revdep_reset()
 
 # Update NEWS
 # Bump version manually and add list of changes
 
-# Add comments for CRAN
-usethis::use_cran_comments(open = rlang::is_interactive())
-
 # Upgrade version number
-usethis::use_version(which = c("patch", "minor", "major", "dev")[1])
+usethis::use_version(which = c("patch", "minor", "major", "dev")[2])
+
+# Add comments for CRAN
+# Need to .gitignore this file
+usethis::use_cran_comments(open = rlang::is_interactive())
+# Why we have `\dontrun{}`
+
+usethis::use_git_ignore("cran-comments.md")
+usethis::use_git_ignore("CRAN-SUBMISSION")
 
 # Verify you're ready for release, and release
 devtools::release()
+
 
 # Thanks for article
 library(purrr)
