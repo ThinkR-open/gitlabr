@@ -46,25 +46,16 @@
     <loc>https://thinkr-open.github.io/gitlabr/reference/gitlab.html</loc>
   </url>
   <url>
-    <loc>https://thinkr-open.github.io/gitlabr/reference/gitlabci.html</loc>
-  </url>
-  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gitlabr-deprecated.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gitlabr-package.html</loc>
   </url>
   <url>
-    <loc>https://thinkr-open.github.io/gitlabr/reference/gitlabr_0_7_renaming.html</loc>
-  </url>
-  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gitlabr_options_set.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_archive.html</loc>
-  </url>
-  <url>
-    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_builds.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_comments.html</loc>
@@ -79,10 +70,22 @@
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_get_commits.html</loc>
   </url>
   <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_get_group_id.html</loc>
+  </url>
+  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_get_project_id.html</loc>
   </url>
   <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_group_req.html</loc>
+  </url>
+  <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_files.html</loc>
+  </url>
+  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_group_members.html</loc>
+  </url>
+  <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_groups.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_issues.html</loc>
@@ -94,10 +97,16 @@
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_list_projects.html</loc>
   </url>
   <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_new_group.html</loc>
+  </url>
+  <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_new_issue.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_new_project.html</loc>
+  </url>
+  <url>
+    <loc>https://thinkr-open.github.io/gitlabr/reference/gl_pipelines.html</loc>
   </url>
   <url>
     <loc>https://thinkr-open.github.io/gitlabr/reference/gl_proj_req.html</loc>

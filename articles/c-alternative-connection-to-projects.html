@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script><!-- Bootstrap --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha256-bZLfwXAP04zRMK2BjiO8iu9pf4FbLqX6zitd+tIvLhE=" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="../bootstrap-toc.css">
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
@@ -40,7 +40,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9002</span>
       </span>
     </div>
 
@@ -57,7 +57,7 @@
   </a>
   <ul class="dropdown-menu" role="menu">
 <li>
-      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to {gitlabr}</a>
+      <a href="../articles/a-quick-start-guide-to-gitlabr.html">Quick Start Guide to 'gitlabr'</a>
     </li>
     <li>
       <a href="../articles/b-projects.html">Create and manage a new GitLab project</a>
@@ -69,7 +69,7 @@
       <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
     </li>
     <li>
-      <a href="../articles/z-gitlabr-v2.html">Breaking changes in {gitlabr} V2</a>
+      <a href="../articles/z-gitlabr-v2.html">Breaking changes in 'gitlabr' V2</a>
     </li>
   </ul>
 </li>
@@ -119,11 +119,12 @@ guide vignette.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span>
 <span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span>
-<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre></div>
 <p>However, if you are looking for connections to multiple GitLab
 instances in the same session or would like to set different accounts,
 you can define connections using <code><a href="../reference/gl_connection.html">gl_connection()</a></code>.</p>
-<p>The idea of connections in {gitlabr} is to generate functions with
+<p>The idea of connections in ‘gitlabr’ is to generate functions with
 the same signature and capability as that of the central API call
 function <code><a href="../reference/gitlab.html">gitlab()</a></code>, but with certain parameters set to fixed
 values (<a href="https://en.wikipedia.org/wiki/Currying" class="external-link">“curried”</a>).
@@ -134,7 +135,8 @@ user. Such specialized functions can be created with the function
 <code><a href="../reference/gitlab.html">gitlab()</a></code>:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_gitlab</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span><span class="st">"https://gitlab.com"</span>,</span>
-<span>                           private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span>
+<span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span><span class="fu">my_gitlab</span><span class="op">(</span><span class="st">"projects"</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/gl_connection.html">gl_connection()</a></code> can take arbitrary parameters, returning
 a function that issues API requests with these parameter values.</p>
@@ -144,7 +146,7 @@ GitLab instance.</p>
 <div class="section level3">
 <h3 id="function-in-function-style">function-in-function style<a class="anchor" aria-label="anchor" href="#function-in-function-style"></a>
 </h3>
-<p>The recommended way to use {gitlabr} functions is to directly use
+<p>The recommended way to use ‘gitlabr’ functions is to directly use
 <code>gl_*()</code> function after setting the
 <code><a href="../reference/set_gitlab_connection.html">set_gitlab_connection()</a></code>. For instance with
 <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>.</p>
@@ -162,7 +164,7 @@ using the connection for all API calls :</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">my_gitlab</span><span class="op">(</span><span class="va">gl_create_issue</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, project <span class="op">=</span> <span class="st">"&lt;my-project-id&gt;"</span><span class="op">)</span></span></code></pre></div>
 <p><code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code> is an example function here, the
-principle style works for all convenience functions of {gitlabr}
+principle style works for all convenience functions of ‘gitlabr’
 starting with <code>gl_*()</code>.</p>
 <p>Some of the convenience functions perform additional transformation
 or renaming of parameters. Hence, the parameters given to the exemplary
@@ -175,7 +177,7 @@ rarely.</p>
 <h3 id="define-a-custom-function-with-gitlab-and-a-temporary-connection">Define a custom function with <code>gitlab()</code> and a temporary
 connection<a class="anchor" aria-label="anchor" href="#define-a-custom-function-with-gitlab-and-a-temporary-connection"></a>
 </h3>
-<p>All API possibilities are not available in {gitlabr}. You can look at
+<p>All API possibilities are not available in ‘gitlabr’. You can look at
 vignette “Go further: understand and build your functions” if you want
 to build your own API function.<br>
 Using a <code><a href="../reference/gitlab.html">gitlab()</a></code>, out of the recommended way for
@@ -185,7 +187,8 @@ follows.</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/gitlab.html">gitlab</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"projects"</span>, <span class="st">"&lt;my-project-id&gt;"</span>, <span class="st">"issues"</span><span class="op">)</span>,</span>
 <span>  gitlab_con <span class="op">=</span> <span class="fu"><a href="../reference/gl_connection.html">gl_connection</a></span><span class="op">(</span><span class="st">"https://gitlab.com"</span>,</span>
-<span>                           private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
@@ -208,7 +211,7 @@ follows.</p>
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.9.</p>
 </div>
 
       </footer>
