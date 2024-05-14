@@ -2,15 +2,22 @@
 
 ## Breaking changes
 
+* Functions deprecated since version 0.7 are removed
 * Transfer ownership of the project to ThinkR-open
 
 ## New features
 
+* `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
+* `gl_delete_file()` to delete a file in a repository
 * `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 
 ## Minor changes
 
 * `multilist_to_tibble()` transforms a deep structured nested list from an API into a tibble (#86, @statnmap, @ymansiaux)
+
+## Bug fixes
+
+* `gl_file_exists()`, `gl_list_files()`, `gl_push_file()`, `gl_delete_file()` now work with files in subdirectories
 
 # gitlabr 2.0.1
 
