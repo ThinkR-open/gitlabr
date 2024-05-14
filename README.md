@@ -5,20 +5,18 @@
 
 <!-- badges: start -->
 
-[![CRAN_Status_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
+[![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN Downloads Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
 [![codecov](https://codecov.io/gh/ThinkR-open/gitlabr/branch/main/graph/badge.svg?token=EVRTX5LST9)](https://codecov.io/gh/ThinkR-open/gitlabr)
 [![R-CMD-check](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**There are multiple breaking changes in {gitlabr} v2, please refer to
-the corresponding vignette:
-<https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html>**
-
-*Note that the {gitlabr} package was originally created by [Jirka
-Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present
-repository is a fork to be able to continue development of this
-package.*
+Never dreamt of creating and managing your GitLab projects from R?
+{gitlabr} is here to help you with that\!  
+With {gitlabr}, you can interact with GitLab’s API to manage your
+projects, issues, merge requests, pipelines, wikis, and more.  
+Now, the automation of your regular tasks with GitLab is just a few
+lines of R code away.
 
 ## Installation
 
@@ -32,7 +30,7 @@ To install the development version using
 [devtools](https://cran.r-project.org/package=devtools), type:
 
 ``` r
-install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
+install.packages("gitlabr", repos = "https://thinkr-open.r-universe.dev")
 ```
 
 See the
@@ -50,12 +48,14 @@ version 2.0.0 or higher. This {gitlabr} version uses the GitLab API v4.
 R code using {gitlabr} to perform some common GitLab actions can look
 like this
 
-- Create a TOKEN on your GitLab instance with scopes: `api`
-  - For instance on gitlab.com:
-    `https://gitlab.com/-/profile/personal_access_tokens`
-- Store your token in .Renviron as `GITLAB_COM_TOKEN` with
-  `usethis::edit_r_environ()` and restart your session
-- Set a connection to GitLab instance
+  - Create a TOKEN on your GitLab instance with scopes: `api`
+      - For instance on gitlab.com:
+        `https://gitlab.com/-/profile/personal_access_tokens`
+  - Store your token in .Renviron as `GITLAB_COM_TOKEN` with
+    `usethis::edit_r_environ()` and restart your session
+  - Set a connection to GitLab instance
+
+<!-- end list -->
 
 ``` r
 library(gitlabr)
@@ -66,63 +66,73 @@ library(gitlabr)
 # connect as a fixed user to a GitLab instance for the session
 set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 ```
 
-- Find the list of projects available to you
-  - Define a limit of pages of projects to search in with `max_page`,
-    otherwise the entire GitLab.com will be downloaded here…
-  - Find all parameters available in the API for projects on this page:
-    <https://docs.gitlab.com/ee/api/projects.html>
-    - For instance, we can set `owned = FALSE` to retrieve all projects
-      except ours.
+  - Find the list of projects available to you
+      - Define a limit of pages of projects to search in with
+        `max_page`, otherwise the entire GitLab.com will be downloaded
+        here…
+      - Find all parameters available in the API for projects on this
+        page: <https://docs.gitlab.com/ee/api/projects.html>
+          - For instance, we can set `owned = FALSE` to retrieve all
+            projects except ours.
+
+<!-- end list -->
 
 ``` r
 # a tibble is returned, as is always by {gitlabr} functions
-gl_list_projects(max_page = 2, owned = FALSE) 
-#> # A tibble: 40 × 135
-#>    id       description name  name_with_names… path  path_with_names… created_at
-#>    <chr>    <chr>       <chr> <chr>            <chr> <chr>            <chr>     
-#>  1 30670263 ""          Proj… Enzo Lop / Proj… proj… enzo.lop.pro/pr… 2021-10-2…
-#>  2 30670257 ""          test  Seung-hyun Lee … test  faintblue324/te… 2021-10-2…
-#>  3 30670253 ""          s54   Zuitt-projects … s54   zuitt-projects3… 2021-10-2…
-#>  4 30670220 ""          temp… taka / template  temp… hnam/template    2021-10-2…
-#>  5 30670189 ""          Jeng… NATALIA GARCIA … jeng… 22113346/jenga-… 2021-10-2…
-#>  6 30670181 ""          RStu… yannyven / RStu… rstu… yannyven/rstudi… 2021-10-2…
-#>  7 30670175 "NAO ENSTA… NAO-… Danut POP / NAO… NAO-… blueDonuts69/NA… 2021-10-2…
-#>  8 30670166 "A complet… remo… Alexa Fevic / r… remo… alexafevic/remo… 2021-10-2…
-#>  9 30670163 ""          YAOD… flagarde / YAOD… YAOD… flagarde/YAODAQ  2021-10-2…
-#> 10 30670162 ""          eval… zenika-poei-ren… eval… zenika-poei-ren… 2021-10-2…
-#> # … with 30 more rows, and 128 more variables: default_branch <chr>,
-#> #   ssh_url_to_repo <chr>, http_url_to_repo <chr>, web_url <chr>,
-#> #   readme_url <chr>, forks_count <chr>, star_count <chr>,
-#> #   last_activity_at <chr>, namespace.id <chr>, namespace.name <chr>,
-#> #   namespace.path <chr>, namespace.kind <chr>, namespace.full_path <chr>,
-#> #   namespace.avatar_url <chr>, namespace.web_url <chr>,
-#> #   container_registry_image_prefix <chr>, _links.self <chr>, …
+gl_list_projects(max_page = 2, owned = FALSE)
+#> # A tibble: 40 × 129
+#>    id       name        name_with_namespace path  path_with_namespace created_at
+#>    <chr>    <chr>       <chr>               <chr> <chr>               <chr>     
+#>  1 57865685 nodejsappl… Arsalan Ahmed Zia … node… arsalanahmedzia_th… 2024-05-1…
+#>  2 57865684 Self-Hoste… Anand R / Self-Hos… self… anandr72/self-host… 2024-05-1…
+#>  3 57865661 cuda        handcat / cuda      cuda  handcat/cuda        2024-05-1…
+#>  4 57865656 TicTacToe   Debeleac Vincenzzi… tict… Andreidoo/tictactoe 2024-05-1…
+#>  5 57865597 Sparks Git… Nicolas Tatard / S… spar… tatardnicolas47/sp… 2024-05-1…
+#>  6 57865595 Sparks Git… Patrick Poncy / Sp… spar… PatSopra/sparks-gi… 2024-05-1…
+#>  7 57865594 Sparks Git… Emie Bourdeau / Sp… spar… Emie_Bourdeau/spar… 2024-05-1…
+#>  8 57865590 ComMan UI   ossama hassari / C… comm… ossamahassari98/co… 2024-05-1…
+#>  9 57865581 Sparks Git… Raphaël Mechali / … spar… RaphaelMechali/spa… 2024-05-1…
+#> 10 57865574 copy local… mvaskuri / copy lo… copy… mvaskuri1/copy-loc… 2024-05-1…
+#> # ℹ 30 more rows
+#> # ℹ 123 more variables: default_branch <chr>, ssh_url_to_repo <chr>,
+#> #   http_url_to_repo <chr>, web_url <chr>, readme_url <chr>, forks_count <chr>,
+#> #   star_count <chr>, last_activity_at <chr>, namespace.id <chr>,
+#> #   namespace.name <chr>, namespace.path <chr>, namespace.kind <chr>,
+#> #   namespace.full_path <chr>, namespace.avatar_url <chr>,
+#> #   namespace.web_url <chr>, container_registry_image_prefix <chr>, …
 ```
 
 ### Work with a specific project
 
-- Explore one of your projects. You can set the name of the project or
-  its ID. The ID is highly recommended, in particular if your project
-  does not appear in the first pages of projects above.
-  - Let’s explore [project
-    “repo.rtask”](https://gitlab.com/statnmap/repo.rtask), with
-    `ID = 20384533` on GitLab.com
+  - Explore one of your projects. You can set the name of the project or
+    its ID. The ID is highly recommended, in particular if your project
+    does not appear in the first pages of projects above.
+      - Let’s explore [project
+        “repo.rtask”](https://gitlab.com/statnmap/repo.rtask), with
+        `ID = 20384533` on GitLab.com
+
+<!-- end list -->
 
 ``` r
-my_project <- 20384533 #repo.rtask",
+my_project <- 20384533 # repo.rtask",
 ```
 
-- If the default branch is not named `main`, you need to specify it with
-  `gitlabr_options_set()`
+  - If the default branch is not named `main`, you need to specify it
+    with `gitlabr_options_set()`
+
+<!-- end list -->
 
 ``` r
 gitlabr_options_set("gitlabr.main", "master")
 ```
 
-- List files of the project using `gl_list_files()`
+  - List files of the project using `gl_list_files()`
+
+<!-- end list -->
 
 ``` r
 gl_list_files(project = my_project)
@@ -133,37 +143,43 @@ gl_list_files(project = my_project)
 #> 2 c36b681bb31b80cbd090f07c95f09788c88629a6 example.txt blob  example.txt 100644
 ```
 
-- List issues with `gl_list_issues()`
+  - List issues with `gl_list_issues()`
+
+<!-- end list -->
 
 ``` r
 gl_list_issues(project = my_project)
-#> # A tibble: 2 × 35
-#>   id       iid   project_id title description state created_at updated_at author.id
-#>   <chr>    <chr> <chr>      <chr> <chr>       <chr> <chr>      <chr>      <chr>    
-#> 1 69525849 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  
-#> 2 69525845 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  
-#> # … with 26 more variables: author.name <chr>, author.username <chr>,
-#> #   author.state <chr>, author.avatar_url <chr>, author.web_url <chr>,
-#> #   type <chr>, user_notes_count <chr>, merge_requests_count <chr>,
-#> #   upvotes <chr>, downvotes <chr>, confidential <chr>, issue_type <chr>,
-#> #   web_url <chr>, time_stats.time_estimate <chr>,
-#> #   time_stats.total_time_spent <chr>, task_completion_status.count <chr>,
-#> #   task_completion_status.completed_count <chr>, …
+#> # A tibble: 2 × 40
+#>   id    iid   project_id title description state created_at updated_at author.id
+#>   <chr> <chr> <chr>      <chr> <chr>       <chr> <chr>      <chr>      <chr>    
+#> 1 6952… 2     20384533   A se… The blog p… open… 2020-08-0… 2020-08-0… 4809823  
+#> 2 6952… 1     20384533   An e… No desc in… open… 2020-08-0… 2020-08-0… 4809823  
+#> # ℹ 31 more variables: author.username <chr>, author.name <chr>,
+#> #   author.state <chr>, author.locked <chr>, author.avatar_url <chr>,
+#> #   author.web_url <chr>, type <chr>, user_notes_count <chr>,
+#> #   merge_requests_count <chr>, upvotes <chr>, downvotes <chr>,
+#> #   confidential <chr>, issue_type <chr>, web_url <chr>,
+#> #   time_stats.time_estimate <chr>, time_stats.total_time_spent <chr>,
+#> #   task_completion_status.count <chr>, …
 ```
 
-- Create an issue
+  - Create an issue
+
+<!-- end list -->
 
 ``` r
 # create a new issue
 new_feature_issue <- gl_create_issue(project = my_project, title = "Implement new feature")
 
-# statnmap user ID
-my_id <- 4809823
+# Your user ID
+my_id <- 0000000
 
 # assign issue to me
-gl_assign_issue(project = my_project,
-                issue_id = new_feature_issue$iid,
-                assignee_id = my_id)
+gl_assign_issue(
+  project = my_project,
+  issue_id = new_feature_issue$iid,
+  assignee_id = my_id
+)
 
 # Verify new issue is here
 gl_list_issues(project = my_project, state = "opened")
@@ -185,11 +201,11 @@ If an API request is not already available in {gitlabr}, function
 For instance, the API documentation shows how to create a new project in
 <https://docs.gitlab.com/ce/api/projects.html#create-project>:
 
-- The verb is `POST`
-- The request is `projects`
-- Required attributes are `name` or `path` (if `name` not set)
-- `default_branch` is an attribute that can be set if wanted, but not
-  required
+  - The verb is `POST`
+  - The request is `projects`
+  - Required attributes are `name` or `path` (if `name` not set)
+  - `default_branch` is an attribute that can be set if wanted, but not
+    required
 
 The corresponding use of `gitlab()` is:
 
@@ -202,7 +218,7 @@ gitlab(
 )
 ```
 
-Implement whatever suits your needs !
+Implement whatever suits your needs \!
 
 ### Unset connection
 
@@ -219,20 +235,22 @@ and your CI should be ready to start in the next commit.
 
 There are pre-defined templates:
 
-- bookdown-production.yml
+  - bookdown-production.yml
 
-- bookdown.yml
+  - bookdown.yml
 
-- check-coverage-pkgdown-renv.yml
+  - check-coverage-pkgdown-renv.yml
 
-- check-coverage-pkgdown.yml
+  - check-coverage-pkgdown.yml
 
 ## Further information
 
-- For an introduction see the `vignette("quick-start-guide-to-gitlabr")`
-- When writing custom extensions (“convenience functions”) for {gitlabr}
-  or when you experience any trouble, the very extensive [GitLab API
-  documentation](https://docs.gitlab.com/ce/api/) can be helpful.
+  - For an introduction see the
+    `vignette("quick-start-guide-to-gitlabr")`
+  - When writing custom extensions (“convenience functions”) for
+    {gitlabr} or when you experience any trouble, the very extensive
+    [GitLab API documentation](https://docs.gitlab.com/ce/api/) can be
+    helpful.
 
 # Contributing to {gitlabr}
 
@@ -247,3 +265,8 @@ Please note that the gitlabr project is released with a [Contributor
 Code of
 Conduct](https://thinkr-open.github.io/gitlabr/CODE_OF_CONDUCT.html). By
 contributing to this project, you agree to abide by its terms.
+
+*Note that the {gitlabr} package was originally created by [Jirka
+Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present
+repository is a fork to be able to continue development of this
+package.*
