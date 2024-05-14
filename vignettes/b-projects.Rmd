@@ -23,7 +23,7 @@ You can use this code to create all your new projects with a specific template.
 For instance, you can have a first issue to welcome all collaborators, explain them how your repository works and ask them to answer with a comment. 
 This will make sure all collaborators know how to find issues and how to interact with you.
 
-Given you have a [GitLab.com](https://about.gitlab.com/) account, this code can also be run to contribute to {gitlabr} and set a testing environment (See [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md)).
+Given you have a [GitLab.com](https://about.gitlab.com/) account, this code can also be run to contribute to 'gitlabr' and set a testing environment (See [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md)).
 
 
 # Set up GitLab connection
@@ -55,7 +55,7 @@ Project is initialized with a README file.
 
 ```{r}
 project_info <- gl_new_project(
-  name = test_project_name, 
+  name = test_project_name,
   default_branch = main_branch,
   initialize_with_readme = TRUE
 )
@@ -78,7 +78,7 @@ browseURL(project_info$web_url)
 content_md <- paste("
 # testor.main
 
-Repository to test R package [{gitlabr}](https://github.com/statnmap/gitlabr)
+Repository to test R package ['gitlabr'](https://github.com/statnmap/gitlabr)
 ")
 
 # Push file with a commit
@@ -88,8 +88,8 @@ gl_push_file(
   content = content_md,
   commit_message = "Update README",
   branch = main_branch,
-  overwrite = TRUE)
-
+  overwrite = TRUE
+)
 ```
 
 ## Create a new branch named "for-tests"
@@ -124,8 +124,8 @@ gl_push_file(
   content = content_ci,
   commit_message = "Add CI to the main branch",
   branch = main_branch,
-  overwrite = TRUE)
-
+  overwrite = TRUE
+)
 ```
 
 ## Use the commit created above and add a follow-up comment
@@ -134,9 +134,10 @@ gl_push_file(
 commits_in_main <- gl_get_commits(project = project_info$id, ref_name = main_branch)
 # Add a comment to this commmit
 gl_comment_commit(
-  project = project_info$id, 
-  id = commits_in_main$id[1], 
-  text = "Write a comment")
+  project = project_info$id,
+  id = commits_in_main$id[1],
+  text = "Write a comment"
+)
 ```
 
 ## Create a first issue (#1) with a follow-up comment
@@ -144,16 +145,17 @@ gl_comment_commit(
 ```{r}
 # Create an issue
 issue_info <- gl_create_issue(
-  project = project_info$id, 
-  title = "Dont close issue 1", 
-  description = "An example issue to not close for tests")
+  project = project_info$id,
+  title = "Dont close issue 1",
+  description = "An example issue to not close for tests"
+)
 
 # Create a comment to the issue
 gl_comment_issue(
-  project = project_info$id, 
-  id = issue_info$iid, 
-  text = "A comment on issue to not close")
-  
+  project = project_info$id,
+  id = issue_info$iid,
+  text = "A comment on issue to not close"
+)
 ```
 
 ## Delete project

@@ -58,7 +58,7 @@ reference:
     - use_gitlab_ci
   - title: Extra tools
     desc: >
-      Internal tools that could be useful for projects out of {gitlabr}
+      Internal tools that could be useful for projects out of 'gitlabr'
     contents:
     - multilist_to_tibble
   - title: Other functions

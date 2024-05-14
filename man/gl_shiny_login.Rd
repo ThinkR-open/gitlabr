@@ -34,7 +34,7 @@ glReactiveLogin(
 
 \item{gitlab_url}{root URL of GitLab instance to login to}
 
-\item{project}{if not NULL, a code{\link{gl_project_connection}} is created to this project}
+\item{project}{if not NULL, a \code{[gl_project_connection]} is created to this project}
 
 \item{api_version}{A character with value either "3" or "4" to specify the API version that should be used}
 

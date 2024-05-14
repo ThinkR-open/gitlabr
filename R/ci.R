@@ -11,12 +11,12 @@
 #' @details
 #' Types available are:
 #'
-#' - "check-coverage-pkgdown": Check package along with Code coverage with {covr}
-#'  and {pkgdown} site on GitLab Pages
-#' - "check-coverage-pkgdown-renv": Check package built in a fixed {renv} state
-#'  along with Code coverage with {covr} and {pkgdown} site on GitLab Pages.
-#' - "bookdown": Build {bookdown} HTML and PDF site on GitLab Pages
-#' - "bookdown-production": Build {bookdown} HTML and PDF site on GitLab Pages.
+#' - "check-coverage-pkgdown": Check package along with Code coverage with 'covr'
+#'  and 'pkgdown' site on GitLab Pages
+#' - "check-coverage-pkgdown-renv": Check package built in a fixed 'renv' state
+#'  along with Code coverage with 'covr' and 'pkgdown' site on GitLab Pages.
+#' - "bookdown": Build 'bookdown' HTML and PDF site on GitLab Pages
+#' - "bookdown-production": Build 'bookdown' HTML and PDF site on GitLab Pages.
 #'  Where default page is for branch named 'production' and "dev/" sub-folder is for
 #'  'main' (or 'master') branch.
 #'

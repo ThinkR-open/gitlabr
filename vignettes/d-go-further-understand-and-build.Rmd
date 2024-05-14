@@ -24,9 +24,9 @@ See the [documentation of the GitLab API](https://docs.gitlab.com/ce/api/) for t
 
 # API calls
 
-This section describes how R function calls are translated into HTTP requests to the GitLab API ({gitlabr}'s "low level interface"). For a documentation using {gitlabr} without knowledge of the GitLab API ({gitlabr}'s "high level interface"), see the ["Quick Start Example"](#quick-start-example) above or refer to the individual function documentation in the Reference section of {gitlabr}'s pkgdown [site](https://thinkr-open.github.io/gitlabr/reference/index.html).
+This section describes how R function calls are translated into HTTP requests to the GitLab API ('gitlabr' "low level interface"). For a documentation using 'gitlabr' without knowledge of the GitLab API ('gitlabr' "high level interface"), see the ["Quick Start Example"](#quick-start-example) above or refer to the individual function documentation in the Reference section of 'gitlabr' pkgdown [site](https://thinkr-open.github.io/gitlabr/reference/index.html).
 
-Currently ({gitlabr} >= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection()`.
+Currently ('gitlabr' >= 1.1.6) GitLab API v4 is supported. Support for GitLab API v3 (for GitLab version < 9.0) is still included via flag parameters, but is no longer maintained. For details see the section "API version" of the documentation of `gl_connection()`.
 
 The core function of the low level interface is `gitlab()`, with the help of which arbitrary calls to the GitLab API can be formulated. It takes as required arguments the request location as a character vector, API endpoint URL and HTTP verb and passes additional arguments as query parameters (keeping their names) on to the API request.
 
@@ -45,7 +45,7 @@ translates to
 GET https://gitlab.com/api/v4/projects/12/issues?state=active&private_token=XXX
 ```
 
-This way, any request documented in the [GitLab API documentation](https://docs.gitlab.com/ce/api) can be issued from {gitlabr}.
+This way, any request documented in the [GitLab API documentation](https://docs.gitlab.com/ce/api) can be issued from 'gitlabr'.
 
 The high level interface consists of a number of functions that each have additional arguments from which the request location is constructed, while all other arguments are simply passed on to `gitlab()`. For example:
 
@@ -83,7 +83,7 @@ To spare you the repetitive task of specifying the API root and key in every cal
 
 # Writing custom gitlab request functions
 
-It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into {gitlabr} and work conveniently with all connection and call idioms described in this vignette.
+It is very easy to write your own convenience wrappers for accessing API endpoints you wish and make sure they fully integrate into 'gitlabr' and work conveniently with all connection and call idioms described in this vignette.
 The only requirement to your function is that it executes an R function call to `gitlab()` (or another convenience function) to which the `...` argument is passed on.
 
 That is, a simple function to block users directly from R is as simple as:
@@ -92,15 +92,15 @@ gl_block_user <- function(uid, ...) {
   gitlab(c("users", uid, "block"), ## for API side documentation see:
     verb = httr::PUT, ## https://docs.gitlab.com/ce/api/users.html#block-user
     ...
-  ) ## don't forget the dots to make {gitlabr} features fully available
+  ) ## don't forget the dots to make 'gitlabr' features fully available
 }
 ```
 
 More hints for more convenience:
 
-- To be consistent with another important {gitlabr} principle, make sure your function returns a `tibble` (which it does if you simply pass up the return value of `gitlab()` or one of the package's own convenience functions). 
+- To be consistent with another important 'gitlabr' principle, make sure your function returns a `tibble` (which it does if you simply pass up the return value of `gitlab()` or one of the package's own convenience functions). 
 `gitlab()` has some heuristics to format the API response to a `tibble`, if these fail for your specific request, you can pass `auto_format = FALSE` and format the response manually.
-- To translate project names to numeric ids automatically, you can use {gitlabr}'s internal functions `proj_req()` translating the request location.
-- To translate user-visible project-wide issue ids to global ids used by the GitLab API, you can use {gitlabr}'s internal function `to_issue_id()` when constructing the request.
+- To translate project names to numeric ids automatically, you can use 'gitlabr's internal functions `proj_req()` translating the request location.
+- To translate user-visible project-wide issue ids to global ids used by the GitLab API, you can use 'gitlabr' internal function `to_issue_id()` when constructing the request.
 
-And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to {gitlabr} on [https://github.com/ThinkR-open/gitlabr](https://github.com/ThinkR-open/gitlabr).
+And last but not least, if you've written a convenience wrapper for yourself, keep in mind that it might be of help to many others and you can contribute it to 'gitlabr' on [https://github.com/ThinkR-open/gitlabr](https://github.com/ThinkR-open/gitlabr).

@@ -14,7 +14,7 @@ gitlab(
   page = "all",
   max_page = 10,
   enforce_api_root = TRUE,
-  argname_verb = if (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {
+  argname_verb = if (identical(verb, httr::GET) || identical(verb, httr::DELETE)) {
     
     "query"
  } else {
@@ -42,7 +42,7 @@ gitlab(
 (up to max_page parameter!) are queried successively and combined.}
 
 \item{max_page}{maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-to prevent {gitlabr} getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+to prevent 'gitlabr' getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 is recommended only under controlled circumstances.}
 
@@ -60,9 +60,9 @@ may include private_token and all other parameters as documented for the GitLab 
 the response from the GitLab API, usually as a \code{tibble} and including all pages
 }
 \description{
-This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
-use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
-own. See the {gitlabr} vignette for more information on this.
+This is 'gitlabr' core function to talk to GitLab's server API via HTTP(S). Usually you will not
+use this function directly too often, but either use 'gitlabr' convenience wrappers or write your
+own. See the 'gitlabr' vignette for more information on this.
 }
 \details{
 \code{gitlab()} function allows to use any request of the GitLab API \url{https://docs.gitlab.com/ce/api/}.

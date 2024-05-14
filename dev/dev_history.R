@@ -44,12 +44,14 @@ attachment::att_amend_desc(
 )
 devtools::load_all()
 devtools::test()
-devtools::check() # /!\ Tests are currently skip if no token in "dev/environment.yml"/!\
+devtools::check()
+devtools::check(args = c("--no-tests"))
 devtools::build_vignettes()
 
 # Deal with tests ----
 devtools::load_all()
-do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml")) ## load test environment variables
+## load test environment variables
+do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml"))
 devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_files.R") ## run test on one file
 
