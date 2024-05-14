@@ -86,6 +86,8 @@ devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_ci.R") ## run test on one file
 ```
 
+_Note that if the test suite fails, you may leave the repository in a state that is not cleaned._
+_Hence, you may have to manually clean the repository on GitLab before running the tests again._
 
 ### How to check the package with GitHub Actions on your own fork
 
@@ -116,6 +118,8 @@ I recommend to keep only one OS tested to avoid unit tests to be run in parallel
 To do so, you can comment all but one OS in ".github/workflows/R-CMD-check.yaml", and change the values of the variable according to your configuration.
 -->
 
+_Note that if the test suite fails, you may leave the repository in a state that is not cleaned._
+_Hence, you may have to manually clean the repository on GitLab before running the tests again._
 
 ### API version
 
