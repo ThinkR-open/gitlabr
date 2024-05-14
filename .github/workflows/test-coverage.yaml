@@ -11,6 +11,7 @@ name: test-coverage
 jobs:
   test-coverage:
     runs-on: ubuntu-latest
+    concurrency: testor.coverage
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
       GITLABR_TEST_LOGIN: ${{ secrets.GITLABR_TEST_LOGIN }}
