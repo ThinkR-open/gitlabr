@@ -10,6 +10,7 @@
 * `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
 * `gl_delete_file()` to delete a file in a repository
 * `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
+* `gitlab()` queries allow for a vector of parameters to be passed to the API. This is needed when the API asks for an array (@klmr)
 
 ## Minor changes
 
