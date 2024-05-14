@@ -116,9 +116,9 @@ gitlab <- function(req,
     private_token_header <- httr::add_headers("PRIVATE-TOKEN" = private_token)
 
     (if (page == "all") {
-      l
+      flattenbody(l)
     } else {
-      c(page = page, l)
+      c(page = page, flattenbody(l))
     }) %>%
       pipe_into(argname_verb, verb, url = url, private_token_header) %>%
       http_error_or_content() -> resp
@@ -168,7 +168,10 @@ gitlab <- function(req,
     if (!missing(max_page)) {
       dot_args <- c(dot_args, max_page = max_page)
     }
-    do.call(gitlab_con, c(dot_args, gitlab_con = "self", list(...))) %>%
+    do.call(gitlab_con, c(dot_args,
+      gitlab_con = "self",
+      list(...)
+    )) %>%
       iff(debug, print)
   }
 }
@@ -241,22 +244,6 @@ is_single_row <- function(l) {
   }
 }
 
-# is_single_row <- function(l) {
-#   if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
-#     return(TRUE)
-#   } else {
-#     the_lengths <- lapply(l, length) %>% unlist()
-#     u_length <- unique(the_lengths)
-#     if (length(u_length) == 1) {
-#       return(u_length == 1)
-#     } else {
-#       multi_cols <- which(the_lengths > 1) %>% unlist()
-#       return(all(lapply(l[multi_cols], is_named) %>% unlist() &
-#                    !(lapply(l[multi_cols], is.nested.list) %>% unlist())))
-#     }
-#   }
-# }
-
 format_row <- function(row, ...) {
   row %>%
     lapply(unlist, use.names = FALSE, ...) %>%
@@ -283,4 +270,33 @@ call_filter_dots <- function(fun,
                                c("api_root", "private_token"),
                              ...) {
   do.call(fun, args = c(list(...), .dots[intersect(.dots_allowed, names(.dots))]))
+}
+
+#' Flatten a list as duplicate names list
+#' for httr requests
+#'
+#' @param x a list
+#' @return a list
+#'
+#' @noRd
+flattenbody <- function(x) {
+  # issued from https://stackoverflow.com/a/72532186
+  # A form/query can only have one value per name, so take
+  # any values that contain vectors length >1 and
+  # split them up
+  # list(x=1:2, y="a") becomes list(x=1, x=2, y="a")
+  if (all(lengths(x) <= 1)) {
+    return(x)
+  }
+  do.call("c", mapply(function(name, val) {
+    if (length(val) == 1 || any(c("form_file", "form_data") %in% class(val))) {
+      x <- list(val)
+      names(x) <- name
+      x
+    } else {
+      x <- as.list(val)
+      names(x) <- rep(name, length(val))
+      x
+    }
+  }, names(x), x, USE.NAMES = FALSE, SIMPLIFY = FALSE))
 }
