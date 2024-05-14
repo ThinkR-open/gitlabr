@@ -35,6 +35,8 @@
 \alias{repository}
 \alias{to_issue_id}
 \alias{unassign_issue}
+\alias{gl_builds}
+\alias{gl_ci_job}
 \title{Deprecated functions}
 \usage{
 archive(...)
@@ -102,9 +104,17 @@ repository(...)
 to_issue_id(...)
 
 unassign_issue(...)
+
+gl_builds(project, api_version = 4, ...)
+
+gl_ci_job()
 }
 \arguments{
 \item{...}{Parameters to the new function}
+
+\item{api_version}{Since \code{gl_builds} is no longer working for GitLab API v4,
+this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
+default to "4" with deprecation message.´}
 }
 \value{
 Warning for deprecated functions and output depending on the superseeding function.
@@ -150,6 +160,8 @@ further notice.
 \code{repository} \tab is now called \code{gl_repository} \cr
 \code{to_issue_id} \tab is now called \code{gl_to_issue_id} \cr
 \code{unassign_issue} \tab is now called \code{gl_unassign_issue} \cr
+\code{gl_builds} \tab is now called \code{gl_pipelines} \cr
+\code{gl_ci_job} \tab is now called \code{use_gitlab_ci} \cr
 }
 }
 

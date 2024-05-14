@@ -29,6 +29,7 @@ usethis::pr_fetch(24)
 usethis::pr_push()
 
 # Test pkgdown
+pkgdown::check_pkgdown()
 usethis::use_build_ignore("_pkgdown.yml")
 usethis::use_git_ignore("public")
 usethis::use_build_ignore("public/")

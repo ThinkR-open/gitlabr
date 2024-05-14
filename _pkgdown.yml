@@ -9,7 +9,6 @@ reference:
     contents:
     - gl_new_project
     - gl_assign_issue
-    - gl_builds
     - gl_close_issue
     - gl_create_branch
     - gl_create_merge_request
@@ -26,6 +25,7 @@ reference:
     - gl_get_commits
     - gl_get_diff
     - gl_get_file
+    - gl_get_group_id
     - gl_get_issue
     - gl_get_issue_comments
     - gl_jobs
@@ -33,15 +33,17 @@ reference:
     - gl_list_issues
     - gl_list_branches
     - gl_list_files
+    - gl_list_groups
+    - gl_list_group_members
     - gl_list_projects
+    - gl_list_project_members
+    - gl_new_group
     - gl_new_issue
     - gl_pipelines
     - gl_push_file
     - gl_reopen_issue
     - gl_repository
     - gl_unassign_issue
-    - gl_list_group_members
-    - gl_list_project_members
   - title: Set global options
     desc: >
       Define connection to an instance of GitLab
@@ -63,15 +65,17 @@ reference:
     desc: >
       Functions requiring cleaning or deprecation 
     contents:
-    - gl_ci_job
     - gitlabr
-    - gitlabr_0_7_renaming
     - gl_archive
     - gl_connection
     - gl_get_project_id
     - gl_proj_req
+    - gl_group_req
     - glLoginInput
+    - glReactiveLogin
     - gl_to_issue_id
   - title: Deprecated functions
     contents:
     - gitlabr-deprecated
+    - gl_builds
+    - gl_ci_job
