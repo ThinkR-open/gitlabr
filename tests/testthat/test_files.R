@@ -191,9 +191,6 @@ test_that("gl_push_file works for file in a folder", {
   )
   expect_false("test-folder" %in% list_files[["path"]])
   expect_false(file_in_folder %in% list_files[["path"]])
-
-  ## old API
-  expect_warning(repository(project = test_project), regexp = "deprecated")
 })
 
 test_that("gl_push_file works for file in a subfolder in a folder", {
@@ -270,7 +267,4 @@ test_that("gl_push_file works for file in a subfolder in a folder", {
   )
   expect_false("test-folder" %in% list_files[["path"]])
   expect_false(file_in_subfolder %in% list_files[["path"]])
-
-  ## old API
-  expect_warning(repository(project = test_project), regexp = "deprecated")
 })

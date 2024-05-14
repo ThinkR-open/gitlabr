@@ -36,7 +36,7 @@ gitlab(
 \item{debug}{if TRUE API URL and query will be printed, defaults to FALSE}
 
 \item{gitlab_con}{function to use for issuing API requests (e.g. as returned by
-\code{\link[=gitlab_connection]{gitlab_connection()}}}
+\code{\link[=get_gitlab_connection]{get_gitlab_connection()}}}
 
 \item{page}{number of page of API response to get; if "all" (default), all pages
 (up to max_page parameter!) are queried successively and combined.}
@@ -93,14 +93,16 @@ you can give it a try.
 \dontrun{
 # Connect as a fixed user to a GitLab instance
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 
 # Use a simple request
 gitlab(req = "projects")
 # Use a combined request with extra parameters
-gitlab(req = c("projects", 1234, "issues"),
-       state = "closed")
+gitlab(
+  req = c("projects", 1234, "issues"),
+  state = "closed"
+)
 }
 }

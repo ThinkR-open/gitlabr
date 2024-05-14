@@ -114,7 +114,10 @@ gl_get_project_id <- function(project_name, ...) {
     warning(paste(c("Multiple projects with given name or path found,",
                     "please use explicit name with namespace:",
                     matching$path_with_namespace,
-                    paste("Picking", matching[1,"path_with_namespace"], "as default")),
+                    paste("Picking",
+                      matching[1,"path_with_namespace"],
+                      "as default"
+                    )),
                   collapse = "\n"))
   }
   
@@ -123,7 +126,7 @@ gl_get_project_id <- function(project_name, ...) {
 }
 
 to_project_id <- function(x, ...) {
-  if (!is.na(suppressWarnings(as.numeric(x))) | is.numeric(x)) {
+  if (!is.na(suppressWarnings(as.numeric(x))) || is.numeric(x)) {
     as.numeric(x)
   } else {
     gl_get_project_id(x, ...)

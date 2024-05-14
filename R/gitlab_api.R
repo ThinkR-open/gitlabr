@@ -1,17 +1,17 @@
 #' Request GitLab API
-#' 
+#'
 #' This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
 #' use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
 #' own. See the {gitlabr} vignette for more information on this.
-#' 
+#'
 #' @param req vector of characters that represents the call (e.g. `c("projects", project_id, "events")`)
 #' @param api_root URL where the GitLab API to request resides (e.g. `https://gitlab.myserver.com/api/v3/`)
 #' @param verb http verb to use for request in form of one of the `httr` functions
 #' [httr::GET()], [httr::PUT()], [httr::POST()], [httr::DELETE()]
 #' @param auto_format whether to format the returned object automatically to a flat data.frame
 #' @param debug if TRUE API URL and query will be printed, defaults to FALSE
-#' @param gitlab_con function to use for issuing API requests (e.g. as returned by 
-#' [gitlab_connection()]
+#' @param gitlab_con function to use for issuing API requests (e.g. as returned by
+#' [get_gitlab_connection()]
 #' @param page number of page of API response to get; if "all" (default), all pages
 #' (up to max_page parameter!) are queried successively and combined.
 #' @param max_page maximum number of pages to retrieve. Defaults to 10. This is an upper limit
@@ -25,29 +25,29 @@
 #' @param argname_verb name of the argument of the verb that fields and information are passed on to
 #' @param ... named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
 #' may include private_token and all other parameters as documented for the GitLab API
-#' 
+#'
 #' @importFrom utils capture.output
 #' @importFrom tibble tibble as_tibble
 #' @importFrom magrittr %T>%
 #' @importFrom dplyr bind_rows
 #' @importFrom stringr str_replace_all str_replace
 #' @export
-#' 
+#'
 #' @return the response from the GitLab API, usually as a `tibble` and including all pages
-#' 
-#' @details 
+#'
+#' @details
 #' `gitlab()` function allows to use any request of the GitLab API <https://docs.gitlab.com/ce/api/>.
 #'
-#'  For instance, the API documentation shows how to create a new project in 
-#'  <https://docs.gitlab.com/ce/api/projects.html#create-project>: 
-#'  
+#'  For instance, the API documentation shows how to create a new project in
+#'  <https://docs.gitlab.com/ce/api/projects.html#create-project>:
+#'
 #'  - The verb is `POST`
 #'  - The request is `projects`
 #'  - Required attributes are `name` or `path` (if `name` not set)
 #'  - `default_branch` is an attribute that can be set if wanted
-#'  
-#'  The corresponding use of `gitlab()` is:  
-#'  
+#'
+#'  The corresponding use of `gitlab()` is:
+#'
 #'  ```
 #'  gitlab(
 #'    req = "projects",
@@ -56,22 +56,24 @@
 #'    default_branch = "main"
 #'  )
 #'  ```
-#'  
+#'
 #' Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
 #' you can give it a try.
-#' 
+#'
 #' @examples \dontrun{
 #' # Connect as a fixed user to a GitLab instance
 #' set_gitlab_connection(
-#'   gitlab_url = "https://gitlab.com", 
+#'   gitlab_url = "https://gitlab.com",
 #'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 #' )
-#' 
+#'
 #' # Use a simple request
 #' gitlab(req = "projects")
 #' # Use a combined request with extra parameters
-#' gitlab(req = c("projects", 1234, "issues"),
-#'        state = "closed")
+#' gitlab(
+#'   req = c("projects", 1234, "issues"),
+#'   state = "closed"
+#' )
 #' }
 gitlab <- function(req,
                    api_root,
@@ -82,37 +84,49 @@ gitlab <- function(req,
                    page = "all",
                    max_page = 10,
                    enforce_api_root = TRUE,
-                   argname_verb = if (identical(verb, httr::GET) |
-                                      identical(verb, httr::DELETE)) { "query" } else { "body" },
+                   argname_verb = if (identical(verb, httr::GET) ||
+                     identical(verb, httr::DELETE)) {
+                     "query"
+                   } else {
+                     "body"
+                   },
                    ...) {
-  
   if (!is.function(gitlab_con) &&
-      gitlab_con == "default" &&
-      !is.null(get_gitlab_connection())) {
+    gitlab_con == "default" &&
+    !is.null(get_gitlab_connection())) {
     gitlab_con <- get_gitlab_connection()
   }
-  
+
   if (!is.function(gitlab_con)) {
     url <- req %>%
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
-      iff(debug, function(x) { print(paste(c("URL:", x, " "
-                                             , "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ", collapse = " "))); x })
-    
+      iff(debug, function(x) {
+        print(paste(c("URL:", x, " ",
+          "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ",
+          collapse = " "
+        )))
+        x
+      })
+
     # Extract private token to put it in header
     l <- list(...)
     private_token <- l$private_token
     l <- within(l, rm(private_token))
     private_token_header <- httr::add_headers("PRIVATE-TOKEN" = private_token)
-    
-    (if (page == "all") {l} else { c(page = page, l)}) %>%
+
+    (if (page == "all") {
+      l
+    } else {
+      c(page = page, l)
+    }) %>%
       pipe_into(argname_verb, verb, url = url, private_token_header) %>%
-      http_error_or_content()   -> resp
-    
+      http_error_or_content() -> resp
+
     resp$ct %>%
       iff(auto_format, json_to_flat_df) %>% ## better would be to check MIME type
       iff(debug, print) -> resp$ct
-    
+
     if (page == "all") {
       # pages_retrieved <- 0L
       pages_retrieved <- 1L
@@ -124,15 +138,13 @@ gitlab <- function(req,
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
         resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
-                               iff(auto_format, json_to_flat_df))
+          iff(auto_format, json_to_flat_df))
         pages_retrieved <- pages_retrieved + 1
       }
     }
-    
+
     return(resp$ct)
-    
   } else {
-    
     if (!missing(req)) {
       dot_args <- list(req = req)
     } else {
@@ -164,7 +176,6 @@ gitlab <- function(req,
 http_error_or_content <- function(response,
                                   handle = httr::stop_for_status,
                                   ...) {
-  
   if (!identical(handle(response), FALSE)) {
     ct <- httr::content(response, ...)
     nxt <- get_next_link(httr::headers(response)$link)
@@ -178,19 +189,21 @@ get_rel <- function(links) {
   links %>%
     stringr::str_split(",\\s+") %>%
     getElement(1) -> strs
-  tibble::tibble(link = strs %>%
-                   lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
-                   unlist(),
-                 rel = strs %>%
-                   lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
-                   unlist(),
-                 stringsAsFactors = FALSE)
+  tibble::tibble(
+    link = strs %>%
+      lapply(stringr::str_replace_all, "\\<(.+)\\>.*", "\\1") %>%
+      unlist(),
+    rel = strs %>%
+      lapply(stringr::str_replace_all, ".+rel=.(\\w+).", "\\1") %>%
+      unlist(),
+    stringsAsFactors = FALSE
+  )
 }
 
 #' @importFrom dplyr filter
 #' @noRd
 get_next_link <- function(links) {
-  if(is.null(links)) {
+  if (is.null(links)) {
     return(NULL)
   } else {
     links %>%
@@ -211,7 +224,6 @@ is_named <- function(v) {
 
 
 is_single_row <- function(l) {
-
   if (length(l) == 1 || !any(lapply(l, is.list) %>% unlist())) {
     return(TRUE)
   } else {
@@ -219,7 +231,7 @@ is_single_row <- function(l) {
     # not named, then probably multiple rows
     # at least one name is the same shows multiple lines
     all_names <- lapply(l, names)
-    if(any(
+    if (any(
       lapply(all_names, function(x) any(x %in% all_names[[1]])) %>% unlist()
     )) {
       return(FALSE)
@@ -255,7 +267,6 @@ format_row <- function(row, ...) {
 #' @importFrom dplyr bind_rows
 #' @noRd
 json_to_flat_df <- function(l) {
-  
   l %>%
     iff(is_single_row, list) %>%
     lapply(unlist, recursive = TRUE) %>%

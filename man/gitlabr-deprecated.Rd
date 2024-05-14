@@ -2,166 +2,35 @@
 % Please edit documentation in R/legacy_headers.R
 \name{gitlabr-deprecated}
 \alias{gitlabr-deprecated}
-\alias{archive}
-\alias{assign_issue}
-\alias{close_issue}
-\alias{comment_commit}
-\alias{comment_issue}
-\alias{create_branch}
-\alias{create_merge_request}
-\alias{delete_branch}
-\alias{edit_commit_comment}
-\alias{edit_issue}
-\alias{edit_issue_comment}
-\alias{file_exists}
-\alias{get_comments}
-\alias{get_commit_comments}
-\alias{get_commits}
-\alias{get_diff}
-\alias{get_file}
-\alias{get_issue}
-\alias{get_issue_comments}
-\alias{get_issues}
-\alias{get_project_id}
-\alias{gitlab_connection}
-\alias{list_branches}
-\alias{list_files}
-\alias{list_projects}
-\alias{new_issue}
-\alias{project_connection}
-\alias{proj_req}
-\alias{push_file}
-\alias{reopen_issue}
-\alias{repository}
-\alias{to_issue_id}
-\alias{unassign_issue}
 \alias{gl_builds}
 \alias{gl_ci_job}
 \title{Deprecated functions}
 \usage{
-archive(...)
-
-assign_issue(...)
-
-close_issue(...)
-
-comment_commit(...)
-
-comment_issue(...)
-
-create_branch(...)
-
-create_merge_request(...)
-
-delete_branch(...)
-
-edit_commit_comment(...)
-
-edit_issue(...)
-
-edit_issue_comment(...)
-
-file_exists(...)
-
-get_comments(...)
-
-get_commit_comments(...)
-
-get_commits(...)
-
-get_diff(...)
-
-get_file(...)
-
-get_issue(...)
-
-get_issue_comments(...)
-
-get_issues(...)
-
-get_project_id(...)
-
-gitlab_connection(...)
-
-list_branches(...)
-
-list_files(...)
-
-list_projects(...)
-
-new_issue(...)
-
-project_connection(...)
-
-proj_req(...)
-
-push_file(...)
-
-reopen_issue(...)
-
-repository(...)
-
-to_issue_id(...)
-
-unassign_issue(...)
-
 gl_builds(project, api_version = 4, ...)
 
 gl_ci_job()
 }
 \arguments{
-\item{...}{Parameters to the new function}
+\item{project}{Project name or ID}
 
 \item{api_version}{Since \code{gl_builds} is no longer working for GitLab API v4,
 this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
 default to "4" with deprecation message.´}
+
+\item{...}{Parameters to the new function}
 }
 \value{
-Warning for deprecated functions and output depending on the superseeding function.
+Warning for deprecated functions and
+output depending on the superseeding function.
 }
 \description{
-Many functions were renamed with version 0.7 to the \code{gl_} naming scheme.
-Note that the old function names are deprecated and might be removed without
-further notice.
+List of deprecated functions that will be removed in future versions.
 }
 \section{Details}{
 
 \tabular{rl}{
-\code{archive} \tab is now called \code{gl_archive} \cr
-\code{assign_issue} \tab is now called \code{gl_assign_issue} \cr
-\code{close_issue} \tab is now called \code{gl_close_issue} \cr
-\code{comment_commit} \tab is now called \code{gl_comment_commit} \cr
-\code{comment_issue} \tab is now called \code{gl_comment_issue} \cr
-\code{create_branch} \tab is now called \code{gl_create_branch} \cr
-\code{create_merge_request} \tab is now called \code{gl_create_merge_request} \cr
-\code{delete_branch} \tab is now called \code{gl_delete_branch} \cr
-\code{edit_commit_comment} \tab is now called \code{gl_edit_commit_comment} \cr
-\code{edit_issue} \tab is now called \code{gl_edit_issue} \cr
-\code{edit_issue_comment} \tab is now called \code{gl_edit_issue_comment} \cr
-\code{file_exists} \tab is now called \code{gl_file_exists} \cr
-\code{get_comments} \tab is now called \code{gl_get_comments} \cr
-\code{get_commit_comments} \tab is now called \code{gl_get_commit_comments} \cr
-\code{get_commits} \tab is now called \code{gl_get_commits} \cr
-\code{get_diff} \tab is now called \code{gl_get_diff} \cr
-\code{get_file} \tab is now called \code{gl_get_file} \cr
-\code{get_issue} \tab is now called \code{gl_get_issue} \cr
-\code{get_issue_comments} \tab is now called \code{gl_get_issue_comments} \cr
-\code{get_issues} \tab is now called \code{gl_list_issues} \cr
-\code{get_project_id} \tab is now called \code{gl_get_project_id} \cr
-\code{gitlab_connection} \tab is now called \code{gl_connection} \cr
-\code{list_branches} \tab is now called \code{gl_list_branches} \cr
-\code{list_files} \tab is now called \code{gl_list_files} \cr
-\code{list_projects} \tab is now called \code{gl_list_projects} \cr
-\code{new_issue} \tab is now called \code{gl_new_issue} \cr
-\code{project_connection} \tab is now called \code{gl_project_connection} \cr
-\code{proj_req} \tab is now called \code{gl_proj_req} \cr
-\code{push_file} \tab is now called \code{gl_push_file} \cr
-\code{reopen_issue} \tab is now called \code{gl_reopen_issue} \cr
-\code{repository} \tab is now called \code{gl_repository} \cr
-\code{to_issue_id} \tab is now called \code{gl_to_issue_id} \cr
-\code{unassign_issue} \tab is now called \code{gl_unassign_issue} \cr
-\code{gl_builds} \tab is now called \code{gl_pipelines} \cr
-\code{gl_ci_job} \tab is now called \code{use_gitlab_ci} \cr
+\code{gl_builds} \tab in favour of \code{gl_pipelines} \cr
+\code{gl_ci_job} \tab in favour of \code{use_gitlab_ci} \cr
 }
 }
 
