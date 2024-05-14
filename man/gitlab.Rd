@@ -14,7 +14,7 @@ gitlab(
   page = "all",
   max_page = 10,
   enforce_api_root = TRUE,
-  argname_verb = if (identical(verb, httr::GET) | identical(verb, httr::DELETE)) {
+  argname_verb = if (identical(verb, httr::GET) || identical(verb, httr::DELETE)) {
     
     "query"
  } else {
@@ -36,13 +36,13 @@ gitlab(
 \item{debug}{if TRUE API URL and query will be printed, defaults to FALSE}
 
 \item{gitlab_con}{function to use for issuing API requests (e.g. as returned by
-\code{\link[=gitlab_connection]{gitlab_connection()}}}
+\code{\link[=get_gitlab_connection]{get_gitlab_connection()}}}
 
 \item{page}{number of page of API response to get; if "all" (default), all pages
 (up to max_page parameter!) are queried successively and combined.}
 
 \item{max_page}{maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-to prevent {gitlabr} getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
+to prevent 'gitlabr' getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
 project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
 is recommended only under controlled circumstances.}
 
@@ -60,9 +60,9 @@ may include private_token and all other parameters as documented for the GitLab 
 the response from the GitLab API, usually as a \code{tibble} and including all pages
 }
 \description{
-This is {gitlabr}'s core function to talk to GitLab's server API via HTTP(S). Usually you will not
-use this function directly too often, but either use {gitlabr}'s convenience wrappers or write your
-own. See the {gitlabr} vignette for more information on this.
+This is 'gitlabr' core function to talk to GitLab's server API via HTTP(S). Usually you will not
+use this function directly too often, but either use 'gitlabr' convenience wrappers or write your
+own. See the 'gitlabr' vignette for more information on this.
 }
 \details{
 \code{gitlab()} function allows to use any request of the GitLab API \url{https://docs.gitlab.com/ce/api/}.
@@ -93,14 +93,16 @@ you can give it a try.
 \dontrun{
 # Connect as a fixed user to a GitLab instance
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 
 # Use a simple request
 gitlab(req = "projects")
 # Use a combined request with extra parameters
-gitlab(req = c("projects", 1234, "issues"),
-       state = "closed")
+gitlab(
+  req = c("projects", 1234, "issues"),
+  state = "closed"
+)
 }
 }

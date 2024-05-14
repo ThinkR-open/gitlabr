@@ -8,7 +8,7 @@ test_that("gl_list_projects work", {
 
 # gl_list_user_projects ----
 # Chances are "testor" is one of the latest project with activity because of other unit tests
-all_user_projects <- gl_list_user_projects(user_id = test_user_id, max_page = 1, order_by = "last_activity_at")
+all_user_projects <- gl_list_user_projects(user_id = test_user_id, max_page = 2, order_by = "last_activity_at")
 
 test_that("gl_list_user_projects work", {
   expect_true(all(test_project_name %in% all_user_projects[["name"]]))
@@ -16,12 +16,15 @@ test_that("gl_list_user_projects work", {
 })
 
 # gl_list_group_projects ----
-all_group_projects <- gl_list_group_projects(group_id = test_group_id, max_page = 1)
+all_group_projects <- gl_list_group_projects(group_id = test_subgroup_id, max_page = 1)
 
 test_that("gl_list_group_projects work", {
-  some_projects <- c("publication_guide")
-  expect_true(all(some_projects %in% all_group_projects[["name"]]))
-  expect_true(all(c("id", "name", "path") %in% names(all_group_projects)))
+  if (nrow(all_group_projects) >= 1) {
+    if (test_subgroup_name == "dontdelete.subgroup.for.gitlabr") {
+      expect_true(test_subgroup_project_name %in% all_group_projects[["name"]])
+    }
+    expect_true(all(c("id", "name", "path") %in% names(all_group_projects)))
+  }
 })
 
 # gl_get_project ----
@@ -44,8 +47,8 @@ test_that("gl_proj_req works", {
 # => Assume that the last modified is the current project 
 # because of unit tests
 the_retrieved_id <- gl_get_project_id(test_project_name, 
-                  max_page = 3, owned = TRUE,
-                  order_by = "last_activity_at")
+                                      max_page = 3, owned = TRUE,
+                                      order_by = "last_activity_at")
 # gitlab(req = "projects", 
 #        gitlab_url = file.path(test_url, all_user_projects$namespace.path[1]), 
 #        max_page = 1, owned = TRUE)
@@ -81,7 +84,7 @@ test_that("Commits work", {
   expect_s3_class(my_commits, "data.frame")
   expect_s3_class(my_commit, "data.frame")
   expect_gt(length(intersect(names(my_commits), names(my_commit))), 0L)
-
+  
 })
 
 
@@ -89,9 +92,9 @@ test_that("Commits work", {
 # gl_get_diff ----
 # The commit with CI is the last one in main branch
 the_diff <- gl_get_diff(test_project, my_commits$short_id[1])
-  
-test_that("gl_get_diff work", {
 
+test_that("gl_get_diff work", {
+  
   expect_s3_class(the_diff, "data.frame")
   expect_equal(nrow(the_diff), 1)
   expect_equal(the_diff$old_path, '.gitlab-ci.yml')

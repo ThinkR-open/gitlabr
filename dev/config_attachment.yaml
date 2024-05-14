@@ -3,8 +3,12 @@ path.d: DESCRIPTION
 dir.r: R
 dir.v: vignettes
 dir.t: tests
-extra.suggests: ~
-pkg_ignore: ~
+extra.suggests:
+  - shiny
+  - DT
+pkg_ignore:
+  - shiny
+  - DT
 document: yes
 normalize: yes
 inside_rmd: no

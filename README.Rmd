@@ -24,9 +24,10 @@ knitr::opts_chunk$set(
 [![R-CMD-check](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-**There are multiple breaking changes in {gitlabr} v2, please refer to the corresponding vignette: https://thinkr-open.github.io/gitlabr/articles/z-gitlabr-v2.html**
-
-_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  
+Never dreamt of creating and managing your GitLab projects from R? 
+{gitlabr} is here to help you with that!  
+With {gitlabr}, you can interact with GitLab's API to manage your projects, issues, merge requests, pipelines, wikis, and more.  
+Now, the automation of your regular tasks with GitLab is just a few lines of R code away.
 
 ## Installation
 
@@ -38,7 +39,7 @@ install.packages("gitlabr")
 
 To install the development version using [devtools](https://cran.r-project.org/package=devtools), type:
 ```{r, eval=FALSE}
-install.packages("gitlabr", repos = 'https://thinkr-open.r-universe.dev')
+install.packages("gitlabr", repos = "https://thinkr-open.r-universe.dev")
 ```
 
 See the [CONTRIBUTING.md](https://github.com/ThinkR-open/gitlabr/blob/main/CONTRIBUTING.md) for instructions on how to run tests locally and contributor information.
@@ -64,7 +65,8 @@ library(gitlabr)
 # connect as a fixed user to a GitLab instance for the session
 set_gitlab_connection(
   gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 ```
 
 - Find the list of projects available to you
@@ -73,7 +75,7 @@ set_gitlab_connection(
     + For instance, we can set `owned = FALSE` to retrieve all projects except ours.
 ```{r}
 # a tibble is returned, as is always by {gitlabr} functions
-gl_list_projects(max_page = 2, owned = FALSE) 
+gl_list_projects(max_page = 2, owned = FALSE)
 ```
 
 ### Work with a specific project
@@ -82,7 +84,7 @@ gl_list_projects(max_page = 2, owned = FALSE)
   + Let's explore [project "repo.rtask"](https://gitlab.com/statnmap/repo.rtask), with `ID = 20384533` on GitLab.com
   
 ```{r}
-my_project <- 20384533 #repo.rtask",
+my_project <- 20384533 # repo.rtask",
 ```
 
 - If the default branch is not named `main`, you need to specify it with `gitlabr_options_set()`
@@ -109,13 +111,15 @@ gl_list_issues(project = my_project)
 # create a new issue
 new_feature_issue <- gl_create_issue(project = my_project, title = "Implement new feature")
 
-# statnmap user ID
-my_id <- 4809823
+# Your user ID
+my_id <- 0000000
 
 # assign issue to me
-gl_assign_issue(project = my_project,
-                issue_id = new_feature_issue$iid,
-                assignee_id = my_id)
+gl_assign_issue(
+  project = my_project,
+  issue_id = new_feature_issue$iid,
+  assignee_id = my_id
+)
 
 # Verify new issue is here
 gl_list_issues(project = my_project, state = "opened")
@@ -180,3 +184,6 @@ You're welcome to contribute to {gitlabr} by editing the source code, adding mor
 ## Code of Conduct
 
 Please note that the gitlabr project is released with a [Contributor Code of Conduct](https://thinkr-open.github.io/gitlabr/CODE_OF_CONDUCT.html). By contributing to this project, you agree to abide by its terms.
+
+
+_Note that the {gitlabr} package was originally created by [Jirka Lewandowski](https://github.com/jirkalewandowski/gitlabr). The present repository is a fork to be able to continue development of this package._  

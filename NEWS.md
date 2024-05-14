@@ -2,28 +2,38 @@
 
 ## Breaking changes
 
+* Functions deprecated since version 0.7 are removed
 * Transfer ownership of the project to ThinkR-open
+
+## New features
+
+* `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
+* `gl_delete_file()` to delete a file in a repository
+* `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 
 ## Minor changes
 
 * `multilist_to_tibble()` transforms a deep structured nested list from an API into a tibble (#86, @statnmap, @ymansiaux)
 
+## Bug fixes
+
+* `gl_file_exists()`, `gl_list_files()`, `gl_push_file()`, `gl_delete_file()` now work with files in subdirectories
+
 # gitlabr 2.0.1
 
-New features
+## New features
 
 * Connection now uses the token as "header" instead of being sent clearly in the URL (#66, @ei-ds) 
 * `gl_list_group_projects()` lists projects of a group (@Yoshinobu-Ishizaki)
-* `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 
-Minor changes
+## Minor changes
 
 * doc HTML5 re-created with last version of roxygen2
 
 
 # gitlabr 2.0.0
 
-Breaking changes
+## Breaking changes
 
 * Default branch is named `main` whenever required.
   + This can be changed with `gitlabr_options_set("gitlabr.main", "master")`
@@ -36,14 +46,14 @@ Breaking changes
 * Changed use of `api_version = "v4"` by `api_version = 4`
 * Changed use of `force_api_v3 = TRUE` by `api_version = 4` for deprecation by default
 
-Major
+## Major
 
 * New use of `use_gitlab_ci()` with pre-defined templates
 * Add new functions to manage projects: `gl_get_project()`, `gl_new_project()`, `gl_edit_project()`,
  `gl_delete_project()`
 * Update documentation: recommend using `gl_*` functions
 
-Minor
+## Minor
 
 * `gl_archive()` is used to archive a project (not to download an archive)
 * fix use of `max_page` with `gl_()` functions calling `gitlab()`

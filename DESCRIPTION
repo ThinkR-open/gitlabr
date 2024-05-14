@@ -1,6 +1,6 @@
 Package: gitlabr
 Title: Access to the 'Gitlab' API
-Version: 2.0.1.9000
+Version: 2.0.1.9002
 Authors@R: c(
     person("Jirka", "Lewandowski", , "jirka.lewandowski@wzb.eu", role = "aut"),
     person("Sébastien", "Rochette", , "sebastien@thinkr.fr", role = c("aut", "cre"),
@@ -25,14 +25,15 @@ Imports:
     httr (>= 1.1.0),
     magrittr,
     purrr (>= 0.2.2),
-    shiny (>= 0.13.0),
     stringr,
     tibble (>= 1.1),
     tidyr,
     utils
 Suggests:
+    DT,
     knitr,
     rmarkdown,
+    shiny (>= 0.13.0),
     testthat (>= 3.0.0),
     yaml
 VignetteBuilder: 
@@ -42,4 +43,4 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.2
+RoxygenNote: 7.3.1

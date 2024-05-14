@@ -22,13 +22,14 @@ usethis::use_coverage()
 usethis::use_github_action(url = "https://github.com/DavisVaughan/extrachecks-html5/blob/main/R-CMD-check-HTML5.yaml")
 
 # Check pr ----
-# To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>). 
-# If you make changes, run pr_push() to push them back to GitHub. 
+# To download a PR locally so that you can experiment with it, run pr_fetch(<pr_number>).
+# If you make changes, run pr_push() to push them back to GitHub.
 # After you have merged the PR, run pr_finish() to delete the local branch.
 usethis::pr_fetch(24)
 usethis::pr_push()
 
 # Test pkgdown
+pkgdown::check_pkgdown()
 usethis::use_build_ignore("_pkgdown.yml")
 usethis::use_git_ignore("public")
 usethis::use_build_ignore("public/")
@@ -36,12 +37,23 @@ options(rmarkdown.html_vignette.check_title = FALSE)
 pkgdown::build_site()
 
 # Development ----
-attachment::att_amend_desc() #extra.suggests = "glue")
+attachment::att_amend_desc(
+  update.config = TRUE,
+  extra.suggests = c("shiny", "DT"),
+  pkg_ignore = c("shiny", "DT")
+)
 devtools::load_all()
 devtools::test()
-devtools::check() # /!\ Tests are currently skip if no token in "dev/environment.yml"/!\
+devtools::check()
+devtools::check(args = c("--no-tests"))
 devtools::build_vignettes()
 
+# Deal with tests ----
+devtools::load_all()
+## load test environment variables
+do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml"))
+devtools::test() ## run all tests
+testthat::test_file("tests/testthat/test_files.R") ## run test on one file
 
 # Prepare for CRAN ----
 usethis::use_release_issue()
@@ -128,13 +140,12 @@ library(purrr)
 repos <- gh::gh("/repos/ThinkR-open/gitlabr/stats/contributors")
 map(repos, "author") %>% map("login")
 
-map_chr(repos, ~paste0(
+map_chr(repos, ~ paste0(
   # "[&#x0040;",
   "[",
   pluck(.x, "author", "login"),
   "](",
   pluck(.x, "author", "html_url"),
   ")"
-  )
-) %>% 
+)) %>%
   glue::glue_collapse(sep = ", ", last = " and ")

@@ -36,12 +36,12 @@ Add .gitlab-ci.yml file in your current project from template
 \details{
 Types available are:
 \itemize{
-\item "check-coverage-pkgdown": Check package along with Code coverage with {covr}
-and {pkgdown} site on GitLab Pages
-\item "check-coverage-pkgdown-renv": Check package built in a fixed {renv} state
-along with Code coverage with {covr} and {pkgdown} site on GitLab Pages.
-\item "bookdown": Build {bookdown} HTML and PDF site on GitLab Pages
-\item "bookdown-production": Build {bookdown} HTML and PDF site on GitLab Pages.
+\item "check-coverage-pkgdown": Check package along with Code coverage with 'covr'
+and 'pkgdown' site on GitLab Pages
+\item "check-coverage-pkgdown-renv": Check package built in a fixed 'renv' state
+along with Code coverage with 'covr' and 'pkgdown' site on GitLab Pages.
+\item "bookdown": Build 'bookdown' HTML and PDF site on GitLab Pages
+\item "bookdown-production": Build 'bookdown' HTML and PDF site on GitLab Pages.
 Where default page is for branch named 'production' and "dev/" sub-folder is for
 'main' (or 'master') branch.
 }
