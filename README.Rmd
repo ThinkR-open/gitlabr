@@ -20,7 +20,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![CRAN\_Status\_Badge](https://www.r-pkg.org/badges/version/gitlabr)](https://cran.r-project.org/package=gitlabr)
 ![CRAN\ Downloads\ Badge](https://cranlogs.r-pkg.org/badges/gitlabr)
-[![codecov](https://codecov.io/gh/ThinkR-open/gitlabr/graph/badge.svg?token=EVRTX5LST9)](https://codecov.io/gh/ThinkR-open/gitlabr)
+[![codecov](https://codecov.io/gh/ThinkR-open/gitlabr/graph/badge.svg?token=EVRTX5LST9)](https://app.codecov.io/gh/ThinkR-open/gitlabr)
 [![R-CMD-check](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/ThinkR-open/gitlabr/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 

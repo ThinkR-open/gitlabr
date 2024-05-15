@@ -22,19 +22,29 @@ my_gitlab_test <- gl_connection(
   api_version = test_api_version
 )
 
-# Note that we cannot compare directly all outputs because GitLab projects are actively increasing
+# Note that we cannot compare directly all outputs
+# because GitLab projects are actively increasing
 # Instead, we will only check for project owned by the user with `owned = TRUE`
 
 # All projects should be the same (if user does not add a project during CI)
-# Except for last_activity_at, open_issues_count that can change during and because of CI
+# Except for last_activity_at, open_issues_count
+# that can change during and because of CI
 # Also order may change for same reasons
 
+# TODO - Work with projects under group : gitlabr-group
+
 # Way 1
-my_gitlab_projects_output_raw <- my_gitlab_test("projects", max_page = 1, owned = TRUE) %>%
+my_gitlab_projects_output_raw <- my_gitlab_test(
+  "projects",
+  max_page = 1, owned = TRUE
+) %>%
   filter(grepl("^demo", name))
 
 # Way_2
-my_gitlab_list_projects_output_raw <- my_gitlab_test(gl_list_projects, max_page = 1, owned = TRUE) %>%
+my_gitlab_list_projects_output_raw <- my_gitlab_test(
+  gl_list_projects,
+  max_page = 1, owned = TRUE
+) %>%
   filter(grepl("^demo", name))
 
 # Way_3
@@ -46,29 +56,23 @@ gitlab_projects_api_raw <- gitlab("projects",
   filter(grepl("^demo", name))
 
 # Way_4
-gl_list_projects_output_raw <- gl_list_projects(gitlab_con = my_gitlab_test, max_page = 1, owned = TRUE) %>%
+gl_list_projects_output_raw <- gl_list_projects(
+  gitlab_con = my_gitlab_test, max_page = 1, owned = TRUE
+) %>%
   filter(grepl("^demo", name))
 
 # names with dots [.] only exist if there are sub-lists.
 # This is not always the case depending on projects.
 # Names without dots are also not always existing fields, apparently
-names_1 <- names(my_gitlab_projects_output_raw) # [!grepl("[.]", names(my_gitlab_projects_output_raw))]
-names_2 <- names(my_gitlab_list_projects_output_raw) # [!grepl("[.]", names(my_gitlab_list_projects_output_raw))]
-names_3 <- names(gitlab_projects_api_raw) # [!grepl("[.]", names(gitlab_projects_api_raw))]
-names_4 <- names(gl_list_projects_output_raw) # [!grepl("[.]", names(gl_list_projects_output_raw))]
+names_1 <- names(my_gitlab_projects_output_raw)
+names_2 <- names(my_gitlab_list_projects_output_raw)
+names_3 <- names(gitlab_projects_api_raw)
+names_4 <- names(gl_list_projects_output_raw)
 
 all_same <- function(.x) (isTRUE(all(is.na(.x)) || all(.x == .x[1])))
-# all_same(1:4)
-# all_same(c(NA, 1, 2, 3))
-# all_same(c(NA, "", "", "a"))
-# all_same(rep(1, 4))
-# all_same(rep(NA, 4))
-# all_same(rep("toto", 4))
-# all_same(c("toto", "a"))
-# all_same(rep(TRUE, 4))
-# all_same(rep(FALSE, 4))
 
-# Retrieve all projects in common to be sure all infos are there, and missing one are empty
+# Retrieve all projects in common to be sure
+#  all infos are there, and missing one are empty
 # Get id present in all four ways
 id_common <-
   bind_rows(
@@ -114,7 +118,10 @@ test_that("GitLab connection creation works", {
   # We keep only user projects
   # All projects should be the same (if user does not add a project during CI)
   # Except for last_activity_at that can change during and because of CI
-  expect_equal(my_gitlab_projects_output_raw, my_gitlab_list_projects_output_raw)
+  expect_equal(
+    my_gitlab_projects_output_raw,
+    my_gitlab_list_projects_output_raw
+  )
   expect_equal(my_gitlab_projects_output_raw, gitlab_projects_api_raw)
   expect_equal(my_gitlab_projects_output_raw, gl_list_projects_output_raw)
 
@@ -129,7 +136,10 @@ test_that("GitLab connection creation works", {
 })
 
 # Test list ok even if not owned ----
-my_gitlab_projects_owned <- my_gitlab_test("projects", max_page = 1, owned = TRUE)
+my_gitlab_projects_owned <- my_gitlab_test(
+  "projects",
+  max_page = 1, owned = TRUE
+)
 my_gitlab_projects_all_public <- my_gitlab_test("projects", max_page = 1)
 
 test_that("Access to all public repo works", {
