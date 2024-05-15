@@ -13,7 +13,9 @@ test_that("gitlabr_options_set works", {
 
 # Create a temporary project to get info from
 temp_project <- gl_new_project(
-  name = "demo_temp_project",
+  name = paste0(
+    "demo_temp_project_", test_project_name
+  ),
   description = "Temporary project for testing gitlabr",
   visibility = "private"
 )
