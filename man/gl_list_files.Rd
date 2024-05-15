@@ -15,6 +15,9 @@ gl_list_files(project, path = "", ref = get_main(), ...)
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 }
+\value{
+Tibble of files available in the branch with descriptive variables.
+}
 \description{
 List of files in a folder
 }

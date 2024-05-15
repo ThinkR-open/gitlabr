@@ -294,6 +294,7 @@ gl_delete_project <- function(project) {
 #' @param project The ID or URL-encoded path of the project.
 #' @param ... passed on to [gitlab()] API call for "project"
 #'
+#' @return A tibble with the project members information
 #' @export
 #' @examples \dontrun{
 #' set_gitlab_connection(
@@ -309,7 +310,7 @@ gl_list_project_members <- function(project, ...) {
 #' List members of a specific group
 #' @param group The ID or URL-encoded path of the group
 #' @param ... passed on to [gitlab()] API call for "groups"
-#'
+#' @return A tibble with the group members information
 #' @export
 #' @examples \dontrun{
 #' set_gitlab_connection(

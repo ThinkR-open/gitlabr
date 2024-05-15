@@ -39,6 +39,9 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
 #' @param path path of the folder
 #' @param ref name of ref (commit branch or tag)
 #' @param ... passed on to [gitlab()] API call
+#'
+#' @return Tibble of files available in the branch with descriptive variables.
+#'
 #' @importFrom purrr partial
 #' @export
 #' @examples \dontrun{

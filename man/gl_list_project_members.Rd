@@ -11,6 +11,9 @@ gl_list_project_members(project, ...)
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "project"}
 }
+\value{
+A tibble with the project members information
+}
 \description{
 List members of a specific project
 }

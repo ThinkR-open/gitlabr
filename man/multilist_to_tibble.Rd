@@ -9,6 +9,9 @@ multilist_to_tibble(the_list)
 \arguments{
 \item{the_list}{list of element as issued from a API REST call}
 }
+\value{
+a tibble with columns as the names of the list
+}
 \description{
 Modify a multilist from API JSON output to a level 1 tibble
 }

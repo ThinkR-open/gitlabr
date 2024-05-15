@@ -3,6 +3,8 @@
 #' @importFrom purrr possibly map_dfr
 #' @importFrom dplyr tibble mutate_if
 #' @importFrom tidyr pivot_wider
+#'
+#' @return a tibble with columns as the names of the list
 #' @export
 #' @examples
 #' reprex <- list(
