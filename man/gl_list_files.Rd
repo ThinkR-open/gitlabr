@@ -11,7 +11,7 @@ gl_list_files(project, path = "", ref = get_main(), ...)
 
 \item{path}{path of the folder}
 
-\item{ref}{name of ref (commit branch or tag)}
+\item{ref}{name of ref (commit branch or tag). Default to 'main'.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 }

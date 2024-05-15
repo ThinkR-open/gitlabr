@@ -22,7 +22,7 @@ gl_delete_branch(project, branch, ...)
 
 \item{branch}{name of branch to create / delete / get information}
 
-\item{ref}{ref name of origin for newly created branch}
+\item{ref}{ref name of origin for newly created branch. Default to 'main'.}
 }
 \value{
 Tibble of branches available in the project with descriptive variables

@@ -44,7 +44,7 @@ gl_get_branch <- function(project, branch, ...) {
 }
 
 #' @param branch name of branch to create / delete / get information
-#' @param ref ref name of origin for newly created branch
+#' @param ref ref name of origin for newly created branch. Default to 'main'.
 #' @rdname branches
 #' @export
 gl_create_branch <- function(project, branch, ref = get_main(), ...) {

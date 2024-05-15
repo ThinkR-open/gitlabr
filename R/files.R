@@ -3,7 +3,7 @@
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
 #' in GitLab API, as vector or part of URL)
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param ... passed on to [gitlab()] API call
 #' @export
 #' @return Tibble of files available in the branch with descriptive variables.
@@ -37,7 +37,7 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
 #'
 #' @param project name or id of project (not repository!)
 #' @param path path of the folder
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param ... passed on to [gitlab()] API call
 #'
 #' @return Tibble of files available in the branch with descriptive variables.
@@ -108,7 +108,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 #' Get a file from a GitLab repository
 #'
 #' @param file_path path to file
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param to_char flag if output should be converted to char;
 #' otherwise it is of class raw
 #' @param api_version a switch to force deprecated GitLab API v3 behavior.
