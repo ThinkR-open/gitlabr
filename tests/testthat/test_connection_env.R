@@ -11,6 +11,13 @@ test_that("gitlabr_options_set works", {
   gitlabr_options_set("gitlabr.main", old.option)
 })
 
+# Create a temporary project to get info from
+temp_project <- gl_new_project(
+  name = "demo_temp_project",
+  description = "Temporary project for testing gitlabr",
+  visibility = "private"
+)
+
 # Unset as it is set in helper.R
 unset_gitlab_connection()
 
@@ -36,14 +43,14 @@ my_gitlab_projects_output_raw <- my_gitlab_test(
   "projects",
   max_page = 1, owned = TRUE
 ) %>%
-  filter(grepl("^testor", name))
+  filter(grepl("^demo", name))
 
 # Way_2
 my_gitlab_list_projects_output_raw <- my_gitlab_test(
   gl_list_projects,
   max_page = 1, owned = TRUE
 ) %>%
-  filter(grepl("^testor", name))
+  filter(grepl("^demo", name))
 
 # Way_3
 gitlab_projects_api_raw <- gitlab("projects",
@@ -51,13 +58,13 @@ gitlab_projects_api_raw <- gitlab("projects",
   private_token = test_private_token,
   max_page = 1, owned = TRUE
 ) %>%
-  filter(grepl("^testor", name))
+  filter(grepl("^demo", name))
 
 # Way_4
 gl_list_projects_output_raw <- gl_list_projects(
   gitlab_con = my_gitlab_test, max_page = 1, owned = TRUE
 ) %>%
-  filter(grepl("^testor", name))
+  filter(grepl("^demo", name))
 
 # names with dots [.] only exist if there are sub-lists.
 # This is not always the case depending on projects.
@@ -366,3 +373,6 @@ set_gitlab_connection(
   private_token = test_private_token,
   api_version = test_api_version
 )
+
+# Deletet the temporary project
+gl_delete_project(temp_project$id)
