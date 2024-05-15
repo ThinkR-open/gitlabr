@@ -99,7 +99,6 @@ spelling::spell_check_package() # regarder s'il y a des typos
 # Check URL are correct - No redirection
 # install.packages('urlchecker', repos = 'https://r-lib.r-universe.dev')
 # dont change all https://gitlab.com to about.gitlab.com,
-# dont change codecov.io to app.codecov.io
 # this would be a mistake
 urlchecker::url_check()
 urlchecker::url_update() # corrige les redirections
