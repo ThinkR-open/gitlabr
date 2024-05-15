@@ -20,6 +20,9 @@
 ## Bug fixes
 
 * `gl_file_exists()`, `gl_list_files()`, `gl_push_file()`, `gl_delete_file()` now work with files in subdirectories
+* Fix handling file path in sub-directories in `gl_push_file()` (#73, #111)
+* Fix combination of `page` and `max_page` for infinite pagination (#90)
+* Fix `auto_format=FALSE` (#82)
 
 # gitlabr 2.0.1
 
