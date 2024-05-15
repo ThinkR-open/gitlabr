@@ -1,6 +1,6 @@
 test_that("gl_repository Repo access works", {
   # Dont not fail with character id
-  expect_error(gl_repository("totostatnmap"), "no matching 'id'")
+  expect_error(gl_repository("non-existent-repo"), "no matching 'id'")
   out_with_chr <- gl_repository(as.character(test_project))
   expect_s3_class(out_with_chr, "data.frame")
 

@@ -42,7 +42,8 @@ attachment::att_amend_desc(
   extra.suggests = c("shiny", "DT"),
   pkg_ignore = c("shiny", "DT")
 )
-devtools::load_all()
+attachment::att_amend_desc()
+
 devtools::test()
 devtools::check() # tests are skipped as cran
 devtools::check(args = c("--no-tests"))

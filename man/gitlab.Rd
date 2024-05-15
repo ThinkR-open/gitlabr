@@ -24,48 +24,65 @@ gitlab(
 )
 }
 \arguments{
-\item{req}{vector of characters that represents the call (e.g. \code{c("projects", project_id, "events")})}
+\item{req}{vector of characters that represents the call
+(e.g. \code{c("projects", project_id, "events")})}
 
-\item{api_root}{URL where the GitLab API to request resides (e.g. \verb{https://gitlab.myserver.com/api/v3/})}
+\item{api_root}{URL where the GitLab API to request resides
+(e.g. \verb{https://gitlab.myserver.com/api/v3/})}
 
-\item{verb}{http verb to use for request in form of one of the \code{httr} functions
+\item{verb}{http verb to use for request in form of one of the
+\code{httr} functions
 \code{\link[httr:GET]{httr::GET()}}, \code{\link[httr:PUT]{httr::PUT()}}, \code{\link[httr:POST]{httr::POST()}}, \code{\link[httr:DELETE]{httr::DELETE()}}}
 
-\item{auto_format}{whether to format the returned object automatically to a flat data.frame}
+\item{auto_format}{whether to format the returned object automatically
+to a flat data.frame}
 
 \item{debug}{if TRUE API URL and query will be printed, defaults to FALSE}
 
-\item{gitlab_con}{function to use for issuing API requests (e.g. as returned by
-\code{\link[=get_gitlab_connection]{get_gitlab_connection()}}}
+\item{gitlab_con}{function to use for issuing API requests
+(e.g. as returned by \code{\link[=get_gitlab_connection]{get_gitlab_connection()}}}
 
-\item{page}{number of page of API response to get; if "all" (default), all pages
-(up to max_page parameter!) are queried successively and combined.}
+\item{page}{number of page of API response to get; if "all" (default),
+all pages (up to max_page parameter!) are queried successively and combined.}
 
-\item{max_page}{maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-to prevent 'gitlabr' getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
-project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
+\item{max_page}{maximum number of pages to retrieve.
+Defaults to 10. This is an upper limit
+to prevent 'gitlabr' getting stuck in retrieving
+an unexpectedly high number of entries (e.g. of a
+project list). It can be set to NA/Inf to retrieve
+all available pages without limit, but this
 is recommended only under controlled circumstances.}
 
-\item{enforce_api_root}{if multiple pages are requested, the API root URL is ensured
-to be the same as in the original call for all calls using the "next page" URL returned
-by GitLab This makes sense for security and in cases where GitLab is behind a reverse proxy
+\item{enforce_api_root}{if multiple pages are requested,
+the API root URL is ensured
+to be the same as in the original call for all calls
+using the "next page" URL returned
+by GitLab This makes sense for security and in cases
+where GitLab is behind a reverse proxy
 and ignorant about its URL from external.}
 
-\item{argname_verb}{name of the argument of the verb that fields and information are passed on to}
+\item{argname_verb}{name of the argument of the verb
+that fields and information are passed on to}
 
-\item{...}{named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
-may include private_token and all other parameters as documented for the GitLab API}
+\item{...}{named parameters to pass on to GitLab API
+(technically: modifies query parameters of request URL),
+may include private_token and all other parameters
+as documented for the GitLab API}
 }
 \value{
-the response from the GitLab API, usually as a \code{tibble} and including all pages
+the response from the GitLab API,
+usually as a \code{tibble} and including all pages
 }
 \description{
-This is 'gitlabr' core function to talk to GitLab's server API via HTTP(S). Usually you will not
-use this function directly too often, but either use 'gitlabr' convenience wrappers or write your
+This is 'gitlabr' core function to talk to GitLab's
+server API via HTTP(S). Usually you will not
+use this function directly too often, but either use 'gitlabr'
+convenience wrappers or write your
 own. See the 'gitlabr' vignette for more information on this.
 }
 \details{
-\code{gitlab()} function allows to use any request of the GitLab API \url{https://docs.gitlab.com/ce/api/}.
+\code{gitlab()} function allows to use any request
+of the GitLab API \url{https://docs.gitlab.com/ce/api/}.
 
 For instance, the API documentation shows how to create a new project in
 \url{https://docs.gitlab.com/ce/api/projects.html#create-project}:
@@ -86,7 +103,8 @@ The corresponding use of \code{gitlab()} is:
 )
 }\if{html}{\out{</div>}}
 
-Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
+Note: currently GitLab API v4 is supported.
+GitLab API v3 is no longer supported, but
 you can give it a try.
 }
 \examples{

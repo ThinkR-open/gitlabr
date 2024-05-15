@@ -1,30 +1,45 @@
 #' Request GitLab API
 #'
-#' This is 'gitlabr' core function to talk to GitLab's server API via HTTP(S). Usually you will not
-#' use this function directly too often, but either use 'gitlabr' convenience wrappers or write your
+#' This is 'gitlabr' core function to talk to GitLab's
+#' server API via HTTP(S). Usually you will not
+#' use this function directly too often, but either use 'gitlabr'
+#'  convenience wrappers or write your
 #' own. See the 'gitlabr' vignette for more information on this.
 #'
-#' @param req vector of characters that represents the call (e.g. `c("projects", project_id, "events")`)
-#' @param api_root URL where the GitLab API to request resides (e.g. `https://gitlab.myserver.com/api/v3/`)
-#' @param verb http verb to use for request in form of one of the `httr` functions
+#' @param req vector of characters that represents the call
+#' (e.g. `c("projects", project_id, "events")`)
+#' @param api_root URL where the GitLab API to request resides
+#'  (e.g. `https://gitlab.myserver.com/api/v3/`)
+#' @param verb http verb to use for request in form of one of the
+#' `httr` functions
 #' [httr::GET()], [httr::PUT()], [httr::POST()], [httr::DELETE()]
-#' @param auto_format whether to format the returned object automatically to a flat data.frame
+#' @param auto_format whether to format the returned object automatically
+#'  to a flat data.frame
 #' @param debug if TRUE API URL and query will be printed, defaults to FALSE
-#' @param gitlab_con function to use for issuing API requests (e.g. as returned by
-#' [get_gitlab_connection()]
-#' @param page number of page of API response to get; if "all" (default), all pages
-#' (up to max_page parameter!) are queried successively and combined.
-#' @param max_page maximum number of pages to retrieve. Defaults to 10. This is an upper limit
-#' to prevent 'gitlabr' getting stuck in retrieving an unexpectedly high number of entries (e.g. of a
-#' project list). It can be set to NA/Inf to retrieve all available pages without limit, but this
+#' @param gitlab_con function to use for issuing API requests
+#' (e.g. as returned by [get_gitlab_connection()]
+#' @param page number of page of API response to get; if "all" (default),
+#'  all pages (up to max_page parameter!) are queried successively and combined.
+#' @param max_page maximum number of pages to retrieve.
+#' Defaults to 10. This is an upper limit
+#' to prevent 'gitlabr' getting stuck in retrieving
+#' an unexpectedly high number of entries (e.g. of a
+#' project list). It can be set to NA/Inf to retrieve
+#' all available pages without limit, but this
 #' is recommended only under controlled circumstances.
-#' @param enforce_api_root if multiple pages are requested, the API root URL is ensured
-#' to be the same as in the original call for all calls using the "next page" URL returned
-#' by GitLab This makes sense for security and in cases where GitLab is behind a reverse proxy
+#' @param enforce_api_root if multiple pages are requested,
+#' the API root URL is ensured
+#' to be the same as in the original call for all calls
+#' using the "next page" URL returned
+#' by GitLab This makes sense for security and in cases
+#' where GitLab is behind a reverse proxy
 #' and ignorant about its URL from external.
-#' @param argname_verb name of the argument of the verb that fields and information are passed on to
-#' @param ... named parameters to pass on to GitLab API (technically: modifies query parameters of request URL),
-#' may include private_token and all other parameters as documented for the GitLab API
+#' @param argname_verb name of the argument of the verb
+#' that fields and information are passed on to
+#' @param ... named parameters to pass on to GitLab API
+#' (technically: modifies query parameters of request URL),
+#' may include private_token and all other parameters
+#' as documented for the GitLab API
 #'
 #' @importFrom utils capture.output
 #' @importFrom tibble tibble as_tibble
@@ -33,10 +48,12 @@
 #' @importFrom stringr str_replace_all str_replace
 #' @export
 #'
-#' @return the response from the GitLab API, usually as a `tibble` and including all pages
+#' @return the response from the GitLab API,
+#' usually as a `tibble` and including all pages
 #'
 #' @details
-#' `gitlab()` function allows to use any request of the GitLab API <https://docs.gitlab.com/ce/api/>.
+#' `gitlab()` function allows to use any request
+#'  of the GitLab API <https://docs.gitlab.com/ce/api/>.
 #'
 #'  For instance, the API documentation shows how to create a new project in
 #'  <https://docs.gitlab.com/ce/api/projects.html#create-project>:
@@ -57,7 +74,8 @@
 #'  )
 #'  ```
 #'
-#' Note: currently GitLab API v4 is supported. GitLab API v3 is no longer supported, but
+#' Note: currently GitLab API v4 is supported.
+#'  GitLab API v3 is no longer supported, but
 #' you can give it a try.
 #'
 #' @examples \dontrun{
@@ -84,12 +102,15 @@ gitlab <- function(req,
                    page = "all",
                    max_page = 10,
                    enforce_api_root = TRUE,
-                   argname_verb = if (identical(verb, httr::GET) ||
-                     identical(verb, httr::DELETE)) {
-                     "query"
-                   } else {
-                     "body"
-                   },
+                   argname_verb =
+                     if (
+                       identical(verb, httr::GET) ||
+                         identical(verb, httr::DELETE)
+                     ) {
+                       "query"
+                     } else {
+                       "body"
+                     },
                    ...) {
   if (!is.function(gitlab_con) &&
     gitlab_con == "default" &&
@@ -102,10 +123,16 @@ gitlab <- function(req,
       paste(collapse = "/") %>%
       prefix(api_root, "/") %T>%
       iff(debug, function(x) {
-        print(paste(c("URL:", x, " ",
-          "query:", paste(utils::capture.output(print((list(...)))), collapse = " "), " ",
-          collapse = " "
-        )))
+        print(
+          paste(c("URL:", x, " ",
+            "query:",
+            paste(
+              utils::capture.output(print((list(...)))),
+              collapse = " "
+            ), " ",
+            collapse = " "
+          ))
+        )
         x
       })
 
@@ -124,21 +151,38 @@ gitlab <- function(req,
       http_error_or_content() -> resp
 
     resp$ct %>%
-      iff(auto_format, json_to_flat_df) %>% ## better would be to check MIME type
+      ## better would be to check MIME type
+      iff(auto_format, json_to_flat_df) %>%
       iff(debug, print) -> resp$ct
 
     if (page == "all") {
-      # pages_retrieved <- 0L
-      pages_retrieved <- 1L
-      while (length(resp$nxt) > 0 && is.finite(max_page) && pages_retrieved < max_page) {
+      pages_retrieved <- 1L # 1 already retrieved
+      while (length(resp$nxt) > 0
+      ) {
+        if (
+          !is.na(max_page) &&
+            is.finite(max_page) &&
+            pages_retrieved >= max_page
+        ) {
+          message("max_page reached, stop retrieving pages...")
+          break
+        }
+
         nxt_resp <- resp$nxt %>%
           as.character() %>%
-          iff(enforce_api_root, stringr::str_replace, "^.*/api/v\\d/", api_root) %>%
+          iff(
+            enforce_api_root,
+            stringr::str_replace, "^.*/api/v\\d/",
+            api_root
+          ) %>%
           httr::GET(private_token_header) %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
-        resp$ct <- bind_rows(resp$ct, nxt_resp$ct %>%
-          iff(auto_format, json_to_flat_df))
+        resp$ct <- bind_rows(
+          resp$ct,
+          nxt_resp$ct %>%
+            iff(auto_format, json_to_flat_df)
+        )
         pages_retrieved <- pages_retrieved + 1
       }
     }
