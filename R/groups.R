@@ -34,15 +34,16 @@ gl_list_sub_groups <- function(group, ...) {
 }
 
 #' Create a group specific request
-#' 
+#'
 #' Prefixes the request location with "groups/:id/subgroups" and automatically
 #' translates group names into ids
-#' 
+#'
 #' @param group The ID, name or URL-encoded path of the group
 #' @param ... passed on to [gl_get_group_id()]
 #' @export
-#' @return A vector of character to be used as request for functions involving groups
-#' @examples 
+#' @return A vector of character to be used
+#' as request for functions involving groups
+#' @examples
 #' \dontrun{
 #' gl_group_req("test_group"<<your-group-id>>)
 #' }
@@ -61,8 +62,10 @@ gl_group_req <- function(group, ...) {
 #' @importFrom dplyr mutate filter
 #'
 #' @details
-#' Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
-#' If the `group_name` is an old group lost in a big repository (position > 200),
+#' Number of pages searched is limited to
+#' (per_page =) 20 * (max_page =) 10 by default.
+#' If the `group_name` is an old group lost
+#' in a big repository (position > 200),
 #' `gl_get_group_id()` may not find the group id.
 #'
 #' @export
@@ -78,9 +81,11 @@ gl_get_group_id <- function(group_name, ...) {
       matches_path = path == group_name,
       matches_full_path = full_path == group_name
     ) %>%
-    filter(matches_full_path ||
-      (sum(matches_full_path) == 0L &
-        matches_path | matches_name))
+    filter(
+      matches_full_path |
+        (sum(matches_full_path) == 0L &
+           matches_path | matches_name)
+    )
 
   if (nrow(matching) == 0) {
     stop(
@@ -125,6 +130,11 @@ to_group_id <- function(x, ...) {
 #' @details
 #' You can use extra parameters as proposed in the GitLab API.
 #'
+#' Note that on GitLab SaaS, you must use the GitLab UI to
+#' create groups without a parent group.
+#' You cannot use the API with [gl_new_group()] to do this,
+#' but you can use [gl_new_subgroup()].
+#'
 #' @examples \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com",
@@ -132,6 +142,8 @@ to_group_id <- function(x, ...) {
 #' )
 #' # Create new group
 #' gl_new_group(name = "mygroup")
+#' # Create new subgroup
+#' gl_new_subgroup(name = "mysubgroup", group = "mygroup")
 #' # Edit existing group
 #' gl_edit_group(group = "<<your-group-id>>", default_branch = "main")
 #' # Delete group
@@ -139,11 +151,15 @@ to_group_id <- function(x, ...) {
 #' }
 gl_new_group <- function(name,
                          path,
+                         visibility = c("private", "internal", "public"),
                          ...) {
+  visibility <- match.arg(visibility, several.ok = FALSE)
+
   gitlab(
     req = "groups",
     path = path,
     name = name,
+    visibility = visibility,
     verb = httr::POST,
     ...
   )
@@ -153,15 +169,21 @@ gl_new_group <- function(name,
 #' @param visibility Visibility of the new subgroup: "public", "private"...
 #' @export
 #' @rdname gl_new_group
-gl_new_subgroup <- function(name,
-                            visibility = c("private", "public"),
-                            group,
-                            ...) {
+gl_new_subgroup <- function(
+    name,
+    path,
+    visibility = c("private", "internal", "public"),
+    group,
+    ...) {
   visibility <- match.arg(visibility, several.ok = FALSE)
 
+  if (missing(path)) {
+    path <- name
+  }
   gitlab(
     req = "groups",
     name = name,
+    path = path,
     visibility = visibility,
     parent_id = to_group_id(group),
     verb = httr::POST,

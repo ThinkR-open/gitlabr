@@ -7,12 +7,13 @@
 gl_group_req(group, ...)
 }
 \arguments{
-\item{group}{group name or id}
+\item{group}{The ID, name or URL-encoded path of the group}
 
 \item{...}{passed on to \code{\link[=gl_get_group_id]{gl_get_group_id()}}}
 }
 \value{
-A vector of character to be used as request for functions involving groups
+A vector of character to be used
+as request for functions involving groups
 }
 \description{
 Prefixes the request location with "groups/:id/subgroups" and automatically
