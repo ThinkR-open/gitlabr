@@ -178,11 +178,15 @@ gitlab <- function(req,
           httr::GET(private_token_header) %>%
           http_error_or_content()
         resp$nxt <- nxt_resp$nxt
-        resp$ct <- bind_rows(
-          resp$ct,
-          nxt_resp$ct %>%
-            iff(auto_format, json_to_flat_df)
-        )
+        if (auto_format) {
+          resp$ct <- bind_rows(
+            resp$ct,
+            nxt_resp$ct %>%
+              json_to_flat_df()
+          )
+        } else {
+          resp$ct <- c(resp$ct, nxt_resp$ct)
+        }
         pages_retrieved <- pages_retrieved + 1
       }
     }

@@ -44,7 +44,7 @@ attachment::att_amend_desc(
 )
 attachment::att_amend_desc()
 
-devtools::test()
+suppressMessages(devtools::test())
 devtools::check() # tests are skipped as cran
 devtools::check(args = c("--no-tests"))
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning")
