@@ -16,7 +16,8 @@ gl_create_branch(project, branch, ref = get_main(), ...)
 gl_delete_branch(project, branch, ...)
 }
 \arguments{
-\item{project}{name or id of project (not repository!)}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}}}
 
@@ -25,7 +26,8 @@ gl_delete_branch(project, branch, ...)
 \item{ref}{ref name of origin for newly created branch. Default to 'main'.}
 }
 \value{
-Tibble of branches available in the project with descriptive variables
+Tibble of branches available in the project
+with descriptive variables
 }
 \description{
 List, create and delete branches

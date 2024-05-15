@@ -1,10 +1,12 @@
 #' List, create and delete branches
 #'
 #' @rdname branches
-#' @param project name or id of project (not repository!)
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... passed on to [gitlab()]
 #' @export
-#' @return Tibble of branches available in the project with descriptive variables
+#' @return Tibble of branches available in the project
+#'  with descriptive variables
 #' @examples \dontrun{
 #' set_gitlab_connection(
 #'   gitlab_url = "https://gitlab.com",

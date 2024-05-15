@@ -10,7 +10,8 @@ gl_get_commits(project, commit_sha = c(), ...)
 gl_get_diff(project, commit_sha, ...)
 }
 \arguments{
-\item{project}{project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{commit_sha}{if not null, get only the commit with the specific hash; for
 \code{gl_get_diff()} this must be specified}

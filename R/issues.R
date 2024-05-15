@@ -1,3 +1,4 @@
+#' @noRd
 gl_get_issues <- function(project = NULL,
                           issue_id = NULL,
                           verb = httr::GET,
@@ -7,7 +8,13 @@ gl_get_issues <- function(project = NULL,
     issue_id <- gl_to_issue_id(issue_id, project, api_version = 3, ...)
   }
 
-  (if (!missing(project) && is.null(project)) "issues" else gl_proj_req(project, req = c("issues", issue_id), ...)) %>%
+  (
+    if (!missing(project) && is.null(project)) {
+      "issues"
+    } else {
+      gl_proj_req(project, req = c("issues", issue_id), ...)
+    }
+  ) %>%
     gitlab(...) %>%
     iffn(is.null(issue_id), function(issue) {
       issue %>%
@@ -19,11 +26,14 @@ gl_get_issues <- function(project = NULL,
 
 #' Get issues of a project or user
 #'
-#' @param project project name or id, may be null for all issues created by user.
-#' If using the ID, set it as numeric, otherwise this is used as project name.
-#' @param issue_id optional issue id (projectwide; for API v3 only you can use global iid when api_version is `3`)
-#' @param api_version a switch to force deprecated GitLab API v3 behavior that allows filtering by global iid. If `3`
-#' filtering happens by global iid, if false, it happens by projectwide ID. For API v4, this must be FALSE (default)
+#' @param project id (preferred way) or name of the project.
+#' Not repository name. May be null for all issues created by user.
+#' @param issue_id optional issue id
+#' (projectwide; for API v3 only you can use global iid when api_version is `3`)
+#' @param api_version a switch to force deprecated GitLab API v3
+#' behavior that allows filtering by global iid. If `3`
+#' filtering happens by global iid, if false, it happens
+#' by projectwide ID. For API v4, this must be FALSE (default)
 #' @param ... further parameters passed on to [gitlab()], may be
 #' state, labels, issue id, ...
 #' @param verb ignored; all calls with this function will have [gitlab()]'s
@@ -70,7 +80,8 @@ gl_get_issue <- function(project, issue_id, ...) {
 #' @param issue_id projectwide issue id (as seen by e.g. GitLab website users)
 #' @param api_version Since this function is no longer necessary for GitLab API v4,
 #' this must be set to 3 in order to avoid deprecation warning and HTTP error.
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... passed on to [gitlab()]
 #'
 #' @importFrom dplyr filter select
@@ -110,14 +121,17 @@ gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
 
 #' Post a new issue or edit one
 #'
-#' @param project project where the issue should be posted
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param title title of the issue
 #' @param ... further parameters passed to the API call, may
-#' contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).
+#' contain description, assignee_id, milestone_id, labels,
+#'  state_event (for edit_issue).
 #'
 #' @rdname gl_new_issue
 #' @export
-#' @return Tibble with the created or remaining issues and descriptive variables.
+#' @return Tibble with the created or remaining issues
+#'  and descriptive variables.
 #' @examples
 #' \dontrun{
 #' # create an issue

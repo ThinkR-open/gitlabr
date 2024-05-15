@@ -42,18 +42,21 @@ test_that("gl_proj_req works", {
 })
 
 # gl_get_project_id ----
-# Can not be really tested because gitlab.com is too big
-# except with user namespace ? No
+# Can not be fully tested because gitlab.com is too big
 # => Assume that the last modified is the current project
 # because of unit tests
-the_retrieved_id <- gl_get_project_id(test_project_name,
-  max_page = 3, owned = TRUE,
-  order_by = "last_activity_at"
-)
-# gitlab(req = "projects",
-#        gitlab_url = file.path(test_url, all_user_projects$namespace.path[1]),
-#        max_page = 1, owned = TRUE)
+
 test_that("gl_get_project_id works", {
+  expect_message(
+    {
+      the_retrieved_id <- gl_get_project_id(test_project_name,
+        max_page = 3, owned = TRUE,
+        order_by = "last_activity_at"
+      )
+    },
+    regexp = paste0("Project found: ", test_project_id)
+  )
+
   expect_equal(as.character(the_retrieved_id), test_project_id)
 })
 # gl_archive ----

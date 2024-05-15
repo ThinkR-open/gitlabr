@@ -19,7 +19,8 @@ gl_latest_build_artifact(
 )
 }
 \arguments{
-\item{project}{project name or id, required}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 

@@ -1,11 +1,13 @@
 #' Manage merge requests
 #'
-#' @param project name or id of project (not repository!)
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param source_branch name of branch to be merged
 #' @param target_branch name of branch into which to merge
 #' @param title title of the merge request
 #' @param description description text for the merge request
-#' @param ... passed on to [gitlab()]. Might contain more fields documented in GitLab API doc.
+#' @param ... passed on to [gitlab()].
+#' Might contain more fields documented in GitLab API doc.
 #'
 #' @export
 #' @return Tibble of created or remaining merge requests of the project

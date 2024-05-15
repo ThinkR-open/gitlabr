@@ -82,7 +82,8 @@ use_gitlab_ci <- function(
 #' archive with `gl_latest_build_artifact`. For every branch and job combination
 #' only the most recent artifacts archive is available.
 #'
-#' @param project project name or id, required
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... passed on to [gitlab()] API call
 #' @export
 #' @rdname gl_pipelines

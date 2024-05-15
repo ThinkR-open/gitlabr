@@ -7,7 +7,8 @@
 gl_list_project_members(project, ...)
 }
 \arguments{
-\item{project}{The ID or URL-encoded path of the project.}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "project"}
 }

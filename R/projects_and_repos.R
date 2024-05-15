@@ -41,7 +41,8 @@ gl_list_group_projects <- function(group_id, ...) {
 }
 
 
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @export
 #' @rdname gl_list_projects
 gl_get_project <- function(project, ...) {
@@ -53,7 +54,8 @@ gl_get_project <- function(project, ...) {
 #' Prefixes the request location with "project/:id" and automatically
 #' translates project names into ids
 #'
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param req character vector of request location
 #' @param ... passed on to [gl_get_project_id()]
 #' @export
@@ -74,11 +76,13 @@ gl_proj_req <- function(project, req, ...) {
 #'
 #' @param project_name project name
 #' @param ... passed on to [gitlab()]
-#' @importFrom dplyr mutate filter
+#' @importFrom dplyr mutate filter bind_rows distinct
 #'
 #' @details
-#' Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
-#' If the `project_name` is an old project lost in a big repository (position > 200),
+#' Number of pages searched is limited to
+#' (per_page =) 20 * (max_page =) 10 by default.
+#' If the `project_name` is an old project lost
+#' in a big repository (position > 200),
 #' `gl_get_project_id()` may not find the project id.
 #'
 #' @export
@@ -88,12 +92,24 @@ gl_proj_req <- function(project, req, ...) {
 #' gl_get_project_id("<<your-project-name>>")
 #' }
 gl_get_project_id <- function(project_name, ...) {
+  message(
+    "Searching for project id with name: ", project_name,
+    "\nYou can use directly the 'id' of your project to avoid this search."
+  )
   if (is.null(list(...)$simple)) {
     req <- gitlab(req = "projects", ..., simple = TRUE)
   } else {
     req <- gitlab(req = "projects", ...)
   }
-
+  if (is.null(list(...)$membership)) {
+    # Get a list of projects the authenticated user is a member of
+    # To increase the chances of finding the project
+    req_member <- gitlab(
+      req = "projects", ..., simple = TRUE,
+      membership = TRUE
+    )
+    req <- bind_rows(req, req_member) %>% distinct()
+  }
 
   matching <- req %>%
     mutate(
@@ -110,8 +126,8 @@ gl_get_project_id <- function(project_name, ...) {
       "There was no matching 'id' with your project name. ",
       "Either it does not exist, or most probably, ",
       "it is not available in the first projects available to you. ",
-      "The name-matching is limited to the first pages of projects accessible. ",
-      "Please use directly the 'id' of your project."
+      "The name-matching is limited to the first pages of projects accessible.",
+      " Please use directly the 'id' of your project."
     )
   } else if (nrow(matching) > 1) {
     warning(paste(
@@ -127,6 +143,8 @@ gl_get_project_id <- function(project_name, ...) {
       ),
       collapse = "\n"
     ))
+  } else {
+    message("Project found: ", matching[1, "id"])
   }
 
   matching[1, "id"] %>%
@@ -146,7 +164,8 @@ to_project_id <- function(x, ...) {
 
 #' Archive a repository
 #'
-#' @param project Project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... further parameters passed on to [gitlab()] API call,
 #' may include parameter `sha` for specifying a commit hash
 #' @return if save_to_file is NULL, a raw vector of the archive, else the path
@@ -170,7 +189,8 @@ gl_archive <- function(project,
 #'
 #' @noRd
 #'
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param from commit hash or ref/branch/tag name to compare from
 #' @param to commit hash or ref/branch/tag name to compare to
 #' @param ... further parameters passed on to [gitlab()]
@@ -191,7 +211,8 @@ gl_compare_refs <- function(project,
 
 #' Get commits and diff from a project repository
 #'
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param commit_sha if not null, get only the commit with the specific hash; for
 #' `gl_get_diff()` this must be specified
 #' @param ... passed on to [gitlab()] API call, may contain
@@ -269,7 +290,8 @@ gl_new_project <- function(name,
   }
 }
 
-#' @param project The ID or URL-encoded path of the project.
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @rdname gl_new_project
 #' @export
 gl_edit_project <- function(project,
@@ -291,7 +313,8 @@ gl_delete_project <- function(project) {
 }
 
 #' List members of a specific project
-#' @param project The ID or URL-encoded path of the project.
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... passed on to [gitlab()] API call for "project"
 #'
 #' @return A tibble with the project members information

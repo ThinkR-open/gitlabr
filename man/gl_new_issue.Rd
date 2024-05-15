@@ -28,12 +28,14 @@ gl_unassign_issue(project, issue_id, ...)
 gl_delete_issue(project, issue_id, ...)
 }
 \arguments{
-\item{project}{project where the issue should be posted}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{title}{title of the issue}
 
 \item{...}{further parameters passed to the API call, may
-contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).}
+contain description, assignee_id, milestone_id, labels,
+state_event (for edit_issue).}
 
 \item{issue_id}{issue id (projectwide; for API v3 only you can use global iid when force_api_v3 is \code{TRUE} although this is not recommended!)}
 
@@ -43,7 +45,8 @@ filtering happens by global iid, if false, it happens by projectwide ID. For API
 \item{assignee_id}{numeric id of users as returned in '/users/' API request}
 }
 \value{
-Tibble with the created or remaining issues and descriptive variables.
+Tibble with the created or remaining issues
+and descriptive variables.
 }
 \description{
 Post a new issue or edit one

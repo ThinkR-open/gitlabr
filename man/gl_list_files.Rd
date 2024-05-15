@@ -7,7 +7,8 @@
 gl_list_files(project, path = "", ref = get_main(), ...)
 }
 \arguments{
-\item{project}{name or id of project (not repository!)}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{path}{path of the folder}
 

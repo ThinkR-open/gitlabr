@@ -7,7 +7,8 @@
 gl_to_issue_id(project, issue_id, api_version = 3, ...)
 }
 \arguments{
-\item{project}{project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{issue_id}{projectwide issue id (as seen by e.g. GitLab website users)}
 
