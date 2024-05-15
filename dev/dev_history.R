@@ -44,9 +44,13 @@ attachment::att_amend_desc(
 )
 devtools::load_all()
 devtools::test()
-devtools::check()
+devtools::check() # tests are skipped as cran
 devtools::check(args = c("--no-tests"))
+rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning")
 devtools::build_vignettes()
+
+# Style full package ----
+styler::style_pkg()
 
 # Deal with tests ----
 devtools::load_all()
@@ -63,10 +67,15 @@ testthat::test_file("tests/testthat/test_files.R") ## run test on one file
 covr::package_coverage()
 covr::report()
 
-# _Check in interactive test-inflate for templates and Addins
+# _Check in interactive test
 pkgload::load_all()
 devtools::test()
 testthat::test_dir("tests/testthat/")
+# Create and suppress groups
+# > On GitLab SaaS, you must use the GitLab UI to
+# create groups without a parent group. You cannot use the API to do this.
+# Thus, tests check GITLABR_TEST_URL to run or not
+testthat::test_file("tests/testthat/test_groups.R")
 
 # Run examples in interactive mode too
 devtools::run_examples()
@@ -89,6 +98,8 @@ spelling::spell_check_package() # regarder s'il y a des typos
 
 # Check URL are correct - No redirection
 # install.packages('urlchecker', repos = 'https://r-lib.r-universe.dev')
+# dont change all https://gitlab.com to about.gitlab.com,
+# this would be a mistake
 urlchecker::url_check()
 urlchecker::url_update() # corrige les redirections
 

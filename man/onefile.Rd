@@ -48,9 +48,10 @@ tmpfile <- tempfile(fileext = ".csv")
 write.csv(mtcars, file = tmpfile)
 # Push content to repository with a commit
 gl_push_file(
-  project = <<your-project-id>>,
+  project = "<<your-project-id>>",
   file_path = "test_data.csv",
   content = paste(readLines(tmpfile), collapse = "\n"),
-  commit_message = "New test data")
+  commit_message = "New test data"
+)
 }
 }

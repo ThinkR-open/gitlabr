@@ -5,15 +5,15 @@ GITLAB_CON <- "gitlab_con"
 assign(GITLAB_CON, NULL, gitlabr_env)
 
 #' Get/set a GitLab connection for all calls
-#' 
-#' This sets the default value of `gitlab_con` 
+#'
+#' This sets the default value of `gitlab_con`
 #' in a call to [gitlab()]
-#' 
+#'
 #' @param gitlab_con A function used for GitLab API calls, such
 #' as [gitlab()] or as returned by [gl_connection()].
 #' @param ... if gitlab_con is NULL, a new connection is created used the parameters
 #' is ... using [gl_connection()]
-#' 
+#'
 #' @export
 #' @return Used for side effects. Set or unset global connection settings.
 #' @examples \dontrun{
@@ -44,11 +44,11 @@ unset_gitlab_connection <- function() {
 #' @param value option value
 #' @export
 #' @return Used for side effect. Populates user [options()]
-#' @details 
+#' @details
 #' Options accounted for by gitlabr:
-#' 
+#'
 #' - `gitlabr.main`: Name of the main branch of your repository. Default to "main" in functions.
-#' @examples 
+#' @examples
 #' # Principal branch is called "master"
 #' gitlabr_options_set("gitlabr.main", "master")
 #' # Go back to default option (default branch will be "main")

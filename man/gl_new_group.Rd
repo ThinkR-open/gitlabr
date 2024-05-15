@@ -2,42 +2,61 @@
 % Please edit documentation in R/groups.R
 \name{gl_new_group}
 \alias{gl_new_group}
+\alias{gl_new_subgroup}
 \alias{gl_edit_group}
 \alias{gl_delete_group}
 \title{Manage groups}
 \usage{
-gl_new_group(name, path, ...)
+gl_new_group(name, path, visibility = c("private", "internal", "public"), ...)
+
+gl_new_subgroup(
+  name,
+  path,
+  visibility = c("private", "internal", "public"),
+  group,
+  ...
+)
 
 gl_edit_group(group, ...)
 
 gl_delete_group(group)
 }
 \arguments{
-\item{name}{of the new group}
+\item{name}{Name of the new group}
 
-\item{path}{to the new group}
+\item{path}{Path to the new group}
+
+\item{visibility}{Visibility of the new subgroup: "public", "private"...}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "Create group"}
 
-\item{group}{The ID or URL-encoded path of the group.}
+\item{group}{The ID, name or URL-encoded path of the group}
 }
 \value{
-A tibble with the group information. \code{gl_delete_group()} returns an empty tibble.
+A tibble with the group information.
+\code{gl_delete_group()} returns an empty tibble.
 }
 \description{
 Manage groups
 }
 \details{
 You can use extra parameters as proposed in the GitLab API.
+
+Note that on GitLab SaaS, you must use the GitLab UI to
+create groups without a parent group.
+You cannot use the API with \code{\link[=gl_new_group]{gl_new_group()}} to do this,
+but you can use \code{\link[=gl_new_subgroup]{gl_new_subgroup()}}.
 }
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 # Create new group
 gl_new_group(name = "mygroup")
+# Create new subgroup
+gl_new_subgroup(name = "mysubgroup", group = "mygroup")
 # Edit existing group
 gl_edit_group(group = "<<your-group-id>>", default_branch = "main")
 # Delete group

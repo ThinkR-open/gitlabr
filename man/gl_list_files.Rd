@@ -15,6 +15,9 @@ gl_list_files(project, path = "", ref = get_main(), ...)
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 }
+\value{
+Tibble of files available in the branch with descriptive variables.
+}
 \description{
 List of files in a folder
 }
@@ -22,9 +25,10 @@ List of files in a folder
 \dontrun{
 # Set GitLab connection for examples
 set_gitlab_connection(
- gitlab_url = "https://gitlab.com",
- private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 
-gl_list_files(project = <<your-project-id>>, path = <<path-to-folder>>)
+gl_list_files(project = "<<your-project-id>>", path = "<<path-to-folder>>")
 }
 }

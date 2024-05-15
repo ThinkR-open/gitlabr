@@ -22,6 +22,6 @@ translates project names into ids
 }
 \examples{
 \dontrun{
-gl_proj_req("test_project"<<your-project-id>>, req = "merge_requests")
+gl_proj_req("test_project" = "<<your-project-id>>", req = "merge_requests")
 }
 }

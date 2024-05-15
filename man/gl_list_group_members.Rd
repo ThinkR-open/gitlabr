@@ -11,13 +11,16 @@ gl_list_group_members(group, ...)
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call for "groups"}
 }
+\value{
+A tibble with the group members information
+}
 \description{
 List members of a specific group
 }
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 gl_list_group_members(group = "<<your-group-id>>")

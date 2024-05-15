@@ -22,7 +22,7 @@ Archive a repository
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 gl_archive(project = "<<your-project-id>>", save_to_file = "example-project.zip")

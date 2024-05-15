@@ -1,5 +1,5 @@
 #' Access to repository files in GitLab
-#' 
+#'
 #' @param project name or id of project (not repository!)
 #' @param req request to perform on repository (everything after '/repository/'
 #' in GitLab API, as vector or part of URL)
@@ -10,21 +10,23 @@
 #' @examples \dontrun{
 #' # Set GitLab connection for examples
 #' set_gitlab_connection(
-#'  gitlab_url = "https://gitlab.com",
-#'  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
-#' 
+#'   gitlab_url = "https://gitlab.com",
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
+#'
 #' # Access repository
 #' # _All files
-#' gl_repository(project = <<your-project-id>>)
+#' gl_repository(project = "<<your-project-id>>")
 #' # _All contributors
-#' gl_repository(project = <<your-project-id>>, "contributors")
+#' gl_repository(project = "<<your-project-id>>", "contributors")
 #' # _Get content of one file
-#' gl_get_file(project = <<your-project-id>>, file_path = "README.md")
+#' gl_get_file(project = "<<your-project-id>>", file_path = "README.md")
 #' # _Test if file exists
 #' gl_file_exists(
-#'   project = <<your-project-id>>,
+#'   project = "<<your-project-id>>",
 #'   file_path = "README.md",
-#'   ref = "main")
+#'   ref = "main"
+#' )
 #' }
 gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
   gitlab(gl_proj_req(project, c("repository", req), ...), ref = ref, ...)
@@ -32,20 +34,24 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
 
 
 #' List of files in a folder
-#' 
+#'
 #' @param project name or id of project (not repository!)
 #' @param path path of the folder
-#' @param ref name of ref (commit branch or tag) 
+#' @param ref name of ref (commit branch or tag)
 #' @param ... passed on to [gitlab()] API call
+#'
+#' @return Tibble of files available in the branch with descriptive variables.
+#'
 #' @importFrom purrr partial
 #' @export
 #' @examples \dontrun{
 #' # Set GitLab connection for examples
 #' set_gitlab_connection(
-#'  gitlab_url = "https://gitlab.com",
-#'  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+#'   gitlab_url = "https://gitlab.com",
+#'   private_token = Sys.getenv("GITLAB_COM_TOKEN")
+#' )
 #'
-#' gl_list_files(project = <<your-project-id>>, path = <<path-to-folder>>)
+#' gl_list_files(project = "<<your-project-id>>", path = "<<path-to-folder>>")
 #' }
 gl_list_files <- function(project, path = "", ref = get_main(), ...) {
   gitlab(gl_proj_req(project, c("repository", "tree"), ...),
@@ -100,7 +106,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 }
 
 #' Get a file from a GitLab repository
-#' 
+#'
 #' @param file_path path to file
 #' @param ref name of ref (commit branch or tag)
 #' @param to_char flag if output should be converted to char;
@@ -159,17 +165,18 @@ gl_get_file <- function(project,
 #' @param ... passed on to [gitlab()]
 #' @export
 #' @rdname onefile
-#' 
+#'
 #' @examples \dontrun{
 #' # Create fake dataset
 #' tmpfile <- tempfile(fileext = ".csv")
 #' write.csv(mtcars, file = tmpfile)
 #' # Push content to repository with a commit
 #' gl_push_file(
-#'   project = <<your-project-id>>,
+#'   project = "<<your-project-id>>",
 #'   file_path = "test_data.csv",
 #'   content = paste(readLines(tmpfile), collapse = "\n"),
-#'   commit_message = "New test data")
+#'   commit_message = "New test data"
+#' )
 #' }
 gl_push_file <- function(project,
                          file_path,
@@ -178,7 +185,6 @@ gl_push_file <- function(project,
                          branch = get_main(),
                          overwrite = TRUE,
                          ...) {
-  
   exists <- gl_file_exists(project = project, file_path, ref = branch, ...)
   if (!exists || overwrite) {
     gitlab(
@@ -202,8 +208,10 @@ gl_push_file <- function(project,
       ...
     )
   } else {
-    tibble::tibble(file_path = character(0),
-                   branch = character(0))
+    tibble::tibble(
+      file_path = character(0),
+      branch = character(0)
+    )
   }
 }
 
@@ -234,4 +242,3 @@ gl_delete_file <- function(project,
     )
   }
 }
-

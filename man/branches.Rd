@@ -34,22 +34,28 @@ List, create and delete branches
 }
 \examples{
 \dontrun{
-set_gitlab_connection(gitlab_url = "https://gitlab.com",
-  private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+set_gitlab_connection(
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 project_id <- ... ## Fill in your project ID
 
 # List branches of the project
-gl_list_branches(project_ = "<<your-project-id>>") 
+gl_list_branches(project_ = "<<your-project-id>>")
 # Create branch "new_feature"
-gl_create_branch(project = "<<your-project-id>>",
-                 branch = "new_feature")
+gl_create_branch(
+  project = "<<your-project-id>>",
+  branch = "new_feature"
+)
 # Confirm that the branch was created
 gl_get_branch("<<your-project-id>>", branch = "new_feature")
 # List all branches - this may take some time before your branch really appears there
 gl_list_branches(project = "<<your-project-id>>")
 # Delete branch again
-gl_delete_branch(project = "<<your-project-id>>",
-                 branch = "new_feature")
+gl_delete_branch(
+  project = "<<your-project-id>>",
+  branch = "new_feature"
+)
 # Check that we're back where we started
 gl_list_branches(project = "<<your-project-id>>")
 }

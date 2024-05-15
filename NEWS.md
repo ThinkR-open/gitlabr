@@ -8,6 +8,7 @@
 ## New features
 
 * `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
+* `gl_new_subgroup()` to create a subgroup in a group (@margotbrd)
 * `gl_delete_file()` to delete a file in a repository
 * `gl_list_project_members()` and `gl_list_group_members` to retrieve members of a project or a group (#61, @datawookie)
 * `gitlab()` queries allow for a vector of parameters to be passed to the API. This is needed when the API asks for an array (@klmr)
@@ -72,7 +73,7 @@
 
 # gitlabr 0.9 (2017-04-24)
 
-* Support for Gitlab API v4 (default from Gitlab version 9.0 onward) was added. Gitlab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section "API version" of the documentation of `gl_connection`.
+* Support for GitLab API v4 (default from GitLab version 9.0 onward) was added. GitLab API v4 is now the default used by gitlabr, but using the old API (v3) is still possible, see details section "API version" of the documentation of `gl_connection`.
   * Several convenience functions now have a `force_api_v3` parameter to force old API version logic.
   * Issues are now identified by project-wide id and not global iid, according to API v4 logic.
   * Function `gl_builds` was replaced by `gl_pipelines` and `gl_jobs` to reflect API v4 logic.
@@ -83,7 +84,7 @@
 
 # gitlabr 0.8
 
-*There is no gitlabr 0.8. Version number 0.9 was used to align with Gitlab version 9.0, for which this version is appropriate.*
+*There is no gitlabr 0.8. Version number 0.9 was used to align with GitLab version 9.0, for which this version is appropriate.*
 
 # gitlabr 0.7 (2017-03-06)
 

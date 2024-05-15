@@ -18,8 +18,10 @@ Integer. ID of the group if found.
 Get a group id by name
 }
 \details{
-Number of pages searched is limited to (per_page =) 20 * (max_page =) 10 by default.
-If the \code{group_name} is an old group lost in a big repository (position > 200),
+Number of pages searched is limited to
+(per_page =) 20 * (max_page =) 10 by default.
+If the \code{group_name} is an old group lost
+in a big repository (position > 200),
 \code{gl_get_group_id()} may not find the group id.
 }
 \examples{

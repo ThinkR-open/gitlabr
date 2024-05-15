@@ -4,7 +4,7 @@
 \name{gitlabr-package}
 \alias{gitlabr}
 \alias{gitlabr-package}
-\title{gitlabr: Access to the 'Gitlab' API}
+\title{gitlabr: Access to the 'GitLab' API}
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
