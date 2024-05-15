@@ -34,37 +34,53 @@ set_gitlab_connection(
 Gets a list of all state events for a single issue. 
 
 ```{r, eval=FALSE}
-project_id <- my_project[["id"]]
+project <- my_project[["id"]]
 
-#' @param project_id Project if
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param resource_id id of the resource chosen
 #' @param resource Character among "issues", "merge_requests", "epics"
 #' @param event Character among "iteration", "label", "milestone", "state", "weight"
-gl_resource_events <- function(project_id,
-                           resource_id,
-                           resource = c("issues", "merge_requests", "epics"),
-                           event = c("label", "iteration", "milestone", "state", "weight"),
-                           ...) {
-  
+gl_resource_events <- function(
+    project,
+    resource_id,
+    resource = c("issues", "merge_requests", "epics"),
+    event = c("label", "iteration", "milestone", "state", "weight"),
+    ...) {
   resource <- match.arg(resource)
   event <- match.arg(event)
-  
+  project <- to_project_id(project)
+
   if (resource == "merge_requests" & event %in% c("iteration", "weight")) {
     stop('merge_requests can not be associated with "iteration", "weight"')
   }
-  if (resource == "epics" & event %in% c("iteration", "milestone", "state", "weight")) {
-    stop('epics can not be associated with "iteration", "milestone", "state", "weight"')
+  if (
+    resource == "epics" &&
+      event %in% c("iteration", "milestone", "state", "weight")
+  ) {
+    stop(
+      'epics can not be associated with "iteration", "milestone", "state", "weight"'
+    )
   }
-  
-    gitlab(req = paste0("projects/", project_id, "/", resource,"/", resource_id, "/resource_", event,"_events"),
-           verb = httr::GET, ...)
 
+  gitlab(
+    req = paste0(
+      "projects/", project,
+      "/", resource,
+      "/", resource_id,
+      "/resource_",
+      event, "_events"
+    ),
+    verb = httr::GET, ...
+  )
 }
 
-events <- gl_resource_events(project_id = project_id, 
-                             resource = "issues", 
-                             resource_id = 5, 
-                             event = "label")
+events <- gl_resource_events(
+  project = project,
+  resource = "issues",
+  resource_id = 5,
+  event = "label"
+)
 ```
 
 ## Wiki
@@ -72,33 +88,39 @@ events <- gl_resource_events(project_id = project_id,
 ```{r}
 wiki <- readLines(system.file("gitlab", "wiki_home.md", package = "thinkridentity"))
 # Home
-wiki_home <- gitlab(req = paste0("projects/", project_id, "/wikis"),
-                    verb = httr::POST,
-                    content = paste(wiki, collapse = "\n"),
-                    title = "home",
-                    format = "markdown")
-
+wiki_home <- gitlab(
+  req = paste0("projects/", project_id, "/wikis"),
+  verb = httr::POST,
+  content = paste(wiki, collapse = "\n"),
+  title = "home",
+  format = "markdown"
+)
 ```
 
 ## Protect branches
 
 ```{r}
-  p_branches <- gitlab(req = paste0("projects/", project_id, "/protected_branches"),
-                       verb = httr::GET)
+p_branches <- gitlab(
+  req = paste0("projects/", project_id, "/protected_branches"),
+  verb = httr::GET
+)
 
-  # Delete master protection
-  if (nrow(p_branches) != 0 && "master" %in% p_branches[["name"]]) {
-    gitlab(req = paste0("projects/", project_id, "/protected_branches/master"),
-           verb = httr::DELETE)
-  }
-
-  # Add master protection
-  protect_master <- gitlab(req = paste0("projects/", project_id, "/protected_branches"),
-                           verb = httr::POST,
-                           name = "master",
-                           push_access_level = ifelse(isTRUE(unprotect), 40, 0),
-                           merge_access_level = 40 # Maintainers
+# Delete master protection
+if (nrow(p_branches) != 0 && "master" %in% p_branches[["name"]]) {
+  gitlab(
+    req = paste0("projects/", project_id, "/protected_branches/master"),
+    verb = httr::DELETE
   )
+}
+
+# Add master protection
+protect_master <- gitlab(
+  req = paste0("projects/", project_id, "/protected_branches"),
+  verb = httr::POST,
+  name = "master",
+  push_access_level = ifelse(isTRUE(unprotect), 40, 0),
+  merge_access_level = 40 # Maintainers
+)
 ```
 
 ## Modify autoclose and coverage regex
@@ -106,12 +128,13 @@ wiki_home <- gitlab(req = paste0("projects/", project_id, "/wikis"),
 ```{r}
 modify_autoclose_and_coverage <- function(project_id, autoclose = FALSE,
                                           build_coverage_regex = "Coverage: \\d+\\.\\d+") {
-  protect_prod <- gitlab(req = paste0("projects/", project_id),
-                         verb = httr::PUT,
-                         autoclose_referenced_issues = autoclose,
-                         build_coverage_regex = build_coverage_regex
+  protect_prod <- gitlab(
+    req = paste0("projects/", project_id),
+    verb = httr::PUT,
+    autoclose_referenced_issues = autoclose,
+    build_coverage_regex = build_coverage_regex
   )
-  message("Issues are set to", ifelse(autoclose, " ", " not ") ,"auto-close when merged in 'master'")
+  message("Issues are set to", ifelse(autoclose, " ", " not "), "auto-close when merged in 'master'")
   message("build_coverage_regex is set to: ", build_coverage_regex)
 }
 ```
@@ -123,11 +146,11 @@ Get columns with same name to combine into a list-column
 - tag_list
 
  ```{r}
- # tibble::as_tibble(.name_repair = "unique") or "minimal" ?
+# tibble::as_tibble(.name_repair = "unique") or "minimal" ?
 
 
-    bind_rows() %>% 
-    unite("tag_list", starts_with("tag_list"), sep = ",")  %>% 
-    mutate(tag_list = str_replace_all(tag_list,"NA,?","")) %>% 
-    mutate(tag_list = str_replace(tag_list,",$",""))
+bind_rows() %>%
+  unite("tag_list", starts_with("tag_list"), sep = ",") %>%
+  mutate(tag_list = str_replace_all(tag_list, "NA,?", "")) %>%
+  mutate(tag_list = str_replace(tag_list, ",$", ""))
  ```

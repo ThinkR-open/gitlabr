@@ -82,7 +82,8 @@ use_gitlab_ci <- function(
 #' archive with `gl_latest_build_artifact`. For every branch and job combination
 #' only the most recent artifacts archive is available.
 #'
-#' @param project project name or id, required
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param ... passed on to [gitlab()] API call
 #' @export
 #' @rdname gl_pipelines
@@ -113,7 +114,7 @@ gl_jobs <- function(project, ...) {
 #' @export
 #' @rdname gl_pipelines
 #' @param job Name of the job to get build artifacts from
-#' @param ref_name name of ref (i.e. branch, commit, tag)
+#' @param ref_name name of ref (i.e. branch, commit, tag). Default to 'main'.
 #' @param save_to_file either a path where to store .zip file or NULL if raw should be returned
 #' @return returns the file path if `save_to_file` is TRUE, or the archive as raw otherwise.
 gl_latest_build_artifact <- function(project, job, ref_name = get_main(), save_to_file = tempfile(fileext = ".zip"), ...) {

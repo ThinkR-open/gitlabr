@@ -20,11 +20,16 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Sébastien Rochette \email{sebastien@thinkr.fr} (\href{https://orcid.org/0000-0002-1565-9313}{ORCID})
+\strong{Maintainer}: Sébastien Rochette \email{sebastienrochettefr@gmail.com} (\href{https://orcid.org/0000-0002-1565-9313}{ORCID})
 
 Authors:
 \itemize{
   \item Jirka Lewandowski \email{jirka.lewandowski@wzb.eu}
+}
+
+Other contributors:
+\itemize{
+  \item ThinkR [copyright holder]
 }
 
 }

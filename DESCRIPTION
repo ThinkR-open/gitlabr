@@ -1,10 +1,11 @@
 Package: gitlabr
 Title: Access to the 'GitLab' API
-Version: 2.0.1.9006
+Version: 2.0.1.9007
 Authors@R: c(
     person("Jirka", "Lewandowski", , "jirka.lewandowski@wzb.eu", role = "aut"),
     person("Sébastien", "Rochette", , "sebastienrochettefr@gmail.com", role = c("aut", "cre"),
-           comment = c(ORCID = "0000-0002-1565-9313"))
+           comment = c(ORCID = "0000-0002-1565-9313")),
+    person("ThinkR", role = "cph")
   )
 Description: Provides R functions to access the API of the project and
     repository management web application 'GitLab'. For many common tasks

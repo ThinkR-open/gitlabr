@@ -1,6 +1,7 @@
 #' Get the comments/notes of a commit or issue
 #'
-#' @param project project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param object_type one of "issue" or "commit". Snippets and merge_requests are not implemented yet.
 #' @param id id of object:
 #' - commits: sha

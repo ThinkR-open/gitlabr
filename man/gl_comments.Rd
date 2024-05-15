@@ -28,7 +28,8 @@ gl_edit_issue_comment(project, ...)
 gl_edit_commit_comment(project, ...)
 }
 \arguments{
-\item{project}{project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{object_type}{one of "issue" or "commit". Snippets and merge_requests are not implemented yet.}
 

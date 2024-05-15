@@ -7,7 +7,8 @@
 gl_archive(project, ...)
 }
 \arguments{
-\item{project}{Project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{...}{further parameters passed on to \code{\link[=gitlab]{gitlab()}} API call,
 may include parameter \code{sha} for specifying a commit hash}

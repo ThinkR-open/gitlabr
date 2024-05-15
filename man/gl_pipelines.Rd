@@ -19,13 +19,14 @@ gl_latest_build_artifact(
 )
 }
 \arguments{
-\item{project}{project name or id, required}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{...}{passed on to \code{\link[=gitlab]{gitlab()}} API call}
 
 \item{job}{Name of the job to get build artifacts from}
 
-\item{ref_name}{name of ref (i.e. branch, commit, tag)}
+\item{ref_name}{name of ref (i.e. branch, commit, tag). Default to 'main'.}
 
 \item{save_to_file}{either a path where to store .zip file or NULL if raw should be returned}
 }

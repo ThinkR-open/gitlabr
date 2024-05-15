@@ -1,9 +1,10 @@
 #' Access to repository files in GitLab
 #'
-#' @param project name or id of project (not repository!)
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param req request to perform on repository (everything after '/repository/'
 #' in GitLab API, as vector or part of URL)
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param ... passed on to [gitlab()] API call
 #' @export
 #' @return Tibble of files available in the branch with descriptive variables.
@@ -35,9 +36,10 @@ gl_repository <- function(project, req = c("tree"), ref = get_main(), ...) {
 
 #' List of files in a folder
 #'
-#' @param project name or id of project (not repository!)
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param path path of the folder
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param ... passed on to [gitlab()] API call
 #'
 #' @return Tibble of files available in the branch with descriptive variables.
@@ -108,7 +110,7 @@ gl_file_exists <- function(project, file_path, ref, ...) {
 #' Get a file from a GitLab repository
 #'
 #' @param file_path path to file
-#' @param ref name of ref (commit branch or tag)
+#' @param ref name of ref (commit branch or tag). Default to 'main'.
 #' @param to_char flag if output should be converted to char;
 #' otherwise it is of class raw
 #' @param api_version a switch to force deprecated GitLab API v3 behavior.
@@ -154,7 +156,8 @@ gl_get_file <- function(project,
 #' @return returns a tibble with changed branch and path (0 rows if
 #' nothing was changed, since overwrite is FALSE)
 #'
-#' @param project Project name or id
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param file_path path where to store file in gl_repository.
 #' If in subdirectory, the parent directory should exist.
 #' @param content Character of length 1. File content (text)

@@ -43,7 +43,8 @@
 #'  See Details section on API versions.
 #' @param api_location location of the GitLab API under the `gitlab_url`,
 #' usually and by default "/api/<<api_version>>/"
-#' @param project id or name of project to issue requests to
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #'
 #' @return A function to access a specific GitLab API
 #' as a specific user, see details

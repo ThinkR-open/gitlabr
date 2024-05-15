@@ -34,7 +34,8 @@ See Details section on API versions.}
 \item{api_location}{location of the GitLab API under the \code{gitlab_url},
 usually and by default "/api/<<api_version>>/"}
 
-\item{project}{id or name of project to issue requests to}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 }
 \value{
 A function to access a specific GitLab API

@@ -7,7 +7,8 @@
 gl_proj_req(project, req, ...)
 }
 \arguments{
-\item{project}{project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{req}{character vector of request location}
 

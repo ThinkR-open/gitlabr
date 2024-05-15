@@ -11,10 +11,12 @@ gl_builds(project, api_version = 4, ...)
 gl_ci_job()
 }
 \arguments{
-\item{project}{Project name or ID}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{api_version}{Since \code{gl_builds} is no longer working for GitLab API v4,
-this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
+this must be set to "3" in order to avoid deprecation
+warning and HTTP error.  It currently
 default to "4" with deprecation message.´}
 
 \item{...}{Parameters to the new function}

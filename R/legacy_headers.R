@@ -14,9 +14,11 @@
 NULL
 
 #' @export
-#' @param project Project name or ID
+#' @param project id (preferred way) or name of the project.
+#' Not repository name.
 #' @param api_version Since `gl_builds` is no longer working for GitLab API v4,
-#' this must be set to "3" in order to avoid deprecation warning and HTTP error.  It currently
+#' this must be set to "3" in order to avoid deprecation
+#' warning and HTTP error.  It currently
 #' default to "4" with deprecation message.´
 #' @rdname gitlabr-deprecated
 gl_builds <- function(project, api_version = 4, ...) {

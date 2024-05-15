@@ -18,7 +18,8 @@ gl_push_file(
 gl_delete_file(project, file_path, commit_message, branch = get_main(), ...)
 }
 \arguments{
-\item{project}{Project name or id}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{file_path}{path where to store file in gl_repository.
 If in subdirectory, the parent directory should exist.}

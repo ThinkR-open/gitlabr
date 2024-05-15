@@ -26,7 +26,8 @@ gl_delete_merge_request(project, merge_request_iid, ...)
 gl_list_merge_requests(project, ...)
 }
 \arguments{
-\item{project}{name or id of project (not repository!)}
+\item{project}{id (preferred way) or name of the project.
+Not repository name.}
 
 \item{source_branch}{name of branch to be merged}
 
@@ -36,7 +37,8 @@ gl_list_merge_requests(project, ...)
 
 \item{description}{description text for the merge request}
 
-\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}. Might contain more fields documented in GitLab API doc.}
+\item{...}{passed on to \code{\link[=gitlab]{gitlab()}}.
+Might contain more fields documented in GitLab API doc.}
 
 \item{merge_request_iid}{iid of the merge request}
 }
