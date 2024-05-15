@@ -18,7 +18,7 @@ List, create and delete branches"><meta property="og:image" content="https://thi
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9007</span>
       </span>
     </div>
 
@@ -89,7 +89,8 @@ List, create and delete branches"><meta property="og:image" content="https://thi
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>project</dt>
-<dd><p>name or id of project (not repository!)</p></dd>
+<dd><p>id (preferred way) or name of the project.
+Not repository name.</p></dd>
 
 
 <dt>...</dt>
@@ -101,14 +102,15 @@ List, create and delete branches"><meta property="og:image" content="https://thi
 
 
 <dt>ref</dt>
-<dd><p>ref name of origin for newly created branch</p></dd>
+<dd><p>ref name of origin for newly created branch. Default to 'main'.</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>Tibble of branches available in the project with descriptive variables</p>
+<p>Tibble of branches available in the project
+with descriptive variables</p>
     </div>
 
     <div id="ref-examples">

@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9007</span>
       </span>
     </div>
 
@@ -95,7 +95,8 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>project</dt>
-<dd><p>project where the issue should be posted</p></dd>
+<dd><p>id (preferred way) or name of the project.
+Not repository name.</p></dd>
 
 
 <dt>title</dt>
@@ -104,7 +105,8 @@
 
 <dt>...</dt>
 <dd><p>further parameters passed to the API call, may
-contain description, assignee_id, milestone_id, labels, state_event (for edit_issue).</p></dd>
+contain description, assignee_id, milestone_id, labels,
+state_event (for edit_issue).</p></dd>
 
 
 <dt>issue_id</dt>
@@ -124,7 +126,8 @@ filtering happens by global iid, if false, it happens by projectwide ID. For API
     <h2>Value</h2>
     
 
-<p>Tibble with the created or remaining issues and descriptive variables.</p>
+<p>Tibble with the created or remaining issues
+and descriptive variables.</p>
     </div>
 
     <div id="ref-examples">
