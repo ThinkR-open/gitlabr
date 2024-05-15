@@ -58,7 +58,7 @@ devtools::load_all()
 ## load test environment variables
 do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml"))
 devtools::test() ## run all tests
-testthat::test_file("tests/testthat/test_files.R") ## run test on one file
+testthat::test_file("tests/testthat/test_connection_env.R") ## run test on one file
 
 # Checks for CRAN release ----
 
@@ -77,7 +77,8 @@ testthat::test_dir("tests/testthat/")
 # create groups without a parent group. You cannot use the API to do this.
 # Thus, tests check GITLABR_TEST_URL to run or not
 testthat::test_file("tests/testthat/test_groups.R")
-
+# Run if you do not do anything else on your owned GitLab projects list
+testthat::test_file("tests/testthat/test_pagination.R")
 # Run examples in interactive mode too
 devtools::run_examples()
 

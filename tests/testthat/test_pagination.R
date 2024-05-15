@@ -27,6 +27,7 @@ test_that("Pagination produces the same results", {
 # you own at least 11 projects on GitLab
 # but less than 100, otherwise it's to long (5 secs par page)
 test_that("Pagination works with 'all' and max_page", {
+  skip_if_not(interactive())
   default_per_page <- 10
   # Too much and its too long...
   max_pages_timeout <- 11
