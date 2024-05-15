@@ -64,7 +64,7 @@ gl_assign_issue("<<your-project-id>>", new_issue_iid, assignee_id = "<<user-id>>
 ## unassign it
 gl_unassign_issue("<<your-project-id>>", new_issue_iid)
 ## Delete issue as if it never existed
-## (please note that you must have "Owner" role on the Gitlab project)
+## (please note that you must have "Owner" role on the GitLab project)
 gl_delete_issue("<<your-project-id>>", new_issue_iid)
 }
 }

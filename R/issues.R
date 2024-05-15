@@ -134,7 +134,7 @@ gl_to_issue_id <- function(project, issue_id, api_version = 3, ...) {
 #' ## unassign it
 #' gl_unassign_issue("<<your-project-id>>", new_issue_iid)
 #' ## Delete issue as if it never existed
-#' ## (please note that you must have "Owner" role on the Gitlab project)
+#' ## (please note that you must have "Owner" role on the GitLab project)
 #' gl_delete_issue("<<your-project-id>>", new_issue_iid)
 #' }
 gl_new_issue <- function(project,
