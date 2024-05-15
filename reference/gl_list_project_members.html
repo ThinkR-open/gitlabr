@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
       </span>
     </div>
 
@@ -88,12 +88,18 @@
 <dd><p>passed on to <code><a href="gitlab.html">gitlab()</a></code> API call for "project"</p></dd>
 
 </dl></div>
+    <div id="value">
+    <h2>Value</h2>
+    
+
+<p>A tibble with the project members information</p>
+    </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span></span>
 <span class="r-in"><span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="fu">gl_list_project_members</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span><span class="op">)</span></span></span>

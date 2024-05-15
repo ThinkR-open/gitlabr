@@ -18,7 +18,7 @@ translates group names into ids'><meta property="og:image" content="https://thin
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
       </span>
     </div>
 
@@ -83,7 +83,7 @@ translates group names into ids</p>
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>group</dt>
-<dd><p>group name or id</p></dd>
+<dd><p>The ID, name or URL-encoded path of the group</p></dd>
 
 
 <dt>...</dt>
@@ -94,12 +94,16 @@ translates group names into ids</p>
     <h2>Value</h2>
     
 
-<p>A vector of character to be used as request for functions involving groups</p>
+<p>A vector of character to be used
+as request for functions involving groups</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="fu">gl_group_req</span><span class="op">(</span><span class="st">"test_group"</span> <span class="op">=</span> <span class="st">"&lt;&lt;your-group-id&gt;&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

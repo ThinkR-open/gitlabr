@@ -20,7 +20,7 @@ Get a file from a GitLab repository"><meta property="og:image" content="https://
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
       </span>
     </div>
 
@@ -137,7 +137,28 @@ See details section "API version" of <code><a href="gl_connection.html">gl_conne
 
     <div id="ref-examples">
     <h2>Examples</h2>
-    
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
+<span class="r-in"><span><span class="co"># Set GitLab connection for examples</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span></span>
+<span class="r-in"><span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Access repository</span></span></span>
+<span class="r-in"><span><span class="co"># _All files</span></span></span>
+<span class="r-in"><span><span class="fu">gl_repository</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># _All contributors</span></span></span>
+<span class="r-in"><span><span class="fu">gl_repository</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, <span class="st">"contributors"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># _Get content of one file</span></span></span>
+<span class="r-in"><span><span class="fu">gl_get_file</span><span class="op">(</span>project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, file_path <span class="op">=</span> <span class="st">"README.md"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># _Test if file exists</span></span></span>
+<span class="r-in"><span><span class="fu">gl_file_exists</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  project <span class="op">=</span> <span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>,</span></span>
+<span class="r-in"><span>  file_path <span class="op">=</span> <span class="st">"README.md"</span>,</span></span>
+<span class="r-in"><span>  ref <span class="op">=</span> <span class="st">"main"</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">}</span></span></span>
+</code></pre></div>
     </div>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">

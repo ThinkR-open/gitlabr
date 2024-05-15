@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
       </span>
     </div>
 
@@ -139,8 +139,10 @@ using a project connection</p>
 <span class="r-in"><span><span class="co"># Get one issue</span></span></span>
 <span class="r-in"><span><span class="fu">gl_get_issue</span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Create new issue</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, title <span class="op">=</span> <span class="st">"Implement new feature"</span>, </span></span>
-<span class="r-in"><span>  description <span class="op">=</span> <span class="st">"It should be awesome."</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="gl_new_issue.html">gl_new_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>,</span></span>
+<span class="r-in"><span>  title <span class="op">=</span> <span class="st">"Implement new feature"</span>,</span></span>
+<span class="r-in"><span>  description <span class="op">=</span> <span class="st">"It should be awesome."</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Assign user to issue 1</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="gl_new_issue.html">gl_assign_issue</a></span><span class="op">(</span><span class="st">"&lt;&lt;your-project-id&gt;&gt;"</span>, issue_id <span class="op">=</span> <span class="fl">1</span>, assignee_id <span class="op">=</span> <span class="st">"&lt;&lt;user-id&gt;&gt;"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">}</span></span></span>

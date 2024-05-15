@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9004</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9006</span>
       </span>
     </div>
 
@@ -75,7 +75,15 @@
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_new_group</span><span class="op">(</span><span class="va">name</span>, <span class="va">path</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">gl_new_group</span><span class="op">(</span><span class="va">name</span>, <span class="va">path</span>, visibility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"private"</span>, <span class="st">"internal"</span>, <span class="st">"public"</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">gl_new_subgroup</span><span class="op">(</span></span>
+<span>  <span class="va">name</span>,</span>
+<span>  <span class="va">path</span>,</span>
+<span>  visibility <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"private"</span>, <span class="st">"internal"</span>, <span class="st">"public"</span><span class="op">)</span>,</span>
+<span>  <span class="va">group</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">gl_edit_group</span><span class="op">(</span><span class="va">group</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
@@ -85,11 +93,15 @@
     <div id="arguments">
     <h2>Arguments</h2>
     <dl><dt>name</dt>
-<dd><p>of the new group</p></dd>
+<dd><p>Name of the new group</p></dd>
 
 
 <dt>path</dt>
-<dd><p>to the new group</p></dd>
+<dd><p>Path to the new group</p></dd>
+
+
+<dt>visibility</dt>
+<dd><p>Visibility of the new subgroup: "public", "private"...</p></dd>
 
 
 <dt>...</dt>
@@ -97,29 +109,36 @@
 
 
 <dt>group</dt>
-<dd><p>The ID or URL-encoded path of the group.</p></dd>
+<dd><p>The ID, name or URL-encoded path of the group</p></dd>
 
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>A tibble with the group information. <code>gl_delete_group()</code> returns an empty tibble.</p>
+<p>A tibble with the group information.
+<code>gl_delete_group()</code> returns an empty tibble.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
     <p>You can use extra parameters as proposed in the GitLab API.</p>
+<p>Note that on GitLab SaaS, you must use the GitLab UI to
+create groups without a parent group.
+You cannot use the API with <code>gl_new_group()</code> to do this,
+but you can use <code>gl_new_subgroup()</code>.</p>
     </div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="set_gitlab_connection.html">set_gitlab_connection</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>, </span></span>
+<span class="r-in"><span>  gitlab_url <span class="op">=</span> <span class="st">"https://gitlab.com"</span>,</span></span>
 <span class="r-in"><span>  private_token <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Sys.getenv.html" class="external-link">Sys.getenv</a></span><span class="op">(</span><span class="st">"GITLAB_COM_TOKEN"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Create new group</span></span></span>
 <span class="r-in"><span><span class="fu">gl_new_group</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mygroup"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create new subgroup</span></span></span>
+<span class="r-in"><span><span class="fu">gl_new_subgroup</span><span class="op">(</span>name <span class="op">=</span> <span class="st">"mysubgroup"</span>, group <span class="op">=</span> <span class="st">"mygroup"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Edit existing group</span></span></span>
 <span class="r-in"><span><span class="fu">gl_edit_group</span><span class="op">(</span>group <span class="op">=</span> <span class="st">"&lt;&lt;your-group-id&gt;&gt;"</span>, default_branch <span class="op">=</span> <span class="st">"main"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Delete group</span></span></span>
