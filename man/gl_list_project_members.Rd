@@ -17,7 +17,7 @@ List members of a specific project
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 gl_list_project_members(project = "<<your-project-id>>")

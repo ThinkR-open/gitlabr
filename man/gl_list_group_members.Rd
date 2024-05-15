@@ -17,7 +17,7 @@ List members of a specific group
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 gl_list_group_members(group = "<<your-group-id>>")

@@ -49,6 +49,9 @@ devtools::check(args = c("--no-tests"))
 rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning")
 devtools::build_vignettes()
 
+# Style full package ----
+styler::style_pkg()
+
 # Deal with tests ----
 devtools::load_all()
 ## load test environment variables

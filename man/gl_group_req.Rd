@@ -21,6 +21,6 @@ translates group names into ids
 }
 \examples{
 \dontrun{
-gl_group_req("test_group"<<your-group-id>>)
+gl_group_req("test_group" = "<<your-group-id>>")
 }
 }

@@ -50,21 +50,25 @@ Manage merge requests
 \examples{
 \dontrun{
 set_gitlab_connection(
-  gitlab_url = "https://gitlab.com", 
+  gitlab_url = "https://gitlab.com",
   private_token = Sys.getenv("GITLAB_COM_TOKEN")
 )
 # Create MR and get its information
-mr_infos <- gl_create_merge_request(project = <<your-project-id>>, 
+mr_infos <- gl_create_merge_request(
+  project = "<<your-project-id>>",
   source_branch = "my-extra-branch",
-  title = "Merge extra to main", description = "These modifications are wonderful")
+  title = "Merge extra to main", description = "These modifications are wonderful"
+)
 # List all opened MR
-gl_list_merge_requests(project = <<your-project-id>>, status = "opened")
+gl_list_merge_requests(project = "<<your-project-id>>", status = "opened")
 # Edit MR created
-gl_edit_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid, 
-  assignee_id = "<<user-id>>")
+gl_edit_merge_request(
+  project = "<<your-project-id>>", merge_request_iid = mr_infos$iid,
+  assignee_id = "<<user-id>>"
+)
 # Close MR
-gl_close_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid)
+gl_close_merge_request(project = "<<your-project-id>>", merge_request_iid = mr_infos$iid)
 # Delete MR as it never existed
-gl_delete_merge_request(project = <<your-project-id>>, merge_request_iid = mr_infos$iid)
+gl_delete_merge_request(project = "<<your-project-id>>", merge_request_iid = mr_infos$iid)
 }
 }

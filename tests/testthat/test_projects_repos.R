@@ -44,13 +44,14 @@ test_that("gl_proj_req works", {
 # gl_get_project_id ----
 # Can not be really tested because gitlab.com is too big
 # except with user namespace ? No
-# => Assume that the last modified is the current project 
+# => Assume that the last modified is the current project
 # because of unit tests
-the_retrieved_id <- gl_get_project_id(test_project_name, 
-                                      max_page = 3, owned = TRUE,
-                                      order_by = "last_activity_at")
-# gitlab(req = "projects", 
-#        gitlab_url = file.path(test_url, all_user_projects$namespace.path[1]), 
+the_retrieved_id <- gl_get_project_id(test_project_name,
+  max_page = 3, owned = TRUE,
+  order_by = "last_activity_at"
+)
+# gitlab(req = "projects",
+#        gitlab_url = file.path(test_url, all_user_projects$namespace.path[1]),
 #        max_page = 1, owned = TRUE)
 test_that("gl_get_project_id works", {
   expect_equal(as.character(the_retrieved_id), test_project_id)
@@ -65,26 +66,24 @@ test_that("gl_get_project_id works", {
 #   to = "6b9d22115a93ab009d64f857dca346c0e105d64a")
 
 # test_that("Compare works", {
-#   
+#
 #   expect_s3_class(my_gitlab(compare_refs
 #                     , test_project
 #                     , "f6a96d975d9acf708560aac120ac1712a89f2a0c"
 #                     , "ea86a3a8a22b528300c03f9bcf0dc91f81db4087")
 #           , "data.frame")
-#             
+#
 # })
 
 # gl_get_commits ----
 my_commits <- gl_get_commits(test_project, ref_name = get_main())
 
 test_that("Commits work", {
-  
   my_commit <- gl_get_commits(test_project, commit_sha = my_commits$id[1])
-  
+
   expect_s3_class(my_commits, "data.frame")
   expect_s3_class(my_commit, "data.frame")
   expect_gt(length(intersect(names(my_commits), names(my_commit))), 0L)
-  
 })
 
 
@@ -94,11 +93,9 @@ test_that("Commits work", {
 the_diff <- gl_get_diff(test_project, my_commits$short_id[1])
 
 test_that("gl_get_diff work", {
-  
   expect_s3_class(the_diff, "data.frame")
   expect_equal(nrow(the_diff), 1)
-  expect_equal(the_diff$old_path, '.gitlab-ci.yml')
-  
+  expect_equal(the_diff$old_path, ".gitlab-ci.yml")
 })
 
 # gl_new_project ----
@@ -126,4 +123,3 @@ test_that("gl_edit_project work", {
 
 # gl_delete_project ----
 # Dont test delete project because this example project is needed...
-

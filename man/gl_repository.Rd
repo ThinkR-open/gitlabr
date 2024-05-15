@@ -52,20 +52,22 @@ Get a file from a GitLab repository
 \dontrun{
 # Set GitLab connection for examples
 set_gitlab_connection(
- gitlab_url = "https://gitlab.com",
- private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 
 # Access repository
 # _All files
-gl_repository(project = <<your-project-id>>)
+gl_repository(project = "<<your-project-id>>")
 # _All contributors
-gl_repository(project = <<your-project-id>>, "contributors")
+gl_repository(project = "<<your-project-id>>", "contributors")
 # _Get content of one file
-gl_get_file(project = <<your-project-id>>, file_path = "README.md")
+gl_get_file(project = "<<your-project-id>>", file_path = "README.md")
 # _Test if file exists
 gl_file_exists(
-  project = <<your-project-id>>,
+  project = "<<your-project-id>>",
   file_path = "README.md",
-  ref = "main")
+  ref = "main"
+)
 }
 }

@@ -22,9 +22,10 @@ List of files in a folder
 \dontrun{
 # Set GitLab connection for examples
 set_gitlab_connection(
- gitlab_url = "https://gitlab.com",
- private_token = Sys.getenv("GITLAB_COM_TOKEN"))
+  gitlab_url = "https://gitlab.com",
+  private_token = Sys.getenv("GITLAB_COM_TOKEN")
+)
 
-gl_list_files(project = <<your-project-id>>, path = <<path-to-folder>>)
+gl_list_files(project = "<<your-project-id>>", path = "<<path-to-folder>>")
 }
 }

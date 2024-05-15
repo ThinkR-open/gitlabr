@@ -45,7 +45,7 @@ gl_list_sub_groups <- function(group, ...) {
 #' as request for functions involving groups
 #' @examples
 #' \dontrun{
-#' gl_group_req("test_group"<<your-group-id>>)
+#' gl_group_req("test_group" = "<<your-group-id>>")
 #' }
 gl_group_req <- function(group, ...) {
   if (missing(group) || is.null(group)) {
@@ -84,7 +84,7 @@ gl_get_group_id <- function(group_name, ...) {
     filter(
       matches_full_path |
         (sum(matches_full_path) == 0L &
-           matches_path | matches_name)
+          matches_path | matches_name)
     )
 
   if (nrow(matching) == 0) {

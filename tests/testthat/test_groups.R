@@ -12,27 +12,30 @@ test_that("gl_list_sub_groups works", {
   subgroup_list <- gl_list_sub_groups(test_group_id)
 
   if (nrow(subgroup_list) >= 1) {
-    # Only work if user is member of the group with a subgroup
-    # expect_gte(nrow(subgroup_list), 1)
     expect_true(all(c("id", "name", "path") %in% names(subgroup_list)))
 
     if (test_group_name == "thinkr-open") {
-      expect_true("dontdelete.subgroup.for.gitlabr" %in% subgroup_list[["name"]])
+      expect_true(
+        "dontdelete.subgroup.for.gitlabr" %in% subgroup_list[["name"]]
+      )
     }
   }
 })
 
-test_that("gl_get_group_id works", {
-  expect_equal(
-    as.character(
-      gl_get_group_id(Sys.getenv("GITLABR_TEST_GROUP_NAME"))
-    ),
-    Sys.getenv("GITLABR_TEST_GROUP_ID")
-  )
-})
 
 # Dont test to avoid GitLab rejection.
 if (interactive()) {
+  test_that("gl_get_group_id works", {
+    # This test may fail if you are member
+    # of a lot of groups on GitLab
+    expect_equal(
+      as.character(
+        gl_get_group_id(Sys.getenv("GITLABR_TEST_GROUP_NAME"))
+      ),
+      Sys.getenv("GITLABR_TEST_GROUP_ID")
+    )
+  })
+
   if (!grepl("gitlab[.]com", Sys.getenv("GITLABR_TEST_URL"))) {
     # Forbidden on GitLab SaaS
     new_group <- gl_new_group(
