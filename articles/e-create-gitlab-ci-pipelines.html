@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Breaking changes in 'gitlabr' V2 • gitlabr</title>
+<title>e-create-gitlab-ci-pipelines • gitlabr</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
@@ -17,7 +17,7 @@
 <script src="../bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
-<script src="../pkgdown.js"></script><meta property="og:title" content="Breaking changes in 'gitlabr' V2">
+<script src="../pkgdown.js"></script><meta property="og:title" content="e-create-gitlab-ci-pipelines">
 <meta property="og:description" content="gitlabr">
 <meta property="og:image" content="https://thinkr-open.github.io/gitlabr/logo.png">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -100,11 +100,11 @@
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
-      <h1 data-toc-skip>Breaking changes in ‘gitlabr’ V2</h1>
+      <h1 data-toc-skip>e-create-gitlab-ci-pipelines</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/ThinkR-open/gitlabr/blob/HEAD/vignettes/z-gitlabr-v2.Rmd" class="external-link"><code>vignettes/z-gitlabr-v2.Rmd</code></a></small>
-      <div class="hidden name"><code>z-gitlabr-v2.Rmd</code></div>
+      <small class="dont-index">Source: <a href="https://github.com/ThinkR-open/gitlabr/blob/HEAD/vignettes/e-create-gitlab-ci-pipelines.Rmd" class="external-link"><code>vignettes/e-create-gitlab-ci-pipelines.Rmd</code></a></small>
+      <div class="hidden name"><code>e-create-gitlab-ci-pipelines.Rmd</code></div>
 
     </div>
 
@@ -112,41 +112,53 @@
     
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://thinkr-open.github.io/gitlabr/">gitlabr</a></span><span class="op">)</span></span></code></pre></div>
-<ul>
-<li>Default branch is named <code>main</code> whenever required.
-<ul>
-<li>This can be changed with
-<code>gitlabr_options_set("gitlabr.main", "master")</code>
-</li>
-</ul>
-</li>
-<li>All project-specific functions get <code>project</code> as first
-parameter. Changes apply to:
+<p>With <code><a href="../reference/use_gitlab_ci.html">gitlabr::use_gitlab_ci()</a></code> you can create a
+<code>.gitlab-ci.yml</code> file in the root of your project. This file
+is used by GitLab CI/CD to manage your pipelines.</p>
+<p>In ‘gitlabr’, there are different types of templates available.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Templates available</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"gitlab-ci"</span>, package <span class="op">=</span> <span class="st">"gitlabr"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "bookdown-production.yml"         "bookdown.yml"                   </span></span>
+<span><span class="co">#&gt; [3] "check-coverage-pkgdown-renv.yml" "check-coverage-pkgdown.yml"</span></span></code></pre></div>
+<p>Types available are:</p>
 <ul>
 <li>
-<code><a href="../reference/gl_comments.html">gl_get_comments()</a></code>,<code><a href="../reference/gl_to_issue_id.html">gl_to_issue_id()</a></code>,
-<code><a href="../reference/gl_comments.html">gl_get_issue_comments()</a></code>,
-<code><a href="../reference/gl_comments.html">gl_get_commit_comments()</a></code>, <code><a href="../reference/gl_comments.html">gl_edit_comment()</a></code>,
-<code><a href="../reference/gl_comments.html">gl_edit_issue_comment()</a></code>,
-<code><a href="../reference/gl_comments.html">gl_edit_commit_comment()</a></code>
-</li>
-<li><code><a href="../reference/gl_repository.html">gl_repository()</a></code></li>
+<code>"check-coverage-pkgdown"</code>: Check package along with Code
+coverage with ‘covr’ and ‘pkgdown’ site on GitLab Pages</li>
 <li>
-<code><a href="../reference/gl_list_issues.html">gl_get_issue()</a></code>, <code><a href="../reference/gl_to_issue_id.html">gl_to_issue_id()</a></code>,
-<code><a href="../reference/gl_new_issue.html">gl_new_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_create_issue()</a></code>,
-<code><a href="../reference/gl_new_issue.html">gl_edit_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_close_issue()</a></code>,
-<code><a href="../reference/gl_new_issue.html">gl_reopen_issue()</a></code>, <code><a href="../reference/gl_new_issue.html">gl_assign_issue()</a></code>,
-<code><a href="../reference/gl_new_issue.html">gl_unassign_issue()</a></code>
-</li>
+<code>"check-coverage-pkgdown-renv"</code>: Check package built in a
+fixed ‘renv’ state along with Code coverage with ‘covr’ and ‘pkgdown’
+site on GitLab Pages.</li>
+<li>
+<code>"bookdown"</code>: Build ‘bookdown’ HTML and PDF site on
+GitLab Pages</li>
+<li>
+<code>"bookdown-production"</code>: Build ‘bookdown’ HTML and PDF
+site on GitLab Pages. Where there will be a version of the book for each
+branch deployed. See <a href="https://github.com/statnmap/GitLab-Pages-Deploy" class="external-link uri">https://github.com/statnmap/GitLab-Pages-Deploy</a> for
+setup details.</li>
 </ul>
-</li>
-<li>Changed use of <code>api_version = "v4"</code> by
-<code>api_version = 4</code>
-</li>
-<li>Changed use of <code>force_api_v3 = TRUE</code> by
-<code>api_version = 4</code> for deprecation by default</li>
-</ul>
-</div>
+<p>Hence, if you develop a R package, you can use the
+<code>"check-coverage-pkgdown"</code> template to check your package and
+deploy the documentation on GitLab Pages. Default image used is
+<code>image = "rocker/verse:latest"</code>.<br>
+You can change parameters of <code><a href="../reference/use_gitlab_ci.html">use_gitlab_ci()</a></code> but there
+shouldn’t be reasons to change the “.gitlab-ci.yml” file.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a .gitlab-ci.yml file with the template</span></span>
+<span><span class="fu">gitlabr</span><span class="fu">::</span><span class="fu"><a href="../reference/use_gitlab_ci.html">use_gitlab_ci</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"check-coverage-pkgdown"</span><span class="op">)</span></span></code></pre></div>
+<p>If you wrote a bookdown book, you can use the <code>"bookdown"</code>
+template to build the HTML and PDF site on GitLab Pages. The CI will
+detect packages used in the book and install them.</p>
+<p>In the “.gitlab-ci.yml” file, you can choose the output of your book.
+By default, the “bookdown::bs4_book”, “bookdown::gitbook” (commented),
+“bookdown::pdf_book” and “pagedown::html_paged” outputs are created. You
+can comment the outputs you don’t want to build.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a .gitlab-ci.yml file with the template</span></span>
+<span><span class="fu">gitlabr</span><span class="fu">::</span><span class="fu"><a href="../reference/use_gitlab_ci.html">use_gitlab_ci</a></span><span class="op">(</span>template <span class="op">=</span> <span class="st">"bookdown"</span><span class="op">)</span></span></code></pre></div>
+  </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
 

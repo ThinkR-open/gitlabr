@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9009</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9010</span>
       </span>
     </div>
 
@@ -42,6 +42,9 @@
     </li>
     <li>
       <a href="../articles/d-go-further-understand-and-build.html">Go further: understand and build your functions</a>
+    </li>
+    <li>
+      <a href="../articles/e-create-gitlab-ci-pipelines.html">e-create-gitlab-ci-pipelines</a>
     </li>
     <li>
       <a href="../articles/z-gitlabr-v2.html">Breaking changes in 'gitlabr' V2</a>
@@ -77,11 +80,11 @@
     <div id="ref-usage">
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">use_gitlab_ci</span><span class="op">(</span></span>
 <span>  image <span class="op">=</span> <span class="st">"rocker/verse:latest"</span>,</span>
-<span>  repo_name <span class="op">=</span> <span class="st">"https://packagemanager.rstudio.com/all/__linux__/focal/latest"</span>,</span>
 <span>  path <span class="op">=</span> <span class="st">".gitlab-ci.yml"</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>  add_to_Rbuildignore <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  type <span class="op">=</span> <span class="st">"check-coverage-pkgdown"</span></span>
+<span>  type <span class="op">=</span> <span class="st">"check-coverage-pkgdown"</span>,</span>
+<span>  upgrade <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -89,10 +92,6 @@
     <h2>Arguments</h2>
     <dl><dt>image</dt>
 <dd><p>Docker image to use in GitLab ci. If NULL, not specified!</p></dd>
-
-
-<dt>repo_name</dt>
-<dd><p>REPO_NAME environment variable for R CRAN mirror used</p></dd>
 
 
 <dt>path</dt>
@@ -111,29 +110,39 @@ CI workflow to .Rbuildignore?</p></dd>
 <dt>type</dt>
 <dd><p>type of the CI template to use</p></dd>
 
+
+<dt>upgrade</dt>
+<dd><p>whether to upgrade the R packages to the latest version
+during the CI. Default to TRUE.</p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
-<p>Used for side effects. Creates a .gitlab-ci.yml file in your directory.</p>
+<p>Used for side effects.
+Creates a .gitlab-ci.yml file in your directory.</p>
     </div>
     <div id="details">
     <h2>Details</h2>
-    <p>Types available are:</p><ul><li><p>"check-coverage-pkgdown": Check package along with Code coverage with 'covr'
-and 'pkgdown' site on GitLab Pages</p></li>
+    <p>Types available are:</p><ul><li><p>"check-coverage-pkgdown": Check package along with
+Code coverage with 'covr' and 'pkgdown' site on GitLab Pages</p></li>
 <li><p>"check-coverage-pkgdown-renv": Check package built in a fixed 'renv' state
 along with Code coverage with 'covr' and 'pkgdown' site on GitLab Pages.</p></li>
 <li><p>"bookdown": Build 'bookdown' HTML and PDF site on GitLab Pages</p></li>
 <li><p>"bookdown-production": Build 'bookdown' HTML and PDF site on GitLab Pages.
-Where default page is for branch named 'production' and "dev/" sub-folder is for
-'main' (or 'master') branch.</p></li>
+Where there will be a version of the book for each branch deployed.
+See <a href="https://github.com/statnmap/GitLab-Pages-Deploy" class="external-link">https://github.com/statnmap/GitLab-Pages-Deploy</a> for setup details.</p></li>
 </ul></div>
 
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Create in another directory</span></span></span>
-<span class="r-in"><span><span class="fu">use_gitlab_ci</span><span class="op">(</span>image <span class="op">=</span> <span class="st">"rocker/verse:latest"</span>, path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".yml"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">use_gitlab_ci</span><span class="op">(</span></span></span>
+<span class="r-in"><span>  image <span class="op">=</span> <span class="st">"rocker/verse:latest"</span>,</span></span>
+<span class="r-in"><span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".yml"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> GitLab CI file created at /tmp/Rtmp56Sy8k/file16666ca4b8c9.yml</span>
 <span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
 <span class="r-in"><span><span class="co"># Create in your current project with template for packages checking</span></span></span>
 <span class="r-in"><span><span class="fu">use_gitlab_ci</span><span class="op">(</span>image <span class="op">=</span> <span class="st">"rocker/verse:latest"</span>, type <span class="op">=</span> <span class="st">"check-coverage-pkgdown"</span><span class="op">)</span></span></span>
