@@ -79,3 +79,13 @@ reference:
     - gitlabr-deprecated
     - gl_builds
     - gl_ci_job
+
+articles:
+- title: Get started
+  navbar: ~
+  contents:
+  - a-gitlabr
+  - b-projects
+  - c-build-your-own
+  - d-pipelines
+  - e-alternative-connection

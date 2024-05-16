@@ -2,7 +2,7 @@
 title: "Create and manage a new GitLab project"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{b-Create and manage a new GitLab project}
+  %\VignetteIndexEntry{Create and manage a new GitLab project}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

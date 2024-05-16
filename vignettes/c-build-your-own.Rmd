@@ -1,8 +1,8 @@
 ---
-title: "Go further: understand and build your functions"
+title: "Go further: understand and build your own functions"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{d-Go further: understand and build your functions}
+  %\VignetteIndexEntry{Go further: understand and build your own functions}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

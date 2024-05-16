@@ -245,8 +245,8 @@ There are pre-defined templates:
 
 ## Further information
 
-  - For an introduction see the
-    `vignette("quick-start-guide-to-gitlabr")`
+  - For an introduction see the `vignette("a-gitlabr", package =
+    "gitlabr")`
   - When writing custom extensions (“convenience functions”) for
     {gitlabr} or when you experience any trouble, the very extensive
     [GitLab API documentation](https://docs.gitlab.com/ce/api/) can be

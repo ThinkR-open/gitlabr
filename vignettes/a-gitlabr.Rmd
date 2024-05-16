@@ -2,7 +2,7 @@
 title: "Quick Start Guide to 'gitlabr'"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Quick-Start-Guide-to-gitlabr}
+  %\VignetteIndexEntry{Quick Start Guide to 'gitlabr'}
   %\VignetteEncoding{UTF-8}
   %\VignetteEngine{knitr::rmarkdown}
 editor_options: 

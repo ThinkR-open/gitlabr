@@ -1,8 +1,8 @@
 ---
-title: "e-create-gitlab-ci-pipelines"
+title: "Create gitlab-ci pipelines"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{e-create-gitlab-ci-pipelines}
+  %\VignetteIndexEntry{Create gitlab-ci pipelines}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
