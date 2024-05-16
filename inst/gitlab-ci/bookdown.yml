@@ -2,11 +2,12 @@ image: {image}
 
 variables:
   GIT_DEPTH: 10
-  REPO_NAME: "{repo_name}"
-  R_LIBS_USER: "ci/lib"
+  # R_LIBS is not empty in rocker images
+  R_LIBS: ${CI_PROJECT_DIR}/ci/lib:${R_LIBS}
+  R_LIBS_USER: ${CI_PROJECT_DIR}/ci/lib
 
 cache:
-  key: global-cache
+  key: cache-default
   paths:
       - ${R_LIBS_USER}
 
@@ -21,17 +22,19 @@ book-main:
         - R -e "sessionInfo()"
         - echo "Library path for packages :" $R_LIBS_USER
         - mkdir -p $R_LIBS_USER
-        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
-        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+        - Rscript -e 'pak::pkg_install(pkg = c("attachment", "tinytex", "usethis"), upgrade = {upgrade})'
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description(check_name = FALSE)}'
         - >
           Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
             attachment::att_from_rmds(".", recursive = FALSE)));
             if (packageVersion("attachment") <= "0.2.2") {
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
         - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::bs4_book", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'

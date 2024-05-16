@@ -28,10 +28,12 @@ Not repository name.}
 
 \item{ref_name}{name of ref (i.e. branch, commit, tag). Default to 'main'.}
 
-\item{save_to_file}{either a path where to store .zip file or NULL if raw should be returned}
+\item{save_to_file}{either a path where to store .zip file
+or NULL if raw should be returned}
 }
 \value{
-returns the file path if \code{save_to_file} is TRUE, or the archive as raw otherwise.
+returns the file path if \code{save_to_file} is TRUE,
+or the archive as raw otherwise.
 }
 \description{
 List the jobs with \code{gl_jobs}, the pipelines with \code{gl_pipelines} or

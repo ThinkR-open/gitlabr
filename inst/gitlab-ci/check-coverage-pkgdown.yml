@@ -2,13 +2,14 @@ image: {image}
 
 variables:
   GIT_DEPTH: 10
-  REPO_NAME: "{repo_name}"
-  R_LIBS_USER: "ci/lib"
+  # R_LIBS is not empty in rocker images
+  R_LIBS: ${CI_PROJECT_DIR}/ci/lib:${R_LIBS}
+  R_LIBS_USER: ${CI_PROJECT_DIR}/ci/lib
 
 cache:
-  key: global-cache
-  paths:
-    - ${R_LIBS_USER}
+  - key: cache-default
+    paths:
+      - ${R_LIBS_USER}
 
 stages:
   - build
@@ -23,13 +24,22 @@ building:
     - lsb_release -c
     - R -e "sessionInfo()"
     - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
-    - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS_USER
     - mkdir -p $R_LIBS_USER
-    - Rscript -e 'install.packages("remotes")'
-    - Rscript -e 'install.packages("rcmdcheck")'
-    - Rscript -e 'remotes::install_local(upgrade = "always")'
+    - Rscript -e 'Sys.getenv("R_LIBS_USER");dir.exists(Sys.getenv("R_LIBS_USER"))'
+    - Rscript -e 'Sys.getenv("R_LIBS")'
+    - Rscript -e '.libPaths()'
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
+    - Rscript -e 'pak::pkg_install(pkg = c("rcmdcheck"), upgrade = {upgrade})'
     - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${R_LIBS_USER}
   artifacts:
     paths:
       - check
@@ -50,9 +60,18 @@ coverage:
     - master
     - production
   script:
-    - Rscript -e 'remotes::install_local(upgrade = "never")'
-    - Rscript -e 'remotes::install_cran(c("covr", "DT"), upgrade = "never")'
+    # Install pak by security, although should be in cache
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
+    - Rscript -e 'pak::pkg_install(pkg = c("covr", "DT"), upgrade = {upgrade})'
     - Rscript -e 'covr::gitlab(quiet = FALSE)'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${R_LIBS_USER}
   coverage: '/Coverage: \d+\.\d+/'
   artifacts:
     paths:
@@ -72,9 +91,18 @@ integration:
     - production
     - test-ci
   script:
-    - Rscript -e 'remotes::install_cran(c("pkgdown"), upgrade = "never")'
-    - Rscript -e 'remotes::install_local(upgrade = "never")'
+    # Install pak by security, although should be in cache
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
+    - Rscript -e 'pak::pkg_install(c("pkgdown"), upgrade = {upgrade})'
     - Rscript -e 'pkgdown::build_site()'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${R_LIBS_USER}
   artifacts:
     paths:
       - docs

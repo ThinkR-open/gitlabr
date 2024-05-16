@@ -6,17 +6,15 @@
 \usage{
 use_gitlab_ci(
   image = "rocker/verse:latest",
-  repo_name = "https://packagemanager.rstudio.com/all/__linux__/focal/latest",
   path = ".gitlab-ci.yml",
   overwrite = TRUE,
   add_to_Rbuildignore = TRUE,
-  type = "check-coverage-pkgdown"
+  type = "check-coverage-pkgdown",
+  upgrade = TRUE
 )
 }
 \arguments{
 \item{image}{Docker image to use in GitLab ci. If NULL, not specified!}
-
-\item{repo_name}{REPO_NAME environment variable for R CRAN mirror used}
 
 \item{path}{destination path for writing GitLab CI yml file}
 
@@ -26,9 +24,13 @@ use_gitlab_ci(
 CI workflow to .Rbuildignore?}
 
 \item{type}{type of the CI template to use}
+
+\item{upgrade}{whether to upgrade the R packages to the latest version
+during the CI. Default to TRUE.}
 }
 \value{
-Used for side effects. Creates a .gitlab-ci.yml file in your directory.
+Used for side effects.
+Creates a .gitlab-ci.yml file in your directory.
 }
 \description{
 Add .gitlab-ci.yml file in your current project from template
@@ -36,19 +38,22 @@ Add .gitlab-ci.yml file in your current project from template
 \details{
 Types available are:
 \itemize{
-\item "check-coverage-pkgdown": Check package along with Code coverage with 'covr'
-and 'pkgdown' site on GitLab Pages
+\item "check-coverage-pkgdown": Check package along with
+Code coverage with 'covr' and 'pkgdown' site on GitLab Pages
 \item "check-coverage-pkgdown-renv": Check package built in a fixed 'renv' state
 along with Code coverage with 'covr' and 'pkgdown' site on GitLab Pages.
 \item "bookdown": Build 'bookdown' HTML and PDF site on GitLab Pages
 \item "bookdown-production": Build 'bookdown' HTML and PDF site on GitLab Pages.
-Where default page is for branch named 'production' and "dev/" sub-folder is for
-'main' (or 'master') branch.
+Where there will be a version of the book for each branch deployed.
+See \url{https://github.com/statnmap/GitLab-Pages-Deploy} for setup details.
 }
 }
 \examples{
 # Create in another directory
-use_gitlab_ci(image = "rocker/verse:latest", path = tempfile(fileext = ".yml"))
+use_gitlab_ci(
+  image = "rocker/verse:latest",
+  path = tempfile(fileext = ".yml")
+)
 \dontrun{
 # Create in your current project with template for packages checking
 use_gitlab_ci(image = "rocker/verse:latest", type = "check-coverage-pkgdown")

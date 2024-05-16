@@ -2,120 +2,64 @@ image: {image}
 
 variables:
   GIT_DEPTH: 10
-  REPO_NAME: "{repo_name}"
-  R_LIBS_USER: "ci/lib"
+  # R_LIBS is not empty in rocker images
+  R_LIBS: ${CI_PROJECT_DIR}/ci/lib:${R_LIBS}
+  R_LIBS_USER: ${CI_PROJECT_DIR}/ci/lib
+  SITE_BY_BRANCH: "TRUE"
 
 cache:
-  key: global-cache
+  key: cache-default
   paths:
       - ${R_LIBS_USER}
 
 stages:
   - book-create
+  - prepare-deploy
   - deploy
 
 book-branch:
     stage: book-create
     except:
-        - main
-        - master
-        - production
-        - merge_requests
+        - gh-pages
     script:
-        - lsb_release -c
-        - R -e "sessionInfo()"
-        - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
+        - echo "options(repos = c(CRAN = '${REPO_NAME}'), download.file.method = 'libcurl')" >> ${R_HOME}/etc/Rprofile.site
         - echo "Library path for packages :" $R_LIBS_USER
         - mkdir -p $R_LIBS_USER
-        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
-        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
+        - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+        - Rscript -e 'pak::pkg_install(pkg = c("attachment", "tinytex", "usethis"), upgrade = {upgrade})'
+        # - /bin/bash install_chrome.sh
+        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description(check_name = FALSE)}'
         - >
           Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
             attachment::att_from_rmds(".", recursive = FALSE)));
             if (packageVersion("attachment") <= "0.2.2") {
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
+        - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
         - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
-    artifacts:
-        paths:
-            - public
-        expire_in: 30 days
-        
-        
-book-main:
-    stage: book-create
-    only:
-        - master
-        - main
-        - merge_requests
-    script:
-        - echo "Library path for packages :" $R_LIBS_USER
-        - mkdir -p $R_LIBS_USER
-        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
-        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - >
-          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
-            attachment::att_from_rmds(".", recursive = FALSE)));
-            if (packageVersion("attachment") <= "0.2.2") {
-              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
-              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
-        - mkdir -p public
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/production/download?job=pages" &&
-          unzip artifacts.zip &&
-          rm artifacts.zip &&
-          echo "copied production artifacts" ||
-          echo "copied production artifacts failed"'
-        - Rscript -e 'file.remove(list.files("public", full.names = TRUE))'
-        - Rscript -e 'unlink("public/libs", recursive = TRUE);unlink("public/images", recursive = TRUE)'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "public")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/_pagedown.html")'
+        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::bs4_book", clean = FALSE, output_dir = "public")'
+        # - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
+        # - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/index.html")'
+        # - R -e 'pagedown::chrome_print("public/index.html", "public/rapport.pdf", extra_args = c("--no-sandbox", "--disable-gpu"), verbose = TRUE)'
     artifacts:
         paths:
             - public
         expire_in: 30 days
 
-book-production:
-    stage: book-create
+gh-pages-prep:
+    stage: prepare-deploy
     only:
-        - production
+      - main
+      - master
+      - production
+      - validation
     script:
-        - echo "Library path for packages :" $R_LIBS_USER
-        - mkdir -p $R_LIBS_USER
-        - Rscript -e 'install.packages(c("remotes", "attachment", "tinytex", "usethis"))'
-        - Rscript -e 'if (!file.exists("DESCRIPTION")) {usethis::use_description()}'
-        - >
-          Rscript -e 'imports <- unique(c("bookdown", "knitr", "pagedown",
-            attachment::att_from_rmds(".", recursive = FALSE)));
-            if (packageVersion("attachment") <= "0.2.2") {
-              attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
-              } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
-        - Rscript -e 'remotes::install_deps(dependencies = TRUE)'
-        - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
-        - mkdir -p public
-        - 'curl --location --output artifacts.zip --header "JOB-TOKEN: $CI_JOB_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/jobs/artifacts/$CI_DEFAULT_BRANCH/download?job=pages" &&
-          unzip artifacts.zip &&
-          rm artifacts.zip &&
-          echo "copied $CI_DEFAULT_BRANCH artifacts" ||
-          echo "copied $CI_DEFAULT_BRANCH artifacts failed"'
-        # Clean production directory
-        - Rscript -e 'unlink("public/production", recursive = TRUE)'
-        - mkdir -p public/production
-        # Keep clean to FALSE to retrieve intermediate files in case something fails
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::gitbook", clean = FALSE, output_dir = "production/dev")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "production/dev")'
-        - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/production/_pagedown.html")'
-    artifacts:
-        paths:
-            - public
-        expire_in: 30 days
+      # Use https://github.com/statnmap/GitLab-Pages-Deploy
+      # Deploy a unique site in gh-pages branch,
+      # or a sub-website for each branch if SITE_BY_BRANCH: "TRUE"
+      - wget https://raw.githubusercontent.com/statnmap/GitLab-Pages-Deploy/main/deploy_pages_branch.sh
+      - /bin/bash deploy_pages_branch.sh
 
 pages:
     stage: deploy
@@ -125,7 +69,6 @@ pages:
         paths:
             - public
     only:
-        - main
-        - master
-        - production
-
+        # Because we use "deploy_pages_branch", only gh-pages branch needs to be deployed
+        # All outputs from other branches in "prepare-deploy" step will push in "gh-pages"
+        - gh-pages

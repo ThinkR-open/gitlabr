@@ -2,11 +2,13 @@
 
 ## Breaking changes
 
+* `use_gitlab_ci()` does not use `repo_name` anymore as "rocker" images fix CRAN to a specific date.
 * Functions deprecated since version 0.7 are removed
 * Transfer ownership of the project to ThinkR-open
 
 ## New features
 
+* `use_gitlab_ci()` allows to decide whether to update R packages during the CI pipeline
 * `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
 * `gl_new_subgroup()` to create a subgroup in a group (@margotbrd)
 * `gl_delete_file()` to delete a file in a repository

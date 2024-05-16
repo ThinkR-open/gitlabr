@@ -4,11 +4,12 @@ variables:
   RENV_PATHS_CACHE: "cache"
   RENV_PATHS_LIBRARY: "renv/library"
   GIT_DEPTH: 10
-  REPO_NAME: "https://packagemanager.rstudio.com/all/__linux__/focal/latest"
-  R_LIBS_USER: "ci/lib"
+  # R_LIBS is not empty in rocker images
+  R_LIBS: ${CI_PROJECT_DIR}/ci/lib:${R_LIBS}
+  R_LIBS_USER: ${CI_PROJECT_DIR}/ci/lib
 
 cache:
-  key: global-cache
+  key: cache-default
   paths:
     - ${RENV_PATHS_CACHE}
     - ${RENV_PATHS_LIBRARY}
@@ -27,16 +28,24 @@ building:
     - lsb_release -c
     - R -e "sessionInfo()"
     - if [[ $CI_DEFAULT_BRANCH == "master" || $CI_DEFAULT_BRANCH = "main" ]]; then echo "OK - Default branch is master or main"; else echo "Default branch is not master or main; please add yours ($CI_DEFAULT_BRANCH) where needed, as well as in the present line of code" ; exit 1; fi
-    - apt-get update -qq && apt-get install -y libharfbuzz-dev libfribidi-dev
     - echo "Library path for packages :" $R_LIBS_USER
     - mkdir -p $R_LIBS_USER
     - mkdir -p $RENV_PATHS_CACHE
     - Rscript -e 'source("renv/activate.R")'
-    - Rscript -e 'install.packages("remotes")'
-    - Rscript -e 'install.packages("rcmdcheck")'
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pkg_install(pkg = c("rcmdcheck"), upgrade = {upgrade})'
     - Rscript -e 'renv::restore()'
-    - Rscript -e 'remotes::install_local(upgrade = "never")'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
     - R -e 'rcmdcheck::rcmdcheck(args = c("--no-manual", "--as-cran"), error_on = "warning", check_dir = "check")'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${RENV_PATHS_CACHE}
+        - ${RENV_PATHS_LIBRARY}
+        - ${R_LIBS_USER}
   artifacts:
     paths:
       - check
@@ -58,11 +67,21 @@ coverage:
     - production
   script:
     - Rscript -e 'source("renv/activate.R")'
-    - Rscript -e 'install.packages("remotes")'
-    - Rscript -e 'remotes::install_cran(c("covr", "DT"), upgrade = "never")'
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pkg_install(pkg = c("covr", "DT"), upgrade = {upgrade})'
     - Rscript -e 'renv::restore()'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
     - Rscript -e 'covr::gitlab(quiet = FALSE)'
   coverage: '/Coverage: \d+\.\d+/'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${RENV_PATHS_CACHE}
+        - ${RENV_PATHS_LIBRARY}
+        - ${R_LIBS_USER}
   artifacts:
     paths:
       - public
@@ -82,11 +101,20 @@ integration:
     - test-ci
   script:
     - Rscript -e 'source("renv/activate.R")'
-    - Rscript -e 'install.packages("remotes")'
-    - Rscript -e 'remotes::install_cran(c("pkgdown"), upgrade = "never")'
+    - Rscript -e 'if(!requireNamespace("pak", quietly = TRUE)) {install.packages("pak")}'
+    - Rscript -e 'pak::pkg_install(c("pkgdown"), upgrade = {upgrade})'
     - Rscript -e 'renv::restore()'
-    - Rscript -e 'remotes::install_local(upgrade = "never")'
+    - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
     - Rscript -e 'pkgdown::build_site()'
+  cache:
+    - key: cache-$CI_COMMIT_REF_SLUG
+      fallback_keys:
+        - cache-$CI_DEFAULT_BRANCH
+        - cache-default
+      paths:
+        - ${RENV_PATHS_CACHE}
+        - ${RENV_PATHS_LIBRARY}
+        - ${R_LIBS_USER}
   artifacts:
     paths:
       - docs
