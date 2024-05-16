@@ -60,6 +60,10 @@ do.call(Sys.setenv, yaml::yaml.load_file("dev/environment.yml"))
 devtools::test() ## run all tests
 testthat::test_file("tests/testthat/test_connection_env.R") ## run test on one file
 
+# Test CI templates manually ----
+# /!\ Run tests in dev/dev_test_ci_templates.R /!\
+rstudioapi::navigateToFile("dev/dev_test_ci_templates.R")
+
 # Checks for CRAN release ----
 
 ## Prepare for CRAN ----

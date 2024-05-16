@@ -1,0 +1,60 @@
+---
+title: "e-create-gitlab-ci-pipelines"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{e-create-gitlab-ci-pipelines}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(gitlabr)
+```
+
+With `gitlabr::use_gitlab_ci()` you can create a `.gitlab-ci.yml` file in the root of your project. 
+This file is used by GitLab CI/CD to manage your pipelines.
+
+In 'gitlabr', there are different types of templates available.
+
+```{r}
+# Templates available
+list.files(system.file("gitlab-ci", package = "gitlabr"))
+```
+
+Types available are:
+
+- `"check-coverage-pkgdown"`: Check package along with
+Code coverage with 'covr' and 'pkgdown' site on GitLab Pages
+- `"check-coverage-pkgdown-renv"`: Check package built in a fixed 'renv' state
+ along with Code coverage with 'covr' and 'pkgdown' site on GitLab Pages.
+- `"bookdown"`: Build 'bookdown' HTML and PDF site on GitLab Pages
+- `"bookdown-production"`: Build 'bookdown' HTML and PDF site on GitLab Pages.
+ Where there will be a version of the book for each branch deployed.
+See <https://github.com/statnmap/GitLab-Pages-Deploy> for setup details.
+
+
+Hence, if you develop a R package, you can use the `"check-coverage-pkgdown"` template to check your package and deploy the documentation on GitLab Pages. Default image used is `image = "rocker/verse:latest"`.  
+You can change parameters of `use_gitlab_ci()` but there shouldn't be reasons to change the ".gitlab-ci.yml" file.
+
+```{r, eval=FALSE}
+# Create a .gitlab-ci.yml file with the template
+gitlabr::use_gitlab_ci(template = "check-coverage-pkgdown")
+```
+
+If you wrote a bookdown book, you can use the `"bookdown"` template to build the HTML and PDF site on GitLab Pages.
+The CI will detect packages used in the book and install them.  
+
+In the ".gitlab-ci.yml" file, you can choose the output of your book.
+By default, the "bookdown::bs4_book", "bookdown::gitbook" (commented), "bookdown::pdf_book" and "pagedown::html_paged" outputs are created. You can comment the outputs you don't want to build.
+
+```{r, eval=FALSE}
+# Create a .gitlab-ci.yml file with the template
+gitlabr::use_gitlab_ci(template = "bookdown")
+```
