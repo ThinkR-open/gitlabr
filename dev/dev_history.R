@@ -28,7 +28,7 @@ usethis::use_github_action(url = "https://github.com/DavisVaughan/extrachecks-ht
 usethis::pr_fetch(24)
 usethis::pr_push()
 
-# Test pkgdown
+# Set pkgdown
 pkgdown::check_pkgdown()
 usethis::use_build_ignore("_pkgdown.yml")
 usethis::use_git_ignore("public")
@@ -63,6 +63,9 @@ testthat::test_file("tests/testthat/test_connection_env.R") ## run test on one f
 # Test CI templates manually ----
 # /!\ Run tests in dev/dev_test_ci_templates.R /!\
 rstudioapi::navigateToFile("dev/dev_test_ci_templates.R")
+
+# Test pkgdown ----
+pkgdown::check_pkgdown()
 
 # Checks for CRAN release ----
 

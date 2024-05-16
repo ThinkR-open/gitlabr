@@ -2,7 +2,7 @@
 title: "Alternative connections to projects"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{c-Alternative connections to projects}
+  %\VignetteIndexEntry{Alternative connections to projects}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
