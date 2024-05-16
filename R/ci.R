@@ -44,10 +44,12 @@ use_gitlab_ci <- function(
     type = "check-coverage-pkgdown",
     upgrade = TRUE) {
   choices <- gsub(
-    ".yml", "",
+    "[.]yml", "",
     list.files(system.file("gitlab-ci", package = "gitlabr"))
   )
-  type <- match.arg(type, choices = choices, several.ok = FALSE)
+  type <- match.arg(gsub("[.]yml", "", type),
+    choices = choices, several.ok = FALSE
+  )
 
   file <- system.file("gitlab-ci", paste0(type, ".yml"), package = "gitlabr")
 

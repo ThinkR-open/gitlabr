@@ -9,6 +9,7 @@
 ## New features
 
 * `use_gitlab_ci()` allows to decide whether to update R packages during the CI pipeline
+* Add vignette to explain how to use 'gitlabr' with GitLab CI
 * `gl_new_group()`, `gl_edit_group()`, `gl_delete_group()`, `gl_list_groups()`, `gl_list_sub_groups()` to deal with groups on a GitLab instance (@mpolano)
 * `gl_new_subgroup()` to create a subgroup in a group (@margotbrd)
 * `gl_delete_file()` to delete a file in a repository

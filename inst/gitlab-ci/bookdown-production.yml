@@ -35,12 +35,13 @@ book-branch:
             if (packageVersion("attachment") <= "0.2.2") {
               attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports)
               } else {attachment::att_to_desc_from_is(path.d = "DESCRIPTION", imports = imports, must.exist = FALSE)}'
-        - Rscript -e 'pak::pak(pkg = ".", upgrade = {upgrade})'
+        - Rscript -e 'pak::local_install_deps(root = ".", upgrade = {upgrade})'
+        - Rscript -e 'pak::local_install_dev_deps(root = ".", upgrade = {upgrade})'
         - Rscript -e 'if(!tinytex::is_tinytex()) tinytex::install_tinytex(force = TRUE)'
         - mkdir -p public
         - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::bs4_book", clean = FALSE, output_dir = "public")'
         # - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "bookdown::pdf_book", clean = FALSE, output_dir = "public")'
-        # - Rscript -e 'bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy("_main.html", "public/index.html")'
+        # - Rscript -e 'output_file <- bookdown::render_book("index.Rmd", output_format = "pagedown::html_paged", clean = FALSE);file.copy(output_file, "public/index.html")'
         # - R -e 'pagedown::chrome_print("public/index.html", "public/rapport.pdf", extra_args = c("--no-sandbox", "--disable-gpu"), verbose = TRUE)'
     artifacts:
         paths:
