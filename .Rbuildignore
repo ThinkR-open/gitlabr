@@ -24,3 +24,4 @@ Dockerfile
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
 ^LICENSE\.md$
+^pkgdown$
