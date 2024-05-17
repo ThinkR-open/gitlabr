@@ -1,6 +1,6 @@
 Package: gitlabr
 Title: Access to the 'GitLab' API
-Version: 2.1.0
+Version: 2.1.0.9000
 Authors@R: c(
     person("Jirka", "Lewandowski", , "jirka.lewandowski@wzb.eu", role = "aut"),
     person("Sébastien", "Rochette", , "sebastienrochettefr@gmail.com", role = c("aut", "cre"),

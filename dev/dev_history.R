@@ -175,15 +175,18 @@ devtools::release()
 
 # Thanks for article
 library(purrr)
-repos <- gh::gh("/repos/ThinkR-open/gitlabr/stats/contributors")
-map(repos, "author") %>% map("login")
+
+repos <- gh::gh("/repos/thinkr-open/gitlabr/contributors")
+map(repos, "login")
 
 map_chr(repos, ~ paste0(
   # "[&#x0040;",
   "[",
-  pluck(.x, "author", "login"),
+  pluck(.x, "login"),
   "](",
-  pluck(.x, "author", "html_url"),
+  pluck(.x, "html_url"),
   ")"
 )) %>%
   glue::glue_collapse(sep = ", ", last = " and ")
+
+gh::gh("/repos/ThinkR-open/gitlabr/contributors")
