@@ -17,7 +17,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">gitlabr</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.1.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.1.0</span>
       </span>
     </div>
 
@@ -69,6 +69,45 @@
       <small>Source: <a href="https://github.com/ThinkR-open/gitlabr/blob/HEAD/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="page-header" data-toc-text="2.1.0" id="gitlabr-210">gitlabr 2.1.0<small>2024-05-16</small><a class="anchor" aria-label="anchor" href="#gitlabr-210"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-2-1-0">Breaking changes<a class="anchor" aria-label="anchor" href="#breaking-changes-2-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/use_gitlab_ci.html">use_gitlab_ci()</a></code> does not use <code>repo_name</code> anymore as “rocker” images fix CRAN to a specific date.</li>
+<li>Functions deprecated since version 0.7 are removed</li>
+<li>Transfer ownership of the project to ThinkR-open</li>
+</ul></div>
+<div class="section level3">
+<h3 id="new-features-2-1-0">New features<a class="anchor" aria-label="anchor" href="#new-features-2-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/use_gitlab_ci.html">use_gitlab_ci()</a></code> allows to decide whether to update R packages during the CI pipeline</li>
+<li>Add vignette to explain how to use ‘gitlabr’ with GitLab CI</li>
+<li>
+<code><a href="../reference/gl_new_group.html">gl_new_group()</a></code>, <code><a href="../reference/gl_new_group.html">gl_edit_group()</a></code>, <code><a href="../reference/gl_new_group.html">gl_delete_group()</a></code>, <code><a href="../reference/gl_list_groups.html">gl_list_groups()</a></code>, <code><a href="../reference/gl_list_groups.html">gl_list_sub_groups()</a></code> to deal with groups on a GitLab instance (<a href="https://github.com/mpolano" class="external-link">@mpolano</a>)</li>
+<li>
+<code><a href="../reference/gl_new_group.html">gl_new_subgroup()</a></code> to create a subgroup in a group (<a href="https://github.com/margotbrd" class="external-link">@margotbrd</a>)</li>
+<li>
+<code><a href="../reference/onefile.html">gl_delete_file()</a></code> to delete a file in a repository</li>
+<li>
+<code><a href="../reference/gl_list_project_members.html">gl_list_project_members()</a></code> and <code>gl_list_group_members</code> to retrieve members of a project or a group (<a href="https://github.com/ThinkR-open/gitlabr/issues/61" class="external-link">#61</a>, <a href="https://github.com/datawookie" class="external-link">@datawookie</a>)</li>
+<li>
+<code><a href="../reference/gitlab.html">gitlab()</a></code> queries allow for a vector of parameters to be passed to the API. This is needed when the API asks for an array (<a href="https://github.com/klmr" class="external-link">@klmr</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="minor-changes-2-1-0">Minor changes<a class="anchor" aria-label="anchor" href="#minor-changes-2-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/multilist_to_tibble.html">multilist_to_tibble()</a></code> transforms a deep structured nested list from an API into a tibble (<a href="https://github.com/ThinkR-open/gitlabr/issues/86" class="external-link">#86</a>, <a href="https://github.com/statnmap" class="external-link">@statnmap</a>, <a href="https://github.com/ymansiaux" class="external-link">@ymansiaux</a>)</li>
+</ul></div>
+<div class="section level3">
+<h3 id="bug-fixes-2-1-0">Bug fixes<a class="anchor" aria-label="anchor" href="#bug-fixes-2-1-0"></a></h3>
+<ul><li>
+<code><a href="../reference/gl_repository.html">gl_file_exists()</a></code>, <code><a href="../reference/gl_list_files.html">gl_list_files()</a></code>, <code><a href="../reference/onefile.html">gl_push_file()</a></code>, <code><a href="../reference/onefile.html">gl_delete_file()</a></code> now work with files in subdirectories</li>
+<li>Fix handling file path in sub-directories in <code><a href="../reference/onefile.html">gl_push_file()</a></code> (<a href="https://github.com/ThinkR-open/gitlabr/issues/73" class="external-link">#73</a>, <a href="https://github.com/ThinkR-open/gitlabr/issues/111" class="external-link">#111</a>)</li>
+<li>Fix combination of <code>page</code> and <code>max_page</code> for infinite pagination (<a href="https://github.com/ThinkR-open/gitlabr/issues/90" class="external-link">#90</a>)</li>
+<li>Fix <code>auto_format=FALSE</code> (<a href="https://github.com/ThinkR-open/gitlabr/issues/82" class="external-link">#82</a>)</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.1" id="gitlabr-201">gitlabr 2.0.1<small>2022-09-13</small><a class="anchor" aria-label="anchor" href="#gitlabr-201"></a></h2>
 <div class="section level3">
