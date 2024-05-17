@@ -1,3 +1,12 @@
+# gitlabr 2.1.0
+## R CMD check results
+
+0 errors | 0 warnings | 1 note
+
+* Maintainer email was changed for my personal address, instead of my professional one.
+* OK on GitHub Actions, rhub, winbuilder and macbuilder
+* Fixes notes on CRAN checks: "Lost braces; missing escapes or markup?"
+
 # gitlabr 2.0.1
 
 * This release deals with notes in checks on <https://cran.r-project.org/web/checks/check_results_gitlabr.html> created by the last modification of CRAN checks concerning HTML5
