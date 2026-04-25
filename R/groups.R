@@ -100,8 +100,8 @@ gl_get_group_id <- function(group_name, ...) {
       c(
         "Multiple groups with given name or path found,",
         "please use explicit name with namespace:",
-        matching$path_with_namespace,
-        paste("Picking", matching[1, "path_with_namespace"], "as default")
+        matching$full_path,
+        paste("Picking", matching[1, "full_path"], "as default")
       ),
       collapse = "\n"
     ))
