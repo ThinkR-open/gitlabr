@@ -1,4 +1,4 @@
-# Regression for #129 — gl_get_group_id() previously crashed with
+# Regression for #129 - gl_get_group_id() previously crashed with
 # "Column `path_with_namespace` doesn't exist" when the GitLab Groups
 # API returned multiple groups sharing the same name. The Groups API
 # exposes `full_path` (the Projects API exposes `path_with_namespace`)

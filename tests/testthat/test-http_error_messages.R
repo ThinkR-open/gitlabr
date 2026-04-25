@@ -1,7 +1,28 @@
 # Tests for gitlabr's HTTP error mapping (#93).
-# We don't talk to a real GitLab here — instead we synthesize httr
+# We don't talk to a real GitLab here - instead we synthesize httr
 # response objects with the right status code and JSON body and let the
 # helper turn them into human-readable messages.
+
+to_json <- function(x) {
+  # Tiny manual JSON encoder for the test fixtures: avoids depending on
+  # jsonlite (a transitive dep through httr, not in gitlabr's DESCRIPTION).
+  # Handles named lists of scalar string / numeric values, sufficient
+  # for the responses we synthesise here.
+  if (length(x) == 0L) return("{}")
+  encode_val <- function(v) {
+    if (is.numeric(v)) {
+      formatC(v, format = "d")
+    } else {
+      sprintf('"%s"', gsub('"', '\\\\"', as.character(v)))
+    }
+  }
+  pairs <- vapply(
+    names(x),
+    function(k) sprintf('"%s":%s', k, encode_val(x[[k]])),
+    character(1L)
+  )
+  paste0("{", paste(pairs, collapse = ","), "}")
+}
 
 fake_response <- function(status, body = NULL, content_type = "application/json") {
   structure(
@@ -9,7 +30,7 @@ fake_response <- function(status, body = NULL, content_type = "application/json"
       url = "https://gitlab.example/api/v4/test",
       status_code = as.integer(status),
       headers = structure(list(`content-type` = content_type), class = "insensitive"),
-      content = charToRaw(if (is.null(body)) "" else jsonlite::toJSON(body, auto_unbox = TRUE))
+      content = charToRaw(if (is.null(body)) "" else to_json(body))
     ),
     class = "response"
   )
@@ -55,7 +76,7 @@ test_that("falls back to httr::http_status when the body has no message", {
   err <- tryCatch(gitlabr:::http_error_or_content(resp),
     error = function(e) conditionMessage(e))
   expect_match(err, "500", fixed = TRUE)
-  # We don't pin the exact wording — just that there is *some* message
+  # We don't pin the exact wording - just that there is *some* message
   # past the status code.
   expect_gt(nchar(err), nchar("GitLab API error 500: "))
 })
