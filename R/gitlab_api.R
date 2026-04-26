@@ -227,12 +227,57 @@ gitlab <- function(req,
 http_error_or_content <- function(response,
                                   handle = httr::stop_for_status,
                                   ...) {
+  status <- httr::status_code(response)
+  if (status >= 400L) {
+    msg <- gitlab_error_message(response, status)
+    stop(msg, call. = FALSE)
+  }
   if (!identical(handle(response), FALSE)) {
     ct <- httr::content(response, ...)
     nxt <- get_next_link(httr::headers(response)$link)
     list(ct = ct, nxt = nxt)
   }
 }
+
+#' Build a readable error message from a failed GitLab API response (#93).
+#'
+#' GitLab's REST API returns a JSON body of the form
+#' `{"message": "401 Unauthorized"}` (or `error: ...`). Surface that text
+#' so the caller sees *what* went wrong rather than a generic 401 / 404.
+#'
+#' @param response an `httr` response object.
+#' @param status integer status code.
+#' @return character(1) - explicit, single-line error message.
+#' @noRd
+gitlab_error_message <- function(response, status = httr::status_code(response)) {
+  body <- tryCatch(
+    httr::content(response, as = "parsed", encoding = "UTF-8"),
+    error = function(e) NULL
+  )
+  api_msg <- NULL
+  if (is.list(body)) {
+    api_msg <- body$message %||% body$error %||% NULL
+  }
+  if (is.list(api_msg)) {
+    api_msg <- paste(unlist(api_msg, use.names = FALSE), collapse = " ")
+  }
+  if (is.null(api_msg) || !nzchar(api_msg)) {
+    api_msg <- httr::http_status(response)$message
+  }
+
+  hint <- switch(
+    as.character(status),
+    "401" = " (check that your private token is set and still valid).",
+    "403" = " (your token does not have access to this resource - private repository or insufficient scope).",
+    "404" = " (the resource does not exist or your token cannot see it).",
+    "429" = " (GitLab rate limit reached; retry after the Retry-After header).",
+    ""
+  )
+
+  sprintf("GitLab API error %s: %s%s", status, api_msg, hint)
+}
+
+`%||%` <- function(a, b) if (is.null(a)) b else a
 
 #' @importFrom stringr str_replace_all str_split
 #' @noRd
