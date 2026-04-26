@@ -247,7 +247,7 @@ http_error_or_content <- function(response,
 #'
 #' @param response an `httr` response object.
 #' @param status integer status code.
-#' @return character(1) — explicit, single-line error message.
+#' @return character(1) - explicit, single-line error message.
 #' @noRd
 gitlab_error_message <- function(response, status = httr::status_code(response)) {
   body <- tryCatch(
@@ -268,7 +268,7 @@ gitlab_error_message <- function(response, status = httr::status_code(response))
   hint <- switch(
     as.character(status),
     "401" = " (check that your private token is set and still valid).",
-    "403" = " (your token does not have access to this resource — private repository or insufficient scope).",
+    "403" = " (your token does not have access to this resource - private repository or insufficient scope).",
     "404" = " (the resource does not exist or your token cannot see it).",
     "429" = " (GitLab rate limit reached; retry after the Retry-After header).",
     ""
